@@ -24,7 +24,7 @@ if (ANDROID OR IOS)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
-find_package(Qt6 COMPONENTS Core REQUIRED)
+find_package(Qt6 COMPONENTS Core Network REQUIRED)
 find_package(Qt6 COMPONENTS Test QUIET)
 
 include(submodules/CMake/QuasarApp.cmake)
