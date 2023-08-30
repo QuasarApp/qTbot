@@ -5,18 +5,18 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef RENAME_ME_GLOBAL_H
-#define RENAME_ME_GLOBAL_H
+#ifndef qTbot_GLOBAL_H
+#define qTbot_GLOBAL_H
 
 #include <QtCore/qglobal.h>
 
-#define RENAME_ME_VERSION "@RENAME_ME_VERSION@"
+#define QTBOT_VERSION "0.87.648a8dc"
 
-#if defined(RENAME_ME_LIBRARY)
-#  define RENAME_ME_EXPORT Q_DECL_EXPORT
+#if defined(QTBOT_LIBRARY)
+#  define QTBOT_EXPORT Q_DECL_EXPORT
 #else
-#  define RENAME_ME_EXPORT Q_DECL_IMPORT
+#  define QTBOT_EXPORT Q_DECL_IMPORT
 #endif
 
-#endif //RENAME_ME_GLOBAL_H
+#endif //qTbot_GLOBAL_H
 

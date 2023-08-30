@@ -5,18 +5,18 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "RENAME_ME.h"
+#include "qTbot.h"
 
 
-namespace RENAME_ME {
+namespace qTbot {
 
 bool init() {
-    initRENAME_MEResources();
+    initqTbotResources();
     return true;
 }
 
 QString version() {
-    return RENAME_ME_VERSION;
+    return QTBOT_VERSION;
 }
 
 

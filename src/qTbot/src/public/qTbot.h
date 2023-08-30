@@ -5,23 +5,23 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "RENAME_ME/global.h"
+#include "qTbot/global.h"
 #include <QString>
 
-inline void initRENAME_MEResources() { Q_INIT_RESOURCE(RENAME_ME); }
+inline void initqTbotResources() { Q_INIT_RESOURCE(qTbot); }
 
-namespace RENAME_ME {
+namespace qTbot {
 
 /**
- * @brief init main initialize method of The RENAME_ME library
+ * @brief init main initialize method of The qTbot library
  * @return true if library initialized successfull
  */
-bool RENAME_ME_EXPORT init();
+bool QTBOT_EXPORT init();
 
 /**
  * @brief version This method return string value of a library version
  * @return string value of a library version
  */
-QString RENAME_ME_EXPORT version();
+QString QTBOT_EXPORT version();
 
 };

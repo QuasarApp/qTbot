@@ -6,7 +6,7 @@
 #
 
 cmake_minimum_required(VERSION 3.19)
-project(RENAME_ME LANGUAGES CXX)
+project(qTbot LANGUAGES CXX)
 if(TARGET ${PROJECT_NAME})
   message("The ${PROJECT_NAME} arledy included in main Project")
   return()
@@ -30,27 +30,27 @@ find_package(Qt6 COMPONENTS Test QUIET)
 include(submodules/CMake/QuasarApp.cmake)
 
 updateGitVars()
-set(RENAME_ME_VERSION "0.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
-set(RENAME_ME_PACKAGE_ID "quasarapp.core.RENAME_ME")
+set(QTBOT_VERSION "0.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
+set(QTBOT_PACKAGE_ID "quasarapp.core.qTbot")
 
-option(RENAME_ME_TESTS "This option disables or enables tests of the ${PROJECT_NAME} project"  ON)
-option(RENAME_ME_EXAMPLE "This option disables or enables example app of the ${PROJECT_NAME} project" ON)
+option(QTBOT_TESTS "This option disables or enables tests of the ${PROJECT_NAME} project"  ON)
+option(QTBOT_EXAMPLE "This option disables or enables example app of the ${PROJECT_NAME} project" ON)
 
 if (ANDROID OR IOS OR QA_WASM32)
-    set(RENAME_ME_TESTS OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
+    set(QTBOT_TESTS OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
 endif()
 
 make_directory(Distro)
 
 initAll()
 
-add_subdirectory(src/RENAME_ME)
+add_subdirectory(src/qTbot)
 
-if (DEFINED RENAME_ME_EXAMPLE)
+if (DEFINED QTBOT_EXAMPLE)
     add_subdirectory(src/example)
 endif()
 
-if (RENAME_ME_TESTS)
+if (QTBOT_TESTS)
     add_subdirectory(tests)
 else()
     message("The ${PROJECT_NAME} tests is disabled.")
@@ -58,4 +58,4 @@ endif()
 
 configure_file_in(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
-addDeployFromCustomFile("RENAME_ME" "${CMAKE_CURRENT_SOURCE_DIR}/deploy/RENAME_ME.json")
+addDeployFromCustomFile("qTbot" "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json")
