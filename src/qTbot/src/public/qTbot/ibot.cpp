@@ -1,3 +1,10 @@
+//#
+//# Copyright (C) 2018-2023 QuasarApp.
+//# Distributed under the GPLv3 software license, see the accompanying
+//# Everyone is permitted to copy and distribute verbatim copies
+//# of this license document, but changing it is not allowed.
+//#
+
 #include "ibot.h"
 
 namespace qTbot {
@@ -7,7 +14,7 @@ IBot::IBot()
 
 }
 
-QByteArray &IBot::token() const {
+const QByteArray &IBot::token() const {
     return _token;
 }
 
@@ -15,7 +22,7 @@ void IBot::setToken(const QByteArray &newToken) {
     _token = newToken;
 }
 
-QString IBot::name() const {
+const QString &IBot::name() const {
     return _name;
 }
 

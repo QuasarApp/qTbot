@@ -13,6 +13,9 @@
 #include "qTbot/global.h"
 #include <QByteArray>
 
+
+namespace qTbot {
+
 /**
  * @brief The iMessage class - is main interface for all messages objects.
  */
@@ -50,5 +53,5 @@ private:
     QByteArray _rawData;
     QByteArray _userId;
 };
-
+}
 #endif // IMESSAGE_H

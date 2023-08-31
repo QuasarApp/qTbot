@@ -25,6 +25,13 @@ public:
     IBot();
 
     /**
+     * @brief login This method get bae information of the bot from remote server.
+     * @param token This is token value for login
+     * @return true if login request sent successful else false.
+     */
+    virtual bool login(const QByteArray& token) = 0;
+
+    /**
      * @brief sendMessage This method should be send message to the server.
      * @param message This is data for sending.
      * @return true if the message sent successful else false.
@@ -35,7 +42,21 @@ public:
      * @brief token This is token value for authication on the remote server (bot)
      * @return auth toke of the bot.
      */
-    QByteArray &token() const;
+    const QByteArray &token() const;
+
+    /**
+     * @brief name This is name of the bot. usualy it fields will be received from the server after autication.
+     * @return name if the bot.
+     */
+    const QString& name() const;
+
+    /**
+     * @brief setName This method sets new value for the IBot::name field.
+     * @param newName This is new value of the IBot::name property
+     */
+    void setName(const QString &newName);
+
+protected:
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -43,20 +64,8 @@ public:
      */
     void setToken(const QByteArray &newToken);
 
-    /**
-     * @brief name This is name of the bot. usualy it fields will be received from the server after autication.
-     * @return
-     */
-    QString name() const;
-
-    /**
-     * @brief setName This method sets new value for the IBot::name field.
-     * @param newName
-     */
-    void setName(const QString &newName);
-
 private:
-    QByteArray& _token;
+    QByteArray _token;
     QString _name;
 
 signals:

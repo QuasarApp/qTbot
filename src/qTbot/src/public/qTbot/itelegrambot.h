@@ -10,26 +10,23 @@
 #ifndef ITELEGRAMBOT_H
 #define ITELEGRAMBOT_H
 
-#include "qTbot/global.h"
-#include "qTbot/imessage.h"
+#include "ibot.h"
 
-#include <QSharedPointer>
 namespace qTbot {
 
-struct TelegramMessage
-{
-
-};
-
-class QTBOT_EXPORT iTelegramBot
+/**
+ * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
+ */
+class QTBOT_EXPORT ITelegramBot : public IBot
 {
 public:
-    iTelegramBot();
+    ITelegramBot();
 
-    virtual const QString& name() const;
-    virtual const QByteArray& token() const;
 
-signals:
+
+    // IBot interface
+public:
+    bool sendMessage(const QSharedPointer<iMessage> &message) override;
 };
 }
 #endif // ITELEGRAMBOT_H
