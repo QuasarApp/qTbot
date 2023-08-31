@@ -23,10 +23,7 @@ file(GLOB_RECURSE SOURCE_QRC
 set(PUBLIC_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/public")
 set(PRIVATE_INCUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/private")
 
-add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC}
-    src/public/qTbot/itelegrambot.h src/public/qTbot/itelegrambot.cpp
-    src/public/qTbot/ibot.h src/public/qTbot/ibot.cpp
-    src/public/qTbot/imessage.h src/public/qTbot/imessage.cpp)
+add_library(${CURRENT_PROJECT} ${SOURCE_CPP} ${SOURCE_QRC})
 
 target_link_libraries(${CURRENT_PROJECT} PUBLIC Qt${QT_VERSION_MAJOR}::Core Qt${QT_VERSION_MAJOR}::Network)
 

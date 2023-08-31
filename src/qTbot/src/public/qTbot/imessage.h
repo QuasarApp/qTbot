@@ -49,6 +49,18 @@ public:
      */
     void setUserId(const QByteArray &newUserId);
 
+    /**
+     * @brief makeUpload This method prepare data to upload;
+     * @return data array prepared to sending.
+     */
+    virtual QByteArray makeUpload() const = 0;
+
+    /**
+     * @brief isValid return true if the message is valid else false.
+     * @return true if the message is valid else false.
+     */
+    virtual bool isValid() const;
+
 private:
     QByteArray _rawData;
     QByteArray _userId;
