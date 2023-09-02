@@ -22,11 +22,18 @@ class QTBOT_EXPORT ITelegramBot : public IBot
 public:
     ITelegramBot();
 
+    bool login(const QByteArray &token) override;
 
+protected:
+    /**
+     * @brief makePrefix This method prepare a prefix message for all telegramm bots.
+     * @return telegramm request prefix/
+     */
+    QByteArray makePrefix() const;
 
-    // IBot interface
-public:
-    bool sendMessage(const QSharedPointer<iMessage> &message) override;
+private:
+    QNetworkReques request;
+
 };
 }
 #endif // ITELEGRAMBOT_H

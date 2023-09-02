@@ -7,14 +7,25 @@
 
 #include "itelegrambot.h"
 
+#include <qTbot/messages/telegramgetmsg.h>
+
 namespace qTbot {
 
 ITelegramBot::ITelegramBot() {
 
 }
 
-bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
+bool ITelegramBot::login(const QByteArray &token) {
+    setToken(token);
 
+    TelegramGetMsg msg;
+    auto getInfoRquest = makePrefix() + msg.makeUpload();
+
+
+}
+
+QByteArray ITelegramBot::makePrefix() const {
+    return "";
 }
 
 }

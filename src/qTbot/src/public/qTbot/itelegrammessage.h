@@ -17,10 +17,10 @@ namespace qTbot {
 /**
  * @brief The ItelegramMessage class This is base interface of the all telegram messages.
  */
-class QTBOT_EXPORT ItelegramMessage: public iMessage
+class QTBOT_EXPORT ITelegramMessage: public iMessage
 {
 public:
-    ItelegramMessage();
+    ITelegramMessage();
 
     // iMessage interface
 public:
@@ -37,7 +37,10 @@ public:
      * @brief setRawJson this method convert jsobject into telegram message.
      * @param newRawJson new data for telegram message.
      */
-    void setRawJson(const QJsonObject &newRawJson);
+    virtual void setRawJson(const QJsonObject &newRawJson);
+
+    void setRawData(const QByteArray &newRawData) override;
+
 
 private:
     QJsonObject _rawJson;

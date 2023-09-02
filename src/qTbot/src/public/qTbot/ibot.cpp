@@ -30,10 +30,5 @@ void IBot::setName(const QString &newName) {
     _name = newName;
 }
 
-bool qTbot::IBot::sendMessage(const QSharedPointer<iMessage> &message) {
-    auto data = message->makeUpload();
-
-
-}
 
 }

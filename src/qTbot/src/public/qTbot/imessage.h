@@ -35,7 +35,7 @@ public:
      * @brief setRawData This method sets new raw data value.
      * @param newRawData This is new value of the rawData.
      */
-    void setRawData(const QByteArray &newRawData);
+    virtual void setRawData(const QByteArray &newRawData);
 
     /**
      * @brief userId This is id of user that sent this message or must be receive this.

@@ -7,12 +7,11 @@
 
 
 #include "itelegrammessage.h"
+#include <QJsonDocument>
+
 namespace qTbot {
 
-ItelegramMessage::ItelegramMessage()
-{
-
-}
+ItelegramMessage::ItelegramMessage():iMessage(){}
 
 QByteArray ItelegramMessage::makeUpload() const {
 
@@ -24,5 +23,16 @@ const QJsonObject &ItelegramMessage::rawJson() const {
 
 void ItelegramMessage::setRawJson(const QJsonObject &newRawJson) {
     _rawJson = newRawJson;
+}
+
+void ItelegramMessage::setRawData(const QByteArray &newRawData) {
+    setRawData(newRawData);
+
+    auto doc = QJsonDocument::fromJson(newRawData);
+    if (!doc.isObject()) {
+        return;
+    }
+    setRawJson(doc.object());
+
 }
 }
