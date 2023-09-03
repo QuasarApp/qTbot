@@ -72,7 +72,7 @@ signals:
     /**
      * @brief receiveMessage emit when but receive any updates from users.
      */
-    void receiveMessage(QSharedPointer<iMessage> );
+    void receiveMessage(const QSharedPointer<iMessage>&  );
 
 };
 

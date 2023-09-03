@@ -7,18 +7,41 @@
 
 #include "telegramrestbot.h"
 
+#include <qTbot/messages/telegramgetupdate.h>
+
+#include <QTimer>
+
 namespace qTbot {
 
-TelegramRestBot::TelegramRestBot()
-{
+TelegramRestBot::TelegramRestBot() {
+    _timer = new QTimer();
+    _timer->start(1000);
 
+    connect(_timer, &QTimer::timeout, this, &TelegramRestBot::handleTimeOut,
+            Qt::QueuedConnection);
+}
+
+TelegramRestBot::~TelegramRestBot() {
+    delete _timer;
 }
 
 bool TelegramRestBot::login(const QByteArray &token) {
-    ITelegramBot::login(token);
+    if (!ITelegramBot::login(token)) {
+        return false;
+    }
+    return true;
 }
 
-bool TelegramRestBot::sendMessage(const QSharedPointer<iMessage> &message) {
-
+int TelegramRestBot::interval() const {
+    return _timer->interval();
 }
+
+void TelegramRestBot::setInterval(int newInterval) {
+    _timer->setInterval(newInterval);
+}
+
+void TelegramRestBot::handleTimeOut() {
+    sendMessage(QSharedPointer<TelegramGetUpdate>::create());
+}
+
 }

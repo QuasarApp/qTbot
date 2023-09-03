@@ -5,19 +5,21 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef TELEGRAMGETMSG_H
-#define TELEGRAMGETMSG_H
+
+
+#ifndef TELEGRAMGETUPDATE_H
+#define TELEGRAMGETUPDATE_H
 
 #include "qTbot/messages/telegramsinglerquest.h"
 namespace qTbot {
 
 /**
- * @brief The TelegramGetMsg class just prepare get request to tellegram
+ * @brief The TelegramGetUpdate class This is implementation of the get update method of the Telegram API
  */
-class QTBOT_EXPORT TelegramGetMsg final: public TelegramSingleRquest
+class TelegramGetUpdate final: public TelegramSingleRquest
 {
 public:
-    TelegramGetMsg();
+    TelegramGetUpdate();
 };
 }
-#endif // TELEGRAMGETMSG_H
+#endif // TELEGRAMGETUPDATE_H

@@ -11,22 +11,22 @@
 
 namespace qTbot {
 
-ItelegramMessage::ItelegramMessage():iMessage(){}
+ITelegramMessage::ITelegramMessage():iMessage(){}
 
-QByteArray ItelegramMessage::makeUpload() const {
-
+QByteArray ITelegramMessage::makeUpload() const {
+    return QJsonDocument(_rawJson).toJson(QJsonDocument::Compact);
 }
 
-const QJsonObject &ItelegramMessage::rawJson() const {
+const QJsonObject &ITelegramMessage::rawJson() const {
     return _rawJson;
 }
 
-void ItelegramMessage::setRawJson(const QJsonObject &newRawJson) {
+void ITelegramMessage::setRawJson(const QJsonObject &newRawJson) {
     _rawJson = newRawJson;
 }
 
-void ItelegramMessage::setRawData(const QByteArray &newRawData) {
-    setRawData(newRawData);
+void ITelegramMessage::setRawData(const QByteArray &newRawData) {
+    iMessage::setRawData(newRawData);
 
     auto doc = QJsonDocument::fromJson(newRawData);
     if (!doc.isObject()) {
@@ -35,4 +35,9 @@ void ItelegramMessage::setRawData(const QByteArray &newRawData) {
     setRawJson(doc.object());
 
 }
+
+bool ITelegramMessage::isValid() const {
+    return !_rawJson.isEmpty();
+}
+
 }

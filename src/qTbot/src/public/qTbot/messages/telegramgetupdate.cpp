@@ -5,9 +5,11 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "telegramgetmsg.h"
+
+#include "telegramgetupdate.h"
 
 namespace qTbot {
 
-TelegramGetMsg::TelegramGetMsg():TelegramSingleRquest("getMe") {}
+TelegramGetUpdate::TelegramGetUpdate(): TelegramSingleRquest("getUpdates"){}
+
 }
