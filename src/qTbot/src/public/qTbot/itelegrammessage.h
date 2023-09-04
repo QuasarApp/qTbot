@@ -41,7 +41,6 @@ public:
 
     void setRawData(const QByteArray &newRawData) override;
 
-
 private:
     QJsonObject _rawJson;
 

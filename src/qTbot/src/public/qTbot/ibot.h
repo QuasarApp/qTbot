@@ -36,7 +36,8 @@ public:
      * @param message This is data for sending.
      * @return true if the message sent successful else false.
      */
-    virtual bool sendMessage(const QSharedPointer<iMessage>& message) = 0;
+    virtual bool sendMessage(const QSharedPointer<iMessage>& message,
+                             std::function<void(const QSharedPointer<iMessage>& responce)> cb) = 0;
 
     /**
      * @brief token This is token value for authication on the remote server (bot)

@@ -12,6 +12,7 @@
 
 #include <QNetworkReply>
 #include <QSharedPointer>
+#include <QDebug>
 
 namespace qTbot {
 
@@ -40,6 +41,7 @@ bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
     auto getInfoRquest = makePrefix() + message->makeUpload();
 
     QNetworkReply* networkReplay = _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest)));
+    networkReplay->setProperty("call_back", QVariant::fromValue(t));
 
     if (!networkReplay)
         return false;
@@ -55,13 +57,28 @@ QByteArray ITelegramBot::makePrefix() const {
     return "https://api.telegram.org/bot" + token();
 }
 
+void ITelegramBot::onMessageReceived(const QSharedPointer<ITelegramMessage> & message) {
+
+    setId(message->rawJson().value("id").toInt());
+    setName(message->rawJson().value("first_name").toString());
+    setUsername(message->rawJson().value("username").toString());
+}
+
 void ITelegramBot::handleReplayIsFinished() {
     if (QNetworkReply* replay =  dynamic_cast<QNetworkReply*>(sender())) {
 
         auto rawData = replay->readAll();
+        replay->property("request_id").toUInt();
 
         auto message = QSharedPointer<ITelegramMessage>::create();
         message->setRawData(rawData);
+
+        if (!message->isValid()) {
+            qDebug() << "Some request is wrong: code:" << message->rawJson().value("error_code").toInt();
+            qDebug() << "What: " << message->rawJson().value("description").toString();
+
+            return;
+        }
 
         replay->deleteLater();
 
@@ -71,4 +88,28 @@ void ITelegramBot::handleReplayIsFinished() {
     }
 }
 
+void ITelegramBot::setUsername(const QString &newUsername) {
+    _username = newUsername;
 }
+
+void ITelegramBot::setName(const QString &newName) {
+    _name = newName;
+}
+
+void ITelegramBot::setId(unsigned long long newId) {
+    _id = newId;
+}
+
+QString ITelegramBot::username() const {
+    return _username;
+}
+
+QString ITelegramBot::name() const {
+    return _name;
+}
+
+unsigned long long ITelegramBot::id() const {
+    return _id;
+}
+
+} // namespace qTbot

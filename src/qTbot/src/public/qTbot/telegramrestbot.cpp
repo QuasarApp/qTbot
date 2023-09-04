@@ -15,7 +15,7 @@ namespace qTbot {
 
 TelegramRestBot::TelegramRestBot() {
     _timer = new QTimer();
-    _timer->start(1000);
+    _timer->start(2000);
 
     connect(_timer, &QTimer::timeout, this, &TelegramRestBot::handleTimeOut,
             Qt::QueuedConnection);
@@ -29,6 +29,9 @@ bool TelegramRestBot::login(const QByteArray &token) {
     if (!ITelegramBot::login(token)) {
         return false;
     }
+
+    _timer->start();
+
     return true;
 }
 

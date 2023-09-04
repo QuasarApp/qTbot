@@ -61,6 +61,8 @@ public:
      */
     virtual bool isValid() const;
 
+
+
 private:
     QByteArray _rawData;
     QByteArray _userId;
