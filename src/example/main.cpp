@@ -5,6 +5,17 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include <qTbot/telegramrestbot.h>
+
+#include <QCoreApplication>
+
+
 int main(int argc, char *argv[]) {
-    return 0;
+
+    QCoreApplication app(argc, argv);
+
+    qTbot::TelegramRestBot bot;
+
+    bot.login("6349356184:AAFotw9EC46sgAQrkGQ_jeHPyv3EAapZXcM");
+    return app.exec();
 }

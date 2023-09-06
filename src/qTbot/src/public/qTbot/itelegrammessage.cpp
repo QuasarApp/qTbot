@@ -37,7 +37,7 @@ void ITelegramMessage::setRawData(const QByteArray &newRawData) {
 }
 
 bool ITelegramMessage::isValid() const {
-    return !_rawJson.isEmpty();
+    return _rawJson.value("ok").toBool();
 }
 
 }

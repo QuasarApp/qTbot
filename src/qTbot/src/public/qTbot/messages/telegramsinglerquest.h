@@ -31,15 +31,11 @@ namespace qTbot {
 
  * @endcode
  */
-class QTBOT_EXPORT TelegramSingleRquest: public ITelegramMessage
+class QTBOT_EXPORT TelegramSingleRquest: public iRequest
 {
 public:
     TelegramSingleRquest(const QByteArray& request);
-
-    void setRawData(const QByteArray &newRawData) override final;
     QByteArray makeUpload() const override final;
-    bool isValid() const override final;
-    void setRawJson(const QJsonObject &newRawJson) override final;
 
 private:
     QByteArray _request;

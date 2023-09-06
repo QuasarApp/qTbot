@@ -32,4 +32,5 @@ void iMessage::setUserId(const QByteArray &newUserId) {
 bool iMessage::isValid() const {
     return _userId.size();
 }
+
 }

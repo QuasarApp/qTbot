@@ -28,24 +28,25 @@ public:
     // IBot interface
     bool login(const QByteArray &token);
 
-    /**
-     * @brief interval This is interval "how often bot will be check updates on the telegram server" By defaul is 1 second.
-     * @return interval of the updates.
-     */
-    int interval() const;
 
     /**
-     * @brief setInterval This method sets new value for the TelegramRestBot::interval property.
-     * @param newInterval This is new value of the TelegramRestBot::interval property.
+     * @brief updateDelay This is interval "how many msec bot will be wait for sent next request of updates" By defaul is 1000 msecs.
+     * @return a delay of update.
      */
-    void setInterval(int newInterval);
+    int updateDelay() const;
 
-private slots:
-    void handleTimeOut();
+    /**
+     * @brief setUpdateDelay This method sets new value for the TelegramRestBot::updateDelay property.
+     * @param newUpdateDelay This is new value of the TelegramRestBot::updateDelay property.
+     */
+    void setUpdateDelay(int newUpdateDelay);
 
 private:
+    void startUpdates();
 
-    QTimer *_timer = nullptr;
+    long long _lanstUpdateTime = 0;
+    int _updateDelay = 1000;
+
 };
 }
 #endif // TELEGRAMRESTBOT_H

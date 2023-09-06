@@ -10,7 +10,7 @@
 #ifndef IMESSAGE_H
 #define IMESSAGE_H
 
-#include "qTbot/global.h"
+#include "irequest.h"
 #include <QByteArray>
 
 
@@ -18,8 +18,10 @@ namespace qTbot {
 
 /**
  * @brief The iMessage class - is main interface for all messages objects.
+ * @see IBot::sendMessage
+ * @see IBot::sigReceiveMessage
  */
-class QTBOT_EXPORT iMessage
+class QTBOT_EXPORT iMessage: public iRequest
 {
 public:
     iMessage();
@@ -48,12 +50,6 @@ public:
      * @param newUserId This new value of user.
      */
     void setUserId(const QByteArray &newUserId);
-
-    /**
-     * @brief makeUpload This method prepare data to upload;
-     * @return data array prepared to sending.
-     */
-    virtual QByteArray makeUpload() const = 0;
 
     /**
      * @brief isValid return true if the message is valid else false.

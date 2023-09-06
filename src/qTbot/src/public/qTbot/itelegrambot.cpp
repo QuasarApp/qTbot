@@ -12,6 +12,7 @@
 
 #include <QNetworkReply>
 #include <QSharedPointer>
+#include <QDebug>
 
 namespace qTbot {
 
@@ -30,7 +31,17 @@ bool ITelegramBot::login(const QByteArray &token) {
 
     setToken(token);
 
-    return sendMessage(QSharedPointer<TelegramGetMsg>::create());
+    ITelegramBot::Responce cb = [this]( const QSharedPointer<iRequest>& ,
+                                    const QSharedPointer<iMessage>& responce) {
+
+        if (auto message = responce.dynamicCast<ITelegramMessage>()) {
+            setId(message->rawJson().value("id").toInt());
+            setName(message->rawJson().value("first_name").toString());
+            setUsername(message->rawJson().value("username").toString());
+        }
+    };
+
+    return sendRequest(QSharedPointer<TelegramGetMsg>::create(), cb);
 }
 
 bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
@@ -44,10 +55,6 @@ bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
     if (!networkReplay)
         return false;
 
-    connect(networkReplay, &QNetworkReply::finished,
-            this, &ITelegramBot::handleReplayIsFinished,
-            Qt::QueuedConnection);
-
     return true;
 }
 
@@ -55,20 +62,63 @@ QByteArray ITelegramBot::makePrefix() const {
     return "https://api.telegram.org/bot" + token();
 }
 
-void ITelegramBot::handleReplayIsFinished() {
-    if (QNetworkReply* replay =  dynamic_cast<QNetworkReply*>(sender())) {
+bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
+    if (!rquest)
+        return false;
 
-        auto rawData = replay->readAll();
+    auto getInfoRquest = makePrefix() + rquest->makeUpload();
+
+    QNetworkReply* networkReplay = _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest)));
+    if (!networkReplay)
+        return false;
+
+    auto handler = [rquest, cb, networkReplay]() {
+        auto rawData = networkReplay->readAll();
 
         auto message = QSharedPointer<ITelegramMessage>::create();
         message->setRawData(rawData);
 
-        replay->deleteLater();
+        if (!message->isValid()) {
+            qDebug() << "Some request is wrong: code:" << message->rawJson().value("error_code").toInt();
+            qDebug() << "What: " << message->rawJson().value("description").toString();
 
-        onMessageReceived(message);
+            return;
+        }
 
-        emit receiveMessage(message);
-    }
+        networkReplay->deleteLater();
+
+        if (cb) {
+            cb(rquest, message);
+        }
+    };
+
+    connect(networkReplay, &QNetworkReply::finished, handler);
+
+    return true;
 }
 
+void ITelegramBot::setUsername(const QString &newUsername) {
+    _username = newUsername;
 }
+
+void ITelegramBot::setName(const QString &newName) {
+    _name = newName;
+}
+
+void ITelegramBot::setId(unsigned long long newId) {
+    _id = newId;
+}
+
+QString ITelegramBot::username() const {
+    return _username;
+}
+
+QString ITelegramBot::name() const {
+    return _name;
+}
+
+unsigned long long ITelegramBot::id() const {
+    return _id;
+}
+
+} // namespace qTbot
