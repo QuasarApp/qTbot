@@ -14,15 +14,9 @@
 namespace qTbot {
 
 TelegramRestBot::TelegramRestBot() {
-    _timer = new QTimer();
-    _timer->start(2000);
-
-    connect(_timer, &QTimer::timeout, this, &TelegramRestBot::handleTimeOut,
-            Qt::QueuedConnection);
 }
 
 TelegramRestBot::~TelegramRestBot() {
-    delete _timer;
 }
 
 bool TelegramRestBot::login(const QByteArray &token) {
@@ -30,21 +24,36 @@ bool TelegramRestBot::login(const QByteArray &token) {
         return false;
     }
 
-    _timer->start();
+    TelegramRestBot::Responce cb = [] (auto request, auto responce) {
 
-    return true;
+    };
+
+    return sendRequest(QSharedPointer<TelegramGetUpdate>::create(), cb);
 }
 
-int TelegramRestBot::interval() const {
-    return _timer->interval();
+void TelegramRestBot::startUpdates() {
+    long long delta = QDateTime::currentMSecsSinceEpoch() - _lanstUpdateTime;
+
+    TelegramRestBot::Responce cb = [this] (auto request, auto responce) {
+
+        startUpdates();
+    };
+
+    if (delta > _updateDelay) {
+        sendRequest(QSharedPointer<TelegramGetUpdate>::create(), cb);
+        return;
+    }
+
+    QTimer::singleShot( _updateDelay - delta, this, [this](){startUpdates();});
 }
 
-void TelegramRestBot::setInterval(int newInterval) {
-    _timer->setInterval(newInterval);
+int TelegramRestBot::updateDelay() const {
+    return _updateDelay;
 }
 
-void TelegramRestBot::handleTimeOut() {
-    sendMessage(QSharedPointer<TelegramGetUpdate>::create());
+void TelegramRestBot::setUpdateDelay(int newUpdateDelay) {
+    _updateDelay = newUpdateDelay;
 }
+
 
 }

@@ -76,14 +76,7 @@ protected:
      */
     QByteArray makePrefix() const;
 
-    /**
-     * @brief onMessageReceived This method will be invoked every time when network rplays will be finished.
-     * @param replay This is ansver of the server.
-     */
-    virtual void onMessageReceived(const QSharedPointer<ITelegramMessage>& replay);;
-
-private slots:
-    void handleReplayIsFinished();
+    bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
 
 signals:
     void receiveMessage(const QSharedPointer<iMessage>&  );

@@ -25,6 +25,12 @@ public:
     IBot();
 
     /**
+     * @brief Responce - This is labda for server responces.
+     *  The first argument of a call back function is is request that was sent, second is server responce.
+     */
+    using Responce = std::function<void(const QSharedPointer<iRequest>& request, const QSharedPointer<iMessage>& responce)>;
+
+    /**
      * @brief login This method get bae information of the bot from remote server.
      * @param token This is token value for login
      * @return true if login request sent successful else false.
@@ -36,8 +42,7 @@ public:
      * @param message This is data for sending.
      * @return true if the message sent successful else false.
      */
-    virtual bool sendMessage(const QSharedPointer<iMessage>& message,
-                             std::function<void(const QSharedPointer<iMessage>& responce)> cb) = 0;
+    virtual bool sendMessage(const QSharedPointer<iMessage>& message) = 0;
 
     /**
      * @brief token This is token value for authication on the remote server (bot)
@@ -58,6 +63,13 @@ public:
     void setName(const QString &newName);
 
 protected:
+    /**
+     * @brief sendRequest This method sent custom requests to the server.
+     * @param rquest This is message that will be sent to server.
+     * @param cb This is call back function for the responce.
+     * @return true if the request will sent successful else false.
+     */
+    virtual bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -71,9 +83,9 @@ private:
 
 signals:
     /**
-     * @brief receiveMessage emit when but receive any updates from users.
+     * @brief sigReceiveMessage emit when but receive any updates from users.
      */
-    void receiveMessage(const QSharedPointer<iMessage>&  );
+    void sigReceiveMessage(const QSharedPointer<iMessage>& );
 
 };
 

@@ -5,18 +5,13 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-
-#include "telegramsinglerquest.h"
-
+#include "irequest.h"
 
 namespace qTbot {
 
-TelegramSingleRquest::TelegramSingleRquest(const QByteArray &request) {
-    _request = request;
-}
+iRequest::iRequest()
+{
 
-QByteArray TelegramSingleRquest::makeUpload() const {
-    return "/" + _request;
 }
 
 }
