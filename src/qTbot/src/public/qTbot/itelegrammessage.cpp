@@ -36,6 +36,10 @@ void ITelegramMessage::setRawData(const QByteArray &newRawData) {
 
 }
 
+QJsonValue ITelegramMessage::result() const {
+    return _rawJson.value("result");
+}
+
 bool ITelegramMessage::isValid() const {
     return _rawJson.value("ok").toBool();
 }

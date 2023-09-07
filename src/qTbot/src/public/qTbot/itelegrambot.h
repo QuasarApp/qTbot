@@ -79,7 +79,7 @@ protected:
     bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
 
 signals:
-    void receiveMessage(const QSharedPointer<iMessage>&  );
+    void sigReceiveMessage(const QSharedPointer<iMessage>&  );
 
 private:
     unsigned long long _id = 0;

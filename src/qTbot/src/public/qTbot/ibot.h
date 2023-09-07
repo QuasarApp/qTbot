@@ -27,8 +27,11 @@ public:
     /**
      * @brief Responce - This is labda for server responces.
      *  The first argument of a call back function is is request that was sent, second is server responce.
+     *  And error code - 0 if request finished successfull
      */
-    using Responce = std::function<void(const QSharedPointer<iRequest>& request, const QSharedPointer<iMessage>& responce)>;
+    using Responce = std::function<void(const QSharedPointer<iRequest>& request,
+                                        const QSharedPointer<iMessage>& responce,
+                                        unsigned int err)>;
 
     /**
      * @brief login This method get bae information of the bot from remote server.

@@ -41,6 +41,12 @@ public:
 
     void setRawData(const QByteArray &newRawData) override;
 
+    /**
+     * @brief result This is result filed of thetelegram responce.
+     * @return json value of the resul field.
+     */
+    QJsonValue result() const;
+
 private:
     QJsonObject _rawJson;
 

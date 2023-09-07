@@ -32,7 +32,12 @@ bool ITelegramBot::login(const QByteArray &token) {
     setToken(token);
 
     ITelegramBot::Responce cb = [this]( const QSharedPointer<iRequest>& ,
-                                    const QSharedPointer<iMessage>& responce) {
+                                       const QSharedPointer<iMessage>& responce,
+                                       int err) {
+
+        if (err) {
+            qDebug() << "Network error occured. code: " << err;
+        }
 
         if (auto message = responce.dynamicCast<ITelegramMessage>()) {
             setId(message->rawJson().value("id").toInt());
@@ -66,6 +71,7 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
     if (!rquest)
         return false;
 
+
     auto getInfoRquest = makePrefix() + rquest->makeUpload();
 
     QNetworkReply* networkReplay = _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest)));
@@ -73,6 +79,7 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
         return false;
 
     auto handler = [rquest, cb, networkReplay]() {
+
         auto rawData = networkReplay->readAll();
 
         auto message = QSharedPointer<ITelegramMessage>::create();
@@ -88,11 +95,21 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
         networkReplay->deleteLater();
 
         if (cb) {
-            cb(rquest, message);
+            cb(rquest, message, 0);
+        }
+    };
+
+    auto err = [rquest, cb, networkReplay](QNetworkReply::NetworkError err) {
+
+        networkReplay->deleteLater();
+
+        if (cb) {
+            cb(rquest, nullptr, err);
         }
     };
 
     connect(networkReplay, &QNetworkReply::finished, handler);
+    connect(networkReplay, &QNetworkReply::errorOccurred, err);
 
     return true;
 }

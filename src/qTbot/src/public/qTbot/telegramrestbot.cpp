@@ -8,7 +8,7 @@
 #include "telegramrestbot.h"
 
 #include <qTbot/messages/telegramgetupdate.h>
-
+#include <QJsonArray>
 #include <QTimer>
 
 namespace qTbot {
@@ -24,22 +24,40 @@ bool TelegramRestBot::login(const QByteArray &token) {
         return false;
     }
 
-    TelegramRestBot::Responce cb = [] (auto request, auto responce) {
+    _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
 
-    };
+    startUpdates();
 
-    return sendRequest(QSharedPointer<TelegramGetUpdate>::create(), cb);
+    return true;
 }
 
 void TelegramRestBot::startUpdates() {
     long long delta = QDateTime::currentMSecsSinceEpoch() - _lanstUpdateTime;
 
-    TelegramRestBot::Responce cb = [this] (auto request, auto responce) {
+    TelegramRestBot::Responce cb = [this] (auto, const QSharedPointer<iMessage>& responce, int err) {
+        _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
+
+        if (err) {
+            qDebug() << "Network error occured. code: " << err;
+        }
+
+        if (auto telegramMsg = responce.dynamicCast<ITelegramMessage>()) {
+            if (telegramMsg->isValid()) {
+                auto && resultArray = telegramMsg->result().toArray();
+                for (const auto& ref: resultArray) {
+                    auto message = QSharedPointer<ITelegramMessage>::create();
+                    message->setRawJson(ref.toObject());
+                    emit sigReceiveMessage(telegramMsg);
+                }
+
+            }
+        };
 
         startUpdates();
+
     };
 
-    if (delta > _updateDelay) {
+    if (delta >= _updateDelay) {
         sendRequest(QSharedPointer<TelegramGetUpdate>::create(), cb);
         return;
     }
