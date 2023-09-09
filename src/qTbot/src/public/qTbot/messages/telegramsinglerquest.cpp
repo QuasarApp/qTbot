@@ -11,12 +11,31 @@
 
 namespace qTbot {
 
-TelegramSingleRquest::TelegramSingleRquest(const QByteArray &request) {
-    _request = request;
+TelegramSingleRquest::TelegramSingleRquest(QByteArray&& request, QMap<QString, QVariant>&& args) {
+    _request = std::move(request);
+    _args = std::move(args);
 }
 
 QByteArray TelegramSingleRquest::makeUpload() const {
-    return "/" + _request;
+
+    if (_args.isEmpty()) {
+        return "/" + _request;
+    }
+
+    QByteArray args;
+
+    auto i = _args.constBegin();
+    while (i != _args.constEnd()) {
+        if (args.isEmpty()) {
+            args.append(QString("%1=%2").arg((i.key(), i->toString())).toUtf8());
+        } else {
+            args.append(QString("&%1=%2").arg((i.key(), i->toString())).toUtf8());
+        }
+        ++i;
+    }
+
+    return "/" + _request + "?" + args;
+
 }
 
 }

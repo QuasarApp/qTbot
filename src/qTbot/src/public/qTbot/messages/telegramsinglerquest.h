@@ -34,11 +34,18 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramSingleRquest: public iRequest
 {
 public:
-    TelegramSingleRquest(const QByteArray& request);
+    /**
+     * @brief TelegramSingleRquest This main constructor of the single requests.
+     * @param request This is request name (command)
+     * @param args This is list of the request arguments.
+     */
+    TelegramSingleRquest(QByteArray&& request, QMap<QString, QVariant>&& args);
     QByteArray makeUpload() const override final;
 
 private:
     QByteArray _request;
+    QMap<QString, QVariant> _args;
+
 };
 }
 #endif // TELEGRAMSINGLERQUEST_H
