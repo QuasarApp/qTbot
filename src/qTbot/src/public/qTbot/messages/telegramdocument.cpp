@@ -5,18 +5,13 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef qTbot_GLOBAL_H
-#define qTbot_GLOBAL_H
+#include "telegramdocument.h"
 
-#include <QtCore/qglobal.h>
+namespace qTbot {
 
-#define QTBOT_VERSION "0.13.1348899"
+TelegramDocument::TelegramDocument()
+{
 
-#if defined(QTBOT_LIBRARY)
-#  define QTBOT_EXPORT Q_DECL_EXPORT
-#else
-#  define QTBOT_EXPORT Q_DECL_IMPORT
-#endif
+}
 
-#endif //qTbot_GLOBAL_H
-
+}

@@ -5,18 +5,12 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef qTbot_GLOBAL_H
-#define qTbot_GLOBAL_H
 
-#include <QtCore/qglobal.h>
+#include "itelegrammessage.h"
+#include <QJsonDocument>
 
-#define QTBOT_VERSION "0.13.1348899"
+namespace qTbot {
 
-#if defined(QTBOT_LIBRARY)
-#  define QTBOT_EXPORT Q_DECL_EXPORT
-#else
-#  define QTBOT_EXPORT Q_DECL_IMPORT
-#endif
+ITelegramMessage::ITelegramMessage():IJsonBasedMessage(){}
 
-#endif //qTbot_GLOBAL_H
-
+}
