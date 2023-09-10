@@ -40,18 +40,6 @@ public:
     virtual void setRawData(const QByteArray &newRawData);
 
     /**
-     * @brief userId This is id of user that sent this message or must be receive this.
-     * @return user id.
-     */
-    const QByteArray& userId() const;
-
-    /**
-     * @brief setUserId This method sets new value of the message user.
-     * @param newUserId This new value of user.
-     */
-    void setUserId(const QByteArray &newUserId);
-
-    /**
      * @brief isValid return true if the message is valid else false.
      * @return true if the message is valid else false.
      */
@@ -59,7 +47,6 @@ public:
 
 private:
     QByteArray _rawData;
-    QByteArray _userId;
 };
 }
 #endif // IMESSAGE_H

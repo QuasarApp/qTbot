@@ -5,9 +5,19 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "telegramgetmsg.h"
-
+#include "telegramtextmsg.h"
 namespace qTbot {
 
-TelegramGetMsg::TelegramGetMsg():TelegramSingleRquest("getMe") {}
+TelegramMsg::TelegramMsg() {
+
+}
+
+qint64 TelegramMsg::date() const {
+    return rawJsonObject()["date"].toVariant().toLongLong();
+}
+
+QString TelegramMsg::text() const {
+    return rawJsonObject()["text"].toString();
+}
+
 }

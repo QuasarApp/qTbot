@@ -21,16 +21,8 @@ void iMessage::setRawData(const QByteArray &newRawData) {
     _rawData = newRawData;
 }
 
-const QByteArray &iMessage::userId() const {
-    return _userId;
-}
-
-void iMessage::setUserId(const QByteArray &newUserId) {
-    _userId = newUserId;
-}
-
 bool iMessage::isValid() const {
-    return _userId.size();
+    return _rawData.size();
 }
 
 }

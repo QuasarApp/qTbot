@@ -24,14 +24,14 @@ QByteArray TelegramSingleRquest::makeUpload() const {
 
     QByteArray args;
 
-    auto i = _args.constBegin();
-    while (i != _args.constEnd()) {
+    auto it = _args.constBegin();
+    while (it != _args.constEnd()) {
         if (args.isEmpty()) {
-            args.append(QString("%1=%2").arg((i.key(), i->toString())).toUtf8());
+            args.append(QString("%1=%2").arg((it.key(), it->toString())).toUtf8());
         } else {
-            args.append(QString("&%1=%2").arg((i.key(), i->toString())).toUtf8());
+            args.append(QString("&%1=%2").arg((it.key(), it->toString())).toUtf8());
         }
-        ++i;
+        ++it;
     }
 
     return "/" + _request + "?" + args;

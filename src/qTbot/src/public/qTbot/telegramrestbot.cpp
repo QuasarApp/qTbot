@@ -6,10 +6,11 @@
 //#
 
 #include "telegramrestbot.h"
+#include "qTbot/requests/telegramgetupdate.h"
 
-#include <qTbot/messages/telegramgetupdate.h>
 #include <QJsonArray>
 #include <QTimer>
+#include <qTbot/messages/telegrammsg.h>
 
 namespace qTbot {
 
@@ -45,11 +46,10 @@ void TelegramRestBot::startUpdates() {
             if (telegramMsg->isValid()) {
                 auto && resultArray = telegramMsg->result().toArray();
                 for (const auto& ref: resultArray) {
-                    auto message = QSharedPointer<ITelegramMessage>::create();
+                    auto message = QSharedPointer<TelegramMsg>::create();
                     message->setRawJson(ref.toObject());
                     emit sigReceiveMessage(telegramMsg);
                 }
-
             }
         };
 

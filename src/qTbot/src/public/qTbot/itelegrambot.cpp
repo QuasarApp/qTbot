@@ -8,7 +8,7 @@
 #include "itelegrambot.h"
 #include <QNetworkAccessManager>
 
-#include <qTbot/messages/telegramgetmsg.h>
+#include <qTbot/requests/telegramgetme.h>
 
 #include <QNetworkReply>
 #include <QSharedPointer>
@@ -45,8 +45,8 @@ bool ITelegramBot::login(const QByteArray &token) {
             setUsername(message->rawJson().value("username").toString());
         }
     };
-
-    return sendRequest(QSharedPointer<TelegramGetMsg>::create(), cb);
+    
+    return sendRequest(QSharedPointer<TelegramGetMe>::create(), cb);
 }
 
 bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
@@ -81,7 +81,7 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
     auto handler = [rquest, cb, networkReplay]() {
 
         auto rawData = networkReplay->readAll();
-
+        qDebug() << rawData;
         auto message = QSharedPointer<ITelegramMessage>::create();
         message->setRawData(rawData);
 

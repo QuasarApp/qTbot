@@ -10,7 +10,7 @@
 #ifndef TELEGRAMGETUPDATE_H
 #define TELEGRAMGETUPDATE_H
 
-#include "qTbot/messages/telegramsinglerquest.h"
+#include "qTbot/requests/telegramsinglerquest.h"
 namespace qTbot {
 
 /**

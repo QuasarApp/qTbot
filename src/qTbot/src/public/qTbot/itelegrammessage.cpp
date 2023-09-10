@@ -40,6 +40,58 @@ QJsonValue ITelegramMessage::result() const {
     return _rawJson.value("result");
 }
 
+int ITelegramMessage::messageId() const {
+    return rawJsonObject()["message_id"].toInt();
+}
+
+int ITelegramMessage::fromId() const {
+    return rawJsonObject()["from"]["id"].toInt();
+}
+
+bool ITelegramMessage::isBot() const {
+    return rawJsonObject()["from"]["is_bot"].toBool();
+}
+
+QString ITelegramMessage::firstName() const {
+    return rawJsonObject()["from"]["first_name"].toString();
+}
+
+QString ITelegramMessage::lastName() const {
+    return rawJsonObject()["from"]["last_name"].toString();
+}
+
+QString ITelegramMessage::username() const {
+    return rawJsonObject()["from"]["username"].toString();
+}
+
+QString ITelegramMessage::languageCode() const {
+    return rawJsonObject()["from"]["language_code"].toString();
+}
+
+int ITelegramMessage::chatId() const {
+    return rawJsonObject()["chat"]["id"].toInt();
+}
+
+QString ITelegramMessage::chatFirstName() const {
+    return rawJsonObject()["chat"]["first_name"].toString();
+}
+
+QString ITelegramMessage::chatLastName() const {
+    return rawJsonObject()["chat"]["last_name"].toString();
+}
+
+QString ITelegramMessage::chatUsername() const {
+    return rawJsonObject()["chat"]["username"].toString();
+}
+
+QString ITelegramMessage::chatType() const {
+    return rawJsonObject()["chat"]["type"].toString();
+}
+
+const QJsonObject &ITelegramMessage::rawJsonObject() const {
+    return _rawJson;
+}
+
 bool ITelegramMessage::isValid() const {
     return _rawJson.value("ok").toBool();
 }

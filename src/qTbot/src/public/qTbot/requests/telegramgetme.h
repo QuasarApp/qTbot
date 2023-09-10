@@ -5,19 +5,19 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef TELEGRAMGETMSG_H
-#define TELEGRAMGETMSG_H
+#ifndef TELEGRAMGETME_H
+#define TELEGRAMGETME_H
 
-#include "qTbot/messages/telegramsinglerquest.h"
+#include "qTbot/requests/telegramsinglerquest.h"
 namespace qTbot {
 
 /**
  * @brief The TelegramGetMsg class just prepare get request to tellegram
  */
-class QTBOT_EXPORT TelegramGetMsg final: public TelegramSingleRquest
+class QTBOT_EXPORT TelegramGetMe final: public TelegramSingleRquest
 {
 public:
-    TelegramGetMsg();
+    TelegramGetMe();
 };
 }
-#endif // TELEGRAMGETMSG_H
+#endif // TELEGRAMGETME_H
