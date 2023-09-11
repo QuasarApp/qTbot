@@ -7,16 +7,17 @@
 
 
 
+
 #ifndef TELEGRAMGETUPDATE_H
 #define TELEGRAMGETUPDATE_H
+#include "telegramsinglerquest.h"
 
-#include "qTbot/requests/telegramsinglerquest.h"
 namespace qTbot {
 
 /**
  * @brief The TelegramGetUpdate class This is implementation of the get update method of the Telegram API
  */
-class TelegramGetUpdate final: public TelegramSingleRquest
+class QTBOT_EXPORT TelegramGetUpdate final: public TelegramSingleRquest
 {
 public:
     TelegramGetUpdate();

@@ -21,4 +21,8 @@ QJsonValue TelegramUpdateAnsver::result() const {
 bool TelegramUpdateAnsver::isValid() const {
     return rawJson().value("ok").toBool();
 }
+
+QByteArray TelegramUpdateAnsver::makeUpload() const {
+    return {};
+}
 }

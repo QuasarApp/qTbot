@@ -8,7 +8,9 @@
 #ifndef TELEGRAMSINGLERQUEST_H
 #define TELEGRAMSINGLERQUEST_H
 
-#include <qTbot/itelegrammessage.h>
+#include <qTbot/irequest.h>
+
+#include <QMap>
 
 namespace qTbot {
 
@@ -39,7 +41,14 @@ public:
      * @param request This is request name (command)
      * @param args This is list of the request arguments.
      */
-    TelegramSingleRquest(QByteArray&& request, QMap<QString, QVariant>&& args = {});
+    TelegramSingleRquest(const QByteArray &request, const QMap<QString, QVariant> &args);
+
+    /**
+     * @brief TelegramSingleRquest This main constructor of the single requests.
+     * @param request This is request name (command)
+     */
+    TelegramSingleRquest(const QByteArray& request);
+
     QByteArray makeUpload() const override final;
 
 private:

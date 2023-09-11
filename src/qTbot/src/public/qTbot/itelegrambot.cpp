@@ -6,6 +6,7 @@
 //#
 
 #include "itelegrambot.h"
+#include "qTbot/messages/telegramupdateansver.h"
 #include <QNetworkAccessManager>
 
 #include <qTbot/requests/telegramgetme.h>
@@ -82,7 +83,7 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
 
         auto rawData = networkReplay->readAll();
         qDebug() << rawData;
-        auto message = QSharedPointer<ITelegramMessage>::create();
+        auto message = QSharedPointer<TelegramUpdateAnsver>::create();
         message->setRawData(rawData);
 
         if (!message->isValid()) {

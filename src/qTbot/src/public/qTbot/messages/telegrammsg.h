@@ -9,6 +9,9 @@
 #define TELEGRAMMSG_H
 
 #include "itelegrammessage.h"
+#include "telegramaudio.h"
+#include "telegramdocument.h"
+#include "qTbot/messages/telegramimage.h"
 
 namespace qTbot {
 
@@ -19,6 +22,24 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramMsg: public ITelegramMessage
 {
 public:
+
+    /**
+     * @brief The QualitySelector enum This is behavior of image and video selection.
+     */
+    enum QualitySelector {
+        /// This selection try to find file similar by size qulity. For example
+        /// we have a image with [10, 100, 1000, 10000] kbytes sizes - The invoke image(90) returns iamge with size 100 because it is more similar by quality image.
+        AroundSize = 0,
+        /// This selection try to find best image with size limit. For example
+        /// we have a image with [10, 100, 1000, 10000] kbytes sizes - The invoke image(90) returns iamge with size 10 because it is maximum quality from the 0 to 90 kbytes. If we invoke this method with 2500 limitation then function will return iamge with quality 1000.
+
+        BestOf = 1,
+        /// This selection returns best iamge of available.
+        Best = 2,
+        /// This selection returns faster iamge of available. (minimum size)
+        Fast = 3
+    };
+
     /**
      * @brief Type just string value of the telegram messages types.
      */
@@ -46,6 +67,7 @@ public:
 
     TelegramMsg();
 
+    QByteArray makeUpload() const override;
 
     /**
      * @brief messageId returns the message ID.
@@ -139,21 +161,40 @@ public:
     bool contains(const Type& type);
 
     /**
-     * @brief image This function returns array of available images qualites
+     * @brief images This function returns array of available images qualites
      * @return array of available images qualites
      */
-    QJsonArray image() const;
+    QList<TelegramImage> images() const;
 
     /**
-     * @brief imageUId This method returns unique ID of the image.
-     *  If the maximumSize will be skipped, this function chooses image with maximum quality.
-     * @param maximumSize This is limitation for the size of image.
-     * @return unique id of the choosed image.
+     * @brief Retrieve an image from the Telegram service with specified quality and size parameters.
+     *
+     * This method allows you to request an image from the Telegram service with a specific quality selection behavior.
+     * You can control the image selection behavior by providing a QualitySelector enum value, and optionally, a maximum size limit.
+     *
+     * @param behavior (Optional) The QualitySelector enum value that defines the image selection behavior. Defaults to `AroundSize` if not specified.
+     *   - `AroundSize`: Attempts to find an image with similar quality based on size.
+     *   - `BestOf`: Tries to find the best image within a size limit.
+     *   - `Best`: Retrieves the best available image.
+     *   - `Fast`: Retrieves the fastest available image (minimum size).
+     *
+     * @param size (Optional) The required size for the image (in bytes). Defaults to 100,000 bytes if not specified.
+     *
+     * @return A TelegramImage object representing the selected image.
      */
-    QString imageUId(int maximumSize = -1) const;
+    TelegramImage image(QualitySelector behavior = AroundSize, int size = 100000) const;
 
+    /**
+     * @brief documents This method returns contained document data.
+     * @return document description data.
+     */
+    TelegramDocument documents() const;
 
-    QList<> documents() const;
+    /**
+     * @brief audio This method returns contained audio data.
+     * @return audio description data.
+     */
+    TelegramAudio audio() const;
 
 };
 

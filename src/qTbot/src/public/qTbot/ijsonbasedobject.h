@@ -19,6 +19,7 @@ class IJsonBasedObject
 {
 public:
     IJsonBasedObject();
+    IJsonBasedObject(const QJsonObject &newRawJson);
 
     /**
      * @brief rawJson Telegram use rest api with json objects. So all received messages will be parsed in to jsobject.

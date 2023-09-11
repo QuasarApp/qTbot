@@ -6,6 +6,7 @@
 //#
 
 #include "telegramrestbot.h"
+#include "qTbot/messages/telegramupdateansver.h"
 #include "qTbot/requests/telegramgetupdate.h"
 
 #include <QJsonArray>
@@ -42,7 +43,7 @@ void TelegramRestBot::startUpdates() {
             qDebug() << "Network error occured. code: " << err;
         }
 
-        if (auto telegramMsg = responce.dynamicCast<ITelegramMessage>()) {
+        if (auto telegramMsg = responce.dynamicCast<TelegramUpdateAnsver>()) {
             if (telegramMsg->isValid()) {
                 auto && resultArray = telegramMsg->result().toArray();
                 for (const auto& ref: resultArray) {

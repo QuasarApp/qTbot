@@ -9,7 +9,7 @@
 #ifndef TELEGRAMUPDATEANSVER_H
 #define TELEGRAMUPDATEANSVER_H
 
-#include <qTbot/itelegrammessage.h>
+#include "itelegrammessage.h"
 
 namespace qTbot {
 
@@ -23,12 +23,14 @@ public:
 
     // iMessage interface
     bool isValid() const override;
+    QByteArray makeUpload() const override;
 
     /**
      * @brief result This is result filed of thetelegram responce.
      * @return json value of the resul field.
      */
     QJsonValue result() const;
+
 };
 
 }

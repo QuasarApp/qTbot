@@ -13,4 +13,32 @@ TelegramImage::TelegramImage()
 {
 
 }
+
+TelegramImage::TelegramImage(const QJsonObject &jsonObject) : IJsonBasedObject(jsonObject) {}
+
+
+QString TelegramImage::fileId() const {
+    return rawJson()["file_id"].toString();
+}
+
+
+QString TelegramImage::fileUniqueId() const {
+    return rawJson()["file_unique_id"].toString();
+}
+
+
+int TelegramImage::fileSize() const {
+    return rawJson()["file_size"].toInt();
+}
+
+
+int TelegramImage::width() const {
+    return rawJson()["width"].toInt();
+}
+
+
+int TelegramImage::height() const {
+    return rawJson()["height"].toInt();
+}
+
 }

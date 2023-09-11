@@ -6,12 +6,17 @@
 //#
 
 #include "telegrammsg.h"
+#include "qjsonarray.h"
 namespace qTbot {
 
 
 TelegramMsg::TelegramMsg()
 {
 
+}
+
+QByteArray TelegramMsg::makeUpload() const {
+    return {};
 }
 
 int TelegramMsg::messageId() const {
@@ -72,6 +77,82 @@ QString TelegramMsg::text() const {
 
 bool TelegramMsg::contains(const Type &type) {
     return rawJson().contains(type);
+}
+
+QList<TelegramImage> TelegramMsg::images() const {
+    const QJsonArray&& array = rawJson()["photo"].toArray();
+    QList<TelegramImage> result;
+
+    for (const auto& photo: array) {
+        result.push_back({photo.toObject()});
+    }
+
+    return result;
+}
+
+TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
+    const QJsonArray&& array = rawJson()["photo"].toArray();
+    TelegramImage result;
+
+    switch (behavior) {
+    case QualitySelector::AroundSize:
+    {
+        int oldBestMath = std::numeric_limits<decltype(oldBestMath)>::max();
+        auto it = array.cbegin();
+
+        result.setRawJson(it->toObject());
+        it = std::next(it);
+
+        while (it != array.end() || std::abs(result.fileSize() - size) < oldBestMath) {
+            oldBestMath = std::abs(result.fileSize() - size);
+            result.setRawJson(it->toObject());
+            it = std::next(it);
+        }
+
+        return result;
+    }
+    case QualitySelector::BestOf: {
+        for (const auto& photo: array) {
+            auto photoObj = TelegramImage{photo.toObject()};
+            if (photoObj.fileSize() < size) {
+                result.setRawJson(photoObj.rawJson());
+            } else {
+                return result;
+            }
+        }
+
+        return result;
+    }
+    case QualitySelector::Best: {
+        if (array.size()) {
+            return std::prev(array.end())->toObject();
+        }
+
+        return result;
+    }
+
+    case QualitySelector::Fast: {
+        if (array.size()) {
+            return array.begin()->toObject();
+        }
+
+        return result;
+    }
+
+    break;
+    default:
+        break;
+    }
+
+    return result;
+}
+
+TelegramDocument TelegramMsg::documents() const {
+    return rawJson()[Document].toObject();
+}
+
+TelegramAudio TelegramMsg::audio() const {
+    return rawJson()[Audio].toObject();
 }
 
 }

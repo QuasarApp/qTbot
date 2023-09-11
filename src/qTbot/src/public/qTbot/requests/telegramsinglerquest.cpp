@@ -7,13 +7,20 @@
 
 
 #include "telegramsinglerquest.h"
+#include "qvariant.h"
+
+#include <QString>
 
 
 namespace qTbot {
 
-TelegramSingleRquest::TelegramSingleRquest(QByteArray&& request, QMap<QString, QVariant>&& args) {
+TelegramSingleRquest::TelegramSingleRquest(const QByteArray& request, const QMap<QString, QVariant>& args) {
     _request = std::move(request);
     _args = std::move(args);
+}
+
+TelegramSingleRquest::TelegramSingleRquest(const QByteArray &request) {
+    _request = std::move(request);
 }
 
 QByteArray TelegramSingleRquest::makeUpload() const {

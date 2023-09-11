@@ -14,11 +14,15 @@ IJsonBasedObject::IJsonBasedObject()
 
 }
 
-const QJsonObject &IJsonBasedMessage::rawJson() const {
+IJsonBasedObject::IJsonBasedObject(const QJsonObject &newRawJson) {
+    IJsonBasedObject::setRawJson(newRawJson);
+}
+
+const QJsonObject &IJsonBasedObject::rawJson() const {
     return _rawJson;
 }
 
-void IJsonBasedMessage::setRawJson(const QJsonObject &newRawJson) {
+void IJsonBasedObject::setRawJson(const QJsonObject &newRawJson) {
     _rawJson = newRawJson;
 }
 

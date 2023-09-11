@@ -5,10 +5,12 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+
 #ifndef TELEGRAMGETME_H
 #define TELEGRAMGETME_H
 
-#include "qTbot/requests/telegramsinglerquest.h"
+#include "telegramsinglerquest.h"
+
 namespace qTbot {
 
 /**
