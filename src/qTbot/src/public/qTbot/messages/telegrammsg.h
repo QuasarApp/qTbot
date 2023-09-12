@@ -73,13 +73,13 @@ public:
      * @brief messageId returns the message ID.
      * @return The message ID.
      */
-    int messageId() const;
+    unsigned long long messageId() const override;
 
     /**
      * @brief fromId returns the sender's ID.
      * @return The sender's ID.
      */
-    int fromId() const;
+    unsigned long long fromId() const;
 
     /**
      * @brief isBot checks if the sender is a bot.

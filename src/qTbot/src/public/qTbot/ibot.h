@@ -12,6 +12,11 @@
 #include "qTbot/global.h"
 #include "qTbot/imessage.h"
 
+#include <QMap>
+#include <QHash>
+#include <QSet>
+
+#include <QObject>
 #include <QSharedPointer>
 
 namespace qTbot {
@@ -19,8 +24,9 @@ namespace qTbot {
 /**
  * @brief The IBot class Base interface for all chat-bots objcts.
  */
-class QTBOT_EXPORT IBot
+class QTBOT_EXPORT IBot: public QObject
 {
+    Q_OBJECT
 public:
     IBot();
 
@@ -65,6 +71,12 @@ public:
      */
     void setName(const QString &newName);
 
+    /**
+     * @brief takeNextUnreadMessage This method take a unread message and mark them as read.
+     * @return unread message object. If all messages is readed the return nullptr.
+     */
+    QSharedPointer<iMessage> takeNextUnreadMessage();
+
 protected:
     /**
      * @brief sendRequest This method sent custom requests to the server.
@@ -80,15 +92,29 @@ protected:
      */
     void setToken(const QByteArray &newToken);
 
-private:
-    QByteArray _token;
-    QString _name;
+    /**
+     * @brief incomeNewMessage This method save income message into store.
+     */
+    void incomeNewMessage(const QSharedPointer<iMessage>& message);
+
+    /**
+     * @brief markMessageAsProcessed This method remove message from the not processed messages store.
+     * @param message This is message that need to be processed.
+     */
+    void markMessageAsProcessed(const QSharedPointer<iMessage>& message);
 
 signals:
     /**
      * @brief sigReceiveMessage emit when but receive any updates from users.
      */
     void sigReceiveMessage(const QSharedPointer<iMessage>& );
+
+private:
+    QByteArray _token;
+    QString _name;
+    QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
+    QSet<unsigned long long> _processed;
+
 
 };
 

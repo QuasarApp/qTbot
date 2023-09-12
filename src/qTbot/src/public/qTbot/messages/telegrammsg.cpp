@@ -19,12 +19,12 @@ QByteArray TelegramMsg::makeUpload() const {
     return {};
 }
 
-int TelegramMsg::messageId() const {
-    return rawJson()["message_id"].toInt();
+unsigned long long TelegramMsg::messageId() const {
+    return rawJson()["message_id"].toInteger();
 }
 
-int TelegramMsg::fromId() const {
-    return rawJson()["from"]["id"].toInt();
+unsigned long long TelegramMsg::fromId() const {
+    return rawJson()["from"]["id"].toInteger();
 }
 
 bool TelegramMsg::isBot() const {

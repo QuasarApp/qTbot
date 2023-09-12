@@ -119,20 +119,12 @@ void ITelegramBot::setUsername(const QString &newUsername) {
     _username = newUsername;
 }
 
-void ITelegramBot::setName(const QString &newName) {
-    _name = newName;
-}
-
 void ITelegramBot::setId(unsigned long long newId) {
     _id = newId;
 }
 
-QString ITelegramBot::username() const {
+const QString &ITelegramBot::username() const {
     return _username;
-}
-
-QString ITelegramBot::name() const {
-    return _name;
 }
 
 unsigned long long ITelegramBot::id() const {

@@ -9,7 +9,7 @@
 #define TELEGRAMSINGLERQUEST_H
 
 #include <qTbot/irequest.h>
-
+#include <QVariant>
 #include <QMap>
 
 namespace qTbot {

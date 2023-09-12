@@ -49,7 +49,7 @@ void TelegramRestBot::startUpdates() {
                 for (const auto& ref: resultArray) {
                     auto message = QSharedPointer<TelegramMsg>::create();
                     message->setRawJson(ref.toObject());
-                    emit sigReceiveMessage(telegramMsg);
+                    incomeNewMessage(message);
                 }
             }
         };

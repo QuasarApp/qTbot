@@ -45,6 +45,18 @@ public:
      */
     virtual bool isValid() const;
 
+    /**
+     * @brief from This virtual function should return name of the user that sent this message to bot.
+     * @return id of the sender.
+     */
+    virtual QString from() const = 0;
+
+    /**
+     * @brief messageId This method returns numeric id of the message.
+     * @return numeric id of the message.
+     */
+    virtual unsigned long long messageId() const = 0;
+
 private:
     QByteArray _rawData;
 };

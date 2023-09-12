@@ -23,7 +23,7 @@ class ITelegramMessage;
 /**
  * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
  */
-class QTBOT_EXPORT ITelegramBot : public QObject, public IBot
+class QTBOT_EXPORT ITelegramBot : public IBot
 {
     Q_OBJECT
 public:
@@ -40,16 +40,10 @@ public:
     unsigned long long id() const;
 
     /**
-     * @brief name This is name of the bot.
-     * @return name of the bot.
-     */
-    QString name() const;
-
-    /**
      * @brief username This is bots login
      * @return bots login.
      */
-    QString username() const;
+    const QString& username() const;
 
 protected:
     /**
@@ -78,12 +72,8 @@ protected:
 
     bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
 
-signals:
-    void sigReceiveMessage(const QSharedPointer<iMessage>&  );
-
 private:
     unsigned long long _id = 0;
-    QString _name;
     QString _username;
 
     QNetworkAccessManager *_manager = nullptr;

@@ -14,7 +14,8 @@
 
 namespace qTbot {
 
-TelegramSingleRquest::TelegramSingleRquest(const QByteArray& request, const QMap<QString, QVariant>& args) {
+TelegramSingleRquest::TelegramSingleRquest(const QByteArray& request,
+                                           const QMap<QString, QVariant>& args) {
     _request = std::move(request);
     _args = std::move(args);
 }
