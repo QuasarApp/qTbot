@@ -21,7 +21,7 @@
         ],
     "extraLib": "crypto",
     "targetDir": "/media/D/builds/qTbot/Distro",
-    "deployVersion": "0.16.1cb429e",
+    "deployVersion": "0.17.d1b646f",
 
 }
 

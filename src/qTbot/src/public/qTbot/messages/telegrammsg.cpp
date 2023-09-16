@@ -15,6 +15,10 @@ TelegramMsg::TelegramMsg()
 
 }
 
+TelegramMsg::TelegramMsg(const QJsonObject &obj) {
+    TelegramMsg::setRawJson(obj);
+}
+
 unsigned long long TelegramMsg::messageId() const {
     return rawJson()["message_id"].toInteger();
 }
@@ -43,8 +47,12 @@ QString TelegramMsg::languageCode() const {
     return rawJson()["from"]["language_code"].toString();
 }
 
-int TelegramMsg::chatId() const {
-    return rawJson()["chat"]["id"].toInt();
+QVariant TelegramMsg::chatId() const {
+    return rawJson()["chat"]["id"].toVariant();
+}
+
+bool TelegramMsg::isValid() const {
+    return rawJson().contains("message_id");
 }
 
 QString TelegramMsg::from() const {
@@ -68,7 +76,7 @@ QString TelegramMsg::chatType() const {
 }
 
 qint64 TelegramMsg::date() const {
-    return rawJson()["date"].toVariant().toLongLong();
+    return rawJson()["date"].toInteger();
 }
 
 QString TelegramMsg::text() const {

@@ -48,11 +48,14 @@ public:
     virtual bool login(const QByteArray& token) = 0;
 
     /**
-     * @brief sendMessage This method should be send message to the server.
-     * @param message This is data for sending.
-     * @return true if the message sent successful else false.
-     */
-    virtual bool sendMessage(const QSharedPointer<iMessage>& message) = 0;
+     * @brief sendMessage This method sents text to the selected chat.
+     * @param chatId This is selected chat id
+     * @param text This is text that neet to sent.
+     * @return true if data sents successful else false.
+     *
+     * @note the specific implementations of this interface can have a different method for sending.
+    */
+    virtual bool sendMessage(const QVariant& chatId, const QString& text) = 0;
 
     /**
      * @brief token This is token value for authication on the remote server (bot)
@@ -77,6 +80,18 @@ public:
      * @return unread message object. If all messages is readed the return nullptr.
      */
     QSharedPointer<iMessage> takeNextUnreadMessage();
+
+    /**
+     * @brief processed This method return list of processed mesages.
+     * @return list of processed messages.
+     */
+    QSet<unsigned long long> processed() const;
+
+    /**
+     * @brief setProcessed This method sets new list of processed mesages.
+     * @param newProcessed list of processed messagees.
+     */
+    void setProcessed(const QSet<unsigned long long> &newProcessed);
 
 protected:
 

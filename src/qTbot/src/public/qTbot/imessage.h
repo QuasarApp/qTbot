@@ -56,6 +56,12 @@ public:
     virtual QString from() const = 0;
 
     /**
+     * @brief from This virtual function should return name of the chat when sent this message to bot.
+     * @return id of the sender.
+     */
+    virtual QVariant chatId() const = 0;
+
+    /**
      * @brief messageId This method returns numeric id of the message.
      * @return numeric id of the message.
      */

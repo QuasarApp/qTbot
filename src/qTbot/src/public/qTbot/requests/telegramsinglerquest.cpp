@@ -35,15 +35,23 @@ QByteArray TelegramSingleRquest::makeUpload() const {
     auto it = _args.constBegin();
     while (it != _args.constEnd()) {
         if (args.isEmpty()) {
-            args.append(QString("%1=%2").arg((it.key(), it->toString())).toUtf8());
+            args.append(QString("%0=%1").arg(it.key(), it->toString()).toUtf8());
         } else {
-            args.append(QString("&%1=%2").arg((it.key(), it->toString())).toUtf8());
+            args.append(QString("&%0=%1").arg(it.key(), it->toString()).toUtf8());
         }
         ++it;
     }
 
     return "/" + _request + "?" + args;
 
+}
+
+const QMap<QString, QVariant>& TelegramSingleRquest::args() const {
+    return _args;
+}
+
+void TelegramSingleRquest::setArgs(const QMap<QString, QVariant> &newArgs) {
+    _args = newArgs;
 }
 
 }

@@ -23,6 +23,9 @@ void IBot::setToken(const QByteArray &newToken) {
 }
 
 void IBot::incomeNewMessage(const QSharedPointer<iMessage> &message) {
+    if (!message->isValid())
+        return;
+
     auto id = message->messageId();
 
     if (!_processed.contains(id)) {
@@ -36,6 +39,14 @@ void IBot::incomeNewMessage(const QSharedPointer<iMessage> &message) {
 
 void IBot::markMessageAsProcessed(const QSharedPointer<iMessage> &message) {
     _notProcessedMessages.remove(message->messageId());
+}
+
+QSet<unsigned long long> IBot::processed() const {
+    return _processed;
+}
+
+void IBot::setProcessed(const QSet<unsigned long long> &newProcessed) {
+    _processed = newProcessed;
 }
 
 const QString &IBot::name() const {

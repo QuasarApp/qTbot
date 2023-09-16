@@ -22,6 +22,10 @@ QString TelegramUpdateAnsver::from() const {
     return "";
 }
 
+QVariant TelegramUpdateAnsver::chatId() const {
+    return {};
+}
+
 unsigned long long TelegramUpdateAnsver::messageId() const {
     return 0;
 }

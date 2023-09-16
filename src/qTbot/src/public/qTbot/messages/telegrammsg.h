@@ -67,6 +67,8 @@ public:
 
     TelegramMsg();
 
+    TelegramMsg(const QJsonObject& obj);
+
     /**
      * @brief messageId returns the message ID.
      * @return The message ID.
@@ -113,7 +115,9 @@ public:
      * @brief chatId returns the chat ID.
      * @return The chat ID.
      */
-    int chatId() const;
+    QVariant chatId() const override;
+
+    bool isValid() const override;
 
     QString from() const override;
 

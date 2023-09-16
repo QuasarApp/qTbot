@@ -31,6 +31,8 @@ public:
     QJsonValue result() const;
 
     QString from() const override;
+    QVariant chatId() const override;
+
     unsigned long long messageId() const override;
 
 };

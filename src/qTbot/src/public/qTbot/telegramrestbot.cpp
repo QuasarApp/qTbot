@@ -6,6 +6,7 @@
 //#
 
 #include "telegramrestbot.h"
+#include "qTbot/messages/telegramupdate.h"
 #include "qTbot/messages/telegramupdateansver.h"
 #include "qTbot/requests/telegramgetupdate.h"
 
@@ -47,9 +48,10 @@ void TelegramRestBot::startUpdates() {
             if (telegramMsg->isValid()) {
                 auto && resultArray = telegramMsg->result().toArray();
                 for (const auto& ref: resultArray) {
-                    auto message = IBot::makeMesasge<TelegramMsg>();
-                    message->setRawJson(ref.toObject());
-                    incomeNewMessage(message);
+                    auto update = IBot::makeMesasge<TelegramUpdate>();
+                    update->setRawJson(ref.toObject());
+
+                    incomeNewMessage(IBot::makeMesasge<TelegramMsg>(update->message()));
                 }
             }
         };

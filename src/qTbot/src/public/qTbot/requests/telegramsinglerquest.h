@@ -51,6 +51,20 @@ public:
 
     QByteArray makeUpload() const override final;
 
+protected:
+
+    /**
+     * @brief args This method returns a current list of arguments
+     * @return  current list of arguments
+     */
+    const QMap<QString, QVariant> &args() const;
+
+    /**
+     * @brief setArgs For the some requests list of arguments posible to build only after constructor.
+     * @param newArgs This is new list of arguments.
+     */
+    void setArgs(const QMap<QString, QVariant> &newArgs);
+
 private:
     QByteArray _request;
     QMap<QString, QVariant> _args;
