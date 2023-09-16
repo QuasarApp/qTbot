@@ -67,8 +67,6 @@ public:
 
     TelegramMsg();
 
-    QByteArray makeUpload() const override;
-
     /**
      * @brief messageId returns the message ID.
      * @return The message ID.
@@ -116,6 +114,8 @@ public:
      * @return The chat ID.
      */
     int chatId() const;
+
+    QString from() const override;
 
     /**
      * @brief chatFirstName returns the first participant's first name in the chat.
@@ -195,6 +195,7 @@ public:
      * @return audio description data.
      */
     TelegramAudio audio() const;
+
 
 };
 

@@ -54,14 +54,7 @@ bool ITelegramBot::sendMessage(const QSharedPointer<iMessage> &message) {
     if (!message)
         return false;
 
-    auto getInfoRquest = makePrefix() + message->makeUpload();
-
-    QNetworkReply* networkReplay = _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest)));
-
-    if (!networkReplay)
-        return false;
-
-    return true;
+    return false;
 }
 
 QByteArray ITelegramBot::makePrefix() const {
@@ -83,7 +76,7 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
 
         auto rawData = networkReplay->readAll();
         qDebug() << rawData;
-        auto message = QSharedPointer<TelegramUpdateAnsver>::create();
+        auto message = IBot::makeMesasge<TelegramUpdateAnsver>();
         message->setRawData(rawData);
 
         if (!message->isValid()) {

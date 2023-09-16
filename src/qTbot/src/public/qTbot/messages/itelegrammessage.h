@@ -20,8 +20,6 @@ class QTBOT_EXPORT ITelegramMessage: public IJsonBasedMessage
 {
 public:
     ITelegramMessage();
-
-
 };
 
 }

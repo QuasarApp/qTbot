@@ -53,12 +53,6 @@ protected:
     void setId(unsigned long long newId);
 
     /**
-     * @brief setName This method sets new value for the ITelegramBot::name property.
-     * @param newName this is new value of the ITelegramBot::name property.
-     */
-    void setName(const QString &newName);
-
-    /**
      * @brief setUsername This method sets new value for the ITelegramBot::username property.
      * @param newUsername this is new value of the ITelegramBot::username property.
      */

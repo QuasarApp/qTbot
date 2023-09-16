@@ -47,7 +47,7 @@ void TelegramRestBot::startUpdates() {
             if (telegramMsg->isValid()) {
                 auto && resultArray = telegramMsg->result().toArray();
                 for (const auto& ref: resultArray) {
-                    auto message = QSharedPointer<TelegramMsg>::create();
+                    auto message = IBot::makeMesasge<TelegramMsg>();
                     message->setRawJson(ref.toObject());
                     incomeNewMessage(message);
                 }

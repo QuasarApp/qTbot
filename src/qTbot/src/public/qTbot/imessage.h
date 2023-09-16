@@ -10,7 +10,7 @@
 #ifndef IMESSAGE_H
 #define IMESSAGE_H
 
-#include "irequest.h"
+#include "qTbot/global.h"
 #include <QByteArray>
 
 
@@ -18,10 +18,14 @@ namespace qTbot {
 
 /**
  * @brief The iMessage class - is main interface for all messages objects.
- * @see IBot::sendMessage
+ * @note Theall message objects posible to create only inner bot object using the IBot::makeMesasge method.
  * @see IBot::sigReceiveMessage
+ * @see IBot::incomeNewMessage
+ * @see IBot::markMessageAsProcessed
+ * @see IBot::takeNextUnreadMessage
+ * @see IBot::makeMesasge
  */
-class QTBOT_EXPORT iMessage: public iRequest
+class QTBOT_EXPORT iMessage
 {
 public:
     iMessage();
@@ -58,6 +62,7 @@ public:
     virtual unsigned long long messageId() const = 0;
 
 private:
+
     QByteArray _rawData;
 };
 }

@@ -18,11 +18,16 @@ QJsonValue TelegramUpdateAnsver::result() const {
     return rawJson().value("result");
 }
 
+QString TelegramUpdateAnsver::from() const {
+    return "";
+}
+
+unsigned long long TelegramUpdateAnsver::messageId() const {
+    return 0;
+}
+
 bool TelegramUpdateAnsver::isValid() const {
     return rawJson().value("ok").toBool();
 }
 
-QByteArray TelegramUpdateAnsver::makeUpload() const {
-    return {};
-}
 }

@@ -23,13 +23,15 @@ public:
 
     // iMessage interface
     bool isValid() const override;
-    QByteArray makeUpload() const override;
 
     /**
      * @brief result This is result filed of thetelegram responce.
      * @return json value of the resul field.
      */
     QJsonValue result() const;
+
+    QString from() const override;
+    unsigned long long messageId() const override;
 
 };
 

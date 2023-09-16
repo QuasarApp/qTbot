@@ -11,6 +11,7 @@
 
 #include "qTbot/global.h"
 #include "qTbot/imessage.h"
+#include "qTbot/irequest.h"
 
 #include <QMap>
 #include <QHash>
@@ -78,6 +79,17 @@ public:
     QSharedPointer<iMessage> takeNextUnreadMessage();
 
 protected:
+
+    /**
+     * @brief makeMesasge This is factory method tha can create a messages types.
+     * @param args This is list of arguments of the message.
+     * @return message object.
+     */
+    template<class MessageType, class ... Args>
+    static QSharedPointer<MessageType> makeMesasge(Args&& ...args) {
+        return QSharedPointer<MessageType>(new MessageType(std::forward<Args>(args)...));
+    }
+
     /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.

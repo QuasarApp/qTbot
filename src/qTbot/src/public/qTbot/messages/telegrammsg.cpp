@@ -15,10 +15,6 @@ TelegramMsg::TelegramMsg()
 
 }
 
-QByteArray TelegramMsg::makeUpload() const {
-    return {};
-}
-
 unsigned long long TelegramMsg::messageId() const {
     return rawJson()["message_id"].toInteger();
 }
@@ -49,6 +45,10 @@ QString TelegramMsg::languageCode() const {
 
 int TelegramMsg::chatId() const {
     return rawJson()["chat"]["id"].toInt();
+}
+
+QString TelegramMsg::from() const {
+    return chatUsername();
 }
 
 QString TelegramMsg::chatFirstName() const {
