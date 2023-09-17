@@ -23,6 +23,8 @@
 
 namespace qTbot {
 
+class ReplayData;
+
 /**
  * @brief The IBot class Base interface for all chat-bots objcts.
  */
@@ -112,7 +114,7 @@ protected:
      * @param cb This is call back function for the responce.
      * @return id of request if the request will sent successful else 0.
      */
-    virtual int sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
+    virtual size_t sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
 
     /**
      * @brief sendRequest This method sent custom requests to the server.
@@ -171,8 +173,7 @@ private:
     QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
     QSet<unsigned long long> _processed;
 
-    QMap<int, QSharedPointer<QNetworkReply>> _inProgressRequests;
-    QSet<void*> ;
+    QMap<size_t, ReplayData*> _inProgressRequests;
 
 
 };

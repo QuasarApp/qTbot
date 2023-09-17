@@ -10,7 +10,7 @@
 
 #include <QtCore/qglobal.h>
 
-#define QTBOT_VERSION "0.18.017fc82"
+#define QTBOT_VERSION "0.19.df38b0b"
 
 #if defined(QTBOT_LIBRARY)
 #  define QTBOT_EXPORT Q_DECL_EXPORT
