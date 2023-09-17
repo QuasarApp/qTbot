@@ -1175,9 +1175,9 @@ QByteArray ITelegramBot::makePrefix() const {
     return "https://api.telegram.org/bot" + token();
 }
 
-bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
+int ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
     if (!rquest)
-        return false;
+        return 0;
 
 
     auto getInfoRquest = makePrefix() + rquest->makeUpload();
@@ -1220,6 +1220,10 @@ bool ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Res
     connect(networkReplay, &QNetworkReply::errorOccurred, err);
 
     return true;
+}
+
+QSharedPointer<QNetworkReply> ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+
 }
 
 void ITelegramBot::setUsername(const QString &newUsername) {

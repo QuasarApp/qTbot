@@ -41,6 +41,24 @@ void IBot::markMessageAsProcessed(const QSharedPointer<iMessage> &message) {
     _notProcessedMessages.remove(message->messageId());
 }
 
+void IBot::markMessageAsUnprocessed(const QSharedPointer<iMessage> &message) {
+    return markMessageAsUnprocessed(message->messageId());
+}
+
+void IBot::markMessageAsUnprocessed(unsigned long long messageID) {
+    _processed.remove(messageID);
+}
+
+bool IBot::wathToReplay(const QSharedPointer<QNetworkReply> &replay) {
+    if (!replay)
+        return false;
+
+    // from 1 because the id 0 negative result.
+    static int replayIdsGenerator = 1;
+
+    _inProgressRequests[replayIdsGenerator] = replay;
+}
+
 QSet<unsigned long long> IBot::processed() const {
     return _processed;
 }

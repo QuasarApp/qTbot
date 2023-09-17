@@ -66,7 +66,7 @@ public:
      * bool result = sendMessage(chatId, "This is a reply to your message.", messageId);
      *
      * // Send a message with disabled web page preview
-     * bool result = sendMessage(chatId, "Check out this website: [OpenAI](https://www.openai.com/)", 0, true, true);
+     * bool result = sendMessage(chatId, "Check)", 0, true, true);
      * @endcode
      */
     bool sendSpecificMessage(const QVariant &chatId,
@@ -75,6 +75,10 @@ public:
                              bool markdown = true,
                              bool disableWebPagePreview = false,
                              const Responce& cb = {});
+
+
+//    File Bot::getFile(const QString& fileId);
+//    File Bot::getFile(const ParameterList& params);
 
 //    /*
 // **********************************************************************************************************************
@@ -238,16 +242,7 @@ public:
 
 //    /*
 // **********************************************************************************************************************
-// *
-// * getFile implementations
-// *
-// */
 
-//    File Bot::getFile(const QString& fileId);
-
-//    File Bot::getFile(const ParameterList& params);
-
-//    /*
 // **********************************************************************************************************************
 // *
 // * banChatMember implementations
@@ -600,7 +595,8 @@ protected:
      */
     QByteArray makePrefix() const;
 
-    bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
+    int sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
+    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) override;
 
 private:
     unsigned long long _id = 0;

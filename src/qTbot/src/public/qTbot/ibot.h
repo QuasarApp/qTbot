@@ -17,6 +17,7 @@
 #include <QHash>
 #include <QSet>
 
+#include <QNetworkReply>
 #include <QObject>
 #include <QSharedPointer>
 
@@ -109,9 +110,17 @@ protected:
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
      * @param cb This is call back function for the responce.
+     * @return id of request if the request will sent successful else 0.
+     */
+    virtual int sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
+
+    /**
+     * @brief sendRequest This method sent custom requests to the server.
+     * @param rquest This is message that will be sent to server.
+     * @param cb This is call back function for the responce.
      * @return true if the request will sent successful else false.
      */
-    virtual bool sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
+    virtual QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) = 0;
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -130,6 +139,26 @@ protected:
      */
     void markMessageAsProcessed(const QSharedPointer<iMessage>& message);
 
+    /**
+     * @brief markMessageAsUnprocessed This method add the message into a not processed messages store.
+     * @param message This is message that need to be unprocessed.
+     * @note this may be useful for the process edited old messages. Just call this method bofore IBot::incomeNewMessage.
+     */
+    void markMessageAsUnprocessed(const QSharedPointer<iMessage>& message);
+
+    /**
+     * @brief markMessageAsUnprocessed This method add the message into a not processed messages store.
+     * @param message This is message that need to be unprocessed.
+     * @note this may be useful for the process edited old messages. Just call this method bofore IBot::incomeNewMessage.
+     */
+    void markMessageAsUnprocessed(unsigned long long messageID);
+
+    /**
+     * @brief wathToReplay This method add network replay to watching.
+     * @return true if the replay added successfull.
+     */
+    bool wathToReplay(const QSharedPointer<QNetworkReply>& replay);
+
 signals:
     /**
      * @brief sigReceiveMessage emit when but receive any updates from users.
@@ -141,6 +170,9 @@ private:
     QString _name;
     QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
     QSet<unsigned long long> _processed;
+
+    QMap<int, QSharedPointer<QNetworkReply>> _inProgressRequests;
+    QSet<void*> ;
 
 
 };
