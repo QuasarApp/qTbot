@@ -1175,16 +1175,16 @@ QByteArray ITelegramBot::makePrefix() const {
     return "https://api.telegram.org/bot" + token();
 }
 
-int ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
+size_t ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
     if (!rquest)
         return 0;
 
 
     auto getInfoRquest = makePrefix() + rquest->makeUpload();
 
-    QNetworkReply* networkReplay = _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest)));
+    auto networkReplay = QSharedPointer<QNetworkReply>(_manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
     if (!networkReplay)
-        return false;
+        return 0;
 
     auto handler = [rquest, cb, networkReplay]() {
 
@@ -1216,14 +1216,24 @@ int ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Resp
         }
     };
 
-    connect(networkReplay, &QNetworkReply::finished, handler);
-    connect(networkReplay, &QNetworkReply::errorOccurred, err);
+    connect(networkReplay.get(), &QNetworkReply::finished, handler);
+    connect(networkReplay.get(), &QNetworkReply::errorOccurred, err);
 
     return true;
 }
 
 QSharedPointer<QNetworkReply> ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+    if (!rquest)
+        return 0;
 
+
+    auto getInfoRquest = makePrefix() + rquest->makeUpload();
+
+    auto&& networkReplay = QSharedPointer<QNetworkReply>(_manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
+    if (!networkReplay)
+        return 0;
+
+    return std::move(networkReplay);
 }
 
 void ITelegramBot::setUsername(const QString &newUsername) {

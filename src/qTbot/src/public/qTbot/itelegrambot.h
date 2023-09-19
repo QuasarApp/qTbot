@@ -593,9 +593,9 @@ protected:
      * @brief makePrefix This method prepare a prefix message for all telegramm bots.
      * @return telegramm request prefix/
      */
-    QByteArray makePrefix() const;
+    QByteArray makePrefix() const override;
 
-    int sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
+    size_t sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
     QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) override;
 
 private:

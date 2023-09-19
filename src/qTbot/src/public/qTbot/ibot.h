@@ -109,6 +109,12 @@ protected:
     }
 
     /**
+     * @brief makePrefix This method prepare a prefix url for http requests.
+     * @return http request prefix
+     */
+    virtual QByteArray makePrefix() const = 0;
+
+    /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
      * @param cb This is call back function for the responce.
@@ -155,12 +161,6 @@ protected:
      */
     void markMessageAsUnprocessed(unsigned long long messageID);
 
-    /**
-     * @brief wathToReplay This method add network replay to watching.
-     * @return true if the replay added successfull.
-     */
-    bool wathToReplay(const QSharedPointer<QNetworkReply>& replay);
-
 signals:
     /**
      * @brief sigReceiveMessage emit when but receive any updates from users.
@@ -168,12 +168,12 @@ signals:
     void sigReceiveMessage(const QSharedPointer<iMessage>& );
 
 private:
+
+
     QByteArray _token;
     QString _name;
     QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
     QSet<unsigned long long> _processed;
-
-    QMap<size_t, ReplayData*> _inProgressRequests;
 
 
 };
