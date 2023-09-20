@@ -6,6 +6,7 @@
 //#
 
 #include "ibot.h"
+#include "qstandardpaths.h"
 
 namespace qTbot {
 
@@ -47,6 +48,10 @@ void IBot::markMessageAsUnprocessed(const QSharedPointer<iMessage> &message) {
 
 void IBot::markMessageAsUnprocessed(unsigned long long messageID) {
     _processed.remove(messageID);
+}
+
+QString IBot::defaultFileStorageLocation() const {
+    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
 }
 
 QSet<unsigned long long> IBot::processed() const {

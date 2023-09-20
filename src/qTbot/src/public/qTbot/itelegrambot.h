@@ -10,7 +10,9 @@
 #ifndef ITELEGRAMBOT_H
 #define ITELEGRAMBOT_H
 
+#include "file.h"
 #include "ibot.h"
+#include "virtualfile.h"
 #include <QObject>
 
 class QNetworkAccessManager;
@@ -76,9 +78,30 @@ public:
                              bool disableWebPagePreview = false,
                              const Responce& cb = {});
 
+    /**
+     * @brief Get a file by its ID.
+     *
+     * This function allows you to retrieve a file by its ID.
+     *
+     * @param fileId The ID of the file to retrieve.
+     * @param cb The callback function to be called after the file is retrieved.
+     *          The function takes a shared_ptr to a File object as a parameter.
+     * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
+     */
+    bool getFile(const QString& fileId, std::function<void(const QSharedPointer<File>&)> cb);
 
-//    File Bot::getFile(const QString& fileId);
-//    File Bot::getFile(const ParameterList& params);
+    /**
+     * @brief Get a virtual file by its ID.
+     *
+     * This function allows you to retrieve a virtual file by its ID.
+     *
+     * @param fileId The ID of the virtual file to retrieve.
+     * @param cb The callback function to be called after the virtual file is retrieved.
+     *          The function takes a shared_ptr to a VirtualFile object as a parameter.
+     * @return Returns true if the virtual file retrieval operation was successfully initiated and false in case of an error.
+     */
+    bool getFile(const QString& fileId, std::function<void(const QSharedPointer<VirtualFile>&)> cb);
+
 
 //    /*
 // **********************************************************************************************************************

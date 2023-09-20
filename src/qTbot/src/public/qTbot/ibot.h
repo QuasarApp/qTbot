@@ -161,6 +161,11 @@ protected:
      */
     void markMessageAsUnprocessed(unsigned long long messageID);
 
+    /**
+     * @brief defaultFileStorageLocation This method return default file storage location.
+     * @return default file storage.
+     */
+    virtual QString defaultFileStorageLocation() const;
 signals:
     /**
      * @brief sigReceiveMessage emit when but receive any updates from users.
