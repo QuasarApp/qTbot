@@ -7,8 +7,10 @@
 
 #include "itelegrambot.h"
 #include "qTbot/messages/telegramupdateansver.h"
+#include "qdir.h"
 #include <QNetworkAccessManager>
 
+#include <qTbot/requests/telegramgetfile.h>
 #include <qTbot/requests/telegramgetme.h>
 #include <qTbot/requests/telegramsendmsg.h>
 
@@ -75,6 +77,35 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        markdown,
                                                        disableWebPagePreview);
     return sendRequest(msg, cb);
+}
+
+QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
+
+    auto localFilePath = findFileInlocatStorage(fileId);
+
+    if (!localFilePath.isEmpty()) {
+        if (fileType == iFile::Ram) {
+            QFile localFile(localFilePath);
+            if (localFile.open(QIODevice::ReadOnly)) {
+                VirtualFile result(nullptr, localFile.readAll());
+                localFile.close();
+
+                return result;
+            }
+
+
+        }
+    }
+
+
+}
+
+bool ITelegramBot::getFile(const QString &fileId, std::function<void (const QSharedPointer<File> &)> cb) {
+
+}
+
+bool ITelegramBot::getFile(const QString &fileId, std::function<void (const QSharedPointer<VirtualFile> &)> cb) {
+
 }
 
 //Message::Id qTbot::ITelegramBot::Bot::sendMessage(const QVariant &chatId, const QString &text)
@@ -1234,6 +1265,19 @@ QSharedPointer<QNetworkReply> ITelegramBot::sendRequest(const QSharedPointer<iRe
         return 0;
 
     return std::move(networkReplay);
+}
+
+QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
+    QDir defaultFileDir(defaultFileStorageLocation());
+
+    auto &&localStorageList = defaultFileDir.entryInfoList(QDir::Filter::NoDotAndDotDot | QDir::Files);
+    for (const auto& file: localStorageList) {
+        if (file.fileName().contains(fileId)) {
+            return file .absoluteFilePath();
+        }
+    }
+
+    return "";
 }
 
 void ITelegramBot::setUsername(const QString &newUsername) {

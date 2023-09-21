@@ -24,6 +24,7 @@ public:
 
     const QFile & localFile() const;
 
+    Type type() const override;
 
     // iFile interface
 protected slots:

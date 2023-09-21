@@ -22,6 +22,10 @@ const QFile & File::localFile() const {
     return _localFile;
 }
 
+iFile::Type File::type() const {
+    return Type::Local;
+}
+
 void File::handleReadReady() {
     auto&& bytes = replay()->readAll();
 

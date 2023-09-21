@@ -5,18 +5,14 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef qTbot_GLOBAL_H
-#define qTbot_GLOBAL_H
+#include "telegramgetfile.h"
 
-#include <QtCore/qglobal.h>
+namespace qTbot {
 
-#define QTBOT_VERSION "0.22.9858424"
+TelegramGetFile::TelegramGetFile(const QString &fileId):
+    TelegramSingleRquest("getFile", {{"file_id", fileId}}) {
 
-#if defined(QTBOT_LIBRARY)
-#  define QTBOT_EXPORT Q_DECL_EXPORT
-#else
-#  define QTBOT_EXPORT Q_DECL_IMPORT
-#endif
+}
 
-#endif //qTbot_GLOBAL_H
 
+}

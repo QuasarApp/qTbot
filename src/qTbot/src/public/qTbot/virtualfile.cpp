@@ -19,6 +19,10 @@ const QWeakPointer<QByteArray>& VirtualFile::array() const {
     return _array;
 }
 
+iFile::Type VirtualFile::type() const {
+    return Type::Ram;
+}
+
 void VirtualFile::handleReadReady() {
 
     if (auto&& strongArray = _array.lock()) {

@@ -13,6 +13,8 @@
 #include "qTbot/imessage.h"
 #include "qTbot/irequest.h"
 
+#include "ifile.h"
+
 #include <QMap>
 #include <QHash>
 #include <QSet>
@@ -59,6 +61,18 @@ public:
      * @note the specific implementations of this interface can have a different method for sending.
     */
     virtual bool sendMessage(const QVariant& chatId, const QString& text) = 0;
+
+
+    /**
+     * @brief Get a file by its ID.
+     *
+     * This function allows you to retrieve a file by its ID.
+     *
+     * @param fileId The ID of the file to retrieve.
+     * @param fileType This is a saving way, by Default will be used a iFile::Type::Ram
+     * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
+     */
+    virtual QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) = 0;
 
     /**
      * @brief token This is token value for authication on the remote server (bot)

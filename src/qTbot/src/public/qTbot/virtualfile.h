@@ -23,6 +23,7 @@ public:
 
     // iFile interface
     const QWeakPointer<QByteArray>& array() const;
+    Type type() const override;
 
 protected slots:
     void handleReadReady() override;

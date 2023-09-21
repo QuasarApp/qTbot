@@ -21,6 +21,17 @@ class iFile: public QObject
 {
     Q_OBJECT
 public:
+
+    /**
+     * @brief The Type enum is type of the file object.
+     */
+    enum Type {
+        /// This is local file, all receive bytes will be save directed into file.
+        Local,
+        /// This is memory saved file. All received bytes will be saved into QByteArray object.
+        Ram
+    };
+
     iFile(const QSharedPointer<QNetworkReply>& replay);
 
     /**
@@ -65,6 +76,11 @@ public:
      */
     const QSharedPointer<QNetworkReply>& replay() const;
 
+    /**
+     * @brief type This is type of the file object.
+     * @return type of the file object.
+     */
+    virtual Type type() const = 0;
 
 
 protected slots:
