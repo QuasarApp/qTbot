@@ -168,7 +168,7 @@ public:
      * @brief images This function returns array of available images qualites
      * @return array of available images qualites
      */
-    QList<TelegramImage> images() const;
+    QList<QSharedPointer<TelegramImage>> images() const;
 
     /**
      * @brief Retrieve an image from the Telegram service with specified quality and size parameters.
@@ -186,19 +186,19 @@ public:
      *
      * @return A TelegramImage object representing the selected image.
      */
-    TelegramImage image(QualitySelector behavior = AroundSize, int size = 100000) const;
+    QSharedPointer<TelegramImage> image(QualitySelector behavior = AroundSize, int size = 100000) const;
 
     /**
      * @brief documents This method returns contained document data.
      * @return document description data.
      */
-    TelegramDocument documents() const;
+    QSharedPointer<TelegramDocument> documents() const;
 
     /**
      * @brief audio This method returns contained audio data.
      * @return audio description data.
      */
-    TelegramAudio audio() const;
+    QSharedPointer<TelegramAudio> audio() const;
 
 
 };

@@ -9,17 +9,38 @@
 #include <qTbot/telegramrestbot.h>
 
 #include <QCoreApplication>
-
+#include <qTbot/messages/telegrammsg.h>
 
 int main(int argc, char *argv[]) {
+
+    QCoreApplication::setOrganizationName("QuasarApp");
+    QCoreApplication::setOrganizationDomain("https://github.com/QuasarApp");
+    QCoreApplication::setApplicationName("qTbotExample");
 
     QCoreApplication app(argc, argv);
 
     qTbot::TelegramRestBot bot;
 
     QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveMessage, [&bot](auto){
-        while(auto msg = bot.takeNextUnreadMessage()) {
-            bot.sendSpecificMessage(msg->chatId(), "I see it - я вижу это", msg->messageId());
+        while(auto&& msg = bot.takeNextUnreadMessage()) {
+
+            if (auto&& tmsg = msg.dynamicCast<qTbot::TelegramMsg>()) {
+
+                if (tmsg->contains(tmsg->Document)) {
+                    bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local);
+                }
+
+                if (tmsg->contains(tmsg->Image)) {
+                    bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local);
+                }
+
+                if (tmsg->contains(tmsg->Audio)) {
+                    bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local);
+                }
+
+                bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
+
+            }
         }
     });
 

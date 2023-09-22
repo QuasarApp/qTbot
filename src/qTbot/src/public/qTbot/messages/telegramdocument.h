@@ -9,14 +9,14 @@
 #ifndef TELEGRAMDOCUMENT_H
 #define TELEGRAMDOCUMENT_H
 
-#include <qTbot/ijsonbasedobject.h>
+#include "telegramfile.h"
 
 namespace qTbot {
 
 /**
  * @brief The TelegramDocument class This is implementation of the documents objects of telegram
  */
-class TelegramDocument: public IJsonBasedObject
+class TelegramDocument: public TelegramFile
 {
 public:
     TelegramDocument();
@@ -39,23 +39,6 @@ public:
      */
     QString mimeType() const;
 
-    /**
-     * @brief Returns the file ID of the document.
-     * @return The file ID of the document.
-     */
-    QString fileId() const;
-
-    /**
-     * @brief Returns the unique ID of the document.
-     * @return The unique ID of the document.
-     */
-    QString fileUniqueId() const;
-
-    /**
-     * @brief Returns the file size of the document in bytes.
-     * @return The file size of the document.
-     */
-    int fileSize() const;
 };
 }
 #endif // TELEGRAMDOCUMENT_H

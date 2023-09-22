@@ -18,12 +18,13 @@ namespace qTbot {
 class  QTBOT_EXPORT VirtualFile : public iFile
 {
 public:
-    VirtualFile(const QSharedPointer<QNetworkReply>& replay,
-                const QWeakPointer<QByteArray> &array);
+    VirtualFile(const QSharedPointer<QNetworkReply>& replay);
 
     // iFile interface
-    const QWeakPointer<QByteArray>& array() const;
+    const QByteArray &array() const;
     Type type() const override;
+
+    void setArray(const QByteArray &newArray);
 
 protected slots:
     void handleReadReady() override;
@@ -31,7 +32,7 @@ protected slots:
     void handleError(QNetworkReply::NetworkError error) override;
 
 private:
-    QWeakPointer<QByteArray> _array;
+    QByteArray _array;
 };
 
 }

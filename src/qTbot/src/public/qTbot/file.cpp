@@ -16,6 +16,7 @@ File::File(const QSharedPointer<QNetworkReply> &replay, const QString &filePath)
     if (!_localFile.isOpen()) {
         _localFile.open(QIODevice::Truncate | QIODevice::WriteOnly | QIODevice::Append);
     }
+
 }
 
 const QFile & File::localFile() const {
@@ -37,6 +38,7 @@ void File::handleReadReady() {
 void File::handleFinished() {
     handleReadReady();
     _localFile.close();
+    iFile::handleFinished();
 }
 
 void File::handleError(QNetworkReply::NetworkError error) {

@@ -21,6 +21,7 @@ class QNetworkReply;
 namespace qTbot {
 
 class ITelegramMessage;
+class TelegramFile;
 
 /**
  * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
@@ -184,13 +185,25 @@ protected:
     size_t sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
     QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) override;
 
+    /**
+     * @brief getFileSizeByUniqueId This method return size of the file by id
+     * @param id This is id of required file.
+     * @return file size - else 0
+     */
+    int getFileSizeByUniqueId(const QString& id) const;
+
+    void incomeNewMessage(const QSharedPointer<iMessage>& msg) override;
 private:
     QString findFileInlocatStorage(const QString& fileId) const;
+    void extractAllMetaInfoFromUpdate(const QSharedPointer<iMessage> &answer);
 
     unsigned long long _id = 0;
     QString _username;
 
     QNetworkAccessManager *_manager = nullptr;
+
+    QHash<QString, QSharedPointer<TelegramFile>> _filesMetaInfo;
+
 
 };
 }

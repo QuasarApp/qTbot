@@ -87,20 +87,20 @@ bool TelegramMsg::contains(const Type &type) {
     return rawJson().contains(type);
 }
 
-QList<TelegramImage> TelegramMsg::images() const {
+QList<QSharedPointer<TelegramImage>> TelegramMsg::images() const {
     const QJsonArray&& array = rawJson()["photo"].toArray();
-    QList<TelegramImage> result;
+    QList<QSharedPointer<TelegramImage>> result;
 
     for (const auto& photo: array) {
-        result.push_back({photo.toObject()});
+        result.push_back(QSharedPointer<TelegramImage>::create(photo.toObject()));
     }
 
     return result;
 }
 
-TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
+QSharedPointer<TelegramImage> TelegramMsg::image(QualitySelector behavior, int size) const {
     const QJsonArray&& array = rawJson()["photo"].toArray();
-    TelegramImage result;
+    auto&& result = QSharedPointer<TelegramImage>::create();
 
     switch (behavior) {
     case QualitySelector::AroundSize:
@@ -108,12 +108,12 @@ TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
         int oldBestMath = std::numeric_limits<decltype(oldBestMath)>::max();
         auto it = array.cbegin();
 
-        result.setRawJson(it->toObject());
+        result->setRawJson(it->toObject());
         it = std::next(it);
 
-        while (it != array.end() || std::abs(result.fileSize() - size) < oldBestMath) {
-            oldBestMath = std::abs(result.fileSize() - size);
-            result.setRawJson(it->toObject());
+        while (it != array.end() && std::abs(result->fileSize() - size) < oldBestMath) {
+            oldBestMath = std::abs(result->fileSize() - size);
+            result->setRawJson(it->toObject());
             it = std::next(it);
         }
 
@@ -123,7 +123,7 @@ TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
         for (const auto& photo: array) {
             auto photoObj = TelegramImage{photo.toObject()};
             if (photoObj.fileSize() < size) {
-                result.setRawJson(photoObj.rawJson());
+                result->setRawJson(photoObj.rawJson());
             } else {
                 return result;
             }
@@ -133,7 +133,7 @@ TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
     }
     case QualitySelector::Best: {
         if (array.size()) {
-            return std::prev(array.end())->toObject();
+            result->setRawJson(std::prev(array.end())->toObject());
         }
 
         return result;
@@ -141,7 +141,7 @@ TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
 
     case QualitySelector::Fast: {
         if (array.size()) {
-            return array.begin()->toObject();
+            result->setRawJson(array.begin()->toObject());
         }
 
         return result;
@@ -155,12 +155,12 @@ TelegramImage TelegramMsg::image(QualitySelector behavior, int size) const {
     return result;
 }
 
-TelegramDocument TelegramMsg::documents() const {
-    return rawJson()[Document].toObject();
+QSharedPointer<TelegramDocument> TelegramMsg::documents() const {
+    return QSharedPointer<TelegramDocument>::create(rawJson()[Document].toObject());
 }
 
-TelegramAudio TelegramMsg::audio() const {
-    return rawJson()[Audio].toObject();
+QSharedPointer<TelegramAudio> TelegramMsg::audio() const {
+    return QSharedPointer<TelegramAudio>::create(rawJson()[Audio].toObject());
 }
 
 }

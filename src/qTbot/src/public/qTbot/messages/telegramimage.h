@@ -9,14 +9,14 @@
 #ifndef TELEGRAMIMAGE_H
 #define TELEGRAMIMAGE_H
 
-#include <qTbot/ijsonbasedobject.h>
+#include "telegramfile.h"
 
 namespace qTbot {
 
 /**
  * @brief The TelegramImage class This is implementation of the photos of telegram
  */
-class TelegramImage: public IJsonBasedObject
+class TelegramImage: public TelegramFile
 {
 public:
     TelegramImage();
@@ -26,24 +26,6 @@ public:
      * @param jsonObject The JSON object containing photo data.
      */
     TelegramImage(const QJsonObject &jsonObject);
-
-    /**
-     * @brief Returns the file ID of the photo.
-     * @return The file ID of the photo.
-     */
-    QString fileId() const;
-
-    /**
-     * @brief Returns the unique ID of the photo.
-     * @return The unique ID of the photo.
-     */
-    QString fileUniqueId() const;
-
-    /**
-     * @brief Returns the file size of the photo.
-     * @return The file size of the photo.
-     */
-    int fileSize() const;
 
     /**
      * @brief Returns the width of the photo.

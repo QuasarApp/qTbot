@@ -82,6 +82,18 @@ public:
      */
     virtual Type type() const = 0;
 
+    /**
+     * @brief finished return true if the request was finished else false.
+     * @return true if the request was finished else false
+     */
+    bool finished() const;
+
+protected:
+    /**
+     * @brief setFinished monual sets finished flag.
+     * @param newFinished new value for the finished flag.
+     */
+    void setFinished(bool newFinished);
 
 protected slots:
     /**
@@ -92,7 +104,7 @@ protected slots:
     /**
      * @brief Slot to handle when the network operation is finished.
      */
-    virtual void handleFinished() = 0;
+    virtual void handleFinished();
 
     /**
      * @brief Slot to handle errors in the network operation.
@@ -137,12 +149,20 @@ signals:
      */
     void replayChanged();
 
+    /**
+     * @brief Signal emitted when the associated finished changes.
+     */
+    void finishedChanged();
+
 private:
     float _uploadProgress = 0;
     float _downloadProgress = 0;
     int _error = 0;
+    bool _finished = false;
 
     QSharedPointer<QNetworkReply> _replay;
+
+    friend class ITelegramBot;
 };
 }
 #endif // IFILE_H

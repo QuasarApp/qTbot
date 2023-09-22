@@ -10,14 +10,14 @@
 #ifndef TELEGRAMAUDIO_H
 #define TELEGRAMAUDIO_H
 
-#include <qTbot/ijsonbasedobject.h>
+#include "telegramfile.h"
 
 namespace qTbot {
 
 /**
  * @brief The TelegramAudio class This is implementation of the audio objects of telegram
  */
-class TelegramAudio: public IJsonBasedObject
+class TelegramAudio: public TelegramFile
 {
 public:
     TelegramAudio();
@@ -45,23 +45,6 @@ public:
      */
     QString mimeType() const;
 
-    /**
-     * @brief Returns the file ID of the audio.
-     * @return The file ID of the audio.
-     */
-    QString fileId() const;
-
-    /**
-     * @brief Returns the unique ID of the audio.
-     * @return The unique ID of the audio.
-     */
-    QString fileUniqueId() const;
-
-    /**
-     * @brief Returns the file size of the audio in bytes.
-     * @return The file size of the audio.
-     */
-    int fileSize() const;
 };
 }
 #endif // TELEGRAMAUDIO_H

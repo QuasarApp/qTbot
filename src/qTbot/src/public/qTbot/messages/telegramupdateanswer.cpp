@@ -5,32 +5,32 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "telegramupdateansver.h"
+#include "telegramupdateanswer.h"
 
 namespace qTbot {
 
-TelegramUpdateAnsver::TelegramUpdateAnsver()
+TelegramUpdateAnswer::TelegramUpdateAnswer()
 {
 
 }
 
-QJsonValue TelegramUpdateAnsver::result() const {
+QJsonValue TelegramUpdateAnswer::result() const {
     return rawJson().value("result");
 }
 
-QString TelegramUpdateAnsver::from() const {
+QString TelegramUpdateAnswer::from() const {
     return "";
 }
 
-QVariant TelegramUpdateAnsver::chatId() const {
+QVariant TelegramUpdateAnswer::chatId() const {
     return {};
 }
 
-unsigned long long TelegramUpdateAnsver::messageId() const {
+unsigned long long TelegramUpdateAnswer::messageId() const {
     return 0;
 }
 
-bool TelegramUpdateAnsver::isValid() const {
+bool TelegramUpdateAnswer::isValid() const {
     return rawJson().value("ok").toBool();
 }
 

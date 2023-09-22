@@ -14,22 +14,8 @@ TelegramImage::TelegramImage()
 
 }
 
-TelegramImage::TelegramImage(const QJsonObject &jsonObject) : IJsonBasedObject(jsonObject) {}
+TelegramImage::TelegramImage(const QJsonObject &jsonObject) : TelegramFile(jsonObject) {}
 
-
-QString TelegramImage::fileId() const {
-    return rawJson()["file_id"].toString();
-}
-
-
-QString TelegramImage::fileUniqueId() const {
-    return rawJson()["file_unique_id"].toString();
-}
-
-
-int TelegramImage::fileSize() const {
-    return rawJson()["file_size"].toInt();
-}
 
 
 int TelegramImage::width() const {

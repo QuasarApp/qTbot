@@ -13,7 +13,7 @@ TelegramAudio::TelegramAudio()
 
 }
 
-TelegramAudio::TelegramAudio(const QJsonObject &jsonObject) : IJsonBasedObject(jsonObject) {}
+TelegramAudio::TelegramAudio(const QJsonObject &jsonObject) : TelegramFile(jsonObject) {}
 
 int TelegramAudio::duration() const {
     return rawJson()["duration"].toInt();
@@ -26,16 +26,5 @@ QString TelegramAudio::fileName() const {
 QString TelegramAudio::mimeType() const {
     return rawJson()["mime_type"].toString();
 }
-
-QString TelegramAudio::fileId() const {
-    return rawJson()["file_id"].toString();
 }
 
-QString TelegramAudio::fileUniqueId() const {
-    return rawJson()["file_unique_id"].toString();
-}
-
-int TelegramAudio::fileSize() const {
-    return rawJson()["file_size"].toInt();
-}
-}

@@ -14,12 +14,12 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramUpdateAnsver class This is base message from the telegram server after update request.
+ * @brief The TelegramUpdateAnswer class This is base message from the telegram server after update request.
  */
-class TelegramUpdateAnsver: public ITelegramMessage
+class TelegramUpdateAnswer: public ITelegramMessage
 {
 public:
-    TelegramUpdateAnsver();
+    TelegramUpdateAnswer();
 
     // iMessage interface
     bool isValid() const override;

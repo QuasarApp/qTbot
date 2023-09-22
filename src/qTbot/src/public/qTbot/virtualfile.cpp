@@ -10,12 +10,10 @@
 namespace qTbot {
 
 
-VirtualFile::VirtualFile(const QSharedPointer<QNetworkReply> &replay,
-                         const QWeakPointer<QByteArray> &array): iFile(replay) {
-    _array = array;
+VirtualFile::VirtualFile(const QSharedPointer<QNetworkReply> &replay): iFile(replay) {
 }
 
-const QWeakPointer<QByteArray>& VirtualFile::array() const {
+const QByteArray& VirtualFile::array() const {
     return _array;
 }
 
@@ -25,20 +23,23 @@ iFile::Type VirtualFile::type() const {
 
 void VirtualFile::handleReadReady() {
 
-    if (auto&& strongArray = _array.lock()) {
-        strongArray->append(replay()->readAll());
-    }
+    _array.append(replay()->readAll());
+
 }
 
 void VirtualFile::handleFinished() {
     handleReadReady();
-
+    iFile::handleFinished();
 }
 
 void VirtualFile::handleError(QNetworkReply::NetworkError error) {
     iFile::handleError(error);
     _array.clear();
 
+}
+
+void VirtualFile::setArray(const QByteArray &newArray) {
+    _array = newArray;
 }
 
 

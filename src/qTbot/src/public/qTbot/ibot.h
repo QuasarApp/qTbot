@@ -153,7 +153,7 @@ protected:
     /**
      * @brief incomeNewMessage This method save income message into store.
      */
-    void incomeNewMessage(const QSharedPointer<iMessage>& message);
+    virtual void incomeNewMessage(const QSharedPointer<iMessage>& message);
 
     /**
      * @brief markMessageAsProcessed This method remove message from the not processed messages store.
