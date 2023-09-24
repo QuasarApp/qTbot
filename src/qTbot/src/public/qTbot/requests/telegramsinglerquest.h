@@ -50,6 +50,7 @@ public:
     TelegramSingleRquest(const QByteArray& request);
 
     QByteArray makeUpload() const override final;
+    QByteArray baseAddress() const override;
 
 protected:
 

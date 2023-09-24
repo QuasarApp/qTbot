@@ -30,6 +30,18 @@ public:
      */
     QJsonValue result() const;
 
+    /**
+     * @brief errorCode This is error code (if exist)
+     * @return error code
+     */
+    int errorCode() const;
+
+    /**
+     * @brief errorDescription This is text description : what is happend.
+     * @return text message about error.
+     */
+    QString errorDescription() const;
+
     QString from() const override;
     QVariant chatId() const override;
 

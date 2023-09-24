@@ -27,6 +27,12 @@ public:
      * @return data array prepared to sending.
      */
     virtual QByteArray makeUpload() const = 0;
+
+    /**
+     * @brief baseAddress This method return base domain of remote server.
+     * @return base domain name of remoute server.
+     */
+    virtual QByteArray baseAddress() const = 0;
 };
 
 }

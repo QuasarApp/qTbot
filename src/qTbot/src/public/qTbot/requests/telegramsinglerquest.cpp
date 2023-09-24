@@ -46,6 +46,10 @@ QByteArray TelegramSingleRquest::makeUpload() const {
 
 }
 
+QByteArray TelegramSingleRquest::baseAddress() const {
+    return "https://api.telegram.org";
+}
+
 const QMap<QString, QVariant>& TelegramSingleRquest::args() const {
     return _args;
 }

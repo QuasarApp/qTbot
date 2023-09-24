@@ -8,7 +8,10 @@
 #include "itelegrambot.h"
 #include "qTbot/messages/telegrammsg.h"
 #include "qTbot/messages/telegramupdateanswer.h"
+#include "file.h"
+#include "qTbot/requests/telegrammdownloadfile.h"
 #include "qdir.h"
+#include "virtualfile.h"
 #include <QNetworkAccessManager>
 
 #include <qTbot/requests/telegramgetfile.h>
@@ -24,12 +27,9 @@
 namespace qTbot {
 
 ITelegramBot::ITelegramBot() {
-    _manager = new QNetworkAccessManager();
-    _manager->setAutoDeleteReplies(false);
 }
 
 ITelegramBot::~ITelegramBot() {
-    delete _manager;
 }
 
 bool ITelegramBot::login(const QByteArray &token) {
@@ -39,22 +39,18 @@ bool ITelegramBot::login(const QByteArray &token) {
 
     setToken(token);
 
-    ITelegramBot::Responce cb = [this]( const QSharedPointer<iRequest>& ,
-                                       const QSharedPointer<iMessage>& responce,
-                                       int err) {
-
-        if (err) {
-            qDebug() << "Network error occured. code: " << err;
-        }
-
-        if (auto message = responce.dynamicCast<ITelegramMessage>()) {
-            setId(message->rawJson().value("id").toInt());
-            setName(message->rawJson().value("first_name").toString());
-            setUsername(message->rawJson().value("username").toString());
-        }
-    };
+    _loginReplay = sendRequest(QSharedPointer<TelegramGetMe>::create());
+    if (_loginReplay) {
+        connect(_loginReplay.get(), &QNetworkReply::finished,
+                this, &ITelegramBot::handleLogin,
+                Qt::DirectConnection);
+        connect(_loginReplay.get(), &QNetworkReply::errorOccurred,
+                this, &ITelegramBot::handleLoginErr,
+                Qt::DirectConnection);
+        return true;
+    }
     
-    return sendRequest(QSharedPointer<TelegramGetMe>::create(), cb);
+    return false;
 }
 
 bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
@@ -65,8 +61,7 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                        const QString &text,
                                        unsigned long long replyToMessageId,
                                        bool markdown,
-                                       bool disableWebPagePreview,
-                                       const Responce &cb) {
+                                       bool disableWebPagePreview) {
 
     if (!chatId.isValid() || chatId.isNull())
         return false;
@@ -80,7 +75,8 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        replyToMessageId,
                                                        markdown,
                                                        disableWebPagePreview);
-    return sendRequest(msg, cb);
+
+    return bool(sendRequest(msg));
 }
 
 QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
@@ -114,7 +110,16 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
         return result;
     }
 
-    auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
+    auto&& metaInfo = getFileInfoByUniqueId(fileId);
+    if (!metaInfo) {
+//        if (auto&& replay = getFileMeta(fileId)) {
+
+//        } else {
+//            return nullptr;
+//        };
+    }
+
+    auto msg = QSharedPointer<TelegrammDownloadFile>::create(metaInfo->path());
 
     QDir().mkpath(defaultFileStorageLocation());
 
@@ -135,115 +140,9 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
     return result;
 }
 
-bool ITelegramBot::getFile(const QString &fileId,
-                           std::function<void (const QSharedPointer<File> &)> cb) {
-
-    if (auto&& ptr = getFile(fileId, iFile::Local)) {
-        if (ptr->finished() && cb) {
-            cb(ptr.dynamicCast<File>());
-            return true;
-        }
-
-        connect(ptr.data(), &iFile::finishedChanged, [cb, ptr](){
-            cb(ptr.dynamicCast<File>());
-        });
-
-        connect(ptr.data(), &iFile::errorChanged, [cb, ptr](){
-            cb(ptr.dynamicCast<File>());
-        });
-
-        return true;
-    }
-
-    return false;
-}
-
-bool ITelegramBot::getFile(const QString &fileId,
-                           std::function<void (const QSharedPointer<VirtualFile> &)> cb) {
-
-    if (auto&& ptr = getFile(fileId, iFile::Local)) {
-        if (ptr->finished() && cb) {
-            cb(ptr.dynamicCast<VirtualFile>());
-            return true;
-        }
-
-        connect(ptr.data(), &iFile::finishedChanged, [cb, ptr](){
-            cb(ptr.dynamicCast<VirtualFile>());
-        });
-
-        connect(ptr.data(), &iFile::errorChanged, [cb, ptr](){
-            cb(ptr.dynamicCast<VirtualFile>());
-        });
-
-        return true;
-    }
-
-    return false;
-}
-
-QByteArray ITelegramBot::makePrefix() const {
-    return "https://api.telegram.org/bot" + token();
-}
-
-size_t ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest, const Responce &cb) {
-    if (!rquest)
-        return 0;
-
-
-    auto getInfoRquest = makePrefix() + rquest->makeUpload();
-
-    auto networkReplay = QSharedPointer<QNetworkReply>(_manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
-    if (!networkReplay)
-        return 0;
-
-    auto handler = [rquest, cb, networkReplay]() {
-
-        auto rawData = networkReplay->readAll();
-        qDebug() << rawData;
-        auto message = IBot::makeMesasge<TelegramUpdateAnswer>();
-        message->setRawData(rawData);
-
-        if (!message->isValid()) {
-            qDebug() << "Some request is wrong: code:" << message->rawJson().value("error_code").toInt();
-            qDebug() << "What: " << message->rawJson().value("description").toString();
-
-            return;
-        }
-
-        if (cb) {
-            cb(rquest, message, 0);
-        }
-    };
-
-    auto err = [rquest, cb, networkReplay](QNetworkReply::NetworkError err) {
-
-        networkReplay->deleteLater();
-
-        if (cb) {
-            cb(rquest, nullptr, err);
-        }
-    };
-
-    connect(networkReplay.get(), &QNetworkReply::finished, handler);
-    connect(networkReplay.get(), &QNetworkReply::errorOccurred, err);
-
-    return true;
-}
-
-QSharedPointer<QNetworkReply> ITelegramBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
-    if (!rquest)
-        return 0;
-
-
-    auto getInfoRquest = makePrefix() + rquest->makeUpload();
-
-    qDebug() << getInfoRquest;
-
-    auto&& networkReplay = QSharedPointer<QNetworkReply>(_manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
-    if (!networkReplay)
-        return 0;
-
-    return std::move(networkReplay);
+QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId) {
+    auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
+    return sendRequest(msg);
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
@@ -254,10 +153,35 @@ int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
     return 0;
 }
 
-void ITelegramBot::incomeNewMessage(const QSharedPointer<iMessage> &msg) {
-    IBot::incomeNewMessage(msg);
+QSharedPointer<TelegramFile> ITelegramBot::getFileInfoByUniqueId(const QString &id) const {
+    return _filesMetaInfo.value(id, nullptr);
+}
 
-    extractAllMetaInfoFromUpdate(msg);
+void ITelegramBot::handleLogin() {
+
+    if (_loginReplay) {
+        auto&& ans = makeMesasge<TelegramUpdateAnswer>(_loginReplay->readAll());
+
+        if (!ans->isValid()) {
+            qWarning() << "login error occured: ";
+        }
+
+        auto&& result = ans->result().toObject();
+
+        setId(result.value("id").toInt());
+        setName( result.value("first_name").toString());
+        setUsername( result.value("username").toString());
+
+        _loginReplay.reset();
+    }
+
+}
+
+void ITelegramBot::handleLoginErr(QNetworkReply::NetworkError err) {
+    if (err) {
+        qDebug() << "Network error occured. code: " << err;
+    }
+    _loginReplay.reset();
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
@@ -274,29 +198,12 @@ QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
     return "";
 }
 
-void ITelegramBot::extractAllMetaInfoFromUpdate(const QSharedPointer<iMessage> &answer) {
-    if (auto && tmessage = answer.dynamicCast<TelegramMsg>()) {
-        if (tmessage->contains(tmessage->Document)) {
-            auto &&doc = tmessage->documents();
-            _filesMetaInfo[doc->fileId()] = doc;
-        }
-
-        if (tmessage->contains(tmessage->Image)) {
-            auto &&imgs = tmessage->images();
-            for (const auto& img : qAsConst(imgs)) {
-                _filesMetaInfo[img->fileId()] = img;
-            }
-        }
-
-        if (tmessage->contains(tmessage->Audio)) {
-            auto &&audio = tmessage->image();
-            _filesMetaInfo[audio->fileId()] = audio;
-        }
-    }
-}
-
 void ITelegramBot::setUsername(const QString &newUsername) {
     _username = newUsername;
+}
+
+QByteArray ITelegramBot::makeUrl(const QSharedPointer<iRequest> &request) const {
+    return request->baseAddress() + "/bot" + token() + request->makeUpload();
 }
 
 void ITelegramBot::setId(unsigned long long newId) {

@@ -18,6 +18,14 @@ QJsonValue TelegramUpdateAnswer::result() const {
     return rawJson().value("result");
 }
 
+int TelegramUpdateAnswer::errorCode() const {
+    return rawJson().value("error_code").toInt();
+}
+
+QString TelegramUpdateAnswer::errorDescription() const {
+    return rawJson().value("description").toString();
+}
+
 QString TelegramUpdateAnswer::from() const {
     return "";
 }

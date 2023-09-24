@@ -10,9 +10,13 @@
 
 namespace qTbot {
 
-IBot::IBot()
-{
+IBot::IBot() {
+    _manager = new QNetworkAccessManager();
+    _manager->setAutoDeleteReplies(false);
+}
 
+IBot::~IBot() {
+    delete _manager;
 }
 
 const QByteArray &IBot::token() const {
@@ -36,6 +40,33 @@ void IBot::incomeNewMessage(const QSharedPointer<iMessage> &message) {
 
         emit sigReceiveMessage(message);
     }
+}
+
+QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+    if (!rquest)
+        return nullptr;
+
+
+    auto&& getInfoRquest = makePrefix() + rquest->makeUpload();
+
+    auto&& networkReplay = QSharedPointer<QNetworkReply>(
+        _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
+
+    size_t address = reinterpret_cast<size_t>(networkReplay.get());
+    _replayStorage[address] = networkReplay;
+
+    connect(networkReplay.get(), &QNetworkReply::finished, this,
+            [this, address](){
+                _replayStorage.remove(address);
+            });
+
+    connect(networkReplay.get(), &QNetworkReply::errorOccurred, this,
+            [this, address](QNetworkReply::NetworkError err){
+                qWarning() << "The reqeust " << address << " finished with error code : " << err;
+                _replayStorage.remove(address);
+            });
+
+    return networkReplay;
 }
 
 void IBot::markMessageAsProcessed(const QSharedPointer<iMessage> &message) {

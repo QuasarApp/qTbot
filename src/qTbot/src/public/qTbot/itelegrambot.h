@@ -10,9 +10,7 @@
 #ifndef ITELEGRAMBOT_H
 #define ITELEGRAMBOT_H
 
-#include "file.h"
 #include "ibot.h"
-#include "virtualfile.h"
 #include <QObject>
 
 class QNetworkAccessManager;
@@ -55,8 +53,6 @@ public:
      *                sent as plain text.
      * @param disableWebPagePreview A flag indicating whether to disable web page preview in the message.
      *                             If `true`, web page preview will be disabled.
-     * @param cb A callback function to handle the server response after sending the message. This parameter
-     *           can be left empty if no callback is required.
      *
      * @return `true` if the message was successfully sent, and `false` otherwise.
      *
@@ -76,37 +72,18 @@ public:
                              const QString& text,
                              unsigned long long replyToMessageId = 0,
                              bool markdown = true,
-                             bool disableWebPagePreview = false,
-                             const Responce& cb = {});
+                             bool disableWebPagePreview = false);
 
 
     QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
 
     /**
-     * @brief Get a file by its ID.
-     *
-     * This function allows you to retrieve a file by its ID.
-     *
-     * @param fileId The ID of the file to retrieve.
-     * @param cb The callback function to be called after the file is retrieved.
-     *          The function takes a shared_ptr to a File object as a parameter.
-     * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
+     * @brief getFileMeta This method receive meta information of the file.
+     * @param fileId This is id of the file.
+     * @param cb result.
+     * @return true if the reqests sents successful.
      */
-    bool getFile(const QString& fileId, std::function<void(const QSharedPointer<File>&)> cb);
-
-    /**
-     * @brief Get a virtual file by its ID.
-     *
-     * This function allows you to retrieve a virtual file by its ID.
-     *
-     * @param fileId The ID of the virtual file to retrieve.
-     * @param cb The callback function to be called after the virtual file is retrieved.
-     *          The function takes a shared_ptr to a VirtualFile object as a parameter.
-     * @return Returns true if the virtual file retrieval operation was successfully initiated and false in case of an error.
-     */
-    bool getFile(const QString& fileId, std::function<void(const QSharedPointer<VirtualFile>&)> cb);
-
-
+    QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId);
 // to do
 
 // * forwardMessage implementations
@@ -176,14 +153,7 @@ protected:
      */
     void setUsername(const QString &newUsername);
 
-    /**
-     * @brief makePrefix This method prepare a prefix message for all telegramm bots.
-     * @return telegramm request prefix/
-     */
-    QByteArray makePrefix() const override;
-
-    size_t sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) override;
-    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) override;
+    QByteArray makeUrl(const QSharedPointer<iRequest>& request) const override;
 
     /**
      * @brief getFileSizeByUniqueId This method return size of the file by id
@@ -192,15 +162,24 @@ protected:
      */
     int getFileSizeByUniqueId(const QString& id) const;
 
-    void incomeNewMessage(const QSharedPointer<iMessage>& msg) override;
+    /**
+     * @brief getFileInfoByUniqueId return a local saved meta information about the file.
+     * @param id This is id of the file.
+     * @return shared pointer to the meta information of the file. If information no exists return nullptr;
+     */
+    QSharedPointer<TelegramFile> getFileInfoByUniqueId(const QString& id) const;
+
+
+private slots:
+    void handleLogin();
+    void handleLoginErr(QNetworkReply::NetworkError err);
+
 private:
     QString findFileInlocatStorage(const QString& fileId) const;
-    void extractAllMetaInfoFromUpdate(const QSharedPointer<iMessage> &answer);
 
     unsigned long long _id = 0;
     QString _username;
-
-    QNetworkAccessManager *_manager = nullptr;
+    QSharedPointer<QNetworkReply> _loginReplay;
 
     QHash<QString, QSharedPointer<TelegramFile>> _filesMetaInfo;
 

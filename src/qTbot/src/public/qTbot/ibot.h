@@ -35,15 +35,7 @@ class QTBOT_EXPORT IBot: public QObject
     Q_OBJECT
 public:
     IBot();
-
-    /**
-     * @brief Responce - This is labda for server responces.
-     *  The first argument of a call back function is is request that was sent, second is server responce.
-     *  And error code - 0 if request finished successfull
-     */
-    using Responce = std::function<void(const QSharedPointer<iRequest>& request,
-                                        const QSharedPointer<iMessage>& responce,
-                                        unsigned int err)>;
+    ~IBot();
 
     /**
      * @brief login This method get bae information of the bot from remote server.
@@ -114,35 +106,32 @@ protected:
 
     /**
      * @brief makeMesasge This is factory method tha can create a messages types.
+     * @param data This is a raw data of the ansver.
      * @param args This is list of arguments of the message.
      * @return message object.
      */
     template<class MessageType, class ... Args>
-    static QSharedPointer<MessageType> makeMesasge(Args&& ...args) {
-        return QSharedPointer<MessageType>(new MessageType(std::forward<Args>(args)...));
+    static QSharedPointer<MessageType> makeMesasge(const QByteArray& data, Args&& ...args) {
+        auto&& ptr = QSharedPointer<MessageType>(new MessageType(std::forward<Args>(args)...));
+        ptr->setRawData(data);
+
+        return ptr;
     }
 
     /**
-     * @brief makePrefix This method prepare a prefix url for http requests.
+     * @brief makeUrl This method prepare a prefix url for http requests.
+     * @param request - This is request object for that will be prepared url.
      * @return http request prefix
      */
-    virtual QByteArray makePrefix() const = 0;
+    virtual QByteArray makeUrl(const QSharedPointer<iRequest>& request) const = 0;
 
     /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
-     * @param cb This is call back function for the responce.
-     * @return id of request if the request will sent successful else 0.
+     * @return shared pointer to the request replay.
+     * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
      */
-    virtual size_t sendRequest(const QSharedPointer<iRequest>& rquest, const Responce& cb) = 0;
-
-    /**
-     * @brief sendRequest This method sent custom requests to the server.
-     * @param rquest This is message that will be sent to server.
-     * @param cb This is call back function for the responce.
-     * @return true if the request will sent successful else false.
-     */
-    virtual QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest) = 0;
+    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest);
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -188,13 +177,13 @@ signals:
 
 private:
 
-
     QByteArray _token;
     QString _name;
     QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
     QSet<unsigned long long> _processed;
+    QNetworkAccessManager *_manager = nullptr;
 
-
+    QMap<size_t,QSharedPointer<QNetworkReply>> _replayStorage;
 };
 
 }
