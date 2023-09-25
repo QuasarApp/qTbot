@@ -19,9 +19,9 @@ namespace qTbot {
 class QTBOT_EXPORT TelegrammDownloadFile final: public TelegramSingleRquest
 {
 public:
-    TelegrammDownloadFile(const QByteArray &filePath);
+    TelegrammDownloadFile(const QString &filePath);
 
-    QByteArray baseAddress() const override;
+    QString baseAddress() const override;
 
 };
 

@@ -41,16 +41,17 @@ public:
      * @param request This is request name (command)
      * @param args This is list of the request arguments.
      */
-    TelegramSingleRquest(const QByteArray &request, const QMap<QString, QVariant> &args);
+    TelegramSingleRquest(const QString &request, const QMap<QString, QVariant> &args);
+
 
     /**
      * @brief TelegramSingleRquest This main constructor of the single requests.
      * @param request This is request name (command)
      */
-    TelegramSingleRquest(const QByteArray& request);
+    TelegramSingleRquest(const QString& request);
 
-    QByteArray makeUpload() const override final;
-    QByteArray baseAddress() const override;
+    QString makeUpload() const override final;
+    QString baseAddress() const override;
 
 protected:
 
@@ -67,7 +68,7 @@ protected:
     void setArgs(const QMap<QString, QVariant> &newArgs);
 
 private:
-    QByteArray _request;
+    QString _request;
     QMap<QString, QVariant> _args;
 
 };

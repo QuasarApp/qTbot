@@ -46,24 +46,23 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
     if (!rquest)
         return nullptr;
 
-
-    auto&& getInfoRquest = makePrefix() + rquest->makeUpload();
+    doRemoveFinishedRequests();
 
     auto&& networkReplay = QSharedPointer<QNetworkReply>(
-        _manager->get(QNetworkRequest(QUrl::fromEncoded(getInfoRquest))));
+        _manager->get(QNetworkRequest(makeUrl(rquest))));
 
     size_t address = reinterpret_cast<size_t>(networkReplay.get());
     _replayStorage[address] = networkReplay;
 
     connect(networkReplay.get(), &QNetworkReply::finished, this,
-            [this, address](){
-                _replayStorage.remove(address);
+            [this, address]() {
+                _toRemove.push_back(address);
             });
 
     connect(networkReplay.get(), &QNetworkReply::errorOccurred, this,
             [this, address](QNetworkReply::NetworkError err){
                 qWarning() << "The reqeust " << address << " finished with error code : " << err;
-                _replayStorage.remove(address);
+                _toRemove.push_back(address);
             });
 
     return networkReplay;
@@ -83,6 +82,14 @@ void IBot::markMessageAsUnprocessed(unsigned long long messageID) {
 
 QString IBot::defaultFileStorageLocation() const {
     return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+}
+
+void IBot::doRemoveFinishedRequests() {
+    for (auto address: qAsConst(_toRemove)) {
+        _replayStorage.remove(address);
+    }
+
+    _toRemove.clear();
 }
 
 QSet<unsigned long long> IBot::processed() const {

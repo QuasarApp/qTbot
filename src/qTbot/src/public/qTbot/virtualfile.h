@@ -18,7 +18,7 @@ namespace qTbot {
 class  QTBOT_EXPORT VirtualFile : public iFile
 {
 public:
-    VirtualFile(const QSharedPointer<QNetworkReply>& replay);
+    VirtualFile(const QSharedPointer<QNetworkReply>& replay = nullptr);
 
     // iFile interface
     const QByteArray &array() const;

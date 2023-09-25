@@ -14,17 +14,17 @@
 
 namespace qTbot {
 
-TelegramSingleRquest::TelegramSingleRquest(const QByteArray& request,
+TelegramSingleRquest::TelegramSingleRquest(const QString& request,
                                            const QMap<QString, QVariant>& args) {
     _request = std::move(request);
     _args = std::move(args);
 }
 
-TelegramSingleRquest::TelegramSingleRquest(const QByteArray &request) {
+TelegramSingleRquest::TelegramSingleRquest(const QString &request) {
     _request = std::move(request);
 }
 
-QByteArray TelegramSingleRquest::makeUpload() const {
+QString TelegramSingleRquest::makeUpload() const {
 
     if (_args.isEmpty()) {
         return "/" + _request;
@@ -46,7 +46,7 @@ QByteArray TelegramSingleRquest::makeUpload() const {
 
 }
 
-QByteArray TelegramSingleRquest::baseAddress() const {
+QString TelegramSingleRquest::baseAddress() const {
     return "https://api.telegram.org";
 }
 

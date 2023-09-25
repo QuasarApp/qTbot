@@ -37,31 +37,18 @@ bool TelegramRestBot::login(const QByteArray &token) {
 void TelegramRestBot::startUpdates() {
     long long delta = QDateTime::currentMSecsSinceEpoch() - _lanstUpdateTime;
 
-    TelegramRestBot::Responce cb = [this] (auto, const QSharedPointer<iMessage>& responce, int err) {
-        _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
-
-        if (err) {
-            qDebug() << "Network error occured. code: " << err;
-        }
-
-        if (auto telegramMsg = responce.dynamicCast<TelegramUpdateAnswer>()) {
-            if (telegramMsg->isValid()) {
-                auto && resultArray = telegramMsg->result().toArray();
-                for (const auto& ref: resultArray) {
-                    auto update = IBot::makeMesasge<TelegramUpdate>();
-                    update->setRawJson(ref.toObject());
-
-                    incomeNewMessage(IBot::makeMesasge<TelegramMsg>(update->message()));
-                }
-            }
-        };
-
-        startUpdates();
-
-    };
 
     if (delta >= _updateDelay) {
-        sendRequest(QSharedPointer<TelegramGetUpdate>::create(), cb);
+        auto&& replay = sendRequest(QSharedPointer<TelegramGetUpdate>::create());
+
+        connect(replay.get(), &QNetworkReply::finished,
+                this, std::bind(&TelegramRestBot::handleReceiveUpdates, this, replay.toWeakRef()),
+                Qt::DirectConnection);
+
+        connect(replay.get(), &QNetworkReply::errorOccurred,
+                this, &TelegramRestBot::handleReceiveUpdatesErr,
+                Qt::DirectConnection);
+
         return;
     }
 
@@ -74,6 +61,33 @@ int TelegramRestBot::updateDelay() const {
 
 void TelegramRestBot::setUpdateDelay(int newUpdateDelay) {
     _updateDelay = newUpdateDelay;
+}
+
+void TelegramRestBot::handleReceiveUpdates(const QWeakPointer<QNetworkReply> &replay) {
+
+    if (auto&& sharedReplay = replay.lock()) {
+        auto&& telegramMsg = makeMesasge<TelegramUpdateAnswer>(sharedReplay->readAll());
+        if (telegramMsg->isValid()) {
+
+            _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
+
+            auto && resultArray = telegramMsg->result().toArray();
+            for (const auto& ref: resultArray) {
+                auto&& update = IBot::makeMesasge<TelegramUpdate>(ref.toObject());
+                incomeNewMessage(IBot::makeMesasge<TelegramMsg>(update->message()));
+            }
+        }
+    }
+
+    startUpdates();
+}
+
+void TelegramRestBot::handleReceiveUpdatesErr(QNetworkReply::NetworkError err) {
+    if (err) {
+        qDebug() << "Network error occured. code: " << err;
+    }
+
+    startUpdates();
 }
 
 

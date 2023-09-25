@@ -10,23 +10,7 @@
 namespace qTbot {
 
 iFile::iFile(const QSharedPointer<QNetworkReply>& replay) {
-
-    _replay = replay;
-
-    connect(replay.get(), &QNetworkReply::finished,
-            this, &iFile::handleFinished, Qt::DirectConnection);
-
-    connect(replay.get(), &QNetworkReply::errorOccurred,
-            this, &iFile::handleError, Qt::DirectConnection);
-
-    connect(replay.get(), &QNetworkReply::readyRead,
-            this, &iFile::handleReadReady, Qt::DirectConnection);
-
-    connect(replay.get(), &QNetworkReply::uploadProgress,
-            this, &iFile::handleUploadProgressChanged, Qt::DirectConnection);
-
-    connect(replay.get(), &QNetworkReply::downloadProgress,
-            this, &iFile::handleDownloadProgressChanged, Qt::DirectConnection);
+    setDownloadRequest(replay);
 }
 
 float iFile::uploadProgress() const {
@@ -87,7 +71,48 @@ bool iFile::finished() const {
     return _finished;
 }
 
+void iFile::setDownloadRequest(const QSharedPointer<QNetworkReply> &replay) {
+
+    if (_replay) {
+        disconnect(_replay.get(), &QNetworkReply::finished,
+                   this, &iFile::handleFinished);
+
+        disconnect(_replay.get(), &QNetworkReply::errorOccurred,
+                   this, &iFile::handleError);
+
+        disconnect(_replay.get(), &QNetworkReply::readyRead,
+                   this, &iFile::handleReadReady);
+
+        disconnect(_replay.get(), &QNetworkReply::uploadProgress,
+                   this, &iFile::handleUploadProgressChanged);
+
+        disconnect(_replay.get(), &QNetworkReply::downloadProgress,
+                   this, &iFile::handleDownloadProgressChanged);
+    }
+
+    _replay = replay;
+
+    if (_replay) {
+        connect(replay.get(), &QNetworkReply::finished,
+                this, &iFile::handleFinished, Qt::DirectConnection);
+
+        connect(replay.get(), &QNetworkReply::errorOccurred,
+                this, &iFile::handleError, Qt::DirectConnection);
+
+        connect(replay.get(), &QNetworkReply::readyRead,
+                this, &iFile::handleReadReady, Qt::DirectConnection);
+
+        connect(replay.get(), &QNetworkReply::uploadProgress,
+                this, &iFile::handleUploadProgressChanged, Qt::DirectConnection);
+
+        connect(replay.get(), &QNetworkReply::downloadProgress,
+                this, &iFile::handleDownloadProgressChanged, Qt::DirectConnection);
+    }
+
+}
+
 void iFile::setFinished(bool newFinished) {
+
     if (newFinished != _finished) {
         _finished = newFinished;
         emit finishedChanged();

@@ -48,7 +48,8 @@ public:
      * @return The file size of the photo. return empty string if file alredy used.
      * @note posible to get file from web only one time after invoke the getFile method. If you invoke this method 2 times on the second time you receive empty string. This is rooles of the telegram backend. see https://telegram-bot-sdk.readme.io/reference/getfile
      */
-    QString path();
+    [[nodiscard("This method return path only one time, plese no discard this.")]]
+    QString takePath();
 
 private:
     bool _used = false;

@@ -23,6 +23,7 @@
 #include <QDebug>
 
 #include <qTbot/messages/telegramfile.h>
+#include <qTbot/messages/telegramfile.h>
 
 namespace qTbot {
 
@@ -111,38 +112,54 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
     }
 
     auto&& metaInfo = getFileInfoByUniqueId(fileId);
-    if (!metaInfo) {
-//        if (auto&& replay = getFileMeta(fileId)) {
-
-//        } else {
-//            return nullptr;
-//        };
-    }
-
-    auto msg = QSharedPointer<TelegrammDownloadFile>::create(metaInfo->path());
-
-    QDir().mkpath(defaultFileStorageLocation());
-
     localFilePath = defaultFileStorageLocation() + "/" + fileId;
 
-    if (localFilePath.isEmpty())
-        return result;
+    if (metaInfo) {
+        auto&& path = metaInfo->takePath();
+        if (path.size()) {
+            auto&& msg = QSharedPointer<TelegrammDownloadFile>::create(path);
 
-    if (auto &&replay = sendRequest(msg)) {
-        // here i must be receive responce and prepare new request to file from the call back function.
-        if (fileType == iFile::Ram) {
-            result = QSharedPointer<VirtualFile>::create(replay);
-        } else if (fileType == iFile::Local) {
-            result = QSharedPointer<File>::create(replay, localFilePath);
+            QDir().mkpath(defaultFileStorageLocation());
+
+
+            if (localFilePath.isEmpty())
+                return result;
+
+            if (auto &&replay = sendRequest(msg)) {
+                // here i must be receive responce and prepare new request to file from the call back function.
+                if (fileType == iFile::Ram) {
+                    result = QSharedPointer<VirtualFile>::create(replay);
+                } else if (fileType == iFile::Local) {
+                    result = QSharedPointer<File>::create(replay, localFilePath);
+                }
+            }
+
+            return result;
         }
     }
 
+
+    if (fileType == iFile::Ram) {
+        result = QSharedPointer<VirtualFile>::create();
+    } else if (fileType == iFile::Local) {
+        result = QSharedPointer<File>::create(localFilePath);
+    }
+
+    auto&& metaReploay = getFileMeta(fileId, result.toWeakRef());
     return result;
 }
 
-QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId) {
+QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
     auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
-    return sendRequest(msg);
+
+    if (auto&& ptr = sendRequest(msg)) {
+        connect(ptr.get(), &QNetworkReply::finished,
+                this, std::bind(&ITelegramBot::handleFileHeader, this, ptr.toWeakRef(), receiver));
+
+        return ptr;
+    }
+
+    return nullptr;
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
@@ -157,6 +174,12 @@ QSharedPointer<TelegramFile> ITelegramBot::getFileInfoByUniqueId(const QString &
     return _filesMetaInfo.value(id, nullptr);
 }
 
+void ITelegramBot::onRequestError(const QSharedPointer<TelegramUpdateAnswer> &ansverWithError) const {
+    qWarning() << QString("code: %0 - %1").
+                  arg(ansverWithError->errorCode()).
+                  arg(ansverWithError->errorDescription());
+}
+
 void ITelegramBot::handleLogin() {
 
     if (_loginReplay) {
@@ -168,7 +191,7 @@ void ITelegramBot::handleLogin() {
 
         auto&& result = ans->result().toObject();
 
-        setId(result.value("id").toInt());
+        setId(result.value("id").toInteger());
         setName( result.value("first_name").toString());
         setUsername( result.value("username").toString());
 
@@ -182,6 +205,27 @@ void ITelegramBot::handleLoginErr(QNetworkReply::NetworkError err) {
         qDebug() << "Network error occured. code: " << err;
     }
     _loginReplay.reset();
+}
+
+void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
+                                    const QWeakPointer<iFile>& receiver) {
+    if (auto&& sharedPtr = sender.lock()) {
+        auto&& ansver = makeMesasge<TelegramUpdateAnswer>(sharedPtr->readAll());
+
+        if (!ansver->isValid()) {
+            onRequestError(ansver);
+            return;
+        }
+
+        auto &&fileMetaInfo = makeMesasge<TelegramFile>(ansver->result().toObject());
+
+        _filesMetaInfo.insert(fileMetaInfo->fileId(), fileMetaInfo);
+
+        if (auto&& sharedPtr = receiver.lock()) {
+            auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
+            sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
+        }
+    }
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
@@ -202,7 +246,7 @@ void ITelegramBot::setUsername(const QString &newUsername) {
     _username = newUsername;
 }
 
-QByteArray ITelegramBot::makeUrl(const QSharedPointer<iRequest> &request) const {
+QString ITelegramBot::makeUrl(const QSharedPointer<iRequest> &request) const {
     return request->baseAddress() + "/bot" + token() + request->makeUpload();
 }
 

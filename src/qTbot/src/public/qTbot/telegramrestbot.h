@@ -41,6 +41,10 @@ public:
      */
     void setUpdateDelay(int newUpdateDelay);
 
+private slots:
+    void handleReceiveUpdates(const QWeakPointer<QNetworkReply>& replay);
+    void handleReceiveUpdatesErr(QNetworkReply::NetworkError err);
+
 private:
     void startUpdates();
 

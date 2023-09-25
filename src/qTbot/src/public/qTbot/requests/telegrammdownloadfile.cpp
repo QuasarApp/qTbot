@@ -9,12 +9,12 @@
 
 namespace qTbot {
 
-TelegrammDownloadFile::TelegrammDownloadFile(const QByteArray &filePath):
+TelegrammDownloadFile::TelegrammDownloadFile(const QString &filePath):
     TelegramSingleRquest(filePath, {}) {
 
 }
 
-QByteArray TelegrammDownloadFile::baseAddress() const {
+QString TelegrammDownloadFile::baseAddress() const {
     return "https://api.telegram.org/file";
 }
 }

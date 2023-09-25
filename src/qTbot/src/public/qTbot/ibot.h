@@ -119,11 +119,26 @@ protected:
     }
 
     /**
+     * @brief makeMesasge This is factory method tha can create a messages types.
+     * @param data This is a raw json data of the ansver.
+     * @param args This is list of arguments of the message.
+     * @return message object.
+     */
+    template<class MessageType, class ... Args>
+    static QSharedPointer<MessageType> makeMesasge(const QJsonObject& data, Args&& ...args) {
+        auto&& ptr = QSharedPointer<MessageType>(new MessageType(std::forward<Args>(args)...));
+        ptr->setRawJson(data);
+
+        return ptr;
+    }
+
+
+    /**
      * @brief makeUrl This method prepare a prefix url for http requests.
      * @param request - This is request object for that will be prepared url.
      * @return http request prefix
      */
-    virtual QByteArray makeUrl(const QSharedPointer<iRequest>& request) const = 0;
+    virtual QString makeUrl(const QSharedPointer<iRequest>& request) const = 0;
 
     /**
      * @brief sendRequest This method sent custom requests to the server.
@@ -176,6 +191,7 @@ signals:
     void sigReceiveMessage(const QSharedPointer<iMessage>& );
 
 private:
+    void doRemoveFinishedRequests();
 
     QByteArray _token;
     QString _name;
@@ -184,6 +200,8 @@ private:
     QNetworkAccessManager *_manager = nullptr;
 
     QMap<size_t,QSharedPointer<QNetworkReply>> _replayStorage;
+    QList<size_t> _toRemove;
+
 };
 
 }

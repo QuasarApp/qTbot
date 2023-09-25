@@ -26,13 +26,13 @@ public:
      * @brief makeUpload This method prepare data to upload;
      * @return data array prepared to sending.
      */
-    virtual QByteArray makeUpload() const = 0;
+    virtual QString makeUpload() const = 0;
 
     /**
      * @brief baseAddress This method return base domain of remote server.
      * @return base domain name of remoute server.
      */
-    virtual QByteArray baseAddress() const = 0;
+    virtual QString baseAddress() const = 0;
 };
 
 }

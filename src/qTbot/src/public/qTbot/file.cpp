@@ -19,6 +19,10 @@ File::File(const QSharedPointer<QNetworkReply> &replay, const QString &filePath)
 
 }
 
+File::File(const QString &filePath):File(nullptr, filePath) {
+
+}
+
 const QFile & File::localFile() const {
     return _localFile;
 }

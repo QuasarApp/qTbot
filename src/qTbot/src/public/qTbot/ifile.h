@@ -88,7 +88,13 @@ public:
      */
     bool finished() const;
 
+    /**
+     * @brief setDownloadRequest This method sets replay for the file.
+     * @param replay This is pointer to the replay.
+     */
+    void setDownloadRequest(const QSharedPointer<QNetworkReply>& replay);
 protected:
+
     /**
      * @brief setFinished monual sets finished flag.
      * @param newFinished new value for the finished flag.

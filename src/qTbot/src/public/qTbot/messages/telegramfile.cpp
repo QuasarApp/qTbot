@@ -22,7 +22,7 @@ int TelegramFile::fileSize() const {
     return rawJson()["file_size"].toInt();
 }
 
-QString TelegramFile::path() {
+QString TelegramFile::takePath() {
     if (_used)
         return "";
 

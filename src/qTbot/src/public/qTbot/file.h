@@ -21,6 +21,7 @@ class QTBOT_EXPORT File: public iFile
     Q_OBJECT
 public:
     File(const QSharedPointer<QNetworkReply>& replay, const QString &filePath);
+    File(const QString &filePath);
 
     const QFile & localFile() const;
 

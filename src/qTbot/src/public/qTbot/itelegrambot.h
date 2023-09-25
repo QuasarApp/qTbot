@@ -20,6 +20,7 @@ namespace qTbot {
 
 class ITelegramMessage;
 class TelegramFile;
+class TelegramUpdateAnswer;
 
 /**
  * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
@@ -80,10 +81,11 @@ public:
     /**
      * @brief getFileMeta This method receive meta information of the file.
      * @param fileId This is id of the file.
-     * @param cb result.
+     * @param receiver this is wrapper of the file. Set to nullptr if you no need to wait a physical file.
      * @return true if the reqests sents successful.
      */
-    QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId);
+    QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId,
+                                              const QWeakPointer<iFile> &receiver = {nullptr});
 // to do
 
 // * forwardMessage implementations
@@ -153,7 +155,7 @@ protected:
      */
     void setUsername(const QString &newUsername);
 
-    QByteArray makeUrl(const QSharedPointer<iRequest>& request) const override;
+    QString makeUrl(const QSharedPointer<iRequest>& request) const override;
 
     /**
      * @brief getFileSizeByUniqueId This method return size of the file by id
@@ -169,10 +171,16 @@ protected:
      */
     QSharedPointer<TelegramFile> getFileInfoByUniqueId(const QString& id) const;
 
-
+    /**
+     * @brief onRequestError This method invokent when telegram server sent error responce. Default implementation just print error message on the console.
+     * @param ansverWithError - This is ansver object with error descriptions. and codes errors.
+     */
+    virtual void onRequestError(const QSharedPointer<TelegramUpdateAnswer>& ansverWithError) const;
 private slots:
     void handleLogin();
     void handleLoginErr(QNetworkReply::NetworkError err);
+    void handleFileHeader(const QWeakPointer<QNetworkReply>& sender,
+                          const QWeakPointer<iFile> &receiver);
 
 private:
     QString findFileInlocatStorage(const QString& fileId) const;
