@@ -21,21 +21,22 @@ int main(int argc, char *argv[]) {
 
     qTbot::TelegramRestBot bot;
 
-    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveMessage, [&bot](auto){
+    QList<QSharedPointer<qTbot::iFile> > filesStack;
+    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveMessage, [&bot, &filesStack](auto){
         while(auto&& msg = bot.takeNextUnreadMessage()) {
 
             if (auto&& tmsg = msg.dynamicCast<qTbot::TelegramMsg>()) {
 
                 if (tmsg->contains(tmsg->Document)) {
-                    bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local);
+                    filesStack.push_back(bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local));
                 }
 
                 if (tmsg->contains(tmsg->Image)) {
-                    bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local);
+                    filesStack.push_back(bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local));
                 }
 
                 if (tmsg->contains(tmsg->Audio)) {
-                    bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local);
+                    filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
                 }
 
                 bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());

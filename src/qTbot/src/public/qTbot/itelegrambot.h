@@ -76,6 +76,7 @@ public:
                              bool disableWebPagePreview = false);
 
 
+    [[nodiscard("do not forget to save shared pointer of file handler, because it's will not save inner bot object.")]]
     QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
 
     /**
