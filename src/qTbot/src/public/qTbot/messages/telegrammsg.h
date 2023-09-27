@@ -8,7 +8,7 @@
 #ifndef TELEGRAMMSG_H
 #define TELEGRAMMSG_H
 
-#include "itelegrammessage.h"
+#include "imessage.h"
 #include "telegramaudio.h"
 #include "telegramdocument.h"
 #include "qTbot/messages/telegramimage.h"
@@ -19,7 +19,7 @@ namespace qTbot {
  * @brief The TelegramMsg class This class provide general mesasges of telegram.
  * The message object can contains text, geo or link to video,image. all this dates can be contains in one object.
  */
-class QTBOT_EXPORT TelegramMsg: public ITelegramMessage
+class QTBOT_EXPORT TelegramMsg: public iMessage
 {
 public:
 
@@ -200,7 +200,7 @@ public:
      */
     QSharedPointer<TelegramAudio> audio() const;
 
-
+    unsigned long long updateId() const override;
 };
 
 }

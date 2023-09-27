@@ -6,21 +6,21 @@
 //#
 
 
-#include "ijsonbasedmessage.h"
+#include "ijsonbasedupdate.h"
 #include "qjsondocument.h"
 
 namespace qTbot {
 
-IJsonBasedMessage::IJsonBasedMessage() {
+IJsonBasedUpdate::IJsonBasedUpdate() {
 
 }
 
-bool IJsonBasedMessage::isValid() const {
+bool IJsonBasedUpdate::isValid() const {
     return !rawJson().empty();
 }
 
-void IJsonBasedMessage::setRawData(const QByteArray &newRawData) {
-    iMessage::setRawData(newRawData);
+void IJsonBasedUpdate::setRawData(const QByteArray &newRawData) {
+    iUpdate::setRawData(newRawData);
 
     auto doc = QJsonDocument::fromJson(newRawData);
     if (!doc.isObject()) {

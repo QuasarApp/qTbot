@@ -5,12 +5,10 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "imessage.h"
 
-#include "itelegrammessage.h"
-#include <QJsonDocument>
 
-namespace qTbot {
-
-ITelegramMessage::ITelegramMessage():IJsonBasedMessage(){}
+qTbot::iMessage::iMessage()
+{
 
 }

@@ -6,10 +6,10 @@
 //#
 
 
-#ifndef IJSONBASEDMESSAGE_H
-#define IJSONBASEDMESSAGE_H
+#ifndef IJSONBASEDUPDATE_H
+#define IJSONBASEDUPDATE_H
 
-#include "imessage.h"
+#include "iupdate.h"
 #include "qTbot/ijsonbasedobject.h"
 
 #include <QJsonObject>
@@ -17,16 +17,16 @@
 namespace qTbot {
 
 /**
- * @brief The IJsonBasedMessage class This is message that have a json sructure
+ * @brief The IJsonBasedUpdate class This is updates that have a json sructure
  */
-class QTBOT_EXPORT IJsonBasedMessage: public iMessage, public IJsonBasedObject
+class QTBOT_EXPORT IJsonBasedUpdate: public iUpdate, public IJsonBasedObject
 {
 public:
-    IJsonBasedMessage();
+    IJsonBasedUpdate();
 
     // iMessage interface
     bool isValid() const override;
     void setRawData(const QByteArray &newRawData) override;
 };
 }
-#endif // IJSONBASEDMESSAGE_H
+#endif // IJSONBASEDUPDATE_H

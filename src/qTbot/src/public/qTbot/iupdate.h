@@ -7,8 +7,8 @@
 
 
 
-#ifndef IMESSAGE_H
-#define IMESSAGE_H
+#ifndef IUPDATE_H
+#define IUPDATE_H
 
 #include "qTbot/global.h"
 #include <QByteArray>
@@ -25,10 +25,10 @@ namespace qTbot {
  * @see IBot::takeNextUnreadMessage
  * @see IBot::makeMesasge
  */
-class QTBOT_EXPORT iMessage
+class QTBOT_EXPORT iUpdate
 {
 public:
-    iMessage();
+    iUpdate();
 
     /**
      * @brief rawData returns raw data of the message.
@@ -62,14 +62,14 @@ public:
     virtual QVariant chatId() const = 0;
 
     /**
-     * @brief messageId This method returns numeric id of the message.
-     * @return numeric id of the message.
+     * @brief updateId This method returns numeric id of the update.
+     * @return numeric id of the update.
      */
-    virtual unsigned long long messageId() const = 0;
+    virtual unsigned long long updateId() const = 0;
 
 private:
 
     QByteArray _rawData;
 };
 }
-#endif // IMESSAGE_H
+#endif // IUPDATE_H

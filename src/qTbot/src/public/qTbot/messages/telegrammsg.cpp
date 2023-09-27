@@ -163,4 +163,8 @@ QSharedPointer<TelegramAudio> TelegramMsg::audio() const {
     return QSharedPointer<TelegramAudio>::create(rawJson()[Audio].toObject());
 }
 
+unsigned long long TelegramMsg::updateId() const {
+    return 0;
+}
+
 }

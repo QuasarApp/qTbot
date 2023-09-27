@@ -74,7 +74,7 @@ void TelegramRestBot::handleReceiveUpdates(const QWeakPointer<QNetworkReply> &re
             auto && resultArray = telegramMsg->result().toArray();
             for (const auto& ref: resultArray) {
                 auto&& update = IBot::makeMesasge<TelegramUpdate>(ref.toObject());
-                incomeNewMessage(IBot::makeMesasge<TelegramMsg>(update->message()));
+                incomeNewUpdate(update);
             }
         }
     }

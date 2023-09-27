@@ -10,7 +10,7 @@
 #define IBOT_H
 
 #include "qTbot/global.h"
-#include "qTbot/imessage.h"
+#include "qTbot/iupdate.h"
 #include "qTbot/irequest.h"
 
 #include "ifile.h"
@@ -85,10 +85,10 @@ public:
     void setName(const QString &newName);
 
     /**
-     * @brief takeNextUnreadMessage This method take a unread message and mark them as read.
+     * @brief takeNextUnreadUpdate This method take a unread update and mark them as read.
      * @return unread message object. If all messages is readed the return nullptr.
      */
-    QSharedPointer<iMessage> takeNextUnreadMessage();
+    QSharedPointer<iUpdate> takeNextUnreadUpdate();
 
     /**
      * @brief processed This method return list of processed mesages.
@@ -155,29 +155,29 @@ protected:
     void setToken(const QByteArray &newToken);
 
     /**
-     * @brief incomeNewMessage This method save income message into store.
+     * @brief incomeNewUpdate This method save incomed messages into store.
      */
-    virtual void incomeNewMessage(const QSharedPointer<iMessage>& message);
+    virtual void incomeNewUpdate(const QSharedPointer<iUpdate>& message);
 
     /**
      * @brief markMessageAsProcessed This method remove message from the not processed messages store.
      * @param message This is message that need to be processed.
      */
-    void markMessageAsProcessed(const QSharedPointer<iMessage>& message);
+    void markUpdateAsProcessed(const QSharedPointer<iUpdate>& message);
 
     /**
      * @brief markMessageAsUnprocessed This method add the message into a not processed messages store.
      * @param message This is message that need to be unprocessed.
      * @note this may be useful for the process edited old messages. Just call this method bofore IBot::incomeNewMessage.
      */
-    void markMessageAsUnprocessed(const QSharedPointer<iMessage>& message);
+    void markUpdateAsUnprocessed(const QSharedPointer<iUpdate>& message);
 
     /**
      * @brief markMessageAsUnprocessed This method add the message into a not processed messages store.
      * @param message This is message that need to be unprocessed.
      * @note this may be useful for the process edited old messages. Just call this method bofore IBot::incomeNewMessage.
      */
-    void markMessageAsUnprocessed(unsigned long long messageID);
+    void markUpdateAsUnprocessed(unsigned long long messageID);
 
     /**
      * @brief defaultFileStorageLocation This method return default file storage location.
@@ -186,16 +186,16 @@ protected:
     virtual QString defaultFileStorageLocation() const;
 signals:
     /**
-     * @brief sigReceiveMessage emit when but receive any updates from users.
+     * @brief sigReceiveUpdate emit when but receive any updates from users.
      */
-    void sigReceiveMessage(const QSharedPointer<iMessage>& );
+    void sigReceiveUpdate(const QSharedPointer<iUpdate>& );
 
 private:
     void doRemoveFinishedRequests();
 
     QByteArray _token;
     QString _name;
-    QMap<unsigned long long, QSharedPointer<iMessage>> _notProcessedMessages;
+    QMap<unsigned long long, QSharedPointer<iUpdate>> _notProcessedUpdates;
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
 

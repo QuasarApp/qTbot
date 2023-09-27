@@ -6,17 +6,18 @@
 //#
 
 
+
 #ifndef TELEGRAMUPDATEANSVER_H
 #define TELEGRAMUPDATEANSVER_H
 
-#include "itelegrammessage.h"
+#include <qTbot/ijsonbasedupdate.h>
 
 namespace qTbot {
 
 /**
  * @brief The TelegramUpdateAnswer class This is base message from the telegram server after update request.
  */
-class TelegramUpdateAnswer: public ITelegramMessage
+class TelegramUpdateAnswer: public IJsonBasedUpdate
 {
 public:
     TelegramUpdateAnswer();
@@ -45,7 +46,7 @@ public:
     QString from() const override;
     QVariant chatId() const override;
 
-    unsigned long long messageId() const override;
+    unsigned long long updateId() const override;
 
 };
 

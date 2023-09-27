@@ -34,7 +34,7 @@ QVariant TelegramUpdateAnswer::chatId() const {
     return {};
 }
 
-unsigned long long TelegramUpdateAnswer::messageId() const {
+unsigned long long TelegramUpdateAnswer::updateId() const {
     return 0;
 }
 

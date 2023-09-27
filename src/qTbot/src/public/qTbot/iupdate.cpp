@@ -5,23 +5,23 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "imessage.h"
+#include "iupdate.h"
 
 namespace qTbot {
 
-iMessage::iMessage() {
+iUpdate::iUpdate() {
 
 }
 
-const QByteArray& iMessage::rawData() const {
+const QByteArray& iUpdate::rawData() const {
     return _rawData;
 }
 
-void iMessage::setRawData(const QByteArray &newRawData) {
+void iUpdate::setRawData(const QByteArray &newRawData) {
     _rawData = newRawData;
 }
 
-bool iMessage::isValid() const {
+bool iUpdate::isValid() const {
     return _rawData.size();
 }
 

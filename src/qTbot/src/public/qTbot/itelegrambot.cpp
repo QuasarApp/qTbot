@@ -6,7 +6,6 @@
 //#
 
 #include "itelegrambot.h"
-#include "qTbot/messages/telegrammsg.h"
 #include "qTbot/messages/telegramupdateanswer.h"
 #include "file.h"
 #include "qTbot/requests/telegrammdownloadfile.h"
@@ -24,6 +23,7 @@
 
 #include <qTbot/messages/telegramfile.h>
 #include <qTbot/messages/telegramfile.h>
+#include <qTbot/messages/telegramupdate.h>
 
 namespace qTbot {
 

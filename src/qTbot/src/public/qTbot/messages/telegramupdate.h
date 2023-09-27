@@ -8,13 +8,16 @@
 #ifndef TELEGRAMUPDATE_H
 #define TELEGRAMUPDATE_H
 
-#include "qTbot/messages/itelegrammessage.h"
+
+#include <qTbot/ijsonbasedupdate.h>
+#include "telegrammsg.h"
+
 namespace qTbot {
 
 /**
  * @brief The TelegramUpdate class contains base information about updates from telegram
  */
-class QTBOT_EXPORT TelegramUpdate: public ITelegramMessage
+class QTBOT_EXPORT TelegramUpdate: public IJsonBasedUpdate
 {
 public:
     TelegramUpdate();
@@ -50,13 +53,13 @@ public:
      * @brief message returns the array of the updates messages.
      * @return list of updates.
      */
-    QJsonObject message() const;
+    QSharedPointer<TelegramMsg> message() const;
 
     /**
      * @brief editedMessage returns the edited message update.
      * @return QJsonObject containing the edited message update.
      */
-    QJsonObject editedMessage() const;
+    QSharedPointer<TelegramMsg> editedMessage() const;
 
     /**
      * @brief channelPost returns the channel post update.
@@ -134,13 +137,12 @@ public:
      * @brief updateId returns the update ID.
      * @return The update ID.
      */
-    unsigned long long updateId() const;
+    unsigned long long updateId() const override;
     // iMessage interface
 public:
     bool isValid() const override;
     QString from() const override;
     QVariant chatId() const override;
-    unsigned long long messageId() const override;
 };
 }
 #endif // TELEGRAMUPDATE_H

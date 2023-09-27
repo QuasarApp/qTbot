@@ -10,6 +10,7 @@
 
 #include <QCoreApplication>
 #include <qTbot/messages/telegrammsg.h>
+#include <qTbot/messages/telegramupdate.h>
 
 int main(int argc, char *argv[]) {
 
@@ -22,25 +23,29 @@ int main(int argc, char *argv[]) {
     qTbot::TelegramRestBot bot;
 
     QList<QSharedPointer<qTbot::iFile> > filesStack;
-    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveMessage, [&bot, &filesStack](auto){
-        while(auto&& msg = bot.takeNextUnreadMessage()) {
+    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot, &filesStack](auto){
+        while(auto&& update = bot.takeNextUnreadUpdate()) {
 
-            if (auto&& tmsg = msg.dynamicCast<qTbot::TelegramMsg>()) {
+            if (auto&& tupdate = update.dynamicCast<qTbot::TelegramUpdate>()) {
 
-                if (tmsg->contains(tmsg->Document)) {
-                    filesStack.push_back(bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local));
+                if (tupdate->contains(tupdate->MessageUpdate)) {
+
+                    if (auto&& tmsg = tupdate->message()) {
+                        if (tmsg->contains(tmsg->Document)) {
+                            filesStack.push_back(bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local));
+                        }
+
+                        if (tmsg->contains(tmsg->Image)) {
+                            filesStack.push_back(bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local));
+                        }
+
+                        if (tmsg->contains(tmsg->Audio)) {
+                            filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
+                        }
+                        bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
+                    }
+
                 }
-
-                if (tmsg->contains(tmsg->Image)) {
-                    filesStack.push_back(bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local));
-                }
-
-                if (tmsg->contains(tmsg->Audio)) {
-                    filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
-                }
-
-                bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
-
             }
         }
     });

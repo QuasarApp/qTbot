@@ -36,6 +36,7 @@ void File::handleReadReady() {
 
     if (bytes.size()) {
         _localFile.write(bytes);
+        _localFile.flush();
     }
 }
 

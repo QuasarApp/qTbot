@@ -11,6 +11,7 @@
 #define ITELEGRAMBOT_H
 
 #include "ibot.h"
+#include "qTbot/messages/telegrammsg.h"
 #include <QObject>
 
 class QNetworkAccessManager;
@@ -144,6 +145,7 @@ public:
     const QString& username() const;
 
 protected:
+
     /**
      * @brief setId This method sets new value for the ITelegramBot::id property.
      * @param newId this is new value of the ITelegramBot::id property.
@@ -191,6 +193,7 @@ private:
     QSharedPointer<QNetworkReply> _loginReplay;
 
     QHash<QString, QSharedPointer<TelegramFile>> _filesMetaInfo;
+
 
 
 };

@@ -16,12 +16,13 @@ bool TelegramUpdate::contains(const Type &type) {
     return rawJson().contains(type);
 }
 
-QJsonObject TelegramUpdate::message() const {
-    return rawJson().value(MessageUpdate).toObject();
+QSharedPointer<TelegramMsg> TelegramUpdate::message() const {
+    return QSharedPointer<TelegramMsg>::create(rawJson()[MessageUpdate].toObject());
 }
 
-QJsonObject TelegramUpdate::editedMessage() const {
-    return rawJson().value(EditedMessageUpdate).toObject();
+QSharedPointer<TelegramMsg> TelegramUpdate::editedMessage() const {
+    return QSharedPointer<TelegramMsg>::create(rawJson()[EditedMessageUpdate].toObject());
+
 }
 
 QJsonObject TelegramUpdate::channelPost() const {
@@ -88,7 +89,4 @@ QVariant TelegramUpdate::chatId() const {
     return "";
 }
 
-unsigned long long TelegramUpdate::messageId() const {
-    return 0;
-}
 }
