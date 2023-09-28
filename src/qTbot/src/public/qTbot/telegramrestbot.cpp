@@ -8,7 +8,7 @@
 #include "telegramrestbot.h"
 #include "qTbot/messages/telegramupdate.h"
 #include "qTbot/messages/telegramupdateanswer.h"
-#include "qTbot/requests/telegramgetupdate.h"
+#include "requests/telegramgetupdate.h"
 
 #include <QJsonArray>
 #include <QTimer>

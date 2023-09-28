@@ -11,7 +11,6 @@
 #define ITELEGRAMBOT_H
 
 #include "ibot.h"
-#include "qTbot/messages/telegrammsg.h"
 #include <QObject>
 
 class QNetworkAccessManager;

@@ -4,11 +4,11 @@
         "src/build/Debug/qTbotEaxample.exe"
         ],
     "clear": true,
-    "binPrefix": "/home/andrei/gitHub/build-qTbot-Desktop_Qt_6_5_2_GCC_64bit-Debug",
+    "binPrefix": "/home/andrei/git/build-qTbot-Desktop_Qt_6_5_2_GCC_64bit-Debug",
     "libDir": [
-    "/media/D/builds/qTbot",
+    "/home/andrei/git/qTbot",
     "/home/andrei/Qt/6.5.2/gcc_64",
-    "/home/andrei/gitHub/build-qTbot-Desktop_Qt_6_5_2_GCC_64bit-Debug"
+    "/home/andrei/git/build-qTbot-Desktop_Qt_6_5_2_GCC_64bit-Debug"
     ],
     "recursiveDepth": "10",
     "deploySystem": false,
@@ -17,11 +17,11 @@
     "qif": true,
     "zip": true,
     "ignoreEnv": [
-         "/media/D/builds/qTbot/Distro"
+         "/home/andrei/git/qTbot/Distro"
         ],
     "extraLib": "crypto",
-    "targetDir": "/media/D/builds/qTbot/Distro",
-    "deployVersion": "0.27.79b33b3",
+    "targetDir": "/home/andrei/git/qTbot/Distro",
+    "deployVersion": "0.28.fa99f10",
 
 }
 

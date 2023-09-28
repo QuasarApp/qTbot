@@ -8,14 +8,14 @@
 #include "itelegrambot.h"
 #include "qTbot/messages/telegramupdateanswer.h"
 #include "file.h"
-#include "qTbot/requests/telegrammdownloadfile.h"
+#include "requests/telegrammdownloadfile.h"
 #include "qdir.h"
 #include "virtualfile.h"
 #include <QNetworkAccessManager>
 
-#include <qTbot/requests/telegramgetfile.h>
-#include <qTbot/requests/telegramgetme.h>
-#include <qTbot/requests/telegramsendmsg.h>
+#include <requests/telegramgetfile.h>
+#include <requests/telegramgetme.h>
+#include <requests/telegramsendmsg.h>
 
 #include <QNetworkReply>
 #include <QSharedPointer>

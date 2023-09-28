@@ -1,15 +1,70 @@
-# CMakeProject
-Template repository for cmake project
-Fork me and replase qTbot to Name of your new project.
+# qTbot 
+This is Qt library for working with chat bots. 
 
-1. Clone this repository 
-2. Run ./init.sh NewProjectName 
+At this time This library supports next platforms:
+* Telegram (50%) - implemented only processing and sending messages and download files.
 
-# This template supports next build targets:
+## Build and Include
+* cd yourRepo
+* git submodule add https://github.com/QuasarApp/easyssl.git # add the repository of Heart into your repo like submodule
+* git submodule update --init --recursive
+* Include in your CMakeLists.txt file the main CMakeLists.txt file of Heart library
 
-|   Command or make target   |  Description    |
-|------|------|
-| **make test** | The run tests for a project (dependet of Qt Tests, so you need to add Qt in Cmake using CMAKE_PREFIX_PATH) |
-| **make doc** | The generate a documentation for a project (dependet of doxygen) |
-| **make deploy** | The generate distribution for a project (dependet of CQtDeployer) |
-| **make release** | The prepare Qt Installer framework repository for a project, generate a snap package and APK file for android (dependet of CQtDeployer,  snapcraft, AndroidDeployer). |
+    ```cmake
+    add_subdirectory(easyssl)
+    ```
+    
+* link the Heart library to your target
+    ```cmake
+    target_link_libraries(yourLib PUBLIC easyssl)
+    ```
+* rebuild yuor project
+
+
+## Using
+
+``` cpp
+
+#include <qTbot/telegramrestbot.h>
+#include <qTbot/messages/telegrammsg.h>
+#include <qTbot/messages/telegramupdate.h>
+
+int main(int argc, char *argv[]) {
+
+    QCoreApplication app(argc, argv);
+
+    qTbot::TelegramRestBot bot;
+
+    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot, &filesStack](auto){
+        while(auto&& update = bot.takeNextUnreadUpdate()) {
+
+            if (auto&& tupdate = update.dynamicCast<qTbot::TelegramUpdate>()) {
+
+                if (tupdate->contains(tupdate->MessageUpdate)) {
+
+                    if (auto&& tmsg = tupdate->message()) {
+                        if (tmsg->contains(tmsg->Document)) {
+                            bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local);
+                        }
+
+                        if (tmsg->contains(tmsg->Image)) {
+                            bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local);
+                        }
+
+                        if (tmsg->contains(tmsg->Audio)) {
+                            bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local);
+                        }
+                        bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
+                    }
+
+                }
+            }
+        }
+    });
+
+    bot.login("6349356184:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+    
+    return app.exec();
+}
+
+```
