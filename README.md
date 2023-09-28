@@ -1,5 +1,5 @@
 # qTbot 
-This is Qt library for working with chat bots. 
+This is a Qt library for working with chatbots.
 
 At this time This library supports next platforms:
 * Telegram (50%) - implemented only processing and sending messages and download files.
