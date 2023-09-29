@@ -23,7 +23,7 @@ At this time This library supports next platforms:
 
 ## Using
 
-``` cpp
+```cpp
 
 #include <qTbot/telegramrestbot.h>
 #include <qTbot/messages/telegrammsg.h>
