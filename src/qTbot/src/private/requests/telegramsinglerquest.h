@@ -33,7 +33,7 @@ namespace qTbot {
 
  * @endcode
  */
-class QTBOT_EXPORT TelegramSingleRquest: public iRequest
+class TelegramSingleRquest: public iRequest
 {
 public:
     /**

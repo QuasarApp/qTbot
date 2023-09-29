@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegramGetFile class build http request for the getting files from tellgram messager.
  */
-class QTBOT_EXPORT TelegramGetFile final: public TelegramSingleRquest
+class TelegramGetFile final: public TelegramSingleRquest
 {
 public:
     TelegramGetFile(const QString& fileId);

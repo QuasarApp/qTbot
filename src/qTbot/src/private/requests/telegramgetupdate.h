@@ -17,7 +17,7 @@ namespace qTbot {
 /**
  * @brief The TelegramGetUpdate class This is implementation of the get update method of the Telegram API
  */
-class QTBOT_EXPORT TelegramGetUpdate final: public TelegramSingleRquest
+class TelegramGetUpdate final: public TelegramSingleRquest
 {
 public:
     TelegramGetUpdate();
