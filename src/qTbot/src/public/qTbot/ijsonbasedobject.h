@@ -10,12 +10,13 @@
 #define IJSONBASEDOBJECT_H
 
 #include "qjsonobject.h"
+#include "global.h"
 namespace qTbot {
 
 /**
  * @brief The IJsonBasedObject class This is base interface for all json base objects.
  */
-class IJsonBasedObject
+class QTBOT_EXPORT IJsonBasedObject
 {
 public:
     IJsonBasedObject();

@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegramImage class This is implementation of the photos of telegram
  */
-class TelegramImage: public TelegramFile
+class QTBOT_EXPORT TelegramImage: public TelegramFile
 {
 public:
     TelegramImage();

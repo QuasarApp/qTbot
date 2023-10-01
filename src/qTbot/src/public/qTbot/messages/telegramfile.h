@@ -14,7 +14,7 @@ namespace qTbot {
 /**
  * @brief The TelegramFile class is base class for all files.
  */
-class TelegramFile: public IJsonBasedObject
+class QTBOT_EXPORT TelegramFile: public IJsonBasedObject
 {
 public:
     TelegramFile();

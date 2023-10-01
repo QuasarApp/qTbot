@@ -17,7 +17,7 @@ namespace qTbot {
 /**
  * @brief The TelegramAudio class This is implementation of the audio objects of telegram
  */
-class TelegramAudio: public TelegramFile
+class QTBOT_EXPORT TelegramAudio: public TelegramFile
 {
 public:
     TelegramAudio();

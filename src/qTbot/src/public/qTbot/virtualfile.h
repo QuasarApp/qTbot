@@ -15,7 +15,7 @@ namespace qTbot {
 /**
  * @brief The VirtualFile class write and read data from the Ram.
  */
-class  QTBOT_EXPORT VirtualFile : public iFile
+class QTBOT_EXPORT VirtualFile : public iFile
 {
 public:
     VirtualFile(const QSharedPointer<QNetworkReply>& replay = nullptr);
