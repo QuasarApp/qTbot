@@ -38,6 +38,8 @@ option(QTBOT_EXAMPLE "This option disables or enables example app of the ${PROJE
 
 if (ANDROID OR IOS OR QA_WASM32)
     set(QTBOT_TESTS OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
+    set(QTBOT_EXAMPLE OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
+
 endif()
 
 make_directory(Distro)
