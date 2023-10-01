@@ -69,11 +69,8 @@ if (ANDROID)
             "${qTbot_EXTRA_LIBS}")
 
     endif()
-    set(manifest_file "${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml")
-    configure_file("${manifest_file}.in" ${manifest_file} @ONLY)
-
-    set(gradle_file "${CMAKE_CURRENT_SOURCE_DIR}/android/build.gradle")
-    configure_file("${gradle_file}.in" ${gradle_file} @ONLY)
+    configure_file_in(${CURRENT_PROJECT} "${CMAKE_CURRENT_SOURCE_DIR}/android/AndroidManifest.xml" @ONLY)
+    configure_file_in(${CURRENT_PROJECT} "${CMAKE_CURRENT_SOURCE_DIR}/android/build.gradle" @ONLY)
 
     file(GLOB java_files
        "android/src/com/quasarapp/androidtools/*.java"
@@ -101,10 +98,8 @@ else()
 
     message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
 
-    set(DeployFile "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json")
-    configure_file("${DeployFile}.in" ${DeployFile} @ONLY)
-
-    addDeployFromCustomFile("qTbot" ${DeployFile})
+    set(DeployFile )
+    configure_file_in(${CURRENT_PROJECT} "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json" @ONLY)
 
 endif()
 

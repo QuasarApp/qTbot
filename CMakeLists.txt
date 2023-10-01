@@ -46,7 +46,7 @@ initAll()
 
 add_subdirectory(src/qTbot)
 
-if (DEFINED QTBOT_EXAMPLE)
+if (QTBOT_EXAMPLE)
     add_subdirectory(src/example)
 endif()
 
