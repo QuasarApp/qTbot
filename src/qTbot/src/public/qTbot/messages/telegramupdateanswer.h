@@ -17,7 +17,7 @@ namespace qTbot {
 /**
  * @brief The TelegramUpdateAnswer class This is base message from the telegram server after update request.
  */
-class TelegramUpdateAnswer: public IJsonBasedUpdate
+class QTBOT_EXPORT TelegramUpdateAnswer: public IJsonBasedUpdate
 {
 public:
     TelegramUpdateAnswer();

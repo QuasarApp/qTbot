@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegramDocument class This is implementation of the documents objects of telegram
  */
-class TelegramDocument: public TelegramFile
+class QTBOT_EXPORT TelegramDocument: public TelegramFile
 {
 public:
     TelegramDocument();

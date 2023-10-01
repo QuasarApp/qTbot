@@ -3,7 +3,5 @@
         <file>src/qTbotModule/qmldir</file>
         <file>src/qTbotModule/qTbot.qml</file>
     </qresource>
-    <qresource prefix="/qTbotTr">
-        <file>languages/en.qm</file>
-    </qresource>
+    <qresource prefix="/qTbotTr"/>
 </RCC>

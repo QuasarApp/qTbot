@@ -20,7 +20,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (ANDROID OR IOS)
+if (ANDROID OR WIN32)
     set(BUILD_SHARED_LIBS ON)
 endif()
 
@@ -38,6 +38,8 @@ option(QTBOT_EXAMPLE "This option disables or enables example app of the ${PROJE
 
 if (ANDROID OR IOS OR QA_WASM32)
     set(QTBOT_TESTS OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
+    set(QTBOT_EXAMPLE OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)
+
 endif()
 
 make_directory(Distro)

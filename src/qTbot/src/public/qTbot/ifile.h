@@ -17,7 +17,7 @@ namespace qTbot {
 /**
  * @brief The iFile class This is main interface for all implementations of the files.
  */
-class iFile: public QObject
+class QTBOT_EXPORT iFile: public QObject
 {
     Q_OBJECT
 public:
