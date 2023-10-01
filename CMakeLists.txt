@@ -58,4 +58,3 @@ endif()
 
 configure_file_in(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
 addDoc(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/doxygen.conf)
-addDeployFromCustomFile("qTbot" "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json")

@@ -69,6 +69,6 @@ _deps
 # Configured files
 build.gradle
 AndroidManifest.xml
-src/Example/Deploy/RENAME_ME.json
-src/Library/src/public/RENAME_ME/global.h
+src/qTbot/src/public/qTbot/global.h
+src/example/deploy/qTbot.json
 doxygen.conf

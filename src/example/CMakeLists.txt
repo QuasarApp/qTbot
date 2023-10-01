@@ -98,8 +98,8 @@ else()
 
     message(GIT_COMMIT_COUNT = ${GIT_COMMIT_COUNT})
 
-    set(DeployFile )
     configure_file_in(${CURRENT_PROJECT} "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json" @ONLY)
+    addDeployFromCustomFile(${CURRENT_PROJECT} "${CMAKE_CURRENT_SOURCE_DIR}/deploy/qTbot.json")
 
 endif()
 
