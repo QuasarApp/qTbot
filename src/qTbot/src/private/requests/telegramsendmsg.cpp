@@ -16,6 +16,7 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
                                  const QMap<QString, QJsonObject> &extraObjects,
                                  unsigned long long replyToMessageId,
                                  bool markdown,
+                                 const QString &callBackQueryId,
                                  bool disableWebPagePreview)
                                  :
     TelegramSingleRquest("sendMessage")
@@ -35,8 +36,12 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
         args["disable_web_page_preview"] = disableWebPagePreview;
     }
 
+    if (callBackQueryId.size()) {
+        args["callback_query_id"] = callBackQueryId;
+    }
+
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
-        args[it.key()] = QJsonDocument(it.value()).toJson();
+        args[it.key()] = QJsonDocument(it.value()).toJson(QJsonDocument::Compact);
     }
 
     setArgs(args);

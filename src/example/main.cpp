@@ -22,6 +22,8 @@ int main(int argc, char *argv[]) {
 
     qTbot::TelegramRestBot bot;
 
+    srand(time(0));
+
     QList<QSharedPointer<qTbot::iFile> > filesStack;
     QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot, &filesStack](auto){
         while(auto&& update = bot.takeNextUnreadUpdate()) {
@@ -42,7 +44,9 @@ int main(int argc, char *argv[]) {
                         if (tmsg->contains(tmsg->Audio)) {
                             filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
                         }
-                        bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
+                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(), "I see it - я вижу это", {{{"test_button", [tmsg, &bot](const QString& queryId){
+                                                                                               bot.sendSpecificMessage(tmsg->chatId(), "stop to presse a button",{}, queryId);
+                                                                                                        }}}}, {}, false, false, tmsg->messageId());
                     }
 
                 }

@@ -6,23 +6,32 @@
 //#
 
 #include "telegramupdate.h"
+#include "qTbot/messages/telegraminlinekeyboardcallback.h"
 
 namespace qTbot {
 
 TelegramUpdate::TelegramUpdate() {
 }
 
-bool TelegramUpdate::contains(const Type &type) {
+bool TelegramUpdate::contains(const Type &type) const  {
     return rawJson().contains(type);
 }
 
 QSharedPointer<TelegramMsg> TelegramUpdate::message() const {
+    if (!contains(MessageUpdate)) {
+        return nullptr;
+    }
+
     return QSharedPointer<TelegramMsg>::create(rawJson()[MessageUpdate].toObject());
 }
 
 QSharedPointer<TelegramMsg> TelegramUpdate::editedMessage() const {
-    return QSharedPointer<TelegramMsg>::create(rawJson()[EditedMessageUpdate].toObject());
 
+    if (!contains(EditedMessageUpdate)) {
+        return nullptr;
+    }
+
+    return QSharedPointer<TelegramMsg>::create(rawJson()[EditedMessageUpdate].toObject());
 }
 
 QJsonObject TelegramUpdate::channelPost() const {
@@ -41,8 +50,12 @@ QJsonObject TelegramUpdate::chosenInlineResult() const {
     return rawJson().value(ChosenInlineResultUpdate).toObject();
 }
 
-QJsonObject TelegramUpdate::callbackQueryUpdate() const {
-    return rawJson().value(CallbackQueryUpdate).toObject();
+QSharedPointer<TelegramInlineKeyBoardCallBack> TelegramUpdate::callbackQueryUpdate() const {
+    if (!contains(CallbackQueryUpdate)) {
+        return nullptr;
+    }
+
+    return QSharedPointer<TelegramInlineKeyBoardCallBack>::create(rawJson()[CallbackQueryUpdate].toObject());
 }
 
 QJsonObject TelegramUpdate::shippingQueryUpdate() const {

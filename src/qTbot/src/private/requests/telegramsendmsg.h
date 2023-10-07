@@ -22,6 +22,7 @@ public:
                     const QMap<QString, QJsonObject>& extraObjects = {},
                     unsigned long long replyToMessageId = 0,
                     bool markdown = true,
+                    const QString& callBackQueryId = "",
                     bool disableWebPagePreview = false
                     );
 };
