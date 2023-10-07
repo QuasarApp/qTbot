@@ -8,6 +8,8 @@
 #include "ibot.h"
 #include "qstandardpaths.h"
 
+#include <QNetworkReply>
+
 namespace qTbot {
 
 IBot::IBot() {
@@ -38,7 +40,7 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
         _processed.insert(id);
         _notProcessedUpdates[id] = message;
 
-        emit sigReceiveUpdate(message);
+        handleIncomeNewUpdate(message);
     }
 }
 
@@ -62,6 +64,10 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
     connect(networkReplay.get(), &QNetworkReply::errorOccurred, this,
             [this, address](QNetworkReply::NetworkError err){
                 qWarning() << "The reqeust " << address << " finished with error code : " << err;
+                if (auto&& replay = _replayStorage.value(address)) {
+                    qWarning() << "Server ansver: " << replay->readAll();
+                }
+
                 _toRemove.push_back(address);
             });
 
@@ -82,6 +88,10 @@ void IBot::markUpdateAsUnprocessed(unsigned long long messageID) {
 
 QString IBot::defaultFileStorageLocation() const {
     return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+}
+
+void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
+    emit sigReceiveUpdate(message);
 }
 
 void IBot::doRemoveFinishedRequests() {

@@ -10,6 +10,7 @@
 
 
 #include <qTbot/ijsonbasedupdate.h>
+#include "telegraminlinekeyboardcallback.h"
 #include "telegrammsg.h"
 
 namespace qTbot {
@@ -47,7 +48,7 @@ public:
      * @param type This is name of the type
      * @return true if the choosed type is available in this message.
      */
-    bool contains(const Type& type);
+    bool contains(const Type& type) const;
 
     /**
      * @brief message returns the array of the updates messages.
@@ -89,7 +90,7 @@ public:
      * @brief callbackQueryUpdate returns the callback query update.
      * @return QJsonObject containing the callback query update.
      */
-    QJsonObject callbackQueryUpdate() const;
+    QSharedPointer<TelegramInlineKeyBoardCallBack> callbackQueryUpdate() const;
 
     /**
      * @brief shippingQueryUpdate returns the shipping query update.
