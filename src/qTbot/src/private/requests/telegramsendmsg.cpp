@@ -6,16 +6,20 @@
 //#
 
 #include "telegramsendmsg.h"
+
+#include <QJsonDocument>
+#include <QJsonObject>
 namespace qTbot {
 
 TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
                                  const QString &text,
+                                 const QMap<QString, QJsonObject> &extraObjects,
                                  unsigned long long replyToMessageId,
                                  bool markdown,
-                                 bool disableWebPagePreview):
+                                 bool disableWebPagePreview)
+                                 :
     TelegramSingleRquest("sendMessage")
 {
-
 
     QMap<QString, QVariant> args {{"chat_id", chatId}, {"text", text}};
 
@@ -29,6 +33,10 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
 
     if (disableWebPagePreview) {
         args["disable_web_page_preview"] = disableWebPagePreview;
+    }
+
+    for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
+        args[it.key()] = QJsonDocument(it.value()).toJson();
     }
 
     setArgs(args);

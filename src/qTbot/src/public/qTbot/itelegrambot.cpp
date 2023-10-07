@@ -20,6 +20,8 @@
 #include <QNetworkReply>
 #include <QSharedPointer>
 #include <QDebug>
+#include <QJsonArray>
+#include <QJsonObject>
 
 #include <qTbot/messages/telegramfile.h>
 #include <qTbot/messages/telegramfile.h>
@@ -28,6 +30,7 @@
 namespace qTbot {
 
 ITelegramBot::ITelegramBot() {
+
 }
 
 ITelegramBot::~ITelegramBot() {
@@ -60,6 +63,7 @@ bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
 
 bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                        const QString &text,
+                                       const QMap<QString, QJsonObject> &extraObjects,
                                        unsigned long long replyToMessageId,
                                        bool markdown,
                                        bool disableWebPagePreview) {
@@ -73,6 +77,90 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
 
     auto msg = QSharedPointer<TelegramSendMsg>::create(chatId,
                                                        text,
+                                                       extraObjects,
+                                                       replyToMessageId,
+                                                       markdown,
+                                                       disableWebPagePreview);
+
+    return bool(sendRequest(msg));
+}
+
+bool ITelegramBot::sendSpecificMessage(const QVariant &chatId,
+                                       const QString &text,
+                                       const QList<QString> &keyboard,
+                                       bool onTimeKeyboard,
+                                       bool autoResizeKeyboard,
+                                       unsigned long long replyToMessageId,
+                                       bool markdown,
+                                       bool disableWebPagePreview) {
+
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (text.isEmpty()) {
+        return false;
+    }
+
+    QMap<QString, QJsonObject> extraObjects;
+    QJsonObject keyboardJson;
+    QJsonArray keyboardArray;
+    for (auto it = keyboard.begin(); it != keyboard.end(); it = std::next(it)) {
+        auto&& callBackKey = QString("callback_data_%0").arg(rand());
+        keyboardArray.push_back(QJsonObject{ {"text", *it} });
+    }
+
+    keyboardJson["keyboard"] = keyboardArray;
+
+    keyboardJson["resize_keyboard"] = autoResizeKeyboard;
+    keyboardJson["one_time_keyboard"] = onTimeKeyboard;
+
+    extraObjects["reply_markup"] = keyboardJson;
+
+    auto msg = QSharedPointer<TelegramSendMsg>::create(chatId,
+                                                       text,
+                                                       extraObjects,
+                                                       replyToMessageId,
+                                                       markdown,
+                                                       disableWebPagePreview);
+
+    return bool(sendRequest(msg));
+}
+
+bool ITelegramBot::sendSpecificMessage(const QVariant &chatId,
+                                       const QString &text,
+                                       const QMap<QString, std::function<void()> > &keyboard,
+                                       bool onTimeKeyboard,
+                                       bool autoResizeKeyboard,
+                                       unsigned long long replyToMessageId,
+                                       bool markdown,
+                                       bool disableWebPagePreview) {
+
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (text.isEmpty()) {
+        return false;
+    }
+
+    QMap<QString, QJsonObject> extraObjects;
+    QJsonObject keyboardJson;
+    QJsonArray keyboardArray;
+    for (auto it = keyboard.begin(); it != keyboard.end(); it = std::next(it)) {
+        auto&& callBackKey = QString("callback_data_%0").arg(rand());
+            keyboardArray.push_back(QJsonObject{ {"text", it.key()}, {"callback_data", callBackKey } });
+        _handleButtons[callBackKey] = {it.value(), onTimeKeyboard};
+    }
+
+    keyboardJson["inline_keyboard"] = keyboardArray;
+
+    keyboardJson["resize_keyboard"] = autoResizeKeyboard;
+    keyboardJson["one_time_keyboard"] = onTimeKeyboard;
+
+    extraObjects["reply_markup"] = keyboardJson;
+
+    auto msg = QSharedPointer<TelegramSendMsg>::create(chatId,
+                                                       text,
+                                                       extraObjects,
                                                        replyToMessageId,
                                                        markdown,
                                                        disableWebPagePreview);
@@ -178,6 +266,24 @@ void ITelegramBot::onRequestError(const QSharedPointer<TelegramUpdateAnswer> &an
     qWarning() << QString("code: %0 - %1").
                   arg(ansverWithError->errorCode()).
                   arg(ansverWithError->errorDescription());
+}
+
+void ITelegramBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & update) {
+    IBot::handleIncomeNewUpdate(update);
+
+    if (auto&& tupdate = update.dynamicCast<TelegramUpdate>()) {
+        if (auto&& msg = tupdate->message()) {
+            auto &&handleButtonKey = msg->text();
+
+            auto [cb, isOneTimeKeyboard] = _handleButtons.value(handleButtonKey);
+
+            cb();
+
+            if (isOneTimeKeyboard) {
+                _handleButtons.remove(handleButtonKey);
+            }
+        }
+    }
 }
 
 void ITelegramBot::handleLogin() {

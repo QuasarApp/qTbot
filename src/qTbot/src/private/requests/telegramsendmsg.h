@@ -19,9 +19,11 @@ class QTBOT_EXPORT TelegramSendMsg: public TelegramSingleRquest
 public:
     TelegramSendMsg(const QVariant& chatId,
                     const QString& text,
+                    const QMap<QString, QJsonObject>& extraObjects = {},
                     unsigned long long replyToMessageId = 0,
                     bool markdown = true,
-                    bool disableWebPagePreview = false);
+                    bool disableWebPagePreview = false
+                    );
 };
 }
 #endif // TELEGRAMSENDMSG_H

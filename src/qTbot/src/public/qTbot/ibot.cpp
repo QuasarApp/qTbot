@@ -38,7 +38,7 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
         _processed.insert(id);
         _notProcessedUpdates[id] = message;
 
-        emit sigReceiveUpdate(message);
+        handleIncomeNewUpdate(message);
     }
 }
 
@@ -82,6 +82,10 @@ void IBot::markUpdateAsUnprocessed(unsigned long long messageID) {
 
 QString IBot::defaultFileStorageLocation() const {
     return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+}
+
+void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
+    emit sigReceiveUpdate(message);
 }
 
 void IBot::doRemoveFinishedRequests() {

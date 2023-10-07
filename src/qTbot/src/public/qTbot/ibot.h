@@ -184,6 +184,12 @@ protected:
      * @return default file storage.
      */
     virtual QString defaultFileStorageLocation() const;
+
+    /**
+     * @brief handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal.
+     * @note you may override this method for filter the sigReceiveUpdate signal or for handling new updates.
+     */
+    virtual void handleIncomeNewUpdate(const QSharedPointer<iUpdate>& );
 signals:
     /**
      * @brief sigReceiveUpdate emit when but receive any updates from users.
