@@ -64,6 +64,12 @@ public:
      */
     QString callBackData() const;
 
+    /**
+     * @brief messageId id of the message when was be presed button.
+     * @return id of the message when was be presed button.
+     */
+    QVariant messageId() const;
+
 };
 }
 #endif // TELEGRAMINLINEKEYBOARDCALLBACK_H

@@ -13,7 +13,7 @@ namespace qTbot {
 
 TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
                                  const QString &text,
-                                 const QMap<QString, QJsonObject> &extraObjects,
+                                 const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects,
                                  unsigned long long replyToMessageId,
                                  bool markdown,
                                  const QString &callBackQueryId,
@@ -22,7 +22,11 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
     TelegramSingleRquest("sendMessage")
 {
 
-    QMap<QString, QVariant> args {{"chat_id", chatId}, {"text", text}};
+    QMap<QString, QVariant> args {{"chat_id", chatId}};
+
+    if (text.size()) {
+        args["text"] = text;
+    }
 
     if (replyToMessageId) {
         args["reply_to_message_id"] = replyToMessageId;
@@ -41,7 +45,7 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
     }
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
-        args[it.key()] = QJsonDocument(it.value()).toJson(QJsonDocument::Compact);
+        args[it.key()] = QJsonDocument(*it.value()).toJson(QJsonDocument::Compact);
     }
 
     setArgs(args);

@@ -10,6 +10,9 @@ cmake_minimum_required(VERSION 3.19)
 set(CURRENT_PROJECT "${PROJECT_NAME}")
 add_definitions(-DQTBOT_LIBRARY)
 
+if (QTBOT_PRINT_RQUESTS)
+    add_definitions(-DQTBOT_PRINT_RQUESTS)
+endif()
 
 file(GLOB_RECURSE SOURCE_CPP
     "src/*.cpp"

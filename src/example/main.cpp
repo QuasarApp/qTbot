@@ -44,9 +44,21 @@ int main(int argc, char *argv[]) {
                         if (tmsg->contains(tmsg->Audio)) {
                             filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
                         }
-                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(), "I see it - я вижу это", {{{"test_button", [tmsg, &bot](const QString& queryId){
-                                                                                               bot.sendSpecificMessage(tmsg->chatId(), "stop to presse a button",{}, queryId);
-                                                                                                        }}}}, {}, false, false, tmsg->messageId());
+                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(),
+                                                            "I see it - я вижу это",
+                                                            {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
+                                                                static int index = 0;
+                                                                    bot.editSpecificMessageWithKeyboard(msgId,
+                                                                                                    tmsg->chatId(),
+                                                                                                    "I see it - я вижу это. Presedd count: " + QString::number(index++), true, false,
+                                                                                                    {{{"test_button", [](auto , auto ){}}, {"test_button 2", [](auto , auto ){}}}},
+                                                                                                    queryId);
+                                                                }}}}, {}, false, false, tmsg->messageId());
+
+                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(),
+                                                            "I see it - я вижу это (интерактивная клавиатура)",
+                                                            {{{"test_button"},
+                                                              {"test_button"},}}, {}, true, true, tmsg->messageId());
                     }
 
                 }

@@ -35,6 +35,7 @@ set(QTBOT_PACKAGE_ID "quasarapp.core.qTbot")
 
 option(QTBOT_TESTS "This option disables or enables tests of the ${PROJECT_NAME} project"  ON)
 option(QTBOT_EXAMPLE "This option disables or enables example app of the ${PROJECT_NAME} project" ON)
+option(QTBOT_PRINT_RQUESTS "This option disables or enables printing requests" OFF)
 
 if (ANDROID OR IOS OR QA_WASM32)
     set(QTBOT_TESTS OFF CACHE BOOL "This option force disbled for ANDROID IOS QA_WASM32 and Not Qt projects" FORCE)

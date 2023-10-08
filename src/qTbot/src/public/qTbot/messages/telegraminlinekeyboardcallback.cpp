@@ -39,4 +39,8 @@ QString TelegramInlineKeyBoardCallBack::languageCode() const {
 QString TelegramInlineKeyBoardCallBack::callBackData() const {
     return rawJson()["data"].toString();
 }
+
+QVariant TelegramInlineKeyBoardCallBack::messageId() const {
+    return rawJson()["message"]["message_id"].toVariant();
+}
 }

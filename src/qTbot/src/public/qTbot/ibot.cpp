@@ -50,8 +50,15 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
 
     doRemoveFinishedRequests();
 
+    auto && url = makeUrl(rquest);
+
+#ifdef QTBOT_PRINT_RQUESTS
+    qDebug() << url;
+#endif
+
     auto&& networkReplay = QSharedPointer<QNetworkReply>(
-        _manager->get(QNetworkRequest(makeUrl(rquest))));
+        _manager->get(QNetworkRequest(url)));
+
 
     size_t address = reinterpret_cast<size_t>(networkReplay.get());
     _replayStorage[address] = networkReplay;
