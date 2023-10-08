@@ -54,6 +54,13 @@ public:
     */
     virtual bool sendMessage(const QVariant& chatId, const QString& text) = 0;
 
+    /**
+     * @brief deleteMessage This is main method to delete messages.
+     * @param chatId This is cahat id wher will be removed message.
+     * @param messageId This is removed message id.
+     * @return true if request was be prepared successful
+     */
+    virtual bool deleteMessage(const QVariant& chatId, const QVariant& messageId) = 0;
 
     /**
      * @brief Get a file by its ID.

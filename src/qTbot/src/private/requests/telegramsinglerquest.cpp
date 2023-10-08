@@ -54,8 +54,20 @@ const QMap<QString, QVariant>& TelegramSingleRquest::args() const {
     return _args;
 }
 
+void TelegramSingleRquest::addArg(const QString &key, const QVariant &val) {
+    _args[key] = val;
+}
+
 void TelegramSingleRquest::setArgs(const QMap<QString, QVariant> &newArgs) {
     _args = newArgs;
+}
+
+const QString& TelegramSingleRquest::request() const {
+    return _request;
+}
+
+void TelegramSingleRquest::setRequest(const QString &newRequest) {
+    _request = newRequest;
 }
 
 }

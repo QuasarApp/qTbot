@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegrammDownloadFile class prepare link to download telegramm files.
  */
-class QTBOT_EXPORT TelegrammDownloadFile final: public TelegramSingleRquest
+class TelegrammDownloadFile final: public TelegramSingleRquest
 {
 public:
     TelegrammDownloadFile(const QString &filePath);

@@ -14,12 +14,12 @@ namespace qTbot {
 /**
  * @brief The TelegramSendMsg class This method send a message to the server.
  */
-class QTBOT_EXPORT TelegramSendMsg: public TelegramSingleRquest
+class TelegramSendMsg: public TelegramSingleRquest
 {
 public:
     TelegramSendMsg(const QVariant& chatId,
                     const QString& text,
-                    const QMap<QString, QJsonObject>& extraObjects = {},
+                    const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {},
                     unsigned long long replyToMessageId = 0,
                     bool markdown = true,
                     const QString& callBackQueryId = "",

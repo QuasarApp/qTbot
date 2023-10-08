@@ -33,7 +33,7 @@ namespace qTbot {
 
  * @endcode
  */
-class QTBOT_EXPORT TelegramSingleRquest: public iRequest
+class TelegramSingleRquest: public iRequest
 {
 public:
     /**
@@ -56,10 +56,29 @@ public:
 protected:
 
     /**
+     * @brief request return current requests commnad.
+     * @return current requests commnad.
+     */
+    const QString& request() const;
+
+    /**
+     * @brief setRequest sets custom requests commnad
+     * @param newRequest new custom commnad of the request.
+     */
+    void setRequest(const QString &newRequest);
+
+    /**
      * @brief args This method returns a current list of arguments
      * @return  current list of arguments
      */
     const QMap<QString, QVariant> &args() const;
+
+    /**
+     * @brief addArg This method push new arg, to arguments list
+     * @param key This is new argument key
+     * @param val this is new argument value.
+     */
+    void addArg(const QString& key, const QVariant& val);
 
     /**
      * @brief setArgs For the some requests list of arguments posible to build only after constructor.

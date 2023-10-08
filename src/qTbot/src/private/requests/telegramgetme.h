@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegramGetMsg class just prepare get request to tellegram
  */
-class QTBOT_EXPORT TelegramGetMe final: public TelegramSingleRquest
+class TelegramGetMe final: public TelegramSingleRquest
 {
 public:
     TelegramGetMe();
