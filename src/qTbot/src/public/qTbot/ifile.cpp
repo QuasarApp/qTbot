@@ -52,6 +52,10 @@ const QSharedPointer<QNetworkReply> &iFile::replay() const {
     return _replay;
 }
 
+bool iFile::isFinished() const {
+    return _finished;
+}
+
 void iFile::handleError(QNetworkReply::NetworkError error) {
     setError(error);
     setUploadProgress(0);
@@ -65,10 +69,6 @@ void iFile::handleUploadProgressChanged(qint64 bytesSent, qint64 bytesTotal) {
 
 void iFile::handleDownloadProgressChanged(qint64 bytesReceived, qint64 bytesTotal) {
     setDownloadProgress(bytesReceived / static_cast<float>(bytesTotal));
-}
-
-bool iFile::finished() const {
-    return _finished;
 }
 
 void iFile::setDownloadRequest(const QSharedPointer<QNetworkReply> &replay) {
