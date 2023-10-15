@@ -74,6 +74,24 @@ public:
     virtual QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) = 0;
 
     /**
+     * @brief send @a file .
+     *
+     * @param file This is a file that you want to send.
+     * @param chatId id of the chat.
+     * @return Returns true if the file sents successful.
+     */
+    virtual bool sendFile( const QFile& file, const QVariant& chatId) = 0;
+
+    /**
+     * @brief sendFile This method setns a file that saved as a bytearray.
+     * @param file This is file source.
+     * @param fileName This is name of file.
+     * @param chatId This is chat of the receivers.
+     * @return true if the file will sent successful.
+     */
+    virtual bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) = 0;
+
+    /**
      * @brief token This is token value for authication on the remote server (bot)
      * @return auth toke of the bot.
      */

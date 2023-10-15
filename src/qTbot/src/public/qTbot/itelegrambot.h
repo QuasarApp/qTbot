@@ -222,13 +222,25 @@ public:
      */
     QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId,
                                               const QWeakPointer<iFile> &receiver = {nullptr});
+
+    bool sendFile( const QFile& file, const QVariant& chatId) override;
+
+    bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) override;
+
+    /**
+     * @brief sendFileById This is specific method of the telegram bot. sents file by id.
+     * @param fileID This is file id.
+     * @param chatId chat that should receive a file.
+     * @return true if the file sent successful.
+     */
+    bool sendFileById(const QString& fileID, const QVariant& chatId);
+
 // to do
 
 // * forwardMessage implementations
 // * copyMessage implementations
 // * sendPhoto implementations
 // * sendAudio implementations
-// * sendDocument implementations
 // * sendVideo implementations
 // * sendVoice implementations
 // * sendLocation implementations

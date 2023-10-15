@@ -376,6 +376,25 @@ QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, c
     return nullptr;
 }
 
+bool ITelegramBot::sendFile(const QFile &file, const QVariant &chatId) {
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!file.isReadable()) {
+        return false;
+    }
+
+
+}
+
+bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, const QVariant &chatId) {
+
+}
+
+bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
+
+}
+
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
     if (auto && file = _filesMetaInfo.value(id)) {
         return file->fileSize();
