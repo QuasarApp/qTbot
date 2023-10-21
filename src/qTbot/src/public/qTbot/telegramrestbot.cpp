@@ -39,7 +39,7 @@ void TelegramRestBot::startUpdates() {
 
 
     if (delta >= _updateDelay) {
-        auto&& replay = sendRequest(QSharedPointer<TelegramGetUpdate>::create());
+        auto&& replay = sendGetRequest(QSharedPointer<TelegramGetUpdate>::create());
 
         connect(replay.get(), &QNetworkReply::finished,
                 this, std::bind(&TelegramRestBot::handleReceiveUpdates, this, replay.toWeakRef()),

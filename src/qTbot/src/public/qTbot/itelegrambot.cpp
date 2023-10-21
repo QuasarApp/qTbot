@@ -47,7 +47,7 @@ bool ITelegramBot::login(const QByteArray &token) {
 
     setToken(token);
 
-    _loginReplay = sendRequest(QSharedPointer<TelegramGetMe>::create());
+    _loginReplay = sendGetRequest(QSharedPointer<TelegramGetMe>::create());
     if (_loginReplay) {
         connect(_loginReplay.get(), &QNetworkReply::finished,
                 this, &ITelegramBot::handleLogin,
@@ -88,7 +88,7 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -116,7 +116,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &messageId) {
@@ -129,7 +129,7 @@ bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &message
     auto msg = QSharedPointer<TelegramDeleteMessage>::create(chatId,
                                                              messageId);
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
@@ -158,7 +158,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
                                                                            onTimeKeyboard,
                                                                            keyboard));
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 QMap<QString, QSharedPointer<QJsonObject>>
@@ -237,7 +237,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                            prepareInlineKeyBoard(keyboard));
 
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
@@ -265,7 +265,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
                                                            );
 
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -291,7 +291,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return bool(sendGetRequest(msg));
 }
 
 QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
@@ -339,7 +339,7 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
             if (localFilePath.isEmpty())
                 return result;
 
-            if (auto &&replay = sendRequest(msg)) {
+            if (auto &&replay = sendGetRequest(msg)) {
                 // here i must be receive responce and prepare new request to file from the call back function.
                 if (fileType == iFile::Ram) {
                     result = QSharedPointer<VirtualFile>::create(replay);
@@ -366,7 +366,7 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
 QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
     auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
 
-    if (auto&& ptr = sendRequest(msg)) {
+    if (auto&& ptr = sendGetRequest(msg)) {
         connect(ptr.get(), &QNetworkReply::finished,
                 this, std::bind(&ITelegramBot::handleFileHeader, this, ptr.toWeakRef(), receiver));
 
@@ -472,7 +472,7 @@ void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
 
         if (auto&& sharedPtr = receiver.lock()) {
             auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
-            sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
+            sharedPtr->setDownloadRequest(sendGetRequest(downloadRequest));
         }
     }
 }

@@ -44,7 +44,8 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
     }
 }
 
-QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+QSharedPointer<QNetworkReply>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest, RequestMethod method) {
     if (!rquest)
         return nullptr;
 
@@ -56,9 +57,25 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
     qDebug() << url;
 #endif
 
-    auto&& networkReplay = QSharedPointer<QNetworkReply>(
-        _manager->get(QNetworkRequest(url)));
+    QSharedPointer<QNetworkReply> networkReplay;
 
+    switch (method) {
+    case Get:
+        networkReplay.reset(_manager->get(QNetworkRequest(url)));
+        break;
+    case Post:
+//        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+//        reply = m_nam.post(req, params.toByteArray());
+
+//        break;
+    case Upload:
+        QByteArray boundary = params.toMultipartBoundary();
+        req.setHeader(QNetworkRequest::ContentTypeHeader, "multipart/form-data; boundary=" + boundary);
+        QByteArray requestData = params.generateMultipartFormData(boundary);
+        req.setHeader(QNetworkRequest::ContentLengthHeader, requestData.length());
+        reply = m_nam.post(req, requestData);
+        break;
+    }
 
     size_t address = reinterpret_cast<size_t>(networkReplay.get());
     _replayStorage[address] = networkReplay;

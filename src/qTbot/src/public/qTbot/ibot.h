@@ -168,10 +168,11 @@ protected:
     /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
+     * @param method This is method how will data sent
      * @return shared pointer to the request replay.
      * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
      */
-    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest);
+    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest, RequestMethod method = RequestMethod::Get);
 
     /**
      * @brief setToken This is setter of the IBot::token value.

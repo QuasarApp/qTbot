@@ -16,58 +16,15 @@ namespace qTbot {
 
 TelegramSingleRquest::TelegramSingleRquest(const QString& request,
                                            const QMap<QString, QVariant>& args) {
-    _request = std::move(request);
-    _args = std::move(args);
-}
+    setRequest(request);
+    setArgs(args);}
 
 TelegramSingleRquest::TelegramSingleRquest(const QString &request) {
-    _request = std::move(request);
+    setRequest(request);
 }
-
-QString TelegramSingleRquest::makeUpload() const {
-
-    if (_args.isEmpty()) {
-        return "/" + _request;
-    }
-
-    QByteArray args;
-
-    auto it = _args.constBegin();
-    while (it != _args.constEnd()) {
-        if (args.isEmpty()) {
-            args.append(QString("%0=%1").arg(it.key(), it->toString()).toUtf8());
-        } else {
-            args.append(QString("&%0=%1").arg(it.key(), it->toString()).toUtf8());
-        }
-        ++it;
-    }
-
-    return "/" + _request + "?" + args;
-
-}
-
+\
 QString TelegramSingleRquest::baseAddress() const {
     return "https://api.telegram.org";
-}
-
-const QMap<QString, QVariant>& TelegramSingleRquest::args() const {
-    return _args;
-}
-
-void TelegramSingleRquest::addArg(const QString &key, const QVariant &val) {
-    _args[key] = val;
-}
-
-void TelegramSingleRquest::setArgs(const QMap<QString, QVariant> &newArgs) {
-    _args = newArgs;
-}
-
-const QString& TelegramSingleRquest::request() const {
-    return _request;
-}
-
-void TelegramSingleRquest::setRequest(const QString &newRequest) {
-    _request = newRequest;
 }
 
 }
