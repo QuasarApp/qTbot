@@ -27,4 +27,8 @@ QString TelegramSingleRquest::baseAddress() const {
     return "https://api.telegram.org";
 }
 
+iRequest::RequestMethod TelegramSingleRquest::method() const {
+    return Get;
+}
+
 }

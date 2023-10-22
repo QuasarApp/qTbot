@@ -55,37 +55,38 @@ QString iRequest::argsToUrl() const {
     return args;
 }
 
-QHttpMultiPart iRequest::argsToMultipartFormData() const {
-    QHttpMultiPart multiPart(QHttpMultiPart::FormDataType);
+QSharedPointer<QHttpMultiPart> iRequest::argsToMultipartFormData() const {
+    QSharedPointer<QHttpMultiPart> multiPart = QSharedPointer<QHttpMultiPart>::create(QHttpMultiPart::FormDataType);
 
     auto it = _args.constBegin();
     while (it != _args.constEnd()) {
         QHttpPart part;
         auto && value = it.value();
-        if (value.typeId() == QMetaType::QByteArray) {
+
+        if (it.key() == REQUEST_UPLOAD_FILE_KEY) {
             QByteArray && array = value.toByteArray();
 
-            if (array.left(5) == "file:") {
-                const auto metaData = array.split(':');
-                if (metaData.size() == 3) {
-                    const auto fileName = metaData[1];
-                    const QByteArray fileData = metaData[2];
-                    part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"document\"; filename=\"" + fileName + "\""));
-                    part.setBody(fileData);
-                } else {
-                    qWarning() << "the file arguments must be like file:fileName:Data";
-                }
-
+            const auto metaData = array.split(':');
+            if (metaData.size() == 2) {
+                const auto fileName = metaData[0];
+                const QByteArray fileData = metaData[1];
+                part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"document\"; filename=\"" + fileName + "\""));
+                part.setBody(fileData);
             } else {
-                part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"" + it.key() + "\""));
-                part.setBody(it.value().toByteArray());
+                qWarning() << "the file arguments must be like file:fileName:Data";
+                return nullptr;
             }
+
+        } else {
+            part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"" + it.key() + "\""));
+            part.setBody(it.value().toByteArray());
         }
-        multiPart.append(part);
+        multiPart->append(part);
 
         ++it;
     }
-    multiPart.append(chatIdPart);
+
+    return multiPart;
 }
 
 const QString& iRequest::request() const {

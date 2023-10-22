@@ -8,8 +8,39 @@
 
 namespace qTbot {
 
-TelegramSendDocument::TelegramSendDocument() :
+TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
+                                           const QString &text,
+                                           const QString& fileName,
+                                           const QByteArray &data):
     TelegramSingleRquest("sendDocument") {
 
+    addArg("chat_id", chatId);
+    if (text.size())
+        addArg("text", text);
+
+    addArg(REQUEST_UPLOAD_FILE_KEY, fileName.toLatin1() + ":" + data);
+
+}
+
+TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
+                                           const QString &text,
+                                           const QFileInfo &file):
+    TelegramSingleRquest("sendDocument")
+{
+    addArg("chat_id", chatId);
+
+    if (text.size())
+        addArg("text", text);
+
+    QFile readFile(file.absoluteFilePath());
+    if (!readFile.open(QIODevice::ReadOnly)) {
+        qWarning() << "Fail to open file" << file.absoluteFilePath();
+    }
+
+    addArg(REQUEST_UPLOAD_FILE_KEY, file.completeBaseName().toLatin1() + ":" + readFile.readAll());
+}
+
+iRequest::RequestMethod TelegramSendDocument::method() const {
+    return Upload;
 }
 }

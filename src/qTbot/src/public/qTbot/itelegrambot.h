@@ -85,12 +85,12 @@ public:
      * @note By default, web page previews for links in the message are not disabled (optional).
      */
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
-                             const QString& text,
-                             const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard,
-                             const QString &callBackQueryId = "",
-                             unsigned long long replyToMessageId = 0,
-                             bool markdown = true,
-                             bool disableWebPagePreview = false);
+                                         const QString& text,
+                                         const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard,
+                                         const QString &callBackQueryId = "",
+                                         unsigned long long replyToMessageId = 0,
+                                         bool markdown = true,
+                                         bool disableWebPagePreview = false);
 
     /**
      * @brief Sends a specific message with a custom keyboard to a chat.
@@ -223,10 +223,33 @@ public:
     QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId,
                                               const QWeakPointer<iFile> &receiver = {nullptr});
 
-    bool sendFile( const QFile& file, const QVariant& chatId) override;
+    bool sendFile( const QFileInfo& file, const QVariant& chatId) override;
 
     bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) override;
 
+    /**
+     * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.
+     * @param file This is a file source
+     * @param fileName This is a dispalyed name of file.
+     * @param chatId This is distanation id chat.
+     * @param description additional text for message.
+     * @return true if the message sents successful else false.
+     */
+    bool sendFileWithDescription( const QByteArray& file,
+                                 const QString& fileName,
+                                 const QVariant& chatId,
+                                 const QString& description);
+
+    /**
+     * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.
+     * @param file This is a file source
+     * @param chatId This is distanation id chat.
+     * @param description additional text for message.
+     * @return true if the message sents successful else false.
+     */
+    bool sendFileWithDescription( const QFileInfo& file,
+                                 const QVariant& chatId,
+                                 const QString& description);
     /**
      * @brief sendFileById This is specific method of the telegram bot. sents file by id.
      * @param fileID This is file id.
@@ -235,47 +258,47 @@ public:
      */
     bool sendFileById(const QString& fileID, const QVariant& chatId);
 
-// to do
+    // to do
 
-// * forwardMessage implementations
-// * copyMessage implementations
-// * sendPhoto implementations
-// * sendAudio implementations
-// * sendVideo implementations
-// * sendVoice implementations
-// * sendLocation implementations
-// * sendContact implementations
-// * sendPoll implementations
-// * sendDice implementations
-// * sendChatAction implementations
-// * getUserProfilePhotos implementations
-// * banChatMember implementations
-// * unbanChatMember implementations
-// * restrictChatMember implementations
-// * setChatAdministratorCustomTitle implementations
-// * banChatSenderChat implementations
-// * unbanChatSenderChat implementations
-// * exportChatInviteLink implementations
-// * approveChatJoinRequest implementations
-// * declineChatJoinRequest implementations
-// * setChatTitle implementations
-// * pinChatMessage implementations
-// * unpinChatMessage implementations
-// * unpinAllChatMessages implementations
-// * leaveChat implementations
-// * getChat implementations
-// * getChatAdministrators implementations
-// * getChatMemberCount implementations
-// * getChatMember implementations
-// * answerCallbackQuery implementations
-// * getMyCommands implementations
-// * deleteMyCommands implementations
-// * getMyCommands implementations
-// * editMessageText implementations
-// * editMessageReplyMarkup implementations
-// * stopPoll implementations
-// * deleteMessage implementations
-// * sendSticker implementations
+    // * forwardMessage implementations
+    // * copyMessage implementations
+    // * sendPhoto implementations
+    // * sendAudio implementations
+    // * sendVideo implementations
+    // * sendVoice implementations
+    // * sendLocation implementations
+    // * sendContact implementations
+    // * sendPoll implementations
+    // * sendDice implementations
+    // * sendChatAction implementations
+    // * getUserProfilePhotos implementations
+    // * banChatMember implementations
+    // * unbanChatMember implementations
+    // * restrictChatMember implementations
+    // * setChatAdministratorCustomTitle implementations
+    // * banChatSenderChat implementations
+    // * unbanChatSenderChat implementations
+    // * exportChatInviteLink implementations
+    // * approveChatJoinRequest implementations
+    // * declineChatJoinRequest implementations
+    // * setChatTitle implementations
+    // * pinChatMessage implementations
+    // * unpinChatMessage implementations
+    // * unpinAllChatMessages implementations
+    // * leaveChat implementations
+    // * getChat implementations
+    // * getChatAdministrators implementations
+    // * getChatMemberCount implementations
+    // * getChatMember implementations
+    // * answerCallbackQuery implementations
+    // * getMyCommands implementations
+    // * deleteMyCommands implementations
+    // * getMyCommands implementations
+    // * editMessageText implementations
+    // * editMessageReplyMarkup implementations
+    // * stopPoll implementations
+    // * deleteMessage implementations
+    // * sendSticker implementations
 
 
     /**

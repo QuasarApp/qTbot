@@ -16,6 +16,7 @@
 #include <QString>
 #include <QHttpMultiPart>
 
+#define REQUEST_UPLOAD_FILE_KEY "file"
 namespace qTbot {
 
 /**
@@ -101,7 +102,7 @@ public:
      *
      * @return QHttpMultiPart - A QHttpMultiPart object containing multipart/form-data request data.
      */
-    QHttpMultiPart argsToMultipartFormData() const;
+    QSharedPointer<QHttpMultiPart> argsToMultipartFormData() const;
 private:
     QString _request;
     QMap<QString, QVariant> _args;

@@ -10,6 +10,9 @@
 
 #include "telegramsinglerquest.h"
 
+#include <QFile>
+#include <QFileInfo>
+
 namespace qTbot {
 
 /**
@@ -18,7 +21,19 @@ namespace qTbot {
 class TelegramSendDocument: public TelegramSingleRquest
 {
 public:
-    TelegramSendDocument();
+    TelegramSendDocument(const QVariant &chatId,
+                         const QString &text,
+                         const QString &fileName,
+                         const QByteArray& data);
+
+    TelegramSendDocument(const QVariant &chatId,
+                         const QString &text,
+                         const QFileInfo &file);
+
+
+    // iRequest interface
+public:
+    RequestMethod method() const override;
 };
 }
 #endif // TELEGRAMSENDDOCUMENT_H

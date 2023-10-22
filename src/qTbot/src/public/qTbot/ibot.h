@@ -14,6 +14,7 @@
 #include "qTbot/irequest.h"
 
 #include "ifile.h"
+#include "qfileinfo.h"
 
 #include <QMap>
 #include <QHash>
@@ -80,7 +81,7 @@ public:
      * @param chatId id of the chat.
      * @return Returns true if the file sents successful.
      */
-    virtual bool sendFile( const QFile& file, const QVariant& chatId) = 0;
+    virtual bool sendFile( const QFileInfo& file, const QVariant& chatId) = 0;
 
     /**
      * @brief sendFile This method setns a file that saved as a bytearray.
@@ -168,11 +169,11 @@ protected:
     /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
-     * @param method This is method how will data sent
      * @return shared pointer to the request replay.
      * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
      */
-    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest, RequestMethod method = RequestMethod::Get);
+    QSharedPointer<QNetworkReply>
+    sendRequest(const QSharedPointer<iRequest>& rquest);
 
     /**
      * @brief setToken This is setter of the IBot::token value.

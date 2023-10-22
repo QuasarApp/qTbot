@@ -10,6 +10,7 @@
 #include "file.h"
 #include "requests/telegrammdownloadfile.h"
 #include "qdir.h"
+#include "requests/telegramsenddocument.h"
 #include "virtualfile.h"
 #include <QNetworkAccessManager>
 
@@ -47,7 +48,7 @@ bool ITelegramBot::login(const QByteArray &token) {
 
     setToken(token);
 
-    _loginReplay = sendGetRequest(QSharedPointer<TelegramGetMe>::create());
+    _loginReplay = sendRequest(QSharedPointer<TelegramGetMe>::create());
     if (_loginReplay) {
         connect(_loginReplay.get(), &QNetworkReply::finished,
                 this, &ITelegramBot::handleLogin,
@@ -88,7 +89,7 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -116,7 +117,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &messageId) {
@@ -129,7 +130,7 @@ bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &message
     auto msg = QSharedPointer<TelegramDeleteMessage>::create(chatId,
                                                              messageId);
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
@@ -158,7 +159,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
                                                                            onTimeKeyboard,
                                                                            keyboard));
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 QMap<QString, QSharedPointer<QJsonObject>>
@@ -237,7 +238,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                            prepareInlineKeyBoard(keyboard));
 
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
@@ -265,7 +266,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
                                                            );
 
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -291,7 +292,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendGetRequest(msg));
+    return bool(sendRequest(msg));
 }
 
 QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
@@ -339,7 +340,7 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
             if (localFilePath.isEmpty())
                 return result;
 
-            if (auto &&replay = sendGetRequest(msg)) {
+            if (auto &&replay = sendRequest(msg)) {
                 // here i must be receive responce and prepare new request to file from the call back function.
                 if (fileType == iFile::Ram) {
                     result = QSharedPointer<VirtualFile>::create(replay);
@@ -366,7 +367,7 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
 QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
     auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
 
-    if (auto&& ptr = sendGetRequest(msg)) {
+    if (auto&& ptr = sendRequest(msg)) {
         connect(ptr.get(), &QNetworkReply::finished,
                 this, std::bind(&ITelegramBot::handleFileHeader, this, ptr.toWeakRef(), receiver));
 
@@ -376,7 +377,38 @@ QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, c
     return nullptr;
 }
 
-bool ITelegramBot::sendFile(const QFile &file, const QVariant &chatId) {
+bool ITelegramBot::sendFile(const QFileInfo &file, const QVariant &chatId) {
+    return sendFileWithDescription(file, chatId, "");
+}
+
+bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, const QVariant &chatId) {
+    return sendFileWithDescription(file, fileName, chatId, "");
+}
+
+bool ITelegramBot::sendFileWithDescription(const QByteArray &file,
+                                           const QString &fileName,
+                                           const QVariant &chatId,
+                                           const QString &description) {
+
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!fileName.size()) {
+        return false;
+    }
+
+    if (!file.size()) {
+        return false;
+    }
+
+    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, fileName, file);
+
+    return bool(sendRequest(request));
+}
+
+bool ITelegramBot::sendFileWithDescription(const QFileInfo &file,
+                                           const QVariant &chatId,
+                                           const QString &description) {
     if (!chatId.isValid() || chatId.isNull())
         return false;
 
@@ -384,14 +416,19 @@ bool ITelegramBot::sendFile(const QFile &file, const QVariant &chatId) {
         return false;
     }
 
+    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, file);
 
-}
-
-bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, const QVariant &chatId) {
+    return bool(sendRequest(request));
 
 }
 
 bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
+    Q_UNUSED(fileID)
+    Q_UNUSED(chatId)
+
+    throw "the sendFileById is not implemented";
+
+    return false;
 
 }
 
@@ -472,7 +509,7 @@ void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
 
         if (auto&& sharedPtr = receiver.lock()) {
             auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
-            sharedPtr->setDownloadRequest(sendGetRequest(downloadRequest));
+            sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
         }
     }
 }

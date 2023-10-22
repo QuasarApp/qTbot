@@ -45,7 +45,7 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
 }
 
 QSharedPointer<QNetworkReply>
-IBot::sendRequest(const QSharedPointer<iRequest> &rquest, RequestMethod method) {
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     if (!rquest)
         return nullptr;
 
@@ -58,22 +58,28 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest, RequestMethod method) 
 #endif
 
     QSharedPointer<QNetworkReply> networkReplay;
+    QSharedPointer<QHttpMultiPart> httpData;
 
-    switch (method) {
-    case Get:
+    switch (rquest->method()) {
+    case iRequest::Get:
         networkReplay.reset(_manager->get(QNetworkRequest(url)));
         break;
-    case Post:
+    case iRequest::Post:
 //        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 //        reply = m_nam.post(req, params.toByteArray());
 
 //        break;
-    case Upload:
-        QByteArray boundary = params.toMultipartBoundary();
-        req.setHeader(QNetworkRequest::ContentTypeHeader, "multipart/form-data; boundary=" + boundary);
-        QByteArray requestData = params.generateMultipartFormData(boundary);
-        req.setHeader(QNetworkRequest::ContentLengthHeader, requestData.length());
-        reply = m_nam.post(req, requestData);
+    case iRequest::Upload:
+        QNetworkRequest netRequest(url);
+        netRequest.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("multipart/form-data"));
+
+        httpData = rquest->argsToMultipartFormData();
+        if (httpData) {
+            networkReplay.reset(_manager->post(netRequest, httpData.data()));
+        } else {
+            return nullptr;
+        }
+
         break;
     }
 
@@ -81,7 +87,7 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest, RequestMethod method) 
     _replayStorage[address] = networkReplay;
 
     connect(networkReplay.get(), &QNetworkReply::finished, this,
-            [this, address]() {
+            [this, address, httpData]() {
                 _toRemove.push_back(address);
             });
 
@@ -89,7 +95,16 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest, RequestMethod method) 
             [this, address](QNetworkReply::NetworkError err){
                 qWarning() << "The reqeust " << address << " finished with error code : " << err;
                 if (auto&& replay = _replayStorage.value(address)) {
-                    qWarning() << "Server ansver: " << replay->readAll();
+                    qWarning() << "Server ansver: " << replay->readAll() << "request: ";
+                    auto request = replay->request();
+                    QUrl url = request.url();
+                    qDebug() << "URL: " << url.toString();
+
+                    QList<QByteArray> headers = request.rawHeaderList();
+                    qDebug() << "rquest headers:";
+                    foreach (QByteArray header, headers) {
+                        qDebug() << header << ": " << request.rawHeader(header);
+                    }
                 }
 
                 _toRemove.push_back(address);

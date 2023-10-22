@@ -43,7 +43,6 @@ public:
      */
     TelegramSingleRquest(const QString &request, const QMap<QString, QVariant> &args);
 
-
     /**
      * @brief TelegramSingleRquest This main constructor of the single requests.
      * @param request This is request name (command)
@@ -51,7 +50,7 @@ public:
     TelegramSingleRquest(const QString& request);
 
     QString baseAddress() const override;
-
+    RequestMethod method() const override;
 
 };
 }
