@@ -43,52 +43,14 @@ public:
      */
     TelegramSingleRquest(const QString &request, const QMap<QString, QVariant> &args);
 
-
     /**
      * @brief TelegramSingleRquest This main constructor of the single requests.
      * @param request This is request name (command)
      */
     TelegramSingleRquest(const QString& request);
 
-    QString makeUpload() const override final;
     QString baseAddress() const override;
-
-protected:
-
-    /**
-     * @brief request return current requests commnad.
-     * @return current requests commnad.
-     */
-    const QString& request() const;
-
-    /**
-     * @brief setRequest sets custom requests commnad
-     * @param newRequest new custom commnad of the request.
-     */
-    void setRequest(const QString &newRequest);
-
-    /**
-     * @brief args This method returns a current list of arguments
-     * @return  current list of arguments
-     */
-    const QMap<QString, QVariant> &args() const;
-
-    /**
-     * @brief addArg This method push new arg, to arguments list
-     * @param key This is new argument key
-     * @param val this is new argument value.
-     */
-    void addArg(const QString& key, const QVariant& val);
-
-    /**
-     * @brief setArgs For the some requests list of arguments posible to build only after constructor.
-     * @param newArgs This is new list of arguments.
-     */
-    void setArgs(const QMap<QString, QVariant> &newArgs);
-
-private:
-    QString _request;
-    QMap<QString, QVariant> _args;
+    RequestMethod method() const override;
 
 };
 }

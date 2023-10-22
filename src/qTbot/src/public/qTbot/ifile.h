@@ -86,7 +86,7 @@ public:
      * @brief finished return true if the request was finished else false.
      * @return true if the request was finished else false
      */
-    bool finished() const;
+    bool isFinished() const;
 
     /**
      * @brief setDownloadRequest This method sets replay for the file.

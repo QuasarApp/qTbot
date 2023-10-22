@@ -14,6 +14,7 @@
 #include "qTbot/irequest.h"
 
 #include "ifile.h"
+#include "qfileinfo.h"
 
 #include <QMap>
 #include <QHash>
@@ -72,6 +73,24 @@ public:
      * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
      */
     virtual QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) = 0;
+
+    /**
+     * @brief send @a file .
+     *
+     * @param file This is a file that you want to send.
+     * @param chatId id of the chat.
+     * @return Returns true if the file sents successful.
+     */
+    virtual bool sendFile( const QFileInfo& file, const QVariant& chatId) = 0;
+
+    /**
+     * @brief sendFile This method setns a file that saved as a bytearray.
+     * @param file This is file source.
+     * @param fileName This is name of file.
+     * @param chatId This is chat of the receivers.
+     * @return true if the file will sent successful.
+     */
+    virtual bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) = 0;
 
     /**
      * @brief token This is token value for authication on the remote server (bot)
@@ -153,7 +172,8 @@ protected:
      * @return shared pointer to the request replay.
      * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
      */
-    QSharedPointer<QNetworkReply> sendRequest(const QSharedPointer<iRequest>& rquest);
+    QSharedPointer<QNetworkReply>
+    sendRequest(const QSharedPointer<iRequest>& rquest);
 
     /**
      * @brief setToken This is setter of the IBot::token value.

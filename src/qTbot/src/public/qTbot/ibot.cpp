@@ -44,7 +44,8 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
     }
 }
 
-QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+QSharedPointer<QNetworkReply>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     if (!rquest)
         return nullptr;
 
@@ -56,15 +57,36 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
     qDebug() << url;
 #endif
 
-    auto&& networkReplay = QSharedPointer<QNetworkReply>(
-        _manager->get(QNetworkRequest(url)));
+    QSharedPointer<QNetworkReply> networkReplay;
+    QSharedPointer<QHttpMultiPart> httpData;
 
+    switch (rquest->method()) {
+    case iRequest::Get:
+        networkReplay.reset(_manager->get(QNetworkRequest(url)));
+        break;
+    case iRequest::Post:
+//        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+//        reply = m_nam.post(req, params.toByteArray());
+
+//        break;
+    case iRequest::Upload:
+        QNetworkRequest netRequest(url);
+
+        httpData = rquest->argsToMultipartFormData();
+        if (httpData) {
+            networkReplay.reset(_manager->post(netRequest, httpData.data()));
+        } else {
+            return nullptr;
+        }
+
+        break;
+    }
 
     size_t address = reinterpret_cast<size_t>(networkReplay.get());
     _replayStorage[address] = networkReplay;
 
     connect(networkReplay.get(), &QNetworkReply::finished, this,
-            [this, address]() {
+            [this, address, httpData]() {
                 _toRemove.push_back(address);
             });
 
@@ -72,7 +94,7 @@ QSharedPointer<QNetworkReply> IBot::sendRequest(const QSharedPointer<iRequest> &
             [this, address](QNetworkReply::NetworkError err){
                 qWarning() << "The reqeust " << address << " finished with error code : " << err;
                 if (auto&& replay = _replayStorage.value(address)) {
-                    qWarning() << "Server ansver: " << replay->readAll();
+                    qWarning() << replay->errorString();
                 }
 
                 _toRemove.push_back(address);

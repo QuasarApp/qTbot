@@ -10,6 +10,7 @@
 #include "file.h"
 #include "requests/telegrammdownloadfile.h"
 #include "qdir.h"
+#include "requests/telegramsenddocument.h"
 #include "virtualfile.h"
 #include <QNetworkAccessManager>
 
@@ -374,6 +375,61 @@ QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, c
     }
 
     return nullptr;
+}
+
+bool ITelegramBot::sendFile(const QFileInfo &file, const QVariant &chatId) {
+    return sendFileWithDescription(file, chatId, "");
+}
+
+bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, const QVariant &chatId) {
+    return sendFileWithDescription(file, fileName, chatId, "");
+}
+
+bool ITelegramBot::sendFileWithDescription(const QByteArray &file,
+                                           const QString &fileName,
+                                           const QVariant &chatId,
+                                           const QString &description) {
+
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!fileName.size()) {
+        return false;
+    }
+
+    if (!file.size()) {
+        return false;
+    }
+
+    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, fileName, file);
+
+    return bool(sendRequest(request));
+}
+
+bool ITelegramBot::sendFileWithDescription(const QFileInfo &file,
+                                           const QVariant &chatId,
+                                           const QString &description) {
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!file.isReadable()) {
+        return false;
+    }
+
+    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, file);
+
+    return bool(sendRequest(request));
+
+}
+
+bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
+    Q_UNUSED(fileID)
+    Q_UNUSED(chatId)
+
+    throw "the sendFileById is not implemented";
+
+    return false;
+
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
