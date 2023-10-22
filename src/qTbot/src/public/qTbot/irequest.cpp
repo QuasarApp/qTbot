@@ -63,23 +63,22 @@ QSharedPointer<QHttpMultiPart> iRequest::argsToMultipartFormData() const {
         QHttpPart part;
         auto && value = it.value();
 
-        if (it.key() == REQUEST_UPLOAD_FILE_KEY) {
-            QByteArray && array = value.toByteArray();
+        if (it.key().contains(REQUEST_UPLOAD_FILE_KEY)) {
+            auto metaData = it.key().split(":");
 
-            const auto metaData = array.split(':');
             if (metaData.size() == 2) {
-                const auto fileName = metaData[0];
-                const QByteArray fileData = metaData[1];
-                part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"document\"; filename=\"" + fileName + "\""));
-                part.setBody(fileData);
+                const auto fileName = metaData[1];
+                part.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"document\"; filename=\"" + fileName + "\"");
+
+                part.setBody(value.toByteArray());
             } else {
-                qWarning() << "the file arguments must be like file:fileName:Data";
+                qWarning() << "the file arguments must be like _file_:fileName";
                 return nullptr;
             }
 
         } else {
-            part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"" + it.key() + "\""));
-            part.setBody(it.value().toByteArray());
+            part.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"" + it.key() + "\"");
+            part.setBody(value.toByteArray());
         }
         multiPart->append(part);
 

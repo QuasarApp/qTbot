@@ -71,7 +71,6 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 //        break;
     case iRequest::Upload:
         QNetworkRequest netRequest(url);
-        netRequest.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("multipart/form-data"));
 
         httpData = rquest->argsToMultipartFormData();
         if (httpData) {
@@ -95,16 +94,7 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
             [this, address](QNetworkReply::NetworkError err){
                 qWarning() << "The reqeust " << address << " finished with error code : " << err;
                 if (auto&& replay = _replayStorage.value(address)) {
-                    qWarning() << "Server ansver: " << replay->readAll() << "request: ";
-                    auto request = replay->request();
-                    QUrl url = request.url();
-                    qDebug() << "URL: " << url.toString();
-
-                    QList<QByteArray> headers = request.rawHeaderList();
-                    qDebug() << "rquest headers:";
-                    foreach (QByteArray header, headers) {
-                        qDebug() << header << ": " << request.rawHeader(header);
-                    }
+                    qWarning() << replay->errorString();
                 }
 
                 _toRemove.push_back(address);

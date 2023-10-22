@@ -16,7 +16,7 @@
 #include <QString>
 #include <QHttpMultiPart>
 
-#define REQUEST_UPLOAD_FILE_KEY "file"
+#define REQUEST_UPLOAD_FILE_KEY "_file_"
 namespace qTbot {
 
 /**

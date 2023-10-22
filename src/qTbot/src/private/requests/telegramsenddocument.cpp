@@ -16,9 +16,9 @@ TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
 
     addArg("chat_id", chatId);
     if (text.size())
-        addArg("text", text);
+        addArg("caption", text);
 
-    addArg(REQUEST_UPLOAD_FILE_KEY, fileName.toLatin1() + ":" + data);
+    addArg(QString("%0:%1").arg(REQUEST_UPLOAD_FILE_KEY, fileName), data);
 
 }
 
