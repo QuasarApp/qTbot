@@ -364,6 +364,7 @@ private:
     QMap<QString, QSharedPointer<QJsonObject>>
     prepareKeyboard(bool autoResizeKeyboard, bool onTimeKeyboard, const QList<QList<QString> > &keyboard);
 
+
     unsigned long long _id = 0;
     QString _username;
     QSharedPointer<QNetworkReply> _loginReplay;
