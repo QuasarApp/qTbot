@@ -9,6 +9,7 @@
 #define TELEGRAMMSG_H
 
 #include "imessage.h"
+#include "qTbot/messages/telegramcontact.h"
 #include "telegramaudio.h"
 #include "telegramdocument.h"
 #include "qTbot/messages/telegramimage.h"
@@ -59,6 +60,11 @@ public:
      * @brief Document This is type of the files.
      */
     const Type Document = "document";
+
+    /**
+     * @brief Contact This is type of the files.
+     */
+    const Type Contact = "contact";
 
     /**
      * @brief Audio This is type of Audio files.
@@ -199,6 +205,12 @@ public:
      * @return audio description data.
      */
     QSharedPointer<TelegramAudio> audio() const;
+
+    /**
+     * @brief contact return contact
+     * @return contact information
+     */
+    QSharedPointer<TelegramContact> contact() const;
 
     unsigned long long updateId() const override;
 };
