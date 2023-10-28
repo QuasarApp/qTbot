@@ -163,6 +163,10 @@ QSharedPointer<TelegramAudio> TelegramMsg::audio() const {
     return QSharedPointer<TelegramAudio>::create(rawJson()[Audio].toObject());
 }
 
+QSharedPointer<TelegramContact> TelegramMsg::contact() const {
+    return QSharedPointer<TelegramContact>::create(rawJson()[Contact].toObject());
+}
+
 unsigned long long TelegramMsg::updateId() const {
     return 0;
 }

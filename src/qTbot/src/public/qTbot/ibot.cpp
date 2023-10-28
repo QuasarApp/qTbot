@@ -61,9 +61,16 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     QSharedPointer<QHttpMultiPart> httpData;
 
     switch (rquest->method()) {
-    case iRequest::Get:
-        networkReplay.reset(_manager->get(QNetworkRequest(url)));
+    case iRequest::Get: {
+        auto reply = _manager->get(QNetworkRequest(url));
+
+        // we control replay object wia shared pointers.
+        reply->setParent(nullptr);
+
+        networkReplay.reset(reply);
         break;
+    }
+
     case iRequest::Post:
 //        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
 //        reply = m_nam.post(req, params.toByteArray());
@@ -74,7 +81,12 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 
         httpData = rquest->argsToMultipartFormData();
         if (httpData) {
-            networkReplay.reset(_manager->post(netRequest, httpData.data()));
+            auto reply = _manager->post(netRequest, httpData.data());
+
+            // we control replay object wia shared pointers.
+            reply->setParent(nullptr);
+
+            networkReplay.reset(reply);
         } else {
             return nullptr;
         }
@@ -124,7 +136,7 @@ void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
 }
 
 void IBot::doRemoveFinishedRequests() {
-    for (auto address: qAsConst(_toRemove)) {
+    for (auto address: std::as_const(_toRemove)) {
         _replayStorage.remove(address);
     }
 
