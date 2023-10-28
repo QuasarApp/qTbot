@@ -271,7 +271,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                    const QString &text,
-                                                   const QList<QMap<QString, std::function<void(const QString&, const QVariant& msgID)> >> &keyboard,
+                                                   const KeyboardOnMessage &keyboard,
                                                    const QString &callBackQueryId,
                                                    unsigned long long replyToMessageId,
                                                    bool markdown,

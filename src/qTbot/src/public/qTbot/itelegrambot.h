@@ -22,6 +22,9 @@ class ITelegramMessage;
 class TelegramFile;
 class TelegramUpdateAnswer;
 
+typedef std::function<void(const QString& buttonKey, const QVariant& msgID)> ButtonCB;
+typedef QList<QMap<QString, ButtonCB >> KeyboardOnMessage;
+
 /**
  * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
  */
@@ -86,7 +89,7 @@ public:
      */
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                          const QString& text,
-                                         const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard,
+                                         const KeyboardOnMessage &keyboard,
                                          const QString &callBackQueryId = "",
                                          unsigned long long replyToMessageId = 0,
                                          bool markdown = true,
