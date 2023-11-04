@@ -257,7 +257,7 @@ public:
      * @brief sendFileById This is specific method of the telegram bot. sents file by id.
      * @param fileID This is file id.
      * @param chatId chat that should receive a file.
-     * @return true if the file sendet successful.
+     * @return true if the file sent successful.
      */
     bool sendFileById(const QString& fileID, const QVariant& chatId);
 
