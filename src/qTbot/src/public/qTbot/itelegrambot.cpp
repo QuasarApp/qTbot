@@ -19,6 +19,7 @@
 #include <requests/telegramsendmsg.h>
 #include <requests/telegramdeletemessage.h>
 #include <requests/telegrameditmessage.h>
+#include <requests/telegramsendlocation.h>
 
 #include <QNetworkReply>
 #include <QSharedPointer>
@@ -430,6 +431,23 @@ bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
 
     return false;
 
+}
+
+bool ITelegramBot::sendLocation(const QVariant &chatId,
+                                const QString &text,
+                                float latitude,
+                                float longitude,
+                                unsigned long long replyToMessageId) {
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!(longitude && latitude)) {
+        return false;
+    }
+
+    auto&& request = QSharedPointer<TelegramSendLocation>::create(chatId, text, latitude, longitude, replyToMessageId);
+
+    return bool(sendRequest(request));
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {

@@ -6,6 +6,7 @@
 //#
 
 #include "telegrammsg.h"
+#include "qTbot/messages/telegramlocation.h"
 #include "qjsonarray.h"
 namespace qTbot {
 
@@ -165,6 +166,10 @@ QSharedPointer<TelegramAudio> TelegramMsg::audio() const {
 
 QSharedPointer<TelegramContact> TelegramMsg::contact() const {
     return QSharedPointer<TelegramContact>::create(rawJson()[Contact].toObject());
+}
+
+QSharedPointer<TelegramLocation> TelegramMsg::location() const {
+    return QSharedPointer<TelegramLocation>::create(rawJson()[Location].toObject());
 }
 
 unsigned long long TelegramMsg::updateId() const {

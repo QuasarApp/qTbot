@@ -261,6 +261,20 @@ public:
      */
     bool sendFileById(const QString& fileID, const QVariant& chatId);
 
+    /**
+     * @brief sendLocation This method sents locatin to user.
+     * @param chatId This is distanation id chat.
+     * @param latitude
+     * @param longitude
+     * @param replyToMessageId The unique identifier of the message to reply to, skip if you want to sent new independet message.
+     * @return true if locations sent successful else false
+     */
+    bool sendLocation(const QVariant& chatId,
+                      const QString& text,
+                      float latitude,
+                      float longitude,
+                      unsigned long long replyToMessageId = 0);
+
     // to do
 
     // * forwardMessage implementations
