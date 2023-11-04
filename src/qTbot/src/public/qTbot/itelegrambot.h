@@ -257,9 +257,23 @@ public:
      * @brief sendFileById This is specific method of the telegram bot. sents file by id.
      * @param fileID This is file id.
      * @param chatId chat that should receive a file.
-     * @return true if the file sent successful.
+     * @return true if the file sendet successful.
      */
     bool sendFileById(const QString& fileID, const QVariant& chatId);
+
+    /**
+     * @brief sendLocation This method sents locatin to user.
+     * @param chatId This is distanation id chat.
+     * @param latitude
+     * @param longitude
+     * @param replyToMessageId The unique identifier of the message to reply to, skip if you want to sent new independet message.
+     * @return true if locations sent successful else false
+     */
+    bool sendLocation(const QVariant& chatId,
+                      const QString& text,
+                      float latitude,
+                      float longitude,
+                      unsigned long long replyToMessageId = 0);
 
     // to do
 

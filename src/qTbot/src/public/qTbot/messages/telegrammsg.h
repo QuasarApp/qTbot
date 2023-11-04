@@ -12,6 +12,7 @@
 #include "qTbot/messages/telegramcontact.h"
 #include "telegramaudio.h"
 #include "telegramdocument.h"
+#include "telegramlocation.h"
 #include "qTbot/messages/telegramimage.h"
 
 namespace qTbot {
@@ -65,6 +66,11 @@ public:
      * @brief Contact This is type of the files.
      */
     const Type Contact = "contact";
+
+    /**
+     * @brief Location This is type of location data.
+     */
+    const Type Location = "location";
 
     /**
      * @brief Audio This is type of Audio files.
@@ -213,6 +219,12 @@ public:
     QSharedPointer<TelegramContact> contact() const;
 
     unsigned long long updateId() const override;
+
+    /**
+     * @brief location returns location object of message.
+     * @return location object.
+     */
+    QSharedPointer<TelegramLocation> location() const;
 };
 
 }
