@@ -20,6 +20,7 @@
 #include <requests/telegramdeletemessage.h>
 #include <requests/telegrameditmessage.h>
 #include <requests/telegramsendlocation.h>
+#include <requests/telegramsendphoto.h>
 
 #include <QNetworkReply>
 #include <QSharedPointer>
@@ -386,6 +387,38 @@ bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, con
     return sendFileWithDescription(file, fileName, chatId, "");
 }
 
+bool ITelegramBot::sendPhoto(const QFileInfo &photo,
+                             const QVariant &chatId,
+                             const QString &description) {
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!photo.isReadable()) {
+        return false;
+    }
+
+    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(chatId, description, photo));
+}
+
+bool ITelegramBot::sendPhoto(const QByteArray &photo,
+                             const QString &fileName,
+                             const QVariant &chatId,
+                             const QString &description) {
+
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!fileName.size()) {
+        return false;
+    }
+
+    if (!photo.size()) {
+        return false;
+    }
+
+    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(chatId, description, fileName, photo));
+}
+
 bool ITelegramBot::sendFileWithDescription(const QByteArray &file,
                                            const QString &fileName,
                                            const QVariant &chatId,
@@ -402,9 +435,7 @@ bool ITelegramBot::sendFileWithDescription(const QByteArray &file,
         return false;
     }
 
-    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, fileName, file);
-
-    return bool(sendRequest(request));
+    return sendFileWithPrivate(QSharedPointer<TelegramSendDocument>::create(chatId, description, fileName, file));
 }
 
 bool ITelegramBot::sendFileWithDescription(const QFileInfo &file,
@@ -417,10 +448,7 @@ bool ITelegramBot::sendFileWithDescription(const QFileInfo &file,
         return false;
     }
 
-    auto&& request = QSharedPointer<TelegramSendDocument>::create(chatId, description, file);
-
-    return bool(sendRequest(request));
-
+    return sendFileWithPrivate(QSharedPointer<TelegramSendDocument>::create(chatId, description, file));
 }
 
 bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
@@ -530,6 +558,10 @@ void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
             sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
         }
     }
+}
+
+bool ITelegramBot::sendFileWithPrivate(const QSharedPointer<TelegramSendFile> &file) {
+    return bool(sendRequest(file));
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {

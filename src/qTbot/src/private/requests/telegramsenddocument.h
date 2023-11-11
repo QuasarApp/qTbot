@@ -8,17 +8,15 @@
 #ifndef TELEGRAMSENDDOCUMENT_H
 #define TELEGRAMSENDDOCUMENT_H
 
-#include "telegramsinglerquest.h"
+#include "telegramsendfile.h"
 
-#include <QFile>
-#include <QFileInfo>
 
 namespace qTbot {
 
 /**
  * @brief The TelegramSendDocument class sents document into chat
  */
-class TelegramSendDocument: public TelegramSingleRquest
+class TelegramSendDocument: public TelegramSendFile
 {
 public:
     TelegramSendDocument(const QVariant &chatId,
@@ -30,10 +28,6 @@ public:
                          const QString &text,
                          const QFileInfo &file);
 
-
-    // iRequest interface
-public:
-    RequestMethod method() const override;
 };
 }
 #endif // TELEGRAMSENDDOCUMENT_H
