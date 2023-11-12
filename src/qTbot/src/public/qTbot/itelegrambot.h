@@ -121,9 +121,9 @@ public:
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                          const QString& text,
                                          const QList<QList<QString> > &keyboard,
-                                         const QString &callBackQueryId,
+                                         const QString &callBackQueryId = "",
                                          bool onTimeKeyboard = false,
-                                         bool autoResizeKeyboard = false,
+                                         bool autoResizeKeyboard = true,
                                          unsigned long long replyToMessageId = 0,
                                          bool markdown = true,
                                          bool disableWebPagePreview = false);

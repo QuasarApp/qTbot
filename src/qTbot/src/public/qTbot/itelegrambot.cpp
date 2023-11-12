@@ -107,10 +107,6 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
     if (!chatId.isValid() || chatId.isNull())
         return false;
 
-    if (text.isEmpty()) {
-        return false;
-    }
-
     auto msg = QSharedPointer<TelegramSendMsg>::create(chatId,
                                                        text,
                                                        prepareKeyboard(autoResizeKeyboard, onTimeKeyboard, keyboard),
