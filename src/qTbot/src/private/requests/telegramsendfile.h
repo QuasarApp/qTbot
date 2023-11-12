@@ -9,8 +9,11 @@
 
 #include "qfileinfo.h"
 #include "requests/telegramsinglerquest.h"
-namespace qTbot {
 
+#define TELEGRAM_PHOTO "photo"
+#define TELEGRAM_DOCUMENT "document"
+
+namespace qTbot {
 
 /**
  * @brief The TelegramSendFile class Base clas for upload files to server
@@ -23,16 +26,26 @@ public:
                      const QVariant &chatId,
                      const QString &text,
                      const QString &fileName,
-                     const QByteArray& data);
+                     const QString &fileType,
+                     const QByteArray& data,
+                     unsigned long long replyToMessageId = 0,
+                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
     TelegramSendFile(const QString &request,
                      const QVariant &chatId,
                      const QString &text,
-                     const QFileInfo &file);
+                     const QFileInfo &file,
+                     unsigned long long replyToMessageId = 0,
+                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
-    // iRequest interface
-public:
     RequestMethod method() const override;
+
+protected:
+    /**
+     * @brief type return type file. By Default it is REQUEST_UPLOAD_FILE_KEY
+     * @return
+     */
+    virtual QString type() const;
 };
 }
 #endif // TELEGRAMSENDFILE_H

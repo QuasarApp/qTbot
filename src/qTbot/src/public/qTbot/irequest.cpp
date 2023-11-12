@@ -66,13 +66,16 @@ QSharedPointer<QHttpMultiPart> iRequest::argsToMultipartFormData() const {
         if (it.key().contains(REQUEST_UPLOAD_FILE_KEY)) {
             auto metaData = it.key().split(":");
 
-            if (metaData.size() == 2) {
+            if (metaData.size() == 3) {
                 const auto fileName = metaData[1];
-                part.setHeader(QNetworkRequest::ContentDispositionHeader, "form-data; name=\"document\"; filename=\"" + fileName + "\"");
+                const auto fileType = metaData[2];
+
+                part.setHeader(QNetworkRequest::ContentDispositionHeader,
+                               "form-data; name=\"" + fileType + "\"; filename=\"" + fileName + "\"");
 
                 part.setBody(value.toByteArray());
             } else {
-                qWarning() << "the file arguments must be like _file_:fileName";
+                qWarning() << "the file arguments must be like _file_:fileName:fileType";
                 return nullptr;
             }
 

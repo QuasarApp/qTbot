@@ -12,7 +12,7 @@ TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
                                            const QString &text,
                                            const QString& fileName,
                                            const QByteArray &data):
-    TelegramSendFile("sendDocument", chatId, text, fileName, data) {}
+    TelegramSendFile("sendDocument", chatId, text, fileName, TELEGRAM_DOCUMENT, data) {}
 
 TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
                                            const QString &text,

@@ -22,11 +22,17 @@ public:
     TelegramSendPhoto(const QVariant &chatId,
                       const QString &text,
                       const QString &fileName,
-                      const QByteArray& data);
+                      const QByteArray& data,
+                      unsigned long long replyToMessageId = 0,
+                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      );
 
     TelegramSendPhoto(const QVariant &chatId,
                       const QString &text,
-                      const QFileInfo &file);
+                      const QFileInfo &file,
+                      unsigned long long replyToMessageId = 0,
+                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      );
 
 };
 }

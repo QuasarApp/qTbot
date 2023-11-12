@@ -222,7 +222,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                    const QString &text,
                                                    bool markdown,
                                                    bool disableWebPagePreview,
-                                                   const QList<QMap<QString, std::function<void (const QString &, const QVariant&)> > > &keyboard,
+                                                   const KeyboardOnMessage &keyboard,
                                                    const QString &callBackQueryId) {
 
     if (!chatId.isValid() || chatId.isNull())
@@ -389,7 +389,9 @@ bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, con
 
 bool ITelegramBot::sendPhoto(const QFileInfo &photo,
                              const QVariant &chatId,
-                             const QString &description) {
+                             const QString &description,
+                             unsigned long long replyToMessageId,
+                             const KeyboardOnMessage &keyboard) {
     if (!chatId.isValid() || chatId.isNull())
         return false;
 
@@ -397,13 +399,16 @@ bool ITelegramBot::sendPhoto(const QFileInfo &photo,
         return false;
     }
 
-    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(chatId, description, photo));
+    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(
+        chatId, description, photo, replyToMessageId, prepareInlineKeyBoard(keyboard)));
 }
 
 bool ITelegramBot::sendPhoto(const QByteArray &photo,
                              const QString &fileName,
                              const QVariant &chatId,
-                             const QString &description) {
+                             const QString &description,
+                             unsigned long long replyToMessageId,
+                             const KeyboardOnMessage &keyboard) {
 
     if (!chatId.isValid() || chatId.isNull())
         return false;
@@ -416,7 +421,8 @@ bool ITelegramBot::sendPhoto(const QByteArray &photo,
         return false;
     }
 
-    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(chatId, description, fileName, photo));
+    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(
+        chatId, description, fileName, photo, replyToMessageId, prepareInlineKeyBoard(keyboard)));
 }
 
 bool ITelegramBot::sendFileWithDescription(const QByteArray &file,

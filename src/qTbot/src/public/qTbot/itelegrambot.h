@@ -187,7 +187,7 @@ public:
                                          const QString &text,
                                          bool markdown = true,
                                          bool disableWebPagePreview = false,
-                                         const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard = {},
+                                         const KeyboardOnMessage &keyboard = {},
                                          const QString &callBackQueryId = "");
 
     /**
@@ -235,18 +235,31 @@ public:
      * @brief sendPhoto This method will send image into chat with @a chatId
      * @param photo this is photo path.
      * @param chatId target chat
+     * @param replyToMessageId The unique identifier of the message to reply to, if any.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @return true if photo will snt successful
      */
-    bool sendPhoto(const QFileInfo& photo, const QVariant& chatId, const QString &description);
+    bool sendPhoto(const QFileInfo& photo,
+                   const QVariant& chatId,
+                   const QString &description,
+                   unsigned long long replyToMessageId = 0,
+                   const KeyboardOnMessage &keyboard = {});
 
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId
      * @param photo this is photo data.
      * @param chatId target chat
      * @param fileName This is dispalyed name of photo.
+     * @param replyToMessageId The unique identifier of the message to reply to, if any.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @return true if photo will snt successful
      */
-    bool sendPhoto(const QByteArray& photo, const QString& fileName, const QVariant& chatId, const QString &description);
+    bool sendPhoto(const QByteArray& photo,
+                   const QString& fileName,
+                   const QVariant& chatId,
+                   const QString &description,
+                   unsigned long long replyToMessageId = 0,
+                   const KeyboardOnMessage &keyboard = {});
 
     /**
      * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.

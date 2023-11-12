@@ -14,16 +14,20 @@ namespace qTbot {
 TelegramSendPhoto::TelegramSendPhoto(const QVariant &chatId,
                                      const QString &text,
                                      const QString &fileName,
-                                     const QByteArray &data):
-    TelegramSendFile("sendPhoto", chatId, text, fileName, data) {
+                                     const QByteArray &data,
+                                     unsigned long long replyToMessageId,
+                                     const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects
+                                     ):
+    TelegramSendFile("sendPhoto", chatId, text, fileName, TELEGRAM_PHOTO, data, replyToMessageId, extraObjects) {
 
 }
 
 TelegramSendPhoto::TelegramSendPhoto(const QVariant &chatId,
                                      const QString &text,
-                                     const QFileInfo &file):
-    TelegramSendFile("sendPhoto", chatId, text, file) {
-
+                                     const QFileInfo &file,
+                                     unsigned long long replyToMessageId,
+                                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects):
+    TelegramSendFile("sendPhoto", chatId, text, file, replyToMessageId, extraObjects) {
 
 }
 
