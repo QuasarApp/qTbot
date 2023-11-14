@@ -15,19 +15,21 @@ TelegramSendPhoto::TelegramSendPhoto(const QVariant &chatId,
                                      const QString &text,
                                      const QString &fileName,
                                      const QByteArray &data,
+                                     const QString& parseMode,
                                      unsigned long long replyToMessageId,
-                                     const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects
+                                     const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects
                                      ):
-    TelegramSendFile("sendPhoto", chatId, text, fileName, TELEGRAM_PHOTO, data, replyToMessageId, extraObjects) {
+    TelegramSendFile("sendPhoto", chatId, text, fileName, TELEGRAM_PHOTO, data, parseMode, replyToMessageId, extraObjects) {
 
 }
 
 TelegramSendPhoto::TelegramSendPhoto(const QVariant &chatId,
                                      const QString &text,
                                      const QFileInfo &file,
+                                     const QString& parseMode,
                                      unsigned long long replyToMessageId,
-                                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects):
-    TelegramSendFile("sendPhoto", chatId, text, file, replyToMessageId, extraObjects) {
+                                     const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects):
+    TelegramSendFile("sendPhoto", chatId, text, file, parseMode, replyToMessageId, extraObjects) {
 
 }
 

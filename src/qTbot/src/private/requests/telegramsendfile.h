@@ -28,15 +28,18 @@ public:
                      const QString &fileName,
                      const QString &fileType,
                      const QByteArray& data,
+                     const QString& parseMode = "",
                      unsigned long long replyToMessageId = 0,
-                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
+                     const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
     TelegramSendFile(const QString &request,
                      const QVariant &chatId,
                      const QString &text,
                      const QFileInfo &file,
+                     const QString& parseMode = "",
+
                      unsigned long long replyToMessageId = 0,
-                     const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
+                     const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
     RequestMethod method() const override;
 

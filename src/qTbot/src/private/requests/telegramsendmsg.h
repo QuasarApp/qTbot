@@ -17,11 +17,21 @@ namespace qTbot {
 class TelegramSendMsg: public TelegramSingleRquest
 {
 public:
+    /**
+     * @brief TelegramSendMsg
+     * @param chatId
+     * @param text
+     * @param extraObjects
+     * @param replyToMessageId
+     * @param parseMode This is mode of parsing. supported modes is markdown and html
+     * @param callBackQueryId
+     * @param disableWebPagePreview
+     */
     TelegramSendMsg(const QVariant& chatId,
                     const QString& text,
-                    const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {},
+                    const ExtraJsonObjects& extraObjects = {},
                     unsigned long long replyToMessageId = 0,
-                    bool markdown = true,
+                    const QString& parseMode = "",
                     const QString& callBackQueryId = "",
                     bool disableWebPagePreview = false
                     );

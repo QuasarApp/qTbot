@@ -10,23 +10,23 @@
 namespace qTbot {
 
 TelegramEditMessage::TelegramEditMessage(const QVariant &idEditedMessage,
-                                       const QVariant& chatId,
-                                       const QString& newText,
-                                       bool markdown,
-                                       bool disableWebPagePreview,
-                                       const QString& callBackQueryId,
-                                       const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects):
+                                         const QVariant& chatId,
+                                         const QString& newText,
+                                         const QString& parseMode,
+                                         bool disableWebPagePreview,
+                                         const QString& callBackQueryId,
+                                         const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects):
     TelegramSendMsg(chatId,
                     newText,
                     extraObjects,
                     0,
-                    markdown,
+                    parseMode,
                     callBackQueryId,
                     disableWebPagePreview) {
 
 
-        setRequest("editMessageText");
-        addArg("message_id", idEditedMessage);
+    setRequest("editMessageText");
+    addArg("message_id", idEditedMessage);
 
 
 }

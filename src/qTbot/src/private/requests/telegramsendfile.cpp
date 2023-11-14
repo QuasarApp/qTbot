@@ -17,8 +17,9 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
                                           const QString &fileName,
                                           const QString &fileType,
                                           const QByteArray &data,
+                                          const QString& parseMode,
                                           unsigned long long replyToMessageId,
-                                          const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects
+                                          const ExtraJsonObjects& extraObjects
                                           ):
     TelegramSingleRquest(request) {
 
@@ -28,6 +29,10 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
 
     if (replyToMessageId > 0) {
         addArg("reply_to_message_id", replyToMessageId);
+    }
+
+    if (parseMode.size()) {
+        addArg("parse_mode", parseMode);
     }
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
@@ -41,8 +46,9 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
                                           const QVariant &chatId,
                                           const QString &text,
                                           const QFileInfo &file,
+                                          const QString &parseMode,
                                           unsigned long long replyToMessageId,
-                                          const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects):
+                                          const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects):
     TelegramSingleRquest(request) {
 
     addArg("chat_id", chatId);
@@ -52,6 +58,10 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
 
     if (replyToMessageId > 0) {
         addArg("reply_to_message_id", replyToMessageId);
+    }
+
+    if (parseMode.size()) {
+        addArg("parse_mode", parseMode);
     }
 
     QFile readFile(file.absoluteFilePath());

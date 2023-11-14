@@ -13,9 +13,9 @@ namespace qTbot {
 
 TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
                                  const QString &text,
-                                 const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects,
+                                 const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects,
                                  unsigned long long replyToMessageId,
-                                 bool markdown,
+                                 const QString& parseMode,
                                  const QString &callBackQueryId,
                                  bool disableWebPagePreview)
                                  :
@@ -32,8 +32,8 @@ TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
         args["reply_to_message_id"] = replyToMessageId;
     }
 
-    if (markdown) {
-        args["parse_mode"] = "Markdown";
+    if (parseMode.size()) {
+        args["parse_mode"] = parseMode;
     }
 
     if (disableWebPagePreview) {

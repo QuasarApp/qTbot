@@ -24,7 +24,7 @@ class TelegramUpdateAnswer;
 class TelegramSendFile;
 
 typedef std::function<void(const QString& buttonKey, const QVariant& msgID)> ButtonCB;
-typedef QList<QMap<QString, ButtonCB >> KeyboardOnMessage;
+typedef QList<QHash<QString, ButtonCB >> KeyboardOnMessage;
 
 /**
  * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
@@ -50,22 +50,21 @@ public:
      * @param extraObjects A map containing additional objects associated with the message (optional).
      * @param callBackQueryId The unique identifier for callback queries triggered by the message (optional).
      * @param replyToMessageId The unique identifier of the message to reply to, if any (optional).
-     * @param markdown Set to true to enable Markdown formatting for the text (optional).
+     * @param parseMode Sets a text parsing mode. supports markdown and html, by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the message (optional).
      *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
      * @note The extraObjects parameter is a map where each key represents the object's name, and the associated value is a shared pointer to a JSON object (optional).
      * @note The callBackQueryId parameter is used to handle callback queries when applicable (optional).
-     * @note By default, the message will be sent with Markdown formatting enabled (optional).
      * @note By default, web page previews for links in the message are not disabled (optional).
      */
     bool sendSpecificMessage(const QVariant &chatId,
                              const QString& text,
-                             const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects = {},
+                             const qTbot::ExtraJsonObjects &extraObjects = {},
                              const QString &callBackQueryId = {},
                              unsigned long long replyToMessageId = 0,
-                             bool markdown = true,
+                             const QString &parseMode = "html",
                              bool disableWebPagePreview = false);
 
     /**
@@ -78,14 +77,15 @@ public:
      * @param keyboard A list of maps where each map represents a button with a callback function.
      * @param callBackQueryId The unique identifier for callback queries triggered by the message (optional).
      * @param replyToMessageId The unique identifier of the message to reply to, if any (optional).
-     * @param markdown Set to true to enable Markdown formatting for the text (optional).
+     * @param parseMode Sets a text parsing mode. supports markdown and html,
+     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the message (optional).
      *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
-     * @note The keyboard parameter should be a list of maps where each map represents a button. The button's label is the map key, and the associated callback function is the map value.
+     * @note The keyboard parameter should be a list of maps where each map represents a button.
+     *  The button's label is the map key, and the associated callback function is the map value.
      * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
-     * @note By default, the message will be sent with Markdown formatting enabled (optional).
      * @note By default, web page previews for links in the message are not disabled (optional).
      */
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -93,13 +93,14 @@ public:
                                          const KeyboardOnMessage &keyboard,
                                          const QString &callBackQueryId = "",
                                          unsigned long long replyToMessageId = 0,
-                                         bool markdown = true,
+                                         const QString &parseMode = "html",
                                          bool disableWebPagePreview = false);
 
     /**
      * @brief Sends a specific message with a custom keyboard to a chat.
      *
-     * This function sends a specific message to a chat with a custom keyboard. The message can contain text and additional settings to customize its behavior.
+     * This function sends a specific message to a chat with a custom keyboard.
+     *  The message can contain text and additional settings to customize its behavior.
      *
      * @param chatId The unique identifier of the chat to send the message to.
      * @param text The text content of the message to be sent.
@@ -108,14 +109,14 @@ public:
      * @param onTimeKeyboard Set to true to display the keyboard only once.
      * @param autoResizeKeyboard Set to true to automatically resize the keyboard.
      * @param replyToMessageId The unique identifier of the message to reply to, if any.
-     * @param markdown Set to true to enable Markdown formatting for the text.
+     * @param parseMode Sets a text parsing mode. supports markdown and html,
+     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the message.
      *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
      * @note The keyboard parameter should be a list of lists of strings representing keyboard buttons.
      * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed.
-     * @note By default, the message will be sent with Markdown formatting enabled.
      * @note By default, web page previews for links in the message are not disabled.
      */
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -125,7 +126,7 @@ public:
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = true,
                                          unsigned long long replyToMessageId = 0,
-                                         bool markdown = true,
+                                         const QString &parseMode = "html",
                                          bool disableWebPagePreview = false);
 
     bool deleteMessage(const QVariant& chatId, const QVariant& messageId) override;
@@ -138,7 +139,8 @@ public:
      * @param messageId The unique identifier of the message to edit.
      * @param chatId The unique identifier of the chat containing the message.
      * @param newText The new text content for the message.
-     * @param markdown Set to true to enable Markdown formatting for the new text (optional).
+     * @param parseMode Sets a text parsing mode. supports markdown and html,
+     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
      * @param keyboard A list of lists containing the new keyboard buttons to display (optional).
      * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
@@ -149,18 +151,18 @@ public:
      *
      * @note The keyboard parameter should be a list of lists of strings representing keyboard buttons (optional).
      * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
-     * @note By default, the new text will be displayed with Markdown formatting enabled (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessageWithKeyboard(const QVariant &messageId,
                                          const QVariant &chatId,
                                          const QString &newText,
-                                         bool markdown = true,
+                                         const QString &parseMode = "html",
                                          bool disableWebPagePreview = false,
                                          const QList<QList<QString> > &keyboard = {},
                                          const QString &callBackQueryId = "",
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = false);
+
 
     /**
      * @brief Edits a specific message with a custom keyboard in a chat.
@@ -170,7 +172,8 @@ public:
      * @param messageId The unique identifier of the message to edit.
      * @param chatId The unique identifier of the chat containing the message.
      * @param text The new text content for the message.
-     * @param markdown Set to true to enable Markdown formatting for the new text (optional).
+     * @param parseMode Sets a text parsing mode. supports markdown and html,
+     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
@@ -179,16 +182,36 @@ public:
      *
      * @note The keyboard parameter should be a list of maps where each map represents a button. The button's label is the map key, and the associated callback function is the map value (optional).
      * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
-     * @note By default, the new text will be displayed with Markdown formatting enabled (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
  */
     bool editSpecificMessageWithKeyboard(const QVariant& messageId,
                                          const QVariant &chatId,
                                          const QString &text,
-                                         bool markdown = true,
+                                         const QString &parseMode = "html",
                                          bool disableWebPagePreview = false,
                                          const KeyboardOnMessage &keyboard = {},
                                          const QString &callBackQueryId = "");
+
+    /**
+     * @brief Edits a keyboard of message in a chat.
+     *
+     * This function allows you to edit a keyboard of specific message.
+     *
+     * @param messageId The unique identifier of the message to edit.
+     * @param chatId The unique identifier of the chat containing the message.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
+     * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
+     *
+     * @return Returns true if the message was successfully edited, false otherwise.
+     *
+     * @note The keyboard parameter should be a list of maps where each map represents a button. The button's label is the map key, and the associated callback function is the map value (optional).
+     * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
+     * @note By default, web page previews for links in the new text are not disabled (optional).
+ */
+    bool editMessageKeyboard(const QVariant& messageId,
+                             const QVariant &chatId,
+                             const KeyboardOnMessage &keyboard = {},
+                             const QString &callBackQueryId = "");
 
     /**
      * @brief Edits a specific message in a chat.
@@ -199,20 +222,20 @@ public:
      * @param chatId The unique identifier of the chat containing the message.
      * @param newText The new text content for the message.
      * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
-     * @param markdown Set to true to enable Markdown formatting for the new text (optional).
+     * @param parseMode Sets a text parsing mode. supports markdown and html,
+     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
      * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
      *
      * @return Returns true if the message was successfully edited, false otherwise.
      *
      * @note The callBackQueryId parameter is used to handle callback queries when applicable (optional).
-     * @note By default, the new text will be displayed with Markdown formatting enabled (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessage(const QVariant &messageId,
                              const QVariant &chatId,
                              const QString &newText,
                              const QString &callBackQueryId = {},
-                             bool markdown = true,
+                             const QString &parseMode = "html",
                              bool disableWebPagePreview = false);
 
     [[nodiscard("do not forget to save shared pointer of file handler, because it's will not save inner bot object.")]]
@@ -242,6 +265,7 @@ public:
     bool sendPhoto(const QFileInfo& photo,
                    const QVariant& chatId,
                    const QString &description,
+                   const QString &parseMode = "html",
                    unsigned long long replyToMessageId = 0,
                    const KeyboardOnMessage &keyboard = {});
 
@@ -257,7 +281,7 @@ public:
     bool sendPhoto(const QByteArray& photo,
                    const QString& fileName,
                    const QVariant& chatId,
-                   const QString &description,
+                   const QString &description, const QString &parseMode,
                    unsigned long long replyToMessageId = 0,
                    const KeyboardOnMessage &keyboard = {});
 
@@ -411,10 +435,11 @@ private:
     bool sendFileWithPrivate(const QSharedPointer<TelegramSendFile>& file);
 
     QString findFileInlocatStorage(const QString& fileId) const;
-    QMap<QString, QSharedPointer<QJsonObject>>
-    prepareInlineKeyBoard(const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard);
-    QMap<QString, QSharedPointer<QJsonObject>>
-    prepareKeyboard(bool autoResizeKeyboard, bool onTimeKeyboard, const QList<QList<QString> > &keyboard);
+    QHash<QString, QSharedPointer<QJsonObject> >
+    prepareInlineKeyBoard(const KeyboardOnMessage &keyboard);
+    ExtraJsonObjects prepareKeyboard(bool autoResizeKeyboard,
+                                     bool onTimeKeyboard,
+                                     const QList<QList<QString> > &keyboard);
 
 
     unsigned long long _id = 0;

@@ -21,6 +21,7 @@
 #include <requests/telegrameditmessage.h>
 #include <requests/telegramsendlocation.h>
 #include <requests/telegramsendphoto.h>
+#include <requests/telegrameditmessagereplymarkup.h>
 
 #include <QNetworkReply>
 #include <QSharedPointer>
@@ -70,10 +71,10 @@ bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
 
 bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                        const QString &text,
-                                       const QMap<QString, QSharedPointer<QJsonObject>> &extraObjects,
+                                       const ExtraJsonObjects &extraObjects,
                                        const QString &callBackQueryId,
                                        unsigned long long replyToMessageId,
-                                       bool markdown,
+                                       const QString& parseMode,
                                        bool disableWebPagePreview) {
 
     if (!chatId.isValid() || chatId.isNull())
@@ -87,7 +88,7 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        text,
                                                        extraObjects,
                                                        replyToMessageId,
-                                                       markdown,
+                                                       parseMode,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
@@ -101,7 +102,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                    bool onTimeKeyboard,
                                                    bool autoResizeKeyboard,
                                                    unsigned long long replyToMessageId,
-                                                   bool markdown,
+                                                   const QString &parseMode,
                                                    bool disableWebPagePreview) {
 
     if (!chatId.isValid() || chatId.isNull())
@@ -111,7 +112,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        text,
                                                        prepareKeyboard(autoResizeKeyboard, onTimeKeyboard, keyboard),
                                                        replyToMessageId,
-                                                       markdown,
+                                                       parseMode,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
@@ -134,7 +135,7 @@ bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &message
 bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
                                                    const QVariant &chatId,
                                                    const QString &newText,
-                                                   bool markdown,
+                                                   const QString &parseMode,
                                                    bool disableWebPagePreview,
                                                    const QList<QList<QString>> &keyboard,
                                                    const QString &callBackQueryId,
@@ -150,7 +151,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
     auto msg = QSharedPointer<TelegramEditMessage>::create(messageId,
                                                            chatId,
                                                            newText,
-                                                           markdown,
+                                                           parseMode,
                                                            disableWebPagePreview,
                                                            callBackQueryId,
                                                            prepareKeyboard(autoResizeKeyboard,
@@ -160,10 +161,10 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
     return bool(sendRequest(msg));
 }
 
-QMap<QString, QSharedPointer<QJsonObject>>
-qTbot::ITelegramBot::prepareInlineKeyBoard(const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard)
+ExtraJsonObjects
+qTbot::ITelegramBot::prepareInlineKeyBoard(const KeyboardOnMessage &keyboard)
 {
-    QMap<QString, QSharedPointer<QJsonObject>> extraObjects;
+    ExtraJsonObjects extraObjects;
     auto&& keyboardJson = QSharedPointer<QJsonObject>::create();
     QJsonArray keyboardArray;
 
@@ -185,11 +186,11 @@ qTbot::ITelegramBot::prepareInlineKeyBoard(const QList<QMap<QString, std::functi
     return extraObjects;
 }
 
-QMap<QString, QSharedPointer<QJsonObject>>
+ExtraJsonObjects
 qTbot::ITelegramBot::prepareKeyboard(bool autoResizeKeyboard,
                                      bool onTimeKeyboard,
                                      const QList<QList<QString>> &keyboard) {
-    QMap<QString, QSharedPointer<QJsonObject>> extraObjects;
+    ExtraJsonObjects extraObjects;
     auto&& keyboardJson = QSharedPointer<QJsonObject>::create();
     QJsonArray keyboardArray;
 
@@ -216,7 +217,7 @@ qTbot::ITelegramBot::prepareKeyboard(bool autoResizeKeyboard,
 bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                    const QVariant &chatId,
                                                    const QString &text,
-                                                   bool markdown,
+                                                   const QString &parseMode,
                                                    bool disableWebPagePreview,
                                                    const KeyboardOnMessage &keyboard,
                                                    const QString &callBackQueryId) {
@@ -230,10 +231,29 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
     auto msg = QSharedPointer<TelegramEditMessage>::create(messageId,
                                                            chatId,
                                                            text,
-                                                           markdown,
+                                                           parseMode,
                                                            disableWebPagePreview,
                                                            callBackQueryId,
                                                            prepareInlineKeyBoard(keyboard));
+
+
+    return bool(sendRequest(msg));
+}
+
+bool ITelegramBot::editMessageKeyboard(const QVariant &messageId,
+                                       const QVariant &chatId,
+                                       const KeyboardOnMessage &keyboard,
+                                       const QString &callBackQueryId) {
+    if (!chatId.isValid() || chatId.isNull())
+        return false;
+
+    if (!messageId.isValid() || messageId.isNull())
+        return false;
+
+    auto msg = QSharedPointer<TelegramEditMessageReplyMarkup>::create(messageId,
+                                                                      chatId,
+                                                                      callBackQueryId,
+                                                                      prepareInlineKeyBoard(keyboard));
 
 
     return bool(sendRequest(msg));
@@ -243,7 +263,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
                                        const QVariant &chatId,
                                        const QString& newText,
                                        const QString &callBackQueryId,
-                                       bool markdown,
+                                       const QString &parseMode,
                                        bool disableWebPagePreview) {
 
     if (!chatId.isValid() || chatId.isNull())
@@ -258,7 +278,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
     auto msg = QSharedPointer<TelegramEditMessage>::create(messageId,
                                                            chatId,
                                                            newText,
-                                                           markdown,
+                                                           parseMode,
                                                            disableWebPagePreview,
                                                            callBackQueryId
                                                            );
@@ -272,7 +292,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                    const KeyboardOnMessage &keyboard,
                                                    const QString &callBackQueryId,
                                                    unsigned long long replyToMessageId,
-                                                   bool markdown,
+                                                   const QString &parseMode,
                                                    bool disableWebPagePreview) {
 
     if (!chatId.isValid() || chatId.isNull())
@@ -286,7 +306,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        text,
                                                        prepareInlineKeyBoard(keyboard),
                                                        replyToMessageId,
-                                                       markdown,
+                                                       parseMode,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
@@ -386,6 +406,7 @@ bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, con
 bool ITelegramBot::sendPhoto(const QFileInfo &photo,
                              const QVariant &chatId,
                              const QString &description,
+                             const QString &parseMode,
                              unsigned long long replyToMessageId,
                              const KeyboardOnMessage &keyboard) {
     if (!chatId.isValid() || chatId.isNull())
@@ -395,14 +416,20 @@ bool ITelegramBot::sendPhoto(const QFileInfo &photo,
         return false;
     }
 
-    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(
-        chatId, description, photo, replyToMessageId, prepareInlineKeyBoard(keyboard)));
+    return sendFileWithPrivate(
+        QSharedPointer<TelegramSendPhoto>::create(chatId,
+                                                  description,
+                                                  photo,
+                                                  parseMode,
+                                                  replyToMessageId,
+                                                  prepareInlineKeyBoard(keyboard)));
 }
 
 bool ITelegramBot::sendPhoto(const QByteArray &photo,
                              const QString &fileName,
                              const QVariant &chatId,
                              const QString &description,
+                             const QString &parseMode,
                              unsigned long long replyToMessageId,
                              const KeyboardOnMessage &keyboard) {
 
@@ -417,8 +444,14 @@ bool ITelegramBot::sendPhoto(const QByteArray &photo,
         return false;
     }
 
-    return sendFileWithPrivate(QSharedPointer<TelegramSendPhoto>::create(
-        chatId, description, fileName, photo, replyToMessageId, prepareInlineKeyBoard(keyboard)));
+    return sendFileWithPrivate(
+        QSharedPointer<TelegramSendPhoto>::create(chatId,
+                                                  description,
+                                                  fileName,
+                                                  photo,
+                                                  parseMode,
+                                                  replyToMessageId,
+                                                  prepareInlineKeyBoard(keyboard)));
 }
 
 bool ITelegramBot::sendFileWithDescription(const QByteArray &file,

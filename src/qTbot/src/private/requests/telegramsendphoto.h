@@ -23,15 +23,17 @@ public:
                       const QString &text,
                       const QString &fileName,
                       const QByteArray& data,
+                      const QString& parseMode = "",
                       unsigned long long replyToMessageId = 0,
-                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      const ExtraJsonObjects& extraObjects = {}
                       );
 
     TelegramSendPhoto(const QVariant &chatId,
                       const QString &text,
                       const QFileInfo &file,
+                      const QString& parseMode = "",
                       unsigned long long replyToMessageId = 0,
-                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      const ExtraJsonObjects& extraObjects = {}
                       );
 
 };
