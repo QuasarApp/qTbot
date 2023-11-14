@@ -21,6 +21,7 @@ namespace qTbot {
 class ITelegramMessage;
 class TelegramFile;
 class TelegramUpdateAnswer;
+class TelegramSendFile;
 
 typedef std::function<void(const QString& buttonKey, const QVariant& msgID)> ButtonCB;
 typedef QList<QMap<QString, ButtonCB >> KeyboardOnMessage;
@@ -120,9 +121,9 @@ public:
     bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                          const QString& text,
                                          const QList<QList<QString> > &keyboard,
-                                         const QString &callBackQueryId,
+                                         const QString &callBackQueryId = "",
                                          bool onTimeKeyboard = false,
-                                         bool autoResizeKeyboard = false,
+                                         bool autoResizeKeyboard = true,
                                          unsigned long long replyToMessageId = 0,
                                          bool markdown = true,
                                          bool disableWebPagePreview = false);
@@ -186,7 +187,7 @@ public:
                                          const QString &text,
                                          bool markdown = true,
                                          bool disableWebPagePreview = false,
-                                         const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard = {},
+                                         const KeyboardOnMessage &keyboard = {},
                                          const QString &callBackQueryId = "");
 
     /**
@@ -231,6 +232,36 @@ public:
     bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) override;
 
     /**
+     * @brief sendPhoto This method will send image into chat with @a chatId
+     * @param photo this is photo path.
+     * @param chatId target chat
+     * @param replyToMessageId The unique identifier of the message to reply to, if any.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
+     * @return true if photo will snt successful
+     */
+    bool sendPhoto(const QFileInfo& photo,
+                   const QVariant& chatId,
+                   const QString &description,
+                   unsigned long long replyToMessageId = 0,
+                   const KeyboardOnMessage &keyboard = {});
+
+    /**
+     * @brief sendPhoto This method will send image into chat with @a chatId
+     * @param photo this is photo data.
+     * @param chatId target chat
+     * @param fileName This is dispalyed name of photo.
+     * @param replyToMessageId The unique identifier of the message to reply to, if any.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
+     * @return true if photo will snt successful
+     */
+    bool sendPhoto(const QByteArray& photo,
+                   const QString& fileName,
+                   const QVariant& chatId,
+                   const QString &description,
+                   unsigned long long replyToMessageId = 0,
+                   const KeyboardOnMessage &keyboard = {});
+
+    /**
      * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.
      * @param file This is a file source
      * @param fileName This is a dispalyed name of file.
@@ -238,7 +269,7 @@ public:
      * @param description additional text for message.
      * @return true if the message sents successful else false.
      */
-    bool sendFileWithDescription( const QByteArray& file,
+    bool sendFileWithDescription(const QByteArray& file,
                                  const QString& fileName,
                                  const QVariant& chatId,
                                  const QString& description);
@@ -375,6 +406,10 @@ private slots:
                           const QWeakPointer<iFile> &receiver);
 
 private:
+
+
+    bool sendFileWithPrivate(const QSharedPointer<TelegramSendFile>& file);
+
     QString findFileInlocatStorage(const QString& fileId) const;
     QMap<QString, QSharedPointer<QJsonObject>>
     prepareInlineKeyBoard(const QList<QMap<QString, std::function<void (const QString &, const QVariant &)> > > &keyboard);

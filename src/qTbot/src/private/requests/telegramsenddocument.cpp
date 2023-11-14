@@ -12,35 +12,11 @@ TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
                                            const QString &text,
                                            const QString& fileName,
                                            const QByteArray &data):
-    TelegramSingleRquest("sendDocument") {
-
-    addArg("chat_id", chatId);
-    if (text.size())
-        addArg("caption", text);
-
-    addArg(QString("%0:%1").arg(REQUEST_UPLOAD_FILE_KEY, fileName), data);
-
-}
+    TelegramSendFile("sendDocument", chatId, text, fileName, TELEGRAM_DOCUMENT, data) {}
 
 TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
                                            const QString &text,
                                            const QFileInfo &file):
-    TelegramSingleRquest("sendDocument")
-{
-    addArg("chat_id", chatId);
+    TelegramSendFile("sendDocument", chatId, text, file) {}
 
-    if (text.size())
-        addArg("text", text);
-
-    QFile readFile(file.absoluteFilePath());
-    if (!readFile.open(QIODevice::ReadOnly)) {
-        qWarning() << "Fail to open file" << file.absoluteFilePath();
-    }
-
-    addArg(REQUEST_UPLOAD_FILE_KEY, file.completeBaseName().toLatin1() + ":" + readFile.readAll());
-}
-
-iRequest::RequestMethod TelegramSendDocument::method() const {
-    return Upload;
-}
 }
