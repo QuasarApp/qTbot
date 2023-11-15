@@ -92,7 +92,7 @@ bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -116,7 +116,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &messageId) {
@@ -129,7 +129,7 @@ bool ITelegramBot::deleteMessage(const QVariant &chatId, const QVariant &message
     auto msg = QSharedPointer<TelegramDeleteMessage>::create(chatId,
                                                              messageId);
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
@@ -158,7 +158,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant & messageId,
                                                                            onTimeKeyboard,
                                                                            keyboard));
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 ExtraJsonObjects
@@ -237,7 +237,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                            prepareInlineKeyBoard(keyboard));
 
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::editMessageKeyboard(const QVariant &messageId,
@@ -256,7 +256,7 @@ bool ITelegramBot::editMessageKeyboard(const QVariant &messageId,
                                                                       prepareInlineKeyBoard(keyboard));
 
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
@@ -284,7 +284,7 @@ bool ITelegramBot::editSpecificMessage(const QVariant &messageId,
                                                            );
 
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
@@ -310,7 +310,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const QVariant &chatId,
                                                        callBackQueryId,
                                                        disableWebPagePreview);
 
-    return bool(sendRequest(msg));
+    return sendMessageRequest(msg);
 }
 
 QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
@@ -508,9 +508,9 @@ bool ITelegramBot::sendLocation(const QVariant &chatId,
         return false;
     }
 
-    auto&& request = QSharedPointer<TelegramSendLocation>::create(chatId, text, latitude, longitude, replyToMessageId);
+    auto&& msg = QSharedPointer<TelegramSendLocation>::create(chatId, text, latitude, longitude, replyToMessageId);
 
-    return bool(sendRequest(request));
+    return sendMessageRequest(msg);
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
@@ -545,6 +545,30 @@ void ITelegramBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & update)
             }
         }
     }
+}
+
+bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest) {
+    auto&& reply = IBot::sendRequest(rquest);
+    if (reply) {
+        connect(reply.get(), &QNetworkReply::finished, this,
+                [ reply, this]() {
+
+                    if (reply->error() == QNetworkReply::NoError) {
+                        QByteArray&& responseData = reply->readAll();
+                        QJsonDocument json = QJsonDocument::fromJson(responseData);
+
+                        const QJsonObject&& obj = json.object();
+                        if (obj.contains("result")) {
+                            unsigned long long chatId = obj["result"]["chat"]["id"].toInteger();
+                            if (chatId) {
+                                _lastMessageId[chatId] = obj["result"]["message_id"].toInt();
+                            }
+                        }
+                    }
+                });
+    }
+
+    return bool(reply);
 }
 
 void ITelegramBot::handleLogin() {
@@ -596,7 +620,7 @@ void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
 }
 
 bool ITelegramBot::sendFileWithPrivate(const QSharedPointer<TelegramSendFile> &file) {
-    return bool(sendRequest(file));
+    return sendMessageRequest(file);
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
@@ -627,6 +651,10 @@ void ITelegramBot::setId(unsigned long long newId) {
 
 const QString &ITelegramBot::username() const {
     return _username;
+}
+
+int ITelegramBot::gelLastMessageId(unsigned long long &chatId) const {
+    return _lastMessageId.value(chatId, 0);
 }
 
 unsigned long long ITelegramBot::id() const {

@@ -22,6 +22,7 @@ class ITelegramMessage;
 class TelegramFile;
 class TelegramUpdateAnswer;
 class TelegramSendFile;
+class TelegramSingleRquest;
 
 typedef std::function<void(const QString& buttonKey, const QVariant& msgID)> ButtonCB;
 typedef QList<QHash<QString, ButtonCB >> KeyboardOnMessage;
@@ -385,6 +386,13 @@ public:
      */
     const QString& username() const;
 
+    /**
+     * @brief gelLastMessageId this method returns last sendet message id.
+     * @param chatId chat id, when you want to get last message id.
+     * @return message id.
+     */
+    int gelLastMessageId(unsigned long long &chatId) const;
+
 protected:
 
     /**
@@ -423,6 +431,13 @@ protected:
 
     void handleIncomeNewUpdate(const QSharedPointer<iUpdate> &) override;
 
+    /**
+     * @brief sendMessageRequest This method invoke when bot will be sent eny messages into chat.
+     * @param rquest This is a message request.
+     * @return true if the message sent successful else false.
+     */
+    virtual bool sendMessageRequest(const QSharedPointer<iRequest> &rquest);
+
 private slots:
     void handleLogin();
     void handleLoginErr(QNetworkReply::NetworkError err);
@@ -441,13 +456,15 @@ private:
                                      bool onTimeKeyboard,
                                      const QList<QList<QString> > &keyboard);
 
-
     unsigned long long _id = 0;
     QString _username;
     QSharedPointer<QNetworkReply> _loginReplay;
     QMap<QString, std::function<void(const QString&, const QVariant&)>> _handleButtons;
 
+    QHash<unsigned long long, int> _lastMessageId;
+
     QHash<QString, QSharedPointer<TelegramFile>> _filesMetaInfo;
+
 
 };
 }
