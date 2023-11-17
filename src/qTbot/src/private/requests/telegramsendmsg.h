@@ -8,6 +8,7 @@
 #ifndef TELEGRAMSENDMSG_H
 #define TELEGRAMSENDMSG_H
 
+#include "qTbot/telegrammargs.h"
 #include "telegramsinglerquest.h"
 namespace qTbot {
 
@@ -17,24 +18,14 @@ namespace qTbot {
 class TelegramSendMsg: public TelegramSingleRquest
 {
 public:
+
     /**
      * @brief TelegramSendMsg
-     * @param chatId
-     * @param text
+     * @param args
      * @param extraObjects
-     * @param replyToMessageId
-     * @param parseMode This is mode of parsing. supported modes is markdown and html
-     * @param callBackQueryId
-     * @param disableWebPagePreview
      */
-    TelegramSendMsg(const QVariant& chatId,
-                    const QString& text,
-                    const ExtraJsonObjects& extraObjects = {},
-                    unsigned long long replyToMessageId = 0,
-                    const QString& parseMode = "",
-                    const QString& callBackQueryId = "",
-                    bool disableWebPagePreview = false
-                    );
+    TelegramSendMsg(const TelegrammArgs& args,
+                    const ExtraJsonObjects& extraObjects = {});
 };
 }
 #endif // TELEGRAMSENDMSG_H

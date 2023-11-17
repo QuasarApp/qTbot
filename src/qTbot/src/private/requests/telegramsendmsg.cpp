@@ -11,38 +11,13 @@
 #include <QJsonObject>
 namespace qTbot {
 
-TelegramSendMsg::TelegramSendMsg(const QVariant &chatId,
-                                 const QString &text,
-                                 const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects,
-                                 unsigned long long replyToMessageId,
-                                 const QString& parseMode,
-                                 const QString &callBackQueryId,
-                                 bool disableWebPagePreview)
+TelegramSendMsg::TelegramSendMsg(const TelegrammArgs& generalArgs,
+                                 const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects)
                                  :
     TelegramSingleRquest("sendMessage")
 {
 
-    QMap<QString, QVariant> args {{"chat_id", chatId}};
-
-    if (text.size()) {
-        args["text"] = text;
-    }
-
-    if (replyToMessageId) {
-        args["reply_to_message_id"] = replyToMessageId;
-    }
-
-    if (parseMode.size()) {
-        args["parse_mode"] = parseMode;
-    }
-
-    if (disableWebPagePreview) {
-        args["disable_web_page_preview"] = disableWebPagePreview;
-    }
-
-    if (callBackQueryId.size()) {
-        args["callback_query_id"] = callBackQueryId;
-    }
+    QMap<QString, QVariant>&& args = generalArgs.toMap();
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
         args[it.key()] = QJsonDocument(*it.value()).toJson(QJsonDocument::Compact);

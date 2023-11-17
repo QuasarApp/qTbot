@@ -11,6 +11,7 @@
 #define ITELEGRAMBOT_H
 
 #include "ibot.h"
+#include "qTbot/telegrammargs.h"
 #include <QObject>
 
 class QNetworkAccessManager;
@@ -45,90 +46,50 @@ public:
      * @brief Sends a specific message to a chat.
      *
      * This function sends a specific message to a chat. You can include text and additional objects as needed to customize the message's content and behavior.
-     *
-     * @param chatId The unique identifier of the chat to send the message to.
-     * @param text The text content of the message to be sent.
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param extraObjects A map containing additional objects associated with the message (optional).
-     * @param callBackQueryId The unique identifier for callback queries triggered by the message (optional).
-     * @param replyToMessageId The unique identifier of the message to reply to, if any (optional).
-     * @param parseMode Sets a text parsing mode. supports markdown and html, by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the message (optional).
      *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
      * @note The extraObjects parameter is a map where each key represents the object's name, and the associated value is a shared pointer to a JSON object (optional).
-     * @note The callBackQueryId parameter is used to handle callback queries when applicable (optional).
-     * @note By default, web page previews for links in the message are not disabled (optional).
      */
-    bool sendSpecificMessage(const QVariant &chatId,
-                             const QString& text,
-                             const qTbot::ExtraJsonObjects &extraObjects = {},
-                             const QString &callBackQueryId = {},
-                             unsigned long long replyToMessageId = 0,
-                             const QString &parseMode = "html",
-                             bool disableWebPagePreview = false);
+    bool sendSpecificMessage(const TelegrammArgs& args,
+                             const qTbot::ExtraJsonObjects &extraObjects = {});
 
     /**
      * @brief Sends a specific message with a custom keyboard to a chat.
-     *
      * This function sends a specific message to a chat with a custom keyboard. The message can contain text and additional settings to customize its behavior.
-     *
-     * @param chatId The unique identifier of the chat to send the message to.
-     * @param text The text content of the message to be sent.
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param keyboard A list of maps where each map represents a button with a callback function.
-     * @param callBackQueryId The unique identifier for callback queries triggered by the message (optional).
-     * @param replyToMessageId The unique identifier of the message to reply to, if any (optional).
-     * @param parseMode Sets a text parsing mode. supports markdown and html,
-     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the message (optional).
-     *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
      * @note The keyboard parameter should be a list of maps where each map represents a button.
      *  The button's label is the map key, and the associated callback function is the map value.
-     * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
-     * @note By default, web page previews for links in the message are not disabled (optional).
      */
-    bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
-                                         const QString& text,
-                                         const KeyboardOnMessage &keyboard,
-                                         const QString &callBackQueryId = "",
-                                         unsigned long long replyToMessageId = 0,
-                                         const QString &parseMode = "html",
-                                         bool disableWebPagePreview = false);
+    bool sendSpecificMessageWithKeyboard(const TelegrammArgs& args,
+                                         const KeyboardOnMessage &keyboard);
 
     /**
      * @brief Sends a specific message with a custom keyboard to a chat.
      *
      * This function sends a specific message to a chat with a custom keyboard.
      *  The message can contain text and additional settings to customize its behavior.
-     *
-     * @param chatId The unique identifier of the chat to send the message to.
-     * @param text The text content of the message to be sent.
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param keyboard A list of lists containing the keyboard buttons to display.
-     * @param callBackQueryId The unique identifier for callback queries triggered by the message.
      * @param onTimeKeyboard Set to true to display the keyboard only once.
      * @param autoResizeKeyboard Set to true to automatically resize the keyboard.
-     * @param replyToMessageId The unique identifier of the message to reply to, if any.
-     * @param parseMode Sets a text parsing mode. supports markdown and html,
-     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the message.
      *
      * @return Returns true if the message was sent successfully, false otherwise.
      *
-     * @note The keyboard parameter should be a list of lists of strings representing keyboard buttons.
-     * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed.
      * @note By default, web page previews for links in the message are not disabled.
      */
-    bool sendSpecificMessageWithKeyboard(const QVariant &chatId,
-                                         const QString& text,
+    bool sendSpecificMessageWithKeyboard(const TelegrammArgs& args,
                                          const QList<QList<QString> > &keyboard,
-                                         const QString &callBackQueryId = "",
                                          bool onTimeKeyboard = false,
-                                         bool autoResizeKeyboard = true,
-                                         unsigned long long replyToMessageId = 0,
-                                         const QString &parseMode = "html",
-                                         bool disableWebPagePreview = false);
+                                         bool autoResizeKeyboard = true);
 
     bool deleteMessage(const QVariant& chatId, const QVariant& messageId) override;
 
@@ -136,31 +97,20 @@ public:
      * @brief Edits a specific message with a custom keyboard in a chat.
      *
      * This function allows you to edit a specific message in a chat with a custom keyboard. You can update the message's text and customize its behavior as needed.
-     *
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param messageId The unique identifier of the message to edit.
-     * @param chatId The unique identifier of the chat containing the message.
-     * @param newText The new text content for the message.
-     * @param parseMode Sets a text parsing mode. supports markdown and html,
-     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
      * @param keyboard A list of lists containing the new keyboard buttons to display (optional).
-     * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
      * @param onTimeKeyboard Set to true to display the keyboard only once (optional).
      * @param autoResizeKeyboard Set to true to automatically resize the keyboard (optional).
      *
      * @return Returns true if the message was successfully edited, false otherwise.
      *
-     * @note The keyboard parameter should be a list of lists of strings representing keyboard buttons (optional).
-     * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessageWithKeyboard(const QVariant &messageId,
-                                         const QVariant &chatId,
-                                         const QString &newText,
-                                         const QString &parseMode = "html",
-                                         bool disableWebPagePreview = false,
+                                         const TelegrammArgs& args,
                                          const QList<QList<QString> > &keyboard = {},
-                                         const QString &callBackQueryId = "",
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = false);
 
@@ -171,27 +121,17 @@ public:
      * This function allows you to edit a specific message in a chat with a custom keyboard. You can update the message's text and customize its behavior as needed.
      *
      * @param messageId The unique identifier of the message to edit.
-     * @param chatId The unique identifier of the chat containing the message.
-     * @param text The new text content for the message.
-     * @param parseMode Sets a text parsing mode. supports markdown and html,
-     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
-     * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
      *
      * @return Returns true if the message was successfully edited, false otherwise.
      *
-     * @note The keyboard parameter should be a list of maps where each map represents a button. The button's label is the map key, and the associated callback function is the map value (optional).
-     * @note The callBackQueryId parameter is used to handle callback queries when buttons are pressed (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
- */
-    bool editSpecificMessageWithKeyboard(const QVariant& messageId,
-                                         const QVariant &chatId,
-                                         const QString &text,
-                                         const QString &parseMode = "html",
-                                         bool disableWebPagePreview = false,
-                                         const KeyboardOnMessage &keyboard = {},
-                                         const QString &callBackQueryId = "");
+     */
+    bool editSpecificMessageWithKeyboard(const TelegrammArgs& args,
+                                         const QVariant& messageId,
+                                         const KeyboardOnMessage &keyboard = {});
 
     /**
      * @brief Edits a keyboard of message in a chat.
@@ -220,24 +160,14 @@ public:
      * This function allows you to edit a specific message in a chat. You can update the message's text and customize its behavior as needed.
      *
      * @param messageId The unique identifier of the message to edit.
-     * @param chatId The unique identifier of the chat containing the message.
-     * @param newText The new text content for the message.
-     * @param callBackQueryId The unique identifier for callback queries triggered by the edited message (optional).
-     * @param parseMode Sets a text parsing mode. supports markdown and html,
-     *  by default will be used html mode. If you want to disable parsing mode sets this option to empty string.
-     * @param disableWebPagePreview Set to true to disable web page previews for links in the new text (optional).
-     *
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @return Returns true if the message was successfully edited, false otherwise.
      *
-     * @note The callBackQueryId parameter is used to handle callback queries when applicable (optional).
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessage(const QVariant &messageId,
-                             const QVariant &chatId,
-                             const QString &newText,
-                             const QString &callBackQueryId = {},
-                             const QString &parseMode = "html",
-                             bool disableWebPagePreview = false);
+                             const TelegrammArgs& args);
 
     [[nodiscard("do not forget to save shared pointer of file handler, because it's will not save inner bot object.")]]
     QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
@@ -254,6 +184,23 @@ public:
     bool sendFile( const QFileInfo& file, const QVariant& chatId) override;
 
     bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) override;
+
+    /**
+     * @brief sendFileMessage This method sents a message with file.
+     * @param file This is path to sents file.
+     * @param args This is general arguments of the message, include a chatID.
+     * @return true if the message sents successful else false
+     */
+    bool sendFileMessage( const QFileInfo& file, const TelegrammArgs& args);
+
+    /**
+     * @brief sendFileMessage This method sents a message with file.
+     * @param file This is data that will be sents as a file with name @a fileName.
+     * @param fileName This is name of the file.
+     * @param args This is general arguments of the message, include a chatID.
+     * @return true if the message sents successful else false
+     */
+    bool sendFileMessage( const QByteArray& file, const QString& fileName, const TelegrammArgs& args);
 
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId

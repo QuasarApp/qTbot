@@ -66,21 +66,16 @@ bool ITelegramBot::login(const QByteArray &token) {
 }
 
 bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
-    return sendSpecificMessage(chatId.toLongLong(), text);
+    return sendSpecificMessage(TelegrammArgs{chatId, text});
 }
 
-bool ITelegramBot::sendSpecificMessage(const QVariant & chatId,
-                                       const QString &text,
-                                       const ExtraJsonObjects &extraObjects,
-                                       const QString &callBackQueryId,
-                                       unsigned long long replyToMessageId,
-                                       const QString& parseMode,
-                                       bool disableWebPagePreview) {
+bool ITelegramBot::sendSpecificMessage(const TelegrammArgs& args,
+                                       const ExtraJsonObjects &extraObjects) {
 
-    if (!chatId.isValid() || chatId.isNull())
+    if (!args.chatId.isValid() || args.chatId.isNull())
         return false;
 
-    if (text.isEmpty()) {
+    if (args.text.isEmpty()) {
         return false;
     }
 
@@ -401,6 +396,14 @@ bool ITelegramBot::sendFile(const QFileInfo &file, const QVariant &chatId) {
 
 bool ITelegramBot::sendFile(const QByteArray &file, const QString &fileName, const QVariant &chatId) {
     return sendFileWithDescription(file, fileName, chatId, "");
+}
+
+bool ITelegramBot::sendFileMessage(const QFileInfo &file, const TelegrammArgs &args) {
+
+}
+
+bool ITelegramBot::sendFileMessage(const QByteArray &file, const QString &fileName, const TelegrammArgs &args) {
+
 }
 
 bool ITelegramBot::sendPhoto(const QFileInfo &photo,
