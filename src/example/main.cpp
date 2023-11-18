@@ -12,6 +12,8 @@
 #include <qTbot/messages/telegrammsg.h>
 #include <qTbot/messages/telegramupdate.h>
 
+// link to test bot
+// @quasarapp_test_bot (https://t.me/quasarapp_test_bot)
 int main(int argc, char *argv[]) {
 
     QCoreApplication::setOrganizationName("QuasarApp");
