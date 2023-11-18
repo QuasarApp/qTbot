@@ -9,13 +9,14 @@
 #define TELEGRAMARGS_H
 
 #include <QVariant>
+#include "global.h"
 
 namespace qTbot {
 
 /**
  * @brief The TelegramArgs class is base structure for the all tellegram message arguments.
  */
-struct TelegramArgs
+struct QTBOT_EXPORT TelegramArgs
 {
     TelegramArgs(const QVariant& id,
                  const QString& text = "",
