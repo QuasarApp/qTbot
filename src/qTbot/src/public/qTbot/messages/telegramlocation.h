@@ -38,6 +38,12 @@ public:
      * @return float value of longitude
      */
     double longitude() const;
+
+    /**
+     * @brief toQPoint This method convert location data to general qt class.
+     * @return location as a qt point
+     */
+    QPointF toQPoint() const;
 };
 }
 #endif // TELEGRAMLOCATION_H
