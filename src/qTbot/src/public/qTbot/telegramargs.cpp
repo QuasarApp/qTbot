@@ -13,7 +13,7 @@ TelegramArgs::TelegramArgs(const QVariant &id,
                            unsigned long long replyToMessageId,
                            const QString &parseMode,
                            bool disableWebPagePreview,
-                           const QString &callBackQueryId)
+                           const QString &callBackQueryId, const std::function<void (int)> &msgIdCB)
 {
 
     this->chatId = id;
@@ -22,6 +22,7 @@ TelegramArgs::TelegramArgs(const QVariant &id,
     this->disableWebPagePreview = disableWebPagePreview;
     this->replyToMessageId = replyToMessageId;
     this->parseMode = parseMode;
+    this->msgIdCB = msgIdCB;
 }
 
 QMap<QString, QVariant> TelegramArgs::toMap(bool textAsCaption) const {

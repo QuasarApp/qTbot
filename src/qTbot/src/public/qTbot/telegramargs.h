@@ -22,7 +22,8 @@ struct TelegramArgs
                  unsigned long long replyToMessageId = 0,
                  const QString& parseMode = "html",
                  bool disableWebPagePreview = false,
-                 const QString& callBackQueryId = ""
+                 const QString& callBackQueryId = "",
+                 const std::function<void(int msgId)>& msgIdCB = {}
                  );
 
     /**
@@ -67,6 +68,11 @@ struct TelegramArgs
      * @return list of arguments.
      */
     QMap<QString, QVariant> toMap(bool textAsCaption = false) const;
+
+    /**
+     * @brief msgIdCB This is id message call bak function. Will be inwoked when request finished successful.
+     */
+    std::function<void(int msgId)> msgIdCB = {};
 };
 
 }

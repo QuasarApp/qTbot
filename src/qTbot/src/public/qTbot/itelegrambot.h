@@ -353,9 +353,11 @@ protected:
     /**
      * @brief sendMessageRequest This method invoke when bot will be sent eny messages into chat.
      * @param rquest This is a message request.
+     * @param msgIdCB call back function for the get a sent message id
      * @return true if the message sent successful else false.
      */
-    virtual bool sendMessageRequest(const QSharedPointer<iRequest> &rquest);
+    virtual bool sendMessageRequest(const QSharedPointer<iRequest> &rquest,
+                                    const std::function<void(int msgId)>& msgIdCB = {});
 
 private slots:
     void handleLogin();
@@ -364,9 +366,6 @@ private slots:
                           const QWeakPointer<iFile> &receiver);
 
 private:
-
-
-    bool sendFileWithPrivate(const QSharedPointer<TelegramSendFile>& file);
 
     QString findFileInlocatStorage(const QString& fileId) const;
     QHash<QString, QSharedPointer<QJsonObject> >

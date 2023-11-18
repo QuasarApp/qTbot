@@ -81,7 +81,7 @@ bool ITelegramBot::sendSpecificMessage(const TelegramArgs& args,
 
     auto msg = QSharedPointer<TelegramSendMsg>::create(args, extraObjects);
 
-    return sendMessageRequest(msg);
+    return sendMessageRequest(msg, args.msgIdCB);
 }
 
 bool ITelegramBot::sendSpecificMessageWithKeyboard(const TelegramArgs& args,
@@ -120,7 +120,7 @@ bool ITelegramBot::editSpecificMessageWithKeyboard(const QVariant &messageId,
                                                                            onTimeKeyboard,
                                                                            keyboard));
 
-    return sendMessageRequest(msg);
+    return sendMessageRequest(msg, args.msgIdCB);
 }
 
 ExtraJsonObjects
@@ -346,9 +346,9 @@ bool ITelegramBot::sendFileMessage(const TelegramArgs &args, const QFileInfo &fi
         return false;
     }
 
-    return sendFileWithPrivate(
+    return sendMessageRequest(
         QSharedPointer<TelegramSendPhoto>::create(args,
-                                                  file));
+                                                  file), args.msgIdCB);
 }
 
 bool ITelegramBot::sendFileMessage(const TelegramArgs &args, const QByteArray &file, const QString &fileName) {
@@ -363,7 +363,7 @@ bool ITelegramBot::sendFileMessage(const TelegramArgs &args, const QByteArray &f
         return false;
     }
 
-    return sendFileWithPrivate(QSharedPointer<TelegramSendDocument>::create(args, fileName, file));
+    return sendMessageRequest(QSharedPointer<TelegramSendDocument>::create(args, fileName, file), args.msgIdCB);
 }
 
 bool ITelegramBot::sendPhoto(const TelegramArgs &args,
@@ -376,10 +376,10 @@ bool ITelegramBot::sendPhoto(const TelegramArgs &args,
         return false;
     }
 
-    return sendFileWithPrivate(
+    return sendMessageRequest(
         QSharedPointer<TelegramSendPhoto>::create(args,
                                                   photo,
-                                                  prepareInlineKeyBoard(keyboard)));
+                                                  prepareInlineKeyBoard(keyboard)), args.msgIdCB);
 }
 
 bool ITelegramBot::sendPhoto(const TelegramArgs &args,
@@ -399,11 +399,11 @@ bool ITelegramBot::sendPhoto(const TelegramArgs &args,
         return false;
     }
 
-    return sendFileWithPrivate(
+    return sendMessageRequest(
         QSharedPointer<TelegramSendPhoto>::create(args,
                                                   fileName,
                                                   photo,
-                                                  prepareInlineKeyBoard(keyboard)));
+                                                  prepareInlineKeyBoard(keyboard)), args.msgIdCB);
 }
 
 bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
@@ -467,11 +467,12 @@ void ITelegramBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & update)
     }
 }
 
-bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest) {
+bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest,
+                                      const std::function<void (int)> &msgIdCB) {
     auto&& reply = IBot::sendRequest(rquest);
     if (reply) {
         connect(reply.get(), &QNetworkReply::finished, this,
-                [ reply, this]() {
+                [ reply, msgIdCB, this]() {
 
                     if (reply->error() == QNetworkReply::NoError) {
                         QByteArray&& responseData = reply->readAll();
@@ -480,8 +481,13 @@ bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest) {
                         const QJsonObject&& obj = json.object();
                         if (obj.contains("result")) {
                             unsigned long long chatId = obj["result"]["chat"]["id"].toInteger();
+                            int messageID = obj["result"]["message_id"].toInt();
                             if (chatId) {
-                                _lastMessageId[chatId] = obj["result"]["message_id"].toInt();
+                                _lastMessageId[chatId] = messageID;
+                            }
+
+                            if (msgIdCB) {
+                                msgIdCB(messageID);
                             }
                         }
                     }
@@ -537,10 +543,6 @@ void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
             sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
         }
     }
-}
-
-bool ITelegramBot::sendFileWithPrivate(const QSharedPointer<TelegramSendFile> &file) {
-    return sendMessageRequest(file);
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {
