@@ -5,15 +5,15 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#include "telegrammargs.h"
+#include "telegramargs.h"
 namespace qTbot {
 
-TelegrammArgs::TelegrammArgs(const QVariant &id,
-                             const QString &text,
-                             const QString &parseMode,
-                             unsigned long long replyToMessageId,
-                             bool disableWebPagePreview,
-                             const QString &callBackQueryId)
+TelegramArgs::TelegramArgs(const QVariant &id,
+                           const QString &text,
+                           unsigned long long replyToMessageId,
+                           const QString &parseMode,
+                           bool disableWebPagePreview,
+                           const QString &callBackQueryId)
 {
 
     this->chatId = id;
@@ -24,11 +24,16 @@ TelegrammArgs::TelegrammArgs(const QVariant &id,
     this->parseMode = parseMode;
 }
 
-QMap<QString, QVariant> TelegrammArgs::toMap() const {
+QMap<QString, QVariant> TelegramArgs::toMap(bool textAsCaption) const {
     QMap<QString, QVariant> args {{"chat_id", chatId}};
 
     if (text.size()) {
-        args["text"] = text;
+        if (textAsCaption) {
+            args["caption"] = text;
+
+        } else {
+            args["text"] = text;
+        }
     }
 
     if (replyToMessageId) {

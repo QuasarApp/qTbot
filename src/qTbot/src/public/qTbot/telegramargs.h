@@ -5,25 +5,25 @@
 //# of this license document, but changing it is not allowed.
 //#
 
-#ifndef TELEGRAMMARGS_H
-#define TELEGRAMMARGS_H
+#ifndef TELEGRAMARGS_H
+#define TELEGRAMARGS_H
 
 #include <QVariant>
 
 namespace qTbot {
 
 /**
- * @brief The TelegrammArgs class is base structure for the all tellegram message arguments.
+ * @brief The TelegramArgs class is base structure for the all tellegram message arguments.
  */
-struct TelegrammArgs
+struct TelegramArgs
 {
-    TelegrammArgs(const QVariant& id,
-                  const QString& text = "",
-                  const QString& parseMode = "",
-                  unsigned long long replyToMessageId = 0,
-                  bool disableWebPagePreview = false,
-                  const QString& callBackQueryId = ""
-                  );
+    TelegramArgs(const QVariant& id,
+                 const QString& text = "",
+                 unsigned long long replyToMessageId = 0,
+                 const QString& parseMode = "html",
+                 bool disableWebPagePreview = false,
+                 const QString& callBackQueryId = ""
+                 );
 
     /**
      * @brief Text of the message.
@@ -63,10 +63,11 @@ struct TelegrammArgs
 
     /**
      * @brief toMap convert all arguments to the map.
-     * @return
+     * @param textAsCaption This option force to replace text key to caption. Used on some requests as a sendDocument
+     * @return list of arguments.
      */
-    QMap<QString, QVariant> toMap() const;
+    QMap<QString, QVariant> toMap(bool textAsCaption = false) const;
 };
 
 }
-#endif // TELEGRAMMARGS_H
+#endif // TELEGRAMARGS_H

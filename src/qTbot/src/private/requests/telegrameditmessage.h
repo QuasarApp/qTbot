@@ -18,11 +18,7 @@ class TelegramEditMessage: public TelegramSendMsg
 {
 public:
     TelegramEditMessage(const QVariant& idEditedMessage,
-                        const QVariant& chatId,
-                        const QString& newText,
-                        const QString& parseMode = "",
-                        bool disableWebPagePreview = false,
-                        const QString& callBackQueryId = "",
+                        const TelegramArgs& args,
                         const ExtraJsonObjects& extraObjects = {});
 };
 }

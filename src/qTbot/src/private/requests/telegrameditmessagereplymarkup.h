@@ -19,8 +19,7 @@ class TelegramEditMessageReplyMarkup: public TelegramEditMessage
 {
 public:
     TelegramEditMessageReplyMarkup(const QVariant& idEditedMessage,
-                                   const QVariant& chatId,
-                                   const QString& callBackQueryId = "",
+                                   const TelegramArgs &args,
                                    const ExtraJsonObjects& extraObjects = {});
 };
 }

@@ -11,7 +11,7 @@
 #define ITELEGRAMBOT_H
 
 #include "ibot.h"
-#include "qTbot/telegrammargs.h"
+#include "qTbot/telegramargs.h"
 #include <QObject>
 
 class QNetworkAccessManager;
@@ -54,7 +54,7 @@ public:
      *
      * @note The extraObjects parameter is a map where each key represents the object's name, and the associated value is a shared pointer to a JSON object (optional).
      */
-    bool sendSpecificMessage(const TelegrammArgs& args,
+    bool sendSpecificMessage(const TelegramArgs& args,
                              const qTbot::ExtraJsonObjects &extraObjects = {});
 
     /**
@@ -68,7 +68,7 @@ public:
      * @note The keyboard parameter should be a list of maps where each map represents a button.
      *  The button's label is the map key, and the associated callback function is the map value.
      */
-    bool sendSpecificMessageWithKeyboard(const TelegrammArgs& args,
+    bool sendSpecificMessageWithKeyboard(const TelegramArgs& args,
                                          const KeyboardOnMessage &keyboard);
 
     /**
@@ -86,7 +86,7 @@ public:
      *
      * @note By default, web page previews for links in the message are not disabled.
      */
-    bool sendSpecificMessageWithKeyboard(const TelegrammArgs& args,
+    bool sendSpecificMessageWithKeyboard(const TelegramArgs& args,
                                          const QList<QList<QString> > &keyboard,
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = true);
@@ -109,7 +109,7 @@ public:
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessageWithKeyboard(const QVariant &messageId,
-                                         const TelegrammArgs& args,
+                                         const TelegramArgs& args,
                                          const QList<QList<QString> > &keyboard = {},
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = false);
@@ -129,8 +129,8 @@ public:
      *
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
-    bool editSpecificMessageWithKeyboard(const TelegrammArgs& args,
-                                         const QVariant& messageId,
+    bool editSpecificMessageWithKeyboard(const QVariant& messageId,
+                                         const TelegramArgs& args,
                                          const KeyboardOnMessage &keyboard = {});
 
     /**
@@ -167,7 +167,7 @@ public:
      * @note By default, web page previews for links in the new text are not disabled (optional).
      */
     bool editSpecificMessage(const QVariant &messageId,
-                             const TelegrammArgs& args);
+                             const TelegramArgs& args);
 
     [[nodiscard("do not forget to save shared pointer of file handler, because it's will not save inner bot object.")]]
     QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
@@ -191,7 +191,7 @@ public:
      * @param args This is general arguments of the message, include a chatID.
      * @return true if the message sents successful else false
      */
-    bool sendFileMessage( const QFileInfo& file, const TelegrammArgs& args);
+    bool sendFileMessage( const TelegramArgs& args, const QFileInfo& file);
 
     /**
      * @brief sendFileMessage This method sents a message with file.
@@ -200,62 +200,34 @@ public:
      * @param args This is general arguments of the message, include a chatID.
      * @return true if the message sents successful else false
      */
-    bool sendFileMessage( const QByteArray& file, const QString& fileName, const TelegrammArgs& args);
+    bool sendFileMessage( const TelegramArgs& args, const QByteArray& file, const QString& fileName);
 
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param photo this is photo path.
-     * @param chatId target chat
-     * @param replyToMessageId The unique identifier of the message to reply to, if any.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @return true if photo will snt successful
      */
-    bool sendPhoto(const QFileInfo& photo,
-                   const QVariant& chatId,
-                   const QString &description,
-                   const QString &parseMode = "html",
-                   unsigned long long replyToMessageId = 0,
+    bool sendPhoto(const TelegramArgs& args,
+                   const QFileInfo& photo,
                    const KeyboardOnMessage &keyboard = {});
 
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId
      * @param photo this is photo data.
-     * @param chatId target chat
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param fileName This is dispalyed name of photo.
-     * @param replyToMessageId The unique identifier of the message to reply to, if any.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @return true if photo will snt successful
      */
-    bool sendPhoto(const QByteArray& photo,
+    bool sendPhoto(const TelegramArgs &args,
+                   const QByteArray& photo,
                    const QString& fileName,
-                   const QVariant& chatId,
-                   const QString &description, const QString &parseMode,
-                   unsigned long long replyToMessageId = 0,
                    const KeyboardOnMessage &keyboard = {});
 
-    /**
-     * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.
-     * @param file This is a file source
-     * @param fileName This is a dispalyed name of file.
-     * @param chatId This is distanation id chat.
-     * @param description additional text for message.
-     * @return true if the message sents successful else false.
-     */
-    bool sendFileWithDescription(const QByteArray& file,
-                                 const QString& fileName,
-                                 const QVariant& chatId,
-                                 const QString& description);
-
-    /**
-     * @brief sendFileWithDescription This method sents a byte array as a file into @a chatId with additional text @a description.
-     * @param file This is a file source
-     * @param chatId This is distanation id chat.
-     * @param description additional text for message.
-     * @return true if the message sents successful else false.
-     */
-    bool sendFileWithDescription( const QFileInfo& file,
-                                 const QVariant& chatId,
-                                 const QString& description);
     /**
      * @brief sendFileById This is specific method of the telegram bot. sents file by id.
      * @param fileID This is file id.

@@ -11,7 +11,7 @@
 #include <QJsonObject>
 namespace qTbot {
 
-TelegramSendMsg::TelegramSendMsg(const TelegrammArgs& generalArgs,
+TelegramSendMsg::TelegramSendMsg(const TelegramArgs& generalArgs,
                                  const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects)
                                  :
     TelegramSingleRquest("sendMessage")

@@ -10,6 +10,8 @@
 #include "qfileinfo.h"
 #include "requests/telegramsinglerquest.h"
 
+#include <qTbot/telegramargs.h>
+
 #define TELEGRAM_PHOTO "photo"
 #define TELEGRAM_DOCUMENT "document"
 
@@ -23,22 +25,15 @@ class TelegramSendFile: public TelegramSingleRquest
 public:
 
     TelegramSendFile(const QString &request,
-                     const QVariant &chatId,
-                     const QString &text,
                      const QString &fileName,
                      const QString &fileType,
                      const QByteArray& data,
-                     const QString& parseMode = "",
-                     unsigned long long replyToMessageId = 0,
+                     const TelegramArgs &args,
                      const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
     TelegramSendFile(const QString &request,
-                     const QVariant &chatId,
-                     const QString &text,
                      const QFileInfo &file,
-                     const QString& parseMode = "",
-
-                     unsigned long long replyToMessageId = 0,
+                     const TelegramArgs &args,
                      const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects = {});
 
     RequestMethod method() const override;

@@ -45,21 +45,30 @@ int main(int argc, char *argv[]) {
                             filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
                         }
 
-                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(),
-                                                            "I see it - я вижу это",
+                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
                                                             {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
-                                                                static int index = 0;
-                                                                    bot.editSpecificMessageWithKeyboard(msgId,
-                                                                                                    tmsg->chatId(),
-                                                                                                    "I see it - я вижу это. Presedd count: " + QString::number(index++),"", false,
-                                                                                                    {{{"test_button", [](auto , auto ){}}, {"test_button 2", [](auto , auto ){}}}},
-                                                                                                    queryId);
-                                                                }}}}, "", tmsg->messageId(), "", false);
+                                                                   static int index = 0;
 
-                        bot.sendSpecificMessageWithKeyboard(tmsg->chatId(),
-                                                            "I see it - я вижу это (интерактивная клавиатура)",
+                                                                   auto&& args = qTbot::TelegramArgs{tmsg->chatId(),
+                                                                                                     "I see it. Presed count: " + QString::number(index++),
+                                                                                                     tmsg->messageId(),
+                                                                                                     "",
+                                                                                                     false,
+                                                                                                     queryId};
+
+                                                                   auto&& keyboard = qTbot::KeyboardOnMessage{
+                                                                                                              {{"test_button", [](auto , auto ){}},
+                                                                                                               {"test_button 2", [](auto , auto ){}}}};
+
+                                                                   bot.editSpecificMessageWithKeyboard(msgId,
+                                                                                                       args,
+                                                                                                       keyboard
+                                                                                                       );
+                                                               }}}});
+
+                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
                                                             {{{"test_button"},
-                                                              {"test_button"},}}, {}, true, true, tmsg->messageId());
+                                                                {"test_button"},}}, true, true);
                     }
 
                 }

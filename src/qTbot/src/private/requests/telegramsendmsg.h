@@ -8,7 +8,7 @@
 #ifndef TELEGRAMSENDMSG_H
 #define TELEGRAMSENDMSG_H
 
-#include "qTbot/telegrammargs.h"
+#include "qTbot/telegramargs.h"
 #include "telegramsinglerquest.h"
 namespace qTbot {
 
@@ -20,11 +20,11 @@ class TelegramSendMsg: public TelegramSingleRquest
 public:
 
     /**
-     * @brief TelegramSendMsg
-     * @param args
-     * @param extraObjects
+     * @brief TelegramSendMsg This object sents msg to telegram server.
+     * @param args this is generatl arguments of request (include target chat id).
+     * @param extraObjects additional objects of the telegram messages (json).
      */
-    TelegramSendMsg(const TelegrammArgs& args,
+    TelegramSendMsg(const TelegramArgs& args,
                     const ExtraJsonObjects& extraObjects = {});
 };
 }

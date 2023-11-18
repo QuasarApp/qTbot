@@ -19,19 +19,13 @@ namespace qTbot {
 class TelegramSendDocument: public TelegramSendFile
 {
 public:
-    TelegramSendDocument(const QVariant &chatId,
-                         const QString &text,
+    TelegramSendDocument(const TelegramArgs &args,
                          const QString &fileName,
                          const QByteArray& data,
-                         const QString& parseMode = "",
-                         unsigned long long replyToMessageId = 0,
                          const ExtraJsonObjects& extraObjects = {});
 
-    TelegramSendDocument(const QVariant &chatId,
-                         const QString &text,
+    TelegramSendDocument(const TelegramArgs &args,
                          const QFileInfo &file,
-                         const QString& parseMode = "",
-                         unsigned long long replyToMessageId = 0,
                          const ExtraJsonObjects& extraObjects = {});
 
 };

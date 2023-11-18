@@ -9,11 +9,10 @@
 
 namespace qTbot {
 
-TelegramEditMessageReplyMarkup::TelegramEditMessageReplyMarkup(const QVariant &idEditedMessage,
-                                                               const QVariant &chatId,
-                                                               const QString &callBackQueryId,
+TelegramEditMessageReplyMarkup::TelegramEditMessageReplyMarkup(const QVariant& idEditedMessage,
+                                                               const TelegramArgs& args,
                                                                const ExtraJsonObjects &extraObjects):
-    TelegramEditMessage(idEditedMessage, chatId, "", "", false, callBackQueryId, extraObjects)
+    TelegramEditMessage(idEditedMessage, args, extraObjects)
 {
     setRequest("editMessageReplyMarkup");
 }
