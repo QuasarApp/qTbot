@@ -482,12 +482,12 @@ bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest,
                         if (obj.contains("result")) {
                             unsigned long long chatId = obj["result"]["chat"]["id"].toInteger();
                             int messageID = obj["result"]["message_id"].toInt();
-                            if (chatId) {
-                                _lastMessageId[chatId] = messageID;
-                            }
-
                             if (msgIdCB) {
                                 msgIdCB(messageID);
+                            }
+
+                            if (chatId) {
+                                _lastMessageId[chatId] = messageID;
                             }
                         }
                     }
