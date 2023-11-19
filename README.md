@@ -2,7 +2,7 @@
 This is Qt library for working with chat bots. 
 
 At this time This library supports next platforms:
-* Telegram (50%) - implemented only processing and sending messages and download files.
+* Telegram Rest (80%) - implemented only processing and sending messages and download files.
 
 ## Build and Include
 * cd yourRepo
@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
                         if (tmsg->contains(tmsg->Audio)) {
                             bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local);
                         }
-                        bot.sendSpecificMessage(tmsg->chatId(), "I see it - я вижу это", tmsg->messageId());
+                        bot.sendSpecificMessage({tmsg->chatId(), "I see it"}, tmsg->messageId());
                     }
 
                 }
