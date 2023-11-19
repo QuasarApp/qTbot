@@ -6,17 +6,17 @@ At this time This library supports next platforms:
 
 ## Build and Include
 * cd yourRepo
-* git submodule add https://github.com/QuasarApp/easyssl.git # add the repository of Heart into your repo like submodule
+* git submodule add https://github.com/QuasarApp/easyssl.git # add the repository of qTbot into your repo like submodule
 * git submodule update --init --recursive
-* Include in your CMakeLists.txt file the main CMakeLists.txt file of Heart library
+* Include in your CMakeLists.txt file the main CMakeLists.txt file of qTbot library
 
     ```cmake
-    add_subdirectory(easyssl)
+    add_subdirectory(qTbot)
     ```
     
 * link the Heart library to your target
     ```cmake
-    target_link_libraries(yourLib PUBLIC easyssl)
+    target_link_libraries(yourLib PUBLIC qTbot)
     ```
 * rebuild yuor project
 
