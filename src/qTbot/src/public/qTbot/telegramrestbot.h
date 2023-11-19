@@ -41,6 +41,7 @@ public:
      */
     void setUpdateDelay(int newUpdateDelay);
 
+    void setProcessed(const QSet<unsigned long long> &newProcessed) override;
 private slots:
     void handleReceiveUpdates(const QWeakPointer<QNetworkReply>& replay);
     void handleReceiveUpdatesErr(QNetworkReply::NetworkError err);
@@ -49,6 +50,8 @@ private:
     void startUpdates();
 
     long long _lanstUpdateTime = 0;
+    unsigned long long _lanstUpdateid = 0;
+
     int _updateDelay = 1000;
 
 };

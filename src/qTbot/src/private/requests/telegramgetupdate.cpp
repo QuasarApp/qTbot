@@ -10,6 +10,9 @@
 
 namespace qTbot {
 
-TelegramGetUpdate::TelegramGetUpdate(): TelegramSingleRquest("getUpdates"){}
+TelegramGetUpdate::TelegramGetUpdate(unsigned long long offset): TelegramSingleRquest("getUpdates"){
+    addArg("offset", offset);
+    addArg("timeout", 30);
 
+}
 }

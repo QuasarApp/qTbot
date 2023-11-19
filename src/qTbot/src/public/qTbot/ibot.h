@@ -126,7 +126,7 @@ public:
      * @brief setProcessed This method sets new list of processed mesages.
      * @param newProcessed list of processed messagees.
      */
-    void setProcessed(const QSet<unsigned long long> &newProcessed);
+    virtual void setProcessed(const QSet<unsigned long long> &newProcessed);
 
 protected:
 

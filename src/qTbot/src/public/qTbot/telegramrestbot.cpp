@@ -39,7 +39,7 @@ void TelegramRestBot::startUpdates() {
 
 
     if (delta >= _updateDelay) {
-        auto&& replay = sendRequest(QSharedPointer<TelegramGetUpdate>::create());
+        auto&& replay = sendRequest(QSharedPointer<TelegramGetUpdate>::create(_lanstUpdateid + 1));
 
         connect(replay.get(), &QNetworkReply::finished,
                 this, std::bind(&TelegramRestBot::handleReceiveUpdates, this, replay.toWeakRef()),
@@ -50,9 +50,9 @@ void TelegramRestBot::startUpdates() {
                 Qt::DirectConnection);
 
         return;
+    } else {
+        QTimer::singleShot( _updateDelay - delta, this, [this](){startUpdates();});
     }
-
-    QTimer::singleShot( _updateDelay - delta, this, [this](){startUpdates();});
 }
 
 int TelegramRestBot::updateDelay() const {
@@ -61,6 +61,15 @@ int TelegramRestBot::updateDelay() const {
 
 void TelegramRestBot::setUpdateDelay(int newUpdateDelay) {
     _updateDelay = newUpdateDelay;
+}
+
+void TelegramRestBot::setProcessed(const QSet<unsigned long long> &newProcessed) {
+    auto&& it = std::min_element(newProcessed.begin(), newProcessed.end());
+    if (it != newProcessed.end()) {
+        _lanstUpdateid = *it;
+    }
+
+    IBot::setProcessed(newProcessed);
 }
 
 void TelegramRestBot::handleReceiveUpdates(const QWeakPointer<QNetworkReply> &replay) {
@@ -75,6 +84,9 @@ void TelegramRestBot::handleReceiveUpdates(const QWeakPointer<QNetworkReply> &re
             for (const auto& ref: resultArray) {
                 auto&& update = IBot::makeMesasge<TelegramUpdate>(ref.toObject());
                 incomeNewUpdate(update);
+                if (_lanstUpdateid < update->updateId()) {
+                    _lanstUpdateid = update->updateId();
+                };
             }
         }
     }
