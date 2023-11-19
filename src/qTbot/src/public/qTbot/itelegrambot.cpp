@@ -403,7 +403,8 @@ bool ITelegramBot::sendPhoto(const TelegramArgs &args,
         QSharedPointer<TelegramSendPhoto>::create(args,
                                                   fileName,
                                                   photo,
-                                                  prepareInlineKeyBoard(keyboard)), args.msgIdCB);
+                                                  prepareInlineKeyBoard(keyboard)),
+        args.msgIdCB);
 }
 
 bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
@@ -416,21 +417,22 @@ bool ITelegramBot::sendFileById(const QString &fileID, const QVariant &chatId) {
 
 }
 
-bool ITelegramBot::sendLocation(const QVariant &chatId,
-                                const QString &text,
+bool ITelegramBot::sendLocation(const TelegramArgs &args,
                                 float latitude,
                                 float longitude,
-                                unsigned long long replyToMessageId) {
-    if (!chatId.isValid() || chatId.isNull())
+                                const KeyboardOnMessage &keyboard) {
+
+    if (!args.chatId.isValid() || args.chatId.isNull())
         return false;
 
     if (!(longitude && latitude)) {
         return false;
     }
 
-    auto&& msg = QSharedPointer<TelegramSendLocation>::create(chatId, text, latitude, longitude, replyToMessageId);
-
-    return sendMessageRequest(msg);
+    return sendMessageRequest(QSharedPointer<TelegramSendLocation>::create(args,
+                                                                           latitude,
+                                                                           longitude,
+                                                                           prepareInlineKeyBoard(keyboard)));
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {

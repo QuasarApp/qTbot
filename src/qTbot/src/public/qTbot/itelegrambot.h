@@ -238,17 +238,17 @@ public:
 
     /**
      * @brief sendLocation This method sents locatin to user.
-     * @param chatId This is distanation id chat.
+     * @param args - This is structure with general arguments of the tellegram message.
+     *  Use This structure for sets target and another arguments.
      * @param latitude
      * @param longitude
-     * @param replyToMessageId The unique identifier of the message to reply to, skip if you want to sent new independet message.
+     * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      * @return true if locations sent successful else false
      */
-    bool sendLocation(const QVariant& chatId,
-                      const QString& text,
+    bool sendLocation(const TelegramArgs &args,
                       float latitude,
                       float longitude,
-                      unsigned long long replyToMessageId = 0);
+                      const KeyboardOnMessage &keyboard = {});
 
     // to do
 
