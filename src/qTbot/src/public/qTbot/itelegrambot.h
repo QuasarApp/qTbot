@@ -250,15 +250,26 @@ public:
                       float longitude,
                       const KeyboardOnMessage &keyboard = {});
 
+    /**
+     * @brief sendContact This method sents a contact data.
+     * @param args base arguments of message.
+     * @param firstName This is first name of contact.
+     * @param phone This is phone number of contact.
+     * @param secondName This is second name of user.
+     * @return true if contact sent successful
+     */
+    bool sendContact(const TelegramArgs &args,
+                     const QString& phone,
+                     const QString& firstName,
+                     const QString& secondName = "");
+
     // to do
 
     // * forwardMessage implementations
     // * copyMessage implementations
-    // * sendPhoto implementations
     // * sendAudio implementations
     // * sendVideo implementations
     // * sendVoice implementations
-    // * sendLocation implementations
     // * sendContact implementations
     // * sendPoll implementations
     // * sendDice implementations

@@ -26,7 +26,7 @@ double TelegramLocation::latitude() const {
 }
 
 double TelegramLocation::longitude() const {
-    return rawJson()["latitude"].toDouble();
+    return rawJson()["longitude"].toDouble();
 
 }
 

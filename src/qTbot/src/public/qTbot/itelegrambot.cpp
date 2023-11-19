@@ -10,6 +10,7 @@
 #include "file.h"
 #include "requests/telegrammdownloadfile.h"
 #include "qdir.h"
+#include "requests/telegramsendcontact.h"
 #include "requests/telegramsenddocument.h"
 #include "virtualfile.h"
 #include <QNetworkAccessManager>
@@ -433,6 +434,19 @@ bool ITelegramBot::sendLocation(const TelegramArgs &args,
                                                                            latitude,
                                                                            longitude,
                                                                            prepareInlineKeyBoard(keyboard)));
+}
+
+bool ITelegramBot::sendContact(const TelegramArgs &args,
+                               const QString &phone,
+                               const QString &firstName,
+                               const QString &secondName) {
+    if (!args.chatId.isValid() || args.chatId.isNull())
+        return false;
+
+    return sendMessageRequest(QSharedPointer<TelegramSendContact>::create(args,
+                                                                           firstName,
+                                                                           phone,
+                                                                           secondName));
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
