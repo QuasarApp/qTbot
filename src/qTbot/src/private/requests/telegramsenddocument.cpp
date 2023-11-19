@@ -8,15 +8,15 @@
 
 namespace qTbot {
 
-TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
-                                           const QString &text,
+TelegramSendDocument::TelegramSendDocument(const TelegramArgs &args,
                                            const QString& fileName,
-                                           const QByteArray &data):
-    TelegramSendFile("sendDocument", chatId, text, fileName, TELEGRAM_DOCUMENT, data) {}
+                                           const QByteArray &data,
+                                           const ExtraJsonObjects &extraObjects):
+    TelegramSendFile("sendDocument", fileName, TELEGRAM_DOCUMENT, data, args, extraObjects) {}
 
-TelegramSendDocument::TelegramSendDocument(const QVariant &chatId,
-                                           const QString &text,
-                                           const QFileInfo &file):
-    TelegramSendFile("sendDocument", chatId, text, file) {}
+TelegramSendDocument::TelegramSendDocument(const TelegramArgs &args,
+                                           const QFileInfo &file,
+                                           const ExtraJsonObjects &extraObjects):
+    TelegramSendFile("sendDocument", file, args, extraObjects) {}
 
 }

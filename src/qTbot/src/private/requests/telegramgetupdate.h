@@ -20,7 +20,11 @@ namespace qTbot {
 class TelegramGetUpdate final: public TelegramSingleRquest
 {
 public:
-    TelegramGetUpdate();
+    /**
+     * @brief TelegramGetUpdate send request for updates. You will get response on immediacy or after 60 seconds if bot does not have any updates.
+     * @param offset - last accepted update id.
+     */
+    TelegramGetUpdate(unsigned long long offset = 0);
 };
 }
 #endif // TELEGRAMGETUPDATE_H

@@ -8,6 +8,7 @@
 #ifndef TELEGRAMSENDLOCATION_H
 #define TELEGRAMSENDLOCATION_H
 
+#include "qTbot/telegramargs.h"
 #include "requests/telegramsinglerquest.h"
 namespace qTbot {
 
@@ -17,11 +18,10 @@ namespace qTbot {
 class TelegramSendLocation: public TelegramSingleRquest
 {
 public:
-    TelegramSendLocation(const QVariant &chatId,
-                         const QString &text,
+    TelegramSendLocation(const TelegramArgs &args,
                          float latitude,
                          float longitude,
-                         unsigned long long replyToMessageId);
+                         const ExtraJsonObjects& extraObjects = {});
 };
 }
 #endif // TELEGRAMSENDLOCATION_H

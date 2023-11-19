@@ -8,6 +8,7 @@
 #ifndef TELEGRAMSENDMSG_H
 #define TELEGRAMSENDMSG_H
 
+#include "qTbot/telegramargs.h"
 #include "telegramsinglerquest.h"
 namespace qTbot {
 
@@ -17,14 +18,14 @@ namespace qTbot {
 class TelegramSendMsg: public TelegramSingleRquest
 {
 public:
-    TelegramSendMsg(const QVariant& chatId,
-                    const QString& text,
-                    const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {},
-                    unsigned long long replyToMessageId = 0,
-                    bool markdown = true,
-                    const QString& callBackQueryId = "",
-                    bool disableWebPagePreview = false
-                    );
+
+    /**
+     * @brief TelegramSendMsg This object sents msg to telegram server.
+     * @param args this is generatl arguments of request (include target chat id).
+     * @param extraObjects additional objects of the telegram messages (json).
+     */
+    TelegramSendMsg(const TelegramArgs& args,
+                    const ExtraJsonObjects& extraObjects = {});
 };
 }
 #endif // TELEGRAMSENDMSG_H

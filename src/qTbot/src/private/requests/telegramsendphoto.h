@@ -19,19 +19,15 @@ namespace qTbot {
 class TelegramSendPhoto: public TelegramSendFile
 {
 public:
-    TelegramSendPhoto(const QVariant &chatId,
-                      const QString &text,
+    TelegramSendPhoto(const TelegramArgs &args,
                       const QString &fileName,
                       const QByteArray& data,
-                      unsigned long long replyToMessageId = 0,
-                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      const ExtraJsonObjects& extraObjects = {}
                       );
 
-    TelegramSendPhoto(const QVariant &chatId,
-                      const QString &text,
+    TelegramSendPhoto(const TelegramArgs &args,
                       const QFileInfo &file,
-                      unsigned long long replyToMessageId = 0,
-                      const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {}
+                      const ExtraJsonObjects& extraObjects = {}
                       );
 
 };

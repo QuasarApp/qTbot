@@ -6,25 +6,21 @@
 //#
 
 #include "telegramsendlocation.h"
+
+#include <QJsonDocument>
 namespace qTbot {
 
-TelegramSendLocation::TelegramSendLocation(const QVariant &chatId,
-                                           const QString &text,
+TelegramSendLocation::TelegramSendLocation(const TelegramArgs &args,
                                            float latitude,
                                            float longitude,
-                                           unsigned long long replyToMessageId
-                                           ):
-    TelegramSingleRquest("sendLocation") {
-
-    addArg("chat_id", chatId);
-    if (text.size())
-        addArg("caption", text);
+                                           const ExtraJsonObjects &extraObjects):
+    TelegramSingleRquest("sendLocation", args.toMap(true)) {
 
     addArg("latitude", latitude);
     addArg("longitude", longitude);
 
-    if (replyToMessageId) {
-        addArg("reply_to_message_id", replyToMessageId);
+    for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
+        addArg(it.key(), QJsonDocument(*it.value()).toJson(QJsonDocument::Compact));
     }
 }
 

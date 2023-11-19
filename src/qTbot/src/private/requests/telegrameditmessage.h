@@ -18,12 +18,8 @@ class TelegramEditMessage: public TelegramSendMsg
 {
 public:
     TelegramEditMessage(const QVariant& idEditedMessage,
-                       const QVariant& chatId,
-                       const QString& newText,
-                       bool markdown = true,
-                       bool disableWebPagePreview = false,
-                       const QString& callBackQueryId = "",
-                       const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects = {});
+                        const TelegramArgs& args,
+                        const ExtraJsonObjects& extraObjects = {});
 };
 }
 #endif // TELEGRAMEDITMESSAGE_H

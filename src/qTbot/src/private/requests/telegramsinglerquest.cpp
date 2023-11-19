@@ -17,7 +17,8 @@ namespace qTbot {
 TelegramSingleRquest::TelegramSingleRquest(const QString& request,
                                            const QMap<QString, QVariant>& args) {
     setRequest(request);
-    setArgs(args);}
+    setArgs(args);
+}
 
 TelegramSingleRquest::TelegramSingleRquest(const QString &request) {
     setRequest(request);

@@ -21,6 +21,11 @@
 namespace qTbot {
 
 /**
+ * @brief ExtraJsonObjects hash map of the extra objects of the message.
+ */
+typedef QHash<QString, QSharedPointer<QJsonObject>> ExtraJsonObjects;
+
+/**
  * @brief The iRequest class Is main interface for all custom requests.
  * @see IBot::sendRequest
  */

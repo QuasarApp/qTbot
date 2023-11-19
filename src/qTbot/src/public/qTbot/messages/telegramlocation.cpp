@@ -6,6 +6,7 @@
 //#
 
 #include "telegramlocation.h"
+#include "qpoint.h"
 
 namespace qTbot {
 
@@ -25,7 +26,11 @@ double TelegramLocation::latitude() const {
 }
 
 double TelegramLocation::longitude() const {
-    return rawJson()["latitude"].toDouble();
+    return rawJson()["longitude"].toDouble();
 
+}
+
+QPointF TelegramLocation::toQPoint() const {
+    return QPointF(latitude(), longitude());
 }
 }

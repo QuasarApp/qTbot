@@ -12,23 +12,14 @@ namespace qTbot {
 
 
 qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
-                                          const QVariant &chatId,
-                                          const QString &text,
                                           const QString &fileName,
                                           const QString &fileType,
-                                          const QByteArray &data,
-                                          unsigned long long replyToMessageId,
-                                          const QMap<QString, QSharedPointer<QJsonObject>>& extraObjects
+                                          const QByteArray& data,
+                                          const TelegramArgs &args,
+                                          const ExtraJsonObjects& extraObjects
                                           ):
-    TelegramSingleRquest(request) {
+    TelegramSingleRquest(request, args.toMap(true)) {
 
-    addArg("chat_id", chatId);
-    if (text.size())
-        addArg("caption", text);
-
-    if (replyToMessageId > 0) {
-        addArg("reply_to_message_id", replyToMessageId);
-    }
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
         addArg(it.key(), QJsonDocument(*it.value()).toJson(QJsonDocument::Compact));
@@ -38,21 +29,10 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
 }
 
 qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
-                                          const QVariant &chatId,
-                                          const QString &text,
                                           const QFileInfo &file,
-                                          unsigned long long replyToMessageId,
-                                          const QMap<QString, QSharedPointer<QJsonObject> > &extraObjects):
-    TelegramSingleRquest(request) {
-
-    addArg("chat_id", chatId);
-
-    if (text.size())
-        addArg("text", text);
-
-    if (replyToMessageId > 0) {
-        addArg("reply_to_message_id", replyToMessageId);
-    }
+                                          const TelegramArgs &args,
+                                          const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects):
+    TelegramSingleRquest(request, args.toMap(true)) {
 
     QFile readFile(file.absoluteFilePath());
     if (!readFile.open(QIODevice::ReadOnly)) {
