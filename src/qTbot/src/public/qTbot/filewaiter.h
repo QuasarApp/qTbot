@@ -17,7 +17,7 @@ namespace qTbot {
  * @brief The FileWaiter class. This is a simple storage for the shared pointer of files.
  * All added files will be removed (shared object) after finish donwload or upload.
  */
-class FileWaiter: public QObject
+class QTBOT_EXPORT FileWaiter: public QObject
 {
     Q_OBJECT
 public:
