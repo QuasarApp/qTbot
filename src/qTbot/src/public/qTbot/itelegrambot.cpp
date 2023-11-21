@@ -505,7 +505,13 @@ bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest,
                             if (chatId) {
                                 _lastMessageId[chatId] = messageID;
                             }
+
+                            return;
                         }
+                    }
+
+                    if (msgIdCB) {
+                        msgIdCB(-1);
                     }
                 });
     }
