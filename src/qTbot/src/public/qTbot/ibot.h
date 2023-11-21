@@ -46,6 +46,11 @@ public:
     virtual bool login(const QByteArray& token) = 0;
 
     /**
+     * @brief login This method remove login token of bot.
+     */
+    virtual void logout();
+
+    /**
      * @brief sendMessage This method sents text to the selected chat.
      * @param chatId This is selected chat id
      * @param text This is text that neet to sent.
@@ -222,6 +227,11 @@ signals:
      * @brief sigReceiveUpdate emit when but receive any updates from users.
      */
     void sigReceiveUpdate(const QSharedPointer<iUpdate>& );
+
+    /**
+     * @brief sigStopRequire just custm event for stop bot if tou use services.
+     */
+    void sigStopRequire();
 
 private:
     void doRemoveFinishedRequests();
