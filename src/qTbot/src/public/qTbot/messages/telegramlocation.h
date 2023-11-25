@@ -16,7 +16,7 @@ namespace qTbot {
 /**
  * @brief The TelegramLocation class just simple struct with latitude and longitude
  */
-class TelegramLocation: public IJsonBasedObject
+class QTBOT_EXPORT TelegramLocation: public IJsonBasedObject
 {
 public:
     TelegramLocation();

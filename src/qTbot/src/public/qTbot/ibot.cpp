@@ -21,6 +21,10 @@ IBot::~IBot() {
     delete _manager;
 }
 
+void IBot::logout() {
+    setToken({});
+}
+
 const QByteArray &IBot::token() const {
     return _token;
 }

@@ -13,6 +13,7 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <qTbot/messages/telegrammsg.h>
+#include <limits>
 
 namespace qTbot {
 
@@ -28,13 +29,22 @@ bool TelegramRestBot::login(const QByteArray &token) {
     }
 
     _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
+    _run = true;
 
     startUpdates();
 
     return true;
 }
 
+void TelegramRestBot::logout() {
+    _run = false;
+    ITelegramBot::logout();
+}
+
 void TelegramRestBot::startUpdates() {
+    if (!_run)
+        return;
+
     long long delta = QDateTime::currentMSecsSinceEpoch() - _lanstUpdateTime;
 
 

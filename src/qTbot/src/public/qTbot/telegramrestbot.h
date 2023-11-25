@@ -26,8 +26,9 @@ public:
     ~TelegramRestBot();
 
     // IBot interface
-    bool login(const QByteArray &token);
+    bool login(const QByteArray &token) override;
 
+    void logout() override;
 
     /**
      * @brief updateDelay This is interval "how many msec bot will be wait for sent next request of updates" By defaul is 1000 msecs.
@@ -49,6 +50,7 @@ private slots:
 private:
     void startUpdates();
 
+    bool _run = false;
     long long _lanstUpdateTime = 0;
     unsigned long long _lanstUpdateid = 0;
 
