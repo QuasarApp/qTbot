@@ -70,6 +70,41 @@ bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
     return sendSpecificMessage(TelegramArgs{chatId, text});
 }
 
+bool ITelegramBot::sendLocationRequest(const QVariant &chatId, const QString &text, const QString &buttonText,
+                                       bool onetimeKeyboard) {
+
+    auto replyMarkup = QSharedPointer<QJsonObject>::create();
+    QJsonArray keyboard;
+    QJsonObject contactButton;
+    contactButton["text"] = buttonText;
+    contactButton["request_location"] = true;
+    QJsonArray row;
+    row.append(contactButton);
+    keyboard.append(row);
+    replyMarkup->insert("keyboard", keyboard);
+    replyMarkup->insert("resize_keyboard", true);
+    replyMarkup->insert("one_time_keyboard", onetimeKeyboard);
+
+    return sendSpecificMessage(TelegramArgs{chatId, text}, {{"reply_markup", replyMarkup}});
+}
+
+bool ITelegramBot::sendSelfContactRequest(const QVariant &chatId, const QString &text, const QString &buttonText,
+                                          bool onetimeKeyboard) {
+    auto replyMarkup = QSharedPointer<QJsonObject>::create();
+    QJsonArray keyboard;
+    QJsonObject contactButton;
+    contactButton["text"] = buttonText;
+    contactButton["request_contact"] = true;
+    QJsonArray row;
+    row.append(contactButton);
+    keyboard.append(row);
+    replyMarkup->insert("keyboard", keyboard);
+    replyMarkup->insert("resize_keyboard", true);
+    replyMarkup->insert("one_time_keyboard", onetimeKeyboard);
+
+    return sendSpecificMessage(TelegramArgs{chatId, text}, {{"reply_markup", replyMarkup}});
+}
+
 bool ITelegramBot::sendSpecificMessage(const TelegramArgs& args,
                                        const ExtraJsonObjects &extraObjects) {
 

@@ -43,6 +43,24 @@ public:
     bool sendMessage(const QVariant &chatId, const QString& text) override;
 
     /**
+     * @brief sendLocationRequest This method setn into chat button that will automaticaly sent geo location to bot.
+     * @param chatId
+     * @param text message text
+     * @param buttonText Text on the button
+     * @return true if request sents successfull else false.
+     */
+    bool sendLocationRequest(const QVariant &chatId, const QString& text, const QString &buttonText, bool onetimeKeyboard);
+
+    /**
+     * @brief sendSelfContactRequest This method sent into chat button that will automaticaly sent self contact information to bot.
+     * @param chatId
+     * @param text message text
+     * @param buttonText Text on the button
+     * @return true if request sents successfull else false.
+     */
+    bool sendSelfContactRequest(const QVariant &chatId, const QString& text, const QString &buttonText, bool onetimeKeyboard);
+
+    /**
      * @brief Sends a specific message to a chat.
      *
      * This function sends a specific message to a chat. You can include text and additional objects as needed to customize the message's content and behavior.
