@@ -84,6 +84,14 @@ QString TelegramMsg::text() const {
     return rawJson()["text"].toString();
 }
 
+QString TelegramMsg::fullText() const {
+    return rawJson()["text"].toString() + rawJson()["caption"].toString();
+}
+
+QString TelegramMsg::caption() const {
+    return rawJson()["caption"].toString();
+}
+
 bool TelegramMsg::contains(const Type &type) {
     return rawJson().contains(type);
 }

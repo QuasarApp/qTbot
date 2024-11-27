@@ -170,6 +170,18 @@ public:
     QString text() const;
 
     /**
+     * @brief fullText return text + caption value
+     * @return text + caption value
+     */
+    QString fullText() const;
+
+    /**
+     * @brief caption return only caption value
+     * @return only caption value
+     */
+    QString caption() const;
+
+    /**
      * @brief contains This method returns true if the message contains choosed data type.
      * @param type This is name of the type
      * @return true if the choosed type is available in this message.
