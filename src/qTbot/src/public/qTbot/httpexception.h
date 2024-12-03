@@ -29,8 +29,11 @@ public:
     void raise() const;
     QException *clone() const;
 
+    QNetworkReply::NetworkError code() const;
+
 private:
     QByteArray _errText;
+    QNetworkReply::NetworkError _code;
 };
 
 #endif // HTTPEXCEPTION_H

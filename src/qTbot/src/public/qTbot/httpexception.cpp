@@ -10,6 +10,8 @@
 HttpException::HttpException(QNetworkReply::NetworkError code,
                              const QByteArray &erroString) {
 
+    _code = code;
+
     if (erroString.size()) {
         _errText = erroString;
     } else {
@@ -30,4 +32,8 @@ void HttpException::raise() const {
 QException *HttpException::clone() const {
     return new HttpException(QNetworkReply::NetworkError(0),
                              _errText);
+}
+
+QNetworkReply::NetworkError HttpException::code() const {
+    return _code;
 }

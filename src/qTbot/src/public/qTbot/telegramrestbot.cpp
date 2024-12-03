@@ -5,6 +5,7 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "httpexception.h"
 #include "telegramrestbot.h"
 #include "qTbot/messages/telegramupdate.h"
 #include "qTbot/messages/telegramupdateanswer.h"
@@ -13,7 +14,6 @@
 #include <QJsonArray>
 #include <QTimer>
 #include <qTbot/messages/telegrammsg.h>
-#include <limits>
 
 namespace qTbot {
 
@@ -51,13 +51,12 @@ void TelegramRestBot::startUpdates() {
     if (delta >= _updateDelay) {
         auto&& replay = sendRequest(QSharedPointer<TelegramGetUpdate>::create(_lanstUpdateid + 1));
 
-        connect(replay.get(), &QNetworkReply::finished,
-                this, std::bind(&TelegramRestBot::handleReceiveUpdates, this, replay.toWeakRef()),
-                Qt::DirectConnection);
+        replay.then([this](const QByteArray &result){
+                  handleReceiveUpdates(result);
+              }).onFailed([this](const HttpException &e){
+                handleReceiveUpdatesErr(e.code());
 
-        connect(replay.get(), &QNetworkReply::errorOccurred,
-                this, &TelegramRestBot::handleReceiveUpdatesErr,
-                Qt::DirectConnection);
+            } );
 
         return;
     } else {
@@ -82,22 +81,19 @@ void TelegramRestBot::setProcessed(const QSet<unsigned long long> &newProcessed)
     IBot::setProcessed(newProcessed);
 }
 
-void TelegramRestBot::handleReceiveUpdates(const QWeakPointer<QNetworkReply> &replay) {
+void TelegramRestBot::handleReceiveUpdates(const QByteArray &replay) {
+    auto&& telegramMsg = makeMesasge<TelegramUpdateAnswer>(replay);
+    if (telegramMsg->isValid()) {
 
-    if (auto&& sharedReplay = replay.lock()) {
-        auto&& telegramMsg = makeMesasge<TelegramUpdateAnswer>(sharedReplay->readAll());
-        if (telegramMsg->isValid()) {
+        _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
 
-            _lanstUpdateTime = QDateTime::currentMSecsSinceEpoch();
-
-            auto && resultArray = telegramMsg->result().toArray();
-            for (const auto& ref: resultArray) {
-                auto&& update = IBot::makeMesasge<TelegramUpdate>(ref.toObject());
-                incomeNewUpdate(update);
-                if (_lanstUpdateid < update->updateId()) {
-                    _lanstUpdateid = update->updateId();
-                };
-            }
+        auto && resultArray = telegramMsg->result().toArray();
+        for (const auto& ref: resultArray) {
+            auto&& update = IBot::makeMesasge<TelegramUpdate>(ref.toObject());
+            incomeNewUpdate(update);
+            if (_lanstUpdateid < update->updateId()) {
+                _lanstUpdateid = update->updateId();
+            };
         }
     }
 
