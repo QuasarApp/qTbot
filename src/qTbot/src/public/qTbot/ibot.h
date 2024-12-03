@@ -23,6 +23,7 @@
 #include <QNetworkReply>
 #include <QObject>
 #include <QSharedPointer>
+#include <qfuture.h>
 
 namespace qTbot {
 
@@ -177,7 +178,7 @@ protected:
      * @return shared pointer to the request replay.
      * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
      */
-    QSharedPointer<QNetworkReply>
+    QFuture<QByteArray>
     sendRequest(const QSharedPointer<iRequest>& rquest);
 
     /**
@@ -234,7 +235,6 @@ signals:
     void sigStopRequire();
 
 private:
-    void doRemoveFinishedRequests();
 
     QByteArray _token;
     QString _name;
@@ -242,8 +242,6 @@ private:
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
 
-    QMap<size_t,QSharedPointer<QNetworkReply>> _replayStorage;
-    QList<size_t> _toRemove;
 
 };
 

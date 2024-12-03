@@ -5,16 +5,18 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "httpexception.h"
 #include "ibot.h"
 #include "qstandardpaths.h"
 
 #include <QNetworkReply>
+#include <QPromise>
 
 namespace qTbot {
 
 IBot::IBot() {
     _manager = new QNetworkAccessManager();
-    _manager->setAutoDeleteReplies(false);
+    _manager->setAutoDeleteReplies(true);
 }
 
 IBot::~IBot() {
@@ -48,12 +50,11 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
     }
 }
 
-QSharedPointer<QNetworkReply>
+QFuture<QByteArray>
 IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
-    if (!rquest)
-        return nullptr;
 
-    doRemoveFinishedRequests();
+    if (!rquest)
+        return {};
 
     auto && url = makeUrl(rquest);
 
@@ -61,17 +62,13 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     qDebug() << url;
 #endif
 
-    QSharedPointer<QNetworkReply> networkReplay;
+    QNetworkReply* networkReplay = nullptr;
     QSharedPointer<QHttpMultiPart> httpData;
 
     switch (rquest->method()) {
     case iRequest::Get: {
-        auto reply = _manager->get(QNetworkRequest(url));
+        networkReplay = _manager->get(QNetworkRequest(url));
 
-        // we control replay object wia shared pointers.
-        reply->setParent(nullptr);
-
-        networkReplay.reset(reply);
         break;
     }
 
@@ -85,38 +82,43 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 
         httpData = rquest->argsToMultipartFormData();
         if (httpData) {
-            auto reply = _manager->post(netRequest, httpData.data());
+            networkReplay = _manager->post(netRequest, httpData.data());
 
-            // we control replay object wia shared pointers.
-            reply->setParent(nullptr);
-
-            networkReplay.reset(reply);
         } else {
-            return nullptr;
+            return {};
         }
 
         break;
     }
 
-    size_t address = reinterpret_cast<size_t>(networkReplay.get());
-    _replayStorage[address] = networkReplay;
+    if (!networkReplay) {
+        return {};
+    }
 
-    connect(networkReplay.get(), &QNetworkReply::finished, this,
-            [this, address, httpData]() {
-                _toRemove.push_back(address);
-            });
+    auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
 
-    connect(networkReplay.get(), &QNetworkReply::errorOccurred, this,
-            [this, address](QNetworkReply::NetworkError err){
-                qWarning() << "The reqeust " << address << " finished with error code : " << err;
-                if (auto&& replay = _replayStorage.value(address)) {
-                    qWarning() << replay->errorString();
-                }
+    networkReplay->connect(networkReplay, &QNetworkReply::finished, [networkReplay, promise](){
+        promise->addResult(networkReplay->readAll());
+        promise->finish();
+    });
 
-                _toRemove.push_back(address);
-            });
+    networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){
+        promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
+        promise->finish();
+    });
 
-    return networkReplay;
+    auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
+
+        if (promise->future().progressMaximum() != bytesTotal)
+            promise->setProgressRange(0, bytesTotal);
+
+        promise->setProgressValue(bytesCurrent);
+    };
+
+    networkReplay->connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
+
+    return promise->future();
 }
 
 void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
@@ -137,14 +139,6 @@ QString IBot::defaultFileStorageLocation() const {
 
 void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
     emit sigReceiveUpdate(message);
-}
-
-void IBot::doRemoveFinishedRequests() {
-    for (auto address: std::as_const(_toRemove)) {
-        _replayStorage.remove(address);
-    }
-
-    _toRemove.clear();
 }
 
 QSet<unsigned long long> IBot::processed() const {
