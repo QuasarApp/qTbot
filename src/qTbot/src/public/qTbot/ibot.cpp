@@ -121,6 +121,10 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     return promise->future();
 }
 
+QFuture<QNetworkReply *> IBot::sendRawRequest(const QSharedPointer<iRequest> &rquest) {
+
+}
+
 void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
     _notProcessedUpdates.remove(message->updateId());
 }

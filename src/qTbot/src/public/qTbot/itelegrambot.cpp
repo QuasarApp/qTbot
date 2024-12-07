@@ -12,6 +12,7 @@
 #include "qdir.h"
 #include "requests/telegramsendcontact.h"
 #include "requests/telegramsenddocument.h"
+#include "httpexception.h"
 #include "virtualfile.h"
 #include <QNetworkAccessManager>
 
@@ -52,18 +53,16 @@ bool ITelegramBot::login(const QByteArray &token) {
 
     setToken(token);
 
-    _loginReplay = sendRequest(QSharedPointer<TelegramGetMe>::create());
-    if (_loginReplay) {
-        connect(_loginReplay.get(), &QNetworkReply::finished,
-                this, &ITelegramBot::handleLogin,
-                Qt::DirectConnection);
-        connect(_loginReplay.get(), &QNetworkReply::errorOccurred,
-                this, &ITelegramBot::handleLoginErr,
-                Qt::DirectConnection);
-        return true;
-    }
+    QFuture<QByteArray> loginFuture = sendRequest(QSharedPointer<TelegramGetMe>::create());
+    loginFuture.
+        then(this, [this](const QByteArray& data) {
+                   ITelegramBot::handleLogin(data);
+               } ).
+        onFailed(this, [this](const HttpException& exeption){
+            handleLoginErr(exeption.code());
+        });
     
-    return false;
+    return loginFuture.isValid();
 }
 
 bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
@@ -329,7 +328,8 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
             if (localFilePath.isEmpty())
                 return result;
 
-            if (auto &&replay = sendRequest(msg)) {
+            QFuture<QByteArray> &&replay = sendRequest(msg);
+            if (replay.isValid()) {
                 // here i must be receive responce and prepare new request to file from the call back function.
                 if (fileType == iFile::Ram) {
                     result = QSharedPointer<VirtualFile>::create(replay);
@@ -554,23 +554,20 @@ bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest,
     return bool(reply);
 }
 
-void ITelegramBot::handleLogin() {
+void ITelegramBot::handleLogin(const QByteArray&ansver) {
 
-    if (_loginReplay) {
-        auto&& ans = makeMesasge<TelegramUpdateAnswer>(_loginReplay->readAll());
+    auto&& ans = makeMesasge<TelegramUpdateAnswer>(ansver);
 
-        if (!ans->isValid()) {
-            qWarning() << "login error occured: ";
-        }
-
-        auto&& result = ans->result().toObject();
-
-        setId(result.value("id").toInteger());
-        setName( result.value("first_name").toString());
-        setUsername( result.value("username").toString());
-
-        _loginReplay.reset();
+    if (!ans->isValid()) {
+        qWarning() << "login error occured: ";
+        return;
     }
+
+    auto&& result = ans->result().toObject();
+
+    setId(result.value("id").toInteger());
+    setName( result.value("first_name").toString());
+    setUsername( result.value("username").toString());
 
 }
 

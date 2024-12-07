@@ -389,7 +389,7 @@ protected:
                                     const std::function<void(int msgId)>& msgIdCB = {});
 
 private slots:
-    void handleLogin();
+    void handleLogin(const QByteArray &ansver);
     void handleLoginErr(QNetworkReply::NetworkError err);
     void handleFileHeader(const QWeakPointer<QNetworkReply>& sender,
                           const QWeakPointer<iFile> &receiver);
@@ -405,7 +405,6 @@ private:
 
     unsigned long long _id = 0;
     QString _username;
-    QSharedPointer<QNetworkReply> _loginReplay;
     QMap<QString, std::function<void(const QString&, const QVariant&)>> _handleButtons;
 
     QHash<unsigned long long, int> _lastMessageId;

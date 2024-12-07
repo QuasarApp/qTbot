@@ -8,9 +8,10 @@
 #ifndef IFILE_H
 #define IFILE_H
 
-#include "qnetworkreply.h"
 #include <qTbot/global.h>
 #include <QFile>
+#include <QFuture>
+#include <QNetworkReply>
 
 namespace qTbot {
 
@@ -32,7 +33,7 @@ public:
         Ram
     };
 
-    iFile(const QSharedPointer<QNetworkReply>& replay);
+    iFile(const QFuture<QByteArray>& replay);
 
     /**
      * @brief Get the current upload progress.
@@ -74,7 +75,7 @@ public:
      * @brief Get the shared pointer to the associated QNetworkReply.
      * @return A shared pointer to the associated QNetworkReply.
      */
-    const QSharedPointer<QNetworkReply>& replay() const;
+    const QFuture<QByteArray>& replay() const;
 
     /**
      * @brief type This is type of the file object.
@@ -92,7 +93,7 @@ public:
      * @brief setDownloadRequest This method sets replay for the file.
      * @param replay This is pointer to the replay.
      */
-    void setDownloadRequest(const QSharedPointer<QNetworkReply>& replay);
+    void setDownloadRequest(const QFuture<QByteArray> &replay);
 protected:
 
     /**
@@ -166,7 +167,7 @@ private:
     int _error = 0;
     bool _finished = false;
 
-    QSharedPointer<QNetworkReply> _replay;
+    QFuture<QByteArray> _replay;
 
     friend class ITelegramBot;
 };

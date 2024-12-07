@@ -9,7 +9,7 @@
 
 namespace qTbot {
 
-iFile::iFile(const QSharedPointer<QNetworkReply>& replay) {
+iFile::iFile(const QFuture<QByteArray> &replay) {
     setDownloadRequest(replay);
 }
 
@@ -48,7 +48,7 @@ void iFile::setError(int newError) {
     emit errorChanged();
 }
 
-const QSharedPointer<QNetworkReply> &iFile::replay() const {
+const QFuture<QByteArray> &iFile::replay() const {
     return _replay;
 }
 
@@ -71,42 +71,51 @@ void iFile::handleDownloadProgressChanged(qint64 bytesReceived, qint64 bytesTota
     setDownloadProgress(bytesReceived / static_cast<float>(bytesTotal));
 }
 
-void iFile::setDownloadRequest(const QSharedPointer<QNetworkReply> &replay) {
+void iFile::setDownloadRequest(const QFuture<QByteArray> &replay) {
 
-    if (_replay) {
-        disconnect(_replay.get(), &QNetworkReply::finished,
-                   this, &iFile::handleFinished);
+    if (_replay.isValid()) {
+        if (_replay.isRunning()) {
+            _replay.cancel();
+        }
 
-        disconnect(_replay.get(), &QNetworkReply::errorOccurred,
-                   this, &iFile::handleError);
+        // disconnect(_replay.get(), &QNetworkReply::finished,
+        //            this, &iFile::handleFinished);
 
-        disconnect(_replay.get(), &QNetworkReply::readyRead,
-                   this, &iFile::handleReadReady);
+        // disconnect(_replay.get(), &QNetworkReply::errorOccurred,
+        //            this, &iFile::handleError);
 
-        disconnect(_replay.get(), &QNetworkReply::uploadProgress,
-                   this, &iFile::handleUploadProgressChanged);
+        // disconnect(_replay.get(), &QNetworkReply::readyRead,
+        //            this, &iFile::handleReadReady);
 
-        disconnect(_replay.get(), &QNetworkReply::downloadProgress,
-                   this, &iFile::handleDownloadProgressChanged);
+        // disconnect(_replay.get(), &QNetworkReply::uploadProgress,
+        //            this, &iFile::handleUploadProgressChanged);
+
+        // disconnect(_replay.get(), &QNetworkReply::downloadProgress,
+        //            this, &iFile::handleDownloadProgressChanged);
     }
 
     _replay = replay;
 
-    if (_replay) {
-        connect(replay.get(), &QNetworkReply::finished,
-                this, &iFile::handleFinished, Qt::DirectConnection);
+    if (_replay.isValid()) {
 
-        connect(replay.get(), &QNetworkReply::errorOccurred,
-                this, &iFile::handleError, Qt::DirectConnection);
+        _replay.then(this, [this](const QByteArray& data) {
+            handleReadReady(data);
+            handleFinished();
+        });
+        // connect(replay.get(), &QNetworkReply::finished,
+        //         this, &iFile::handleFinished, Qt::DirectConnection);
 
-        connect(replay.get(), &QNetworkReply::readyRead,
-                this, &iFile::handleReadReady, Qt::DirectConnection);
+        // connect(replay.get(), &QNetworkReply::errorOccurred,
+        //         this, &iFile::handleError, Qt::DirectConnection);
 
-        connect(replay.get(), &QNetworkReply::uploadProgress,
-                this, &iFile::handleUploadProgressChanged, Qt::DirectConnection);
+        // connect(replay.get(), &QNetworkReply::readyRead,
+        //         this, &iFile::handleReadReady, Qt::DirectConnection);
 
-        connect(replay.get(), &QNetworkReply::downloadProgress,
-                this, &iFile::handleDownloadProgressChanged, Qt::DirectConnection);
+        // connect(replay.get(), &QNetworkReply::uploadProgress,
+        //         this, &iFile::handleUploadProgressChanged, Qt::DirectConnection);
+
+        // connect(replay.get(), &QNetworkReply::downloadProgress,
+        //         this, &iFile::handleDownloadProgressChanged, Qt::DirectConnection);
     }
 
 }
