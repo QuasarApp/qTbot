@@ -164,7 +164,6 @@ protected:
         return ptr;
     }
 
-
     /**
      * @brief makeUrl This method prepare a prefix url for http requests.
      * @param request - This is request object for that will be prepared url.
@@ -179,6 +178,16 @@ protected:
      */
     QFuture<QByteArray>
     sendRequest(const QSharedPointer<iRequest>& rquest);
+
+    /**
+     * @brief sendRequest This method sent custom requests to the server.
+     * @param rquest This is message that will be sent to server.
+     * @return future pointer to the request replay.
+     * @note This is same as a default implementaion execpt save data location,
+     *  this method will create new file that located @a pathToResult and save all received data to this location.
+     */
+    QFuture<QByteArray>
+    sendRequest(const QSharedPointer<iRequest>& rquest, const QString& pathToResult);
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -234,6 +243,7 @@ signals:
     void sigStopRequire();
 
 private:
+    QNetworkReply *sendRquestImpl(const QSharedPointer<iRequest> &rquest);
 
     QByteArray _token;
     QString _name;

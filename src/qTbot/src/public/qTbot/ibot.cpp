@@ -50,9 +50,7 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
     }
 }
 
-QFuture<QByteArray>
-IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
-
+QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     if (!rquest)
         return {};
 
@@ -73,10 +71,10 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     }
 
     case iRequest::Post:
-//        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-//        reply = m_nam.post(req, params.toByteArray());
+        //        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+        //        reply = m_nam.post(req, params.toByteArray());
 
-//        break;
+        //        break;
     case iRequest::Upload:
         QNetworkRequest netRequest(url);
 
@@ -91,6 +89,14 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
         break;
     }
 
+    return networkReplay;
+}
+
+QFuture<QByteArray>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+
+
+    QNetworkReply* networkReplay = sendRquestImpl(rquest);
     if (!networkReplay) {
         return {};
     }
@@ -102,6 +108,49 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     });
 
     networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise](){
+        promise->addResult(networkReplay->readAll());
+    });
+
+    networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){
+        promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
+        promise->finish();
+    });
+
+    auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
+
+        if (promise->future().progressMaximum() != bytesTotal)
+            promise->setProgressRange(0, bytesTotal);
+
+        promise->setProgressValue(bytesCurrent);
+    };
+
+    networkReplay->connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
+
+    return promise->future();
+}
+
+QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, const QString &pathToResult) {
+    auto&& file = QSharedPointer<QFile>::create();
+
+    file->open(QIODevice::WriteOnly | QIODevice::Truncate);
+
+
+    QNetworkReply* networkReplay = sendRquestImpl(rquest);
+    if (!networkReplay) {
+        return {};
+    }
+
+
+    auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
+
+    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise, pathToResult](){
+
+        promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
+        promise->finish();
+    });
+
+    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult](){
         promise->addResult(networkReplay->readAll());
     });
 
