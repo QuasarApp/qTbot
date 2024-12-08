@@ -7,6 +7,8 @@
 
 #include "ifile.h"
 
+#include <QFutureWatcher>
+
 namespace qTbot {
 
 iFile::iFile(const QFuture<QByteArray> &replay) {
@@ -98,10 +100,12 @@ void iFile::setDownloadRequest(const QFuture<QByteArray> &replay) {
 
     if (_replay.isValid()) {
 
-        _replay.then(this, [this](const QByteArray& data) {
-            handleReadReady(data);
+        _replay.then(this, [this](const QByteArray&) {
             handleFinished();
         });
+
+        QFutureWatcher<QByteArray> *watcher = new QFutureWatcher<QByteArray>();
+        watcher->setFuture(replay);
         // connect(replay.get(), &QNetworkReply::finished,
         //         this, &iFile::handleFinished, Qt::DirectConnection);
 

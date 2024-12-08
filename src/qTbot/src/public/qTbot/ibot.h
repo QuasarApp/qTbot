@@ -181,14 +181,6 @@ protected:
     sendRequest(const QSharedPointer<iRequest>& rquest);
 
     /**
-     * @brief sendRawRequest This method sent custom requests to the server but as a ansver return future to network replay.
-     * @param rquest This is message that will be sent to server.
-     * @return future pointer to the request replay.
-     */
-    QFuture<QNetworkReply*>
-    sendRawRequest(const QSharedPointer<iRequest>& rquest);
-
-    /**
      * @brief setToken This is setter of the IBot::token value.
      * @param newToken This is new value of the token.
      */

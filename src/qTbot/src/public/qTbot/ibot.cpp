@@ -97,9 +97,12 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
 
-    networkReplay->connect(networkReplay, &QNetworkReply::finished, [networkReplay, promise](){
-        promise->addResult(networkReplay->readAll());
+    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise](){
         promise->finish();
+    });
+
+    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise](){
+        promise->addResult(networkReplay->readAll());
     });
 
     networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){
@@ -119,10 +122,6 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
 
     return promise->future();
-}
-
-QFuture<QNetworkReply *> IBot::sendRawRequest(const QSharedPointer<iRequest> &rquest) {
-
 }
 
 void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
