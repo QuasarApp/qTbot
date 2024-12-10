@@ -7,13 +7,11 @@
 
 #include "itelegrambot.h"
 #include "qTbot/messages/telegramupdateanswer.h"
-#include "file.h"
 #include "requests/telegrammdownloadfile.h"
 #include "qdir.h"
 #include "requests/telegramsendcontact.h"
 #include "requests/telegramsenddocument.h"
 #include "httpexception.h"
-#include "virtualfile.h"
 #include <QNetworkAccessManager>
 
 #include <requests/telegramgetfile.h>
@@ -283,7 +281,7 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const TelegramArgs& args,
     return sendSpecificMessage(args, prepareKeyboard(autoResizeKeyboard, onTimeKeyboard, keyboard));
 }
 
-QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
+QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileType) {
 
 
     if (fileId.isEmpty()) {
@@ -293,24 +291,26 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, iFile::Type fil
     auto localFilePath = findFileInlocatStorage(fileId);
 
     if (!localFilePath.isEmpty()) {
+        QPromise<QByteArray> fileDataResult;
 
-        if (fileType == iFile::Ram) {
+        if (fileType == FileType::Ram) {
             QFile localFile(localFilePath);
             if (localFile.open(QIODevice::ReadOnly)) {
-                auto&& virtualFile = QSharedPointer<VirtualFile>::create(nullptr);
-                virtualFile->setArray(localFile.readAll());
+                QPromise<QByteArray> fileDataResult;
+                fileDataResult.addResult(localFile.readAll());
                 localFile.close();
-
-                result = virtualFile;
             }
 
-        } else if (fileType == iFile::Local) {
-            result = QSharedPointer<File>::create(nullptr, localFilePath);
+        } else if (fileType == FileType::Local) {
+            fileDataResult.addResult(localFilePath.toUtf8());
         }
 
-        result->setDownloadProgress(1);
-        result->setFinished(true);
-        return result;
+        fileDataResult.setProgressRange(0,1);
+        fileDataResult.setProgressValue(1);
+
+        fileDataResult.finish();
+
+        return fileDataResult.future();
     }
 
     auto&& metaInfo = getFileInfoByUniqueId(fileId);
@@ -325,45 +325,40 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, iFile::Type fil
 
 
             if (localFilePath.isEmpty())
-                return result;
+                return {};
 
-            QFuture<QByteArray> &&replay = sendRequest(msg);
-            if (replay.isValid()) {
-                // here i must be receive responce and prepare new request to file from the call back function.
-                if (fileType == iFile::Ram) {
-                    result = QSharedPointer<VirtualFile>::create(replay);
-                } else if (fileType == iFile::Local) {
-                    result = QSharedPointer<File>::create(replay, localFilePath);
-                }
+            QFuture<QByteArray> replay;
+            if (fileType == FileType::Ram) {
+                replay = sendRequest(msg);
+            } else {
+                replay = sendRequest(msg, localFilePath);
             }
 
-            return result;
+            return replay;
         }
     }
 
-
-    if (fileType == iFile::Ram) {
-        result = QSharedPointer<VirtualFile>::create();
-    } else if (fileType == iFile::Local) {
-        result = QSharedPointer<File>::create(localFilePath);
-    }
-
-    auto&& future = getFileMeta(fileId, result.toWeakRef());
+    auto longWay = QSharedPointer<QPromise<QByteArray>>::create();
+    auto&& future = getFileMeta(fileId);
     if (!future.isValid()) {
-        return nullptr;
+        return {};
     }
 
-    return result;
+    future.then([this, fileId, fileType, longWay](const QByteArray& header){
+        handleFileHeader(header);
+
+        getFile(fileId, fileType).then([longWay](const QByteArray& data){
+            longWay->addResult(data);
+        });
+    });
+
+    return longWay->future();
 }
 
-QFuture<QByteArray> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
+QFuture<QByteArray> ITelegramBot::getFileMeta(const QString &fileId) {
     auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
     auto && future = sendRequest(msg);
     if (future.isValid()) {
-        future.then([this, receiver](const QByteArray&data){
-            handleFileHeader(data, receiver);
-        });
-
         return future;
     }
 
@@ -580,8 +575,7 @@ void ITelegramBot::handleLoginErr(QNetworkReply::NetworkError err) {
     }
 }
 
-void ITelegramBot::handleFileHeader(const QByteArray& header,
-                                    const QWeakPointer<iFile>& receiver) {
+void ITelegramBot::handleFileHeader(const QByteArray& header) {
     auto&& ansver = makeMesasge<TelegramUpdateAnswer>(header);
 
     if (!ansver->isValid()) {
@@ -592,11 +586,6 @@ void ITelegramBot::handleFileHeader(const QByteArray& header,
     auto &&fileMetaInfo = makeMesasge<TelegramFile>(ansver->result().toObject());
 
     _filesMetaInfo.insert(fileMetaInfo->fileId(), fileMetaInfo);
-
-    if (auto&& sharedPtr = receiver.lock()) {
-        auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
-        sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
-    }
 }
 
 QString ITelegramBot::findFileInlocatStorage(const QString &fileId) const {

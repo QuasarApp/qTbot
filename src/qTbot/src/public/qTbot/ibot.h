@@ -13,12 +13,10 @@
 #include "qTbot/iupdate.h"
 #include "qTbot/irequest.h"
 
-#include "ifile.h"
-#include "qfileinfo.h"
-
 #include <QMap>
 #include <QHash>
 #include <QSet>
+#include <QFileInfo>
 
 #include <QNetworkReply>
 #include <QObject>
@@ -38,6 +36,19 @@ class QTBOT_EXPORT IBot: public QObject
 public:
     IBot();
     ~IBot();
+
+    /**
+     * @brief The FileType enum is is file types, deffine how we should download a file - as a local object in file system or into virtual memory.
+     */
+    enum FileType {
+        /// The Ram is a Virtual type of download files will save all file data into QFuture bytes array.
+        Ram,
+
+        /// The Local file will saved in internal file storage.
+        ///  This file type can use the filse system as cache.
+        ///  and will doenload file with same id only one time.
+        Local
+    };
 
     /**
      * @brief login This method get bae information of the bot from remote server.
@@ -75,10 +86,10 @@ public:
      * This function allows you to retrieve a file by its ID.
      *
      * @param fileId The ID of the file to retrieve.
-     * @param fileType This is a saving way, by Default will be used a iFile::Type::Ram
+     * @param fileType This is a saving way, by Default will be used a FileType::Ram
      * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
      */
-    virtual QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) = 0;
+    virtual QFuture<QByteArray> getFile(const QString& fileId, FileType fileType = Ram) = 0;
 
     /**
      * @brief send @a file .

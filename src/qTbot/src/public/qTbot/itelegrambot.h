@@ -193,17 +193,14 @@ public:
      * @param fileType this is type of file. Depends of this argument future will be contains deffrent result if it is Local type then future will contains link to local file path else file source as bytes.
      * @return futur with file source or path to file depends of type.
      */
-    QFuture<QByteArray> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
+    QFuture<QByteArray> getFile(const QString& fileId, FileType fileType = FileType::Ram) override;
 
     /**
      * @brief getFileMeta This method receive meta information of the file.
      * @param fileId This is id of the file.
-     * @param receiver this is wrapper of the file. Set to nullptr if you no need to wait a physical file.
      * @return future objectl with result.
      */
-
-    QFuture<QByteArray> getFileMeta(const QString& fileId,
-                                              const QWeakPointer<iFile> &receiver = {nullptr});
+    QFuture<QByteArray> getFileMeta(const QString& fileId);
 
     bool sendFile( const QFileInfo& file, const QVariant& chatId) override;
 
@@ -397,8 +394,7 @@ protected:
 private slots:
     void handleLogin(const QByteArray &ansver);
     void handleLoginErr(QNetworkReply::NetworkError err);
-    void handleFileHeader(const QByteArray &header,
-                          const QWeakPointer<iFile> &receiver);
+    void handleFileHeader(const QByteArray &header);
 
 private:
 
