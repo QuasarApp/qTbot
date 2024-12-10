@@ -133,14 +133,15 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, const QString &pathToResult) {
     auto&& file = QSharedPointer<QFile>::create();
 
-    file->open(QIODevice::WriteOnly | QIODevice::Truncate);
-
+    if (!file->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        qCritical() << "Fail to wrote data into " << pathToResult;
+        return {};
+    }
 
     QNetworkReply* networkReplay = sendRquestImpl(rquest);
     if (!networkReplay) {
         return {};
     }
-
 
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
 
@@ -150,8 +151,8 @@ QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, co
         promise->finish();
     });
 
-    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult](){
-        promise->addResult(networkReplay->readAll());
+    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
+        file->write(networkReplay->readAll());
     });
 
     networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){

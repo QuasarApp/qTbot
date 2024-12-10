@@ -194,9 +194,10 @@ public:
      * @brief getFileMeta This method receive meta information of the file.
      * @param fileId This is id of the file.
      * @param receiver this is wrapper of the file. Set to nullptr if you no need to wait a physical file.
-     * @return true if the reqests sents successful.
+     * @return future objectl with result.
      */
-    QSharedPointer<QNetworkReply> getFileMeta(const QString& fileId,
+
+    QFuture<QByteArray> getFileMeta(const QString& fileId,
                                               const QWeakPointer<iFile> &receiver = {nullptr});
 
     bool sendFile( const QFileInfo& file, const QVariant& chatId) override;
@@ -391,7 +392,7 @@ protected:
 private slots:
     void handleLogin(const QByteArray &ansver);
     void handleLoginErr(QNetworkReply::NetworkError err);
-    void handleFileHeader(const QWeakPointer<QNetworkReply>& sender,
+    void handleFileHeader(const QByteArray &header,
                           const QWeakPointer<iFile> &receiver);
 
 private:

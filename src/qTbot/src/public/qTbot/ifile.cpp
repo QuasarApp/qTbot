@@ -106,6 +106,8 @@ void iFile::setDownloadRequest(const QFuture<QByteArray> &replay) {
 
         QFutureWatcher<QByteArray> *watcher = new QFutureWatcher<QByteArray>();
         watcher->setFuture(replay);
+
+
         // connect(replay.get(), &QNetworkReply::finished,
         //         this, &iFile::handleFinished, Qt::DirectConnection);
 

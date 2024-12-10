@@ -349,21 +349,26 @@ QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type f
         result = QSharedPointer<File>::create(localFilePath);
     }
 
-    auto&& metaReploay = getFileMeta(fileId, result.toWeakRef());
+    auto&& future = getFileMeta(fileId, result.toWeakRef());
+    if (!future.isValid()) {
+        return nullptr;
+    }
+
     return result;
 }
 
-QSharedPointer<QNetworkReply> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
+QFuture<QByteArray> ITelegramBot::getFileMeta(const QString &fileId, const QWeakPointer<iFile>& receiver) {
     auto msg = QSharedPointer<TelegramGetFile>::create(fileId);
+    auto && future = sendRequest(msg);
+    if (future.isValid()) {
+        future.then([this, receiver](const QByteArray&data){
+            handleFileHeader(data, receiver);
+        });
 
-    if (auto&& ptr = sendRequest(msg)) {
-        connect(ptr.get(), &QNetworkReply::finished,
-                this, std::bind(&ITelegramBot::handleFileHeader, this, ptr.toWeakRef(), receiver));
-
-        return ptr;
+        return future;
     }
 
-    return nullptr;
+    return {};
 }
 
 bool ITelegramBot::sendFile(const QFileInfo &file, const QVariant &chatId) {
@@ -479,9 +484,9 @@ bool ITelegramBot::sendContact(const TelegramArgs &args,
         return false;
 
     return sendMessageRequest(QSharedPointer<TelegramSendContact>::create(args,
-                                                                           firstName,
-                                                                           phone,
-                                                                           secondName));
+                                                                          firstName,
+                                                                          phone,
+                                                                          secondName));
 }
 
 int ITelegramBot::getFileSizeByUniqueId(const QString &id) const {
@@ -520,38 +525,37 @@ void ITelegramBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & update)
 
 bool ITelegramBot::sendMessageRequest(const QSharedPointer<iRequest> &rquest,
                                       const std::function<void (int)> &msgIdCB) {
-    auto&& reply = IBot::sendRequest(rquest);
-    if (reply) {
-        connect(reply.get(), &QNetworkReply::finished, this,
-                [ reply, msgIdCB, this]() {
+    auto&& future = IBot::sendRequest(rquest);
+    if (future.isValid()) {
+        future.then(this, [this, msgIdCB](const QByteArray& responseData){
 
-                    if (reply->error() == QNetworkReply::NoError) {
-                        QByteArray&& responseData = reply->readAll();
-                        QJsonDocument json = QJsonDocument::fromJson(responseData);
+                  QJsonDocument json = QJsonDocument::fromJson(responseData);
 
-                        const QJsonObject&& obj = json.object();
-                        if (obj.contains("result")) {
-                            unsigned long long chatId = obj["result"]["chat"]["id"].toInteger();
-                            int messageID = obj["result"]["message_id"].toInt();
-                            if (msgIdCB) {
-                                msgIdCB(messageID);
-                            }
+                  const QJsonObject&& obj = json.object();
+                  if (obj.contains("result")) {
+                      unsigned long long chatId = obj["result"]["chat"]["id"].toInteger();
+                      int messageID = obj["result"]["message_id"].toInt();
+                      if (msgIdCB) {
+                          msgIdCB(messageID);
+                      }
 
-                            if (chatId) {
-                                _lastMessageId[chatId] = messageID;
-                            }
+                      if (chatId) {
+                          _lastMessageId[chatId] = messageID;
+                      }
 
-                            return;
-                        }
-                    }
+                      return;
+                  }
+              }).onFailed([msgIdCB](){
 
-                    if (msgIdCB) {
-                        msgIdCB(-1);
-                    }
-                });
+                if (msgIdCB) {
+                    msgIdCB(-1);
+                }
+            });
+
+        return true;
     }
 
-    return bool(reply);
+    return false;
 }
 
 void ITelegramBot::handleLogin(const QByteArray&ansver) {
@@ -573,29 +577,26 @@ void ITelegramBot::handleLogin(const QByteArray&ansver) {
 
 void ITelegramBot::handleLoginErr(QNetworkReply::NetworkError err) {
     if (err) {
-        qDebug() << "Network error occured. code: " << err;
+        qCritical() << "Network error occured. code: " << err;
     }
-    _loginReplay.reset();
 }
 
-void ITelegramBot::handleFileHeader(const QWeakPointer<QNetworkReply> &sender,
+void ITelegramBot::handleFileHeader(const QByteArray& header,
                                     const QWeakPointer<iFile>& receiver) {
-    if (auto&& sharedPtr = sender.lock()) {
-        auto&& ansver = makeMesasge<TelegramUpdateAnswer>(sharedPtr->readAll());
+    auto&& ansver = makeMesasge<TelegramUpdateAnswer>(header);
 
-        if (!ansver->isValid()) {
-            onRequestError(ansver);
-            return;
-        }
+    if (!ansver->isValid()) {
+        onRequestError(ansver);
+        return;
+    }
 
-        auto &&fileMetaInfo = makeMesasge<TelegramFile>(ansver->result().toObject());
+    auto &&fileMetaInfo = makeMesasge<TelegramFile>(ansver->result().toObject());
 
-        _filesMetaInfo.insert(fileMetaInfo->fileId(), fileMetaInfo);
+    _filesMetaInfo.insert(fileMetaInfo->fileId(), fileMetaInfo);
 
-        if (auto&& sharedPtr = receiver.lock()) {
-            auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
-            sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
-        }
+    if (auto&& sharedPtr = receiver.lock()) {
+        auto&& downloadRequest = QSharedPointer<TelegrammDownloadFile>::create(fileMetaInfo->takePath());
+        sharedPtr->setDownloadRequest(sendRequest(downloadRequest));
     }
 }
 
