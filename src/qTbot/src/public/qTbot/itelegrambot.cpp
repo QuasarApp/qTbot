@@ -283,12 +283,11 @@ bool ITelegramBot::sendSpecificMessageWithKeyboard(const TelegramArgs& args,
     return sendSpecificMessage(args, prepareKeyboard(autoResizeKeyboard, onTimeKeyboard, keyboard));
 }
 
-QSharedPointer<iFile> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
+QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, iFile::Type fileType) {
 
-    QSharedPointer<iFile> result = nullptr;
 
     if (fileId.isEmpty()) {
-        return result;
+        return {};
     }
 
     auto localFilePath = findFileInlocatStorage(fileId);

@@ -187,8 +187,13 @@ public:
     bool editSpecificMessage(const QVariant &messageId,
                              const TelegramArgs& args);
 
-    [[nodiscard("do not forget to save shared pointer of file handler, because it's will not save inner bot object.")]]
-    QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
+    /**
+     * @brief getFile This method sent request to get a file by id. The files can be saved into local storage if the Type choosed as Local.
+     * @param fileId This is Telegram file id.
+     * @param fileType this is type of file. Depends of this argument future will be contains deffrent result if it is Local type then future will contains link to local file path else file source as bytes.
+     * @return futur with file source or path to file depends of type.
+     */
+    QFuture<QByteArray> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) override;
 
     /**
      * @brief getFileMeta This method receive meta information of the file.
