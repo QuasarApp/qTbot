@@ -102,6 +102,7 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     }
 
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
+    promise->start();
 
     networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise](){
         promise->finish();
@@ -144,6 +145,7 @@ QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, co
     }
 
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
+    promise->start();
 
     networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise, pathToResult](){
 

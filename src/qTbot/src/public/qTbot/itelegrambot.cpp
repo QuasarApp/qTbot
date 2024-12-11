@@ -296,7 +296,6 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileTy
         if (fileType == FileType::Ram) {
             QFile localFile(localFilePath);
             if (localFile.open(QIODevice::ReadOnly)) {
-                QPromise<QByteArray> fileDataResult;
                 fileDataResult.addResult(localFile.readAll());
                 localFile.close();
             }
@@ -339,6 +338,8 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileTy
     }
 
     auto longWay = QSharedPointer<QPromise<QByteArray>>::create();
+    longWay->start();
+
     auto&& future = getFileMeta(fileId);
     if (!future.isValid()) {
         return {};

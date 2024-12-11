@@ -26,8 +26,7 @@ int main(int argc, char *argv[]) {
 
     srand(time(0));
 
-    QList<QSharedPointer<qTbot::iFile> > filesStack;
-    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot, &filesStack](auto){
+    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot](auto){
         while(auto&& update = bot.takeNextUnreadUpdate()) {
 
             if (auto&& tupdate = update.dynamicCast<qTbot::TelegramUpdate>()) {
@@ -36,15 +35,21 @@ int main(int argc, char *argv[]) {
 
                     if (auto&& tmsg = tupdate->message()) {
                         if (tmsg->contains(tmsg->Document)) {
-                            filesStack.push_back(bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->documents()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                qInfo() << "fole save into " << path;
+                            });
                         }
 
                         if (tmsg->contains(tmsg->Image)) {
-                            filesStack.push_back(bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->image()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                qInfo() << "fole save into " << path;
+                            });
                         }
 
                         if (tmsg->contains(tmsg->Audio)) {
-                            filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->audio()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                qInfo() << "fole save into " << path;
+                            });
                         }
 
                         bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
@@ -78,6 +83,9 @@ int main(int argc, char *argv[]) {
         }
     });
 
-    bot.login("6349356184:AAFotw9EC46sgAQrkGQ_jeHPyv3EAapZXcM");
+    if (!bot.login("6349356184:AAFotw9EC46sgAQrkGQ_jeHPyv3EAapZXcM")) {
+        qCritical() << "failed to login!";
+        return 1;
+    }
     return app.exec();
 }
