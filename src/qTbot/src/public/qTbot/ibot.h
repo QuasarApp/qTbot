@@ -51,6 +51,27 @@ public:
     };
 
     /**
+     * @brief The RequestData class is simple wrapper of request object with path of responce.
+     *  If Path of responce is empty then responce will saved in RAM.
+     */
+    struct RequestData {
+        /**
+         * @brief request saved request object.
+         */
+        QSharedPointer<iRequest> request;
+
+        /**
+         * @brief responceFilePath path to responce.
+         */
+        QString responceFilePath = "";
+
+        /**
+         * @brief responce This is promise to responce of this requests that will sets back.
+         */
+        QSharedPointer<QPromise<QByteArray>> responce;
+    };
+
+    /**
      * @brief login This method get bae information of the bot from remote server.
      * @param token This is token value for login
      * @return true if login request sent successful else false.
@@ -144,6 +165,18 @@ public:
      * @param newProcessed list of processed messagees.
      */
     virtual void setProcessed(const QSet<unsigned long long> &newProcessed);
+
+    /**
+     * @brief reqestLimitPerSecond this is request performence limitation. by default is 20 requests per second
+     * @return
+     */
+    int reqestLimitPerSecond() const;
+
+    /**
+     * @brief setReqestLimitPerSecond this method sets new limitation of bot performance.
+     * @param newReqestLimitPerSecond this is a new value of performance.
+     */
+    void setReqestLimitPerSecond(int newReqestLimitPerSecond);
 
 protected:
 
@@ -254,6 +287,13 @@ signals:
     void sigStopRequire();
 
 private:
+    QFuture<QByteArray>
+    sendRequestPrivate(const QSharedPointer<iRequest>& rquest);
+
+    QFuture<QByteArray>
+    sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
+                       const QString& pathToResult);
+
     QNetworkReply *sendRquestImpl(const QSharedPointer<iRequest> &rquest);
 
     QByteArray _token;
@@ -261,6 +301,8 @@ private:
     QMap<unsigned long long, QSharedPointer<iUpdate>> _notProcessedUpdates;
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
+    int _reqestLimitPerSecond = 20;
+    QList<RequestData> _requestQueue;
 
 
 };

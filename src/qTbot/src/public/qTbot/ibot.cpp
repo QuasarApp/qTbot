@@ -92,9 +92,55 @@ QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     return networkReplay;
 }
 
+int IBot::reqestLimitPerSecond() const {
+    return _reqestLimitPerSecond;
+}
+
+void IBot::setReqestLimitPerSecond(int newReqestLimitPerSecond) {
+    _reqestLimitPerSecond = newReqestLimitPerSecond;
+}
+
 QFuture<QByteArray>
 IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+    auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
+    responce->start();
+    _requestQueue.push_back(RequestData{rquest, "", responce});
 
+    return responce->future();
+}
+
+QFuture<QByteArray>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
+                  const QString &pathToResult) {
+    auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
+    responce->start();
+    _requestQueue.push_back(RequestData{rquest, pathToResult, responce});
+
+    return responce->future();
+
+}
+
+void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
+    _notProcessedUpdates.remove(message->updateId());
+}
+
+void IBot::markUpdateAsUnprocessed(const QSharedPointer<iUpdate> &message) {
+    return markUpdateAsUnprocessed(message->updateId());
+}
+
+void IBot::markUpdateAsUnprocessed(unsigned long long messageID) {
+    _processed.remove(messageID);
+}
+
+QString IBot::defaultFileStorageLocation() const {
+    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+}
+
+void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
+    emit sigReceiveUpdate(message);
+}
+
+QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest) {
 
     QNetworkReply* networkReplay = sendRquestImpl(rquest);
     if (!networkReplay) {
@@ -128,7 +174,8 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     return promise->future();
 }
 
-QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, const QString &pathToResult) {
+QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
+                                             const QString &pathToResult) {
     auto&& file = QSharedPointer<QFile>::create(pathToResult);
 
     if (!file->open(QIODeviceBase::WriteOnly | QIODevice::Truncate)) {
@@ -174,26 +221,6 @@ QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, co
     networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
 
     return promise->future();
-}
-
-void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
-    _notProcessedUpdates.remove(message->updateId());
-}
-
-void IBot::markUpdateAsUnprocessed(const QSharedPointer<iUpdate> &message) {
-    return markUpdateAsUnprocessed(message->updateId());
-}
-
-void IBot::markUpdateAsUnprocessed(unsigned long long messageID) {
-    _processed.remove(messageID);
-}
-
-QString IBot::defaultFileStorageLocation() const {
-    return QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
-}
-
-void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
-    emit sigReceiveUpdate(message);
 }
 
 QSet<unsigned long long> IBot::processed() const {
