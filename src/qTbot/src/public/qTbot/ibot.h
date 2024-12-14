@@ -17,6 +17,7 @@
 #include <QHash>
 #include <QSet>
 #include <QFileInfo>
+#include <QTimer>
 
 #include <QNetworkReply>
 #include <QObject>
@@ -178,6 +179,9 @@ public:
      */
     void setReqestLimitPerSecond(int newReqestLimitPerSecond);
 
+    int parallelActiveNetworkThreads() const;
+    void setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
+
 protected:
 
     /**
@@ -286,13 +290,17 @@ signals:
      */
     void sigStopRequire();
 
+private slots:
+    void handleEcxecuteRequest();
 private:
-    QFuture<QByteArray>
-    sendRequestPrivate(const QSharedPointer<iRequest>& rquest);
+    void setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
 
-    QFuture<QByteArray>
-    sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
-                       const QString& pathToResult);
+    void sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
+                            const QSharedPointer<QPromise<QByteArray>> & promiseResult);
+
+    void sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
+                            const QString& pathToResult,
+                            const QSharedPointer<QPromise<QByteArray> > &promiseResult);
 
     QNetworkReply *sendRquestImpl(const QSharedPointer<iRequest> &rquest);
 
@@ -301,8 +309,11 @@ private:
     QMap<unsigned long long, QSharedPointer<iUpdate>> _notProcessedUpdates;
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
-    int _reqestLimitPerSecond = 20;
+    QTimer* _requestExecutor = nullptr;
     QList<RequestData> _requestQueue;
+    int _currentParallelActiveNetworkThreads = 0;
+    int _parallelActiveNetworkThreads = 10;
+
 
 
 };

@@ -17,6 +17,10 @@ namespace qTbot {
 IBot::IBot() {
     _manager = new QNetworkAccessManager();
     _manager->setAutoDeleteReplies(true);
+    _requestExecutor = new QTimer(this);
+    _requestExecutor->setInterval(1000 / 20); // 20 times per second.
+
+    connect(_requestExecutor, &QTimer::timeout, this , &IBot::handleEcxecuteRequest);
 }
 
 IBot::~IBot() {
@@ -92,12 +96,25 @@ QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     return networkReplay;
 }
 
+int IBot::parallelActiveNetworkThreads() const {
+    return _parallelActiveNetworkThreads;
+}
+
+void IBot::setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
+    _parallelActiveNetworkThreads = newParallelActiveNetworkThreads;
+}
+
+void IBot::setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
+    _currentParallelActiveNetworkThreads = newParallelActiveNetworkThreads;
+    qDebug () << "current network active requests count : " << _currentParallelActiveNetworkThreads;
+}
+
 int IBot::reqestLimitPerSecond() const {
-    return _reqestLimitPerSecond;
+    return _requestExecutor->interval() * 1000;
 }
 
 void IBot::setReqestLimitPerSecond(int newReqestLimitPerSecond) {
-    _reqestLimitPerSecond = newReqestLimitPerSecond;
+    _requestExecutor->setInterval(1000 / newReqestLimitPerSecond);
 }
 
 QFuture<QByteArray>
@@ -105,6 +122,8 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
     _requestQueue.push_back(RequestData{rquest, "", responce});
+
+    _requestExecutor->start();
 
     return responce->future();
 }
@@ -115,6 +134,8 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
     _requestQueue.push_back(RequestData{rquest, pathToResult, responce});
+
+    _requestExecutor->start();
 
     return responce->future();
 
@@ -140,17 +161,37 @@ void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
     emit sigReceiveUpdate(message);
 }
 
-QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest) {
+void IBot::handleEcxecuteRequest() {
+    if (!_requestQueue.size()) {
+        _requestExecutor->stop();
+        return;
+    }
+
+    if (_currentParallelActiveNetworkThreads > _parallelActiveNetworkThreads) {
+        return;
+    }
+
+    auto&& requestData = _requestQueue.takeFirst();
+
+    if (requestData.responceFilePath.size()) {
+        sendRequestPrivate(requestData.request, requestData.responceFilePath, requestData.responce);
+        return;
+    }
+
+    sendRequestPrivate(requestData.request, requestData.responce);
+}
+
+void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
+                              const QSharedPointer<QPromise<QByteArray> > &promise) {
 
     QNetworkReply* networkReplay = sendRquestImpl(rquest);
     if (!networkReplay) {
-        return {};
+        return;
     }
 
-    auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
-    promise->start();
+    setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
 
-    networkReplay->connect(networkReplay, &QNetworkReply::finished, [networkReplay, promise](){
+    connect(networkReplay, &QNetworkReply::finished, [this, networkReplay, promise](){
         if (networkReplay->error() == QNetworkReply::NoError) {
             promise->addResult(networkReplay->readAll());
             promise->finish();
@@ -158,6 +199,9 @@ QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rqu
         } else {
             promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1() + networkReplay->readAll()));
         }
+
+        setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
+
     });
 
     auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
@@ -168,30 +212,27 @@ QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rqu
         promise->setProgressValue(bytesCurrent);
     };
 
-    networkReplay->connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
-    networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
-
-    return promise->future();
+    connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
 }
 
-QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
-                                             const QString &pathToResult) {
+void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
+                              const QString &pathToResult,
+                              const QSharedPointer<QPromise<QByteArray>> & promise) {
     auto&& file = QSharedPointer<QFile>::create(pathToResult);
 
     if (!file->open(QIODeviceBase::WriteOnly | QIODevice::Truncate)) {
         qCritical() << "Fail to wrote data into " << pathToResult;
-        return {};
+        return;
     }
 
     QNetworkReply* networkReplay = sendRquestImpl(rquest);
     if (!networkReplay) {
-        return {};
+        return;
     }
 
-    auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
-    promise->start();
-
-    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise, networkReplay, pathToResult](){
+    setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
+    connect(networkReplay, &QNetworkReply::finished, [this, promise, networkReplay, pathToResult](){
 
         if (networkReplay->error() == QNetworkReply::NoError) {
             promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
@@ -199,10 +240,10 @@ QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rqu
             promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
             promise->finish();
         }
-
+        setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
     });
 
-    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
+    connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
         if (networkReplay->error() == QNetworkReply::NoError) {
             file->write(networkReplay->readAll());
         }
@@ -217,10 +258,9 @@ QFuture<QByteArray> IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rqu
         promise->setProgressValue(bytesCurrent);
     };
 
-    networkReplay->connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
-    networkReplay->connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
+    connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
 
-    return promise->future();
 }
 
 QSet<unsigned long long> IBot::processed() const {

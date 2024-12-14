@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
 
     qTbot::TelegramRestBot bot;
+    bot.setReqestLimitPerSecond(10);
 
     srand(time(0));
 
@@ -62,30 +63,38 @@ int main(int argc, char *argv[]) {
                                 });;
                         }
 
-                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
-                                                            {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
-                                                                   static int index = 0;
+                        if (tmsg->text() == "spam") {
+                            for (int i = 0 ; i < 1000; i++) {
+                                bot.sendMessage(tmsg->chatId(), QString(" message N %0").arg(i));
+                            }
+                        } else {
+                            bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
+                                                                {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
+                                                                       static int index = 0;
 
-                                                                   auto&& args = qTbot::TelegramArgs{tmsg->chatId(),
-                                                                                                     "I see it. Presed count: " + QString::number(index++),
-                                                                                                     tmsg->messageId(),
-                                                                                                     "",
-                                                                                                     false,
-                                                                                                     queryId};
+                                                                       auto&& args = qTbot::TelegramArgs{tmsg->chatId(),
+                                                                                                         "I see it. Presed count: " + QString::number(index++),
+                                                                                                         tmsg->messageId(),
+                                                                                                         "",
+                                                                                                         false,
+                                                                                                         queryId};
 
-                                                                   auto&& keyboard = qTbot::KeyboardOnMessage{
-                                                                                                              {{"test_button", [](auto , auto ){}},
-                                                                                                               {"test_button 2", [](auto , auto ){}}}};
+                                                                       auto&& keyboard = qTbot::KeyboardOnMessage{
+                                                                                                                  {{"test_button", [](auto , auto ){}},
+                                                                                                                   {"test_button 2", [](auto , auto ){}}}};
 
-                                                                   bot.editSpecificMessageWithKeyboard(msgId,
-                                                                                                       args,
-                                                                                                       keyboard
-                                                                                                       );
-                                                               }}}});
+                                                                       bot.editSpecificMessageWithKeyboard(msgId,
+                                                                                                           args,
+                                                                                                           keyboard
+                                                                                                           );
+                                                                   }}}});
 
-                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
-                                                            {{{"test_button"},
-                                                                {"test_button"},}}, true, true);
+                            bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
+                                                                {{{"test_button"},
+                                                                    {"test_button"},}}, true, true);
+                        }
+
+
                     }
 
                 }
