@@ -40,7 +40,9 @@ public:
 
     bool login(const QByteArray &token) override;
 
-    bool sendMessage(const QVariant &chatId, const QString& text) override;
+    bool sendMessage(const QVariant &chatId,
+                     const QString& text,
+                     iRequest::RequestPriority priority = iRequest::NormalPriority) override;
 
     /**
      * @brief sendLocationRequest This method setn into chat button that will automaticaly sent geo location to bot.

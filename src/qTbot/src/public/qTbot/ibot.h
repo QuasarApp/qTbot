@@ -92,7 +92,7 @@ public:
      *
      * @note the specific implementations of this interface can have a different method for sending.
     */
-    virtual bool sendMessage(const QVariant& chatId, const QString& text) = 0;
+    virtual bool sendMessage(const QVariant& chatId, const QString& text, iRequest::RequestPriority priority = iRequest::NormalPriority) = 0;
 
     /**
      * @brief deleteMessage This is main method to delete messages.
@@ -310,9 +310,9 @@ private:
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
     QTimer* _requestExecutor = nullptr;
-    QList<RequestData> _requestQueue;
+    QMultiMap<int, RequestData> _requestQueue;
     int _currentParallelActiveNetworkThreads = 0;
-    int _parallelActiveNetworkThreads = 10;
+    int _parallelActiveNetworkThreads = 5;
 
 
 

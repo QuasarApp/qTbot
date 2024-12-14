@@ -64,11 +64,17 @@ bool ITelegramBot::login(const QByteArray &token) {
     return loginFuture.isValid();
 }
 
-bool ITelegramBot::sendMessage(const QVariant &chatId, const QString &text) {
-    return sendSpecificMessage(TelegramArgs{chatId, text});
+bool ITelegramBot::sendMessage(const QVariant &chatId,
+                               const QString &text,
+                               iRequest::RequestPriority priority) {
+    TelegramArgs arg{chatId, text};
+    arg.requestPriority = priority;
+    return sendSpecificMessage(arg);
 }
 
-bool ITelegramBot::sendLocationRequest(const QVariant &chatId, const QString &text, const QString &buttonText,
+bool ITelegramBot::sendLocationRequest(const QVariant &chatId,
+                                       const QString &text,
+                                       const QString &buttonText,
                                        bool onetimeKeyboard) {
 
     auto replyMarkup = QSharedPointer<QJsonObject>::create();

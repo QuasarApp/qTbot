@@ -10,6 +10,7 @@
 
 #include <QVariant>
 #include "global.h"
+#include "irequest.h"
 
 namespace qTbot {
 
@@ -24,7 +25,8 @@ struct QTBOT_EXPORT TelegramArgs
                  const QString& parseMode = "html",
                  bool disableWebPagePreview = false,
                  const QString& callBackQueryId = "",
-                 const std::function<void(int msgId)>& msgIdCB = {}
+                 const std::function<void(int msgId)>& msgIdCB = {},
+                 iRequest::RequestPriority priority = iRequest::RequestPriority::NormalPriority
                  );
 
     /**
@@ -74,6 +76,8 @@ struct QTBOT_EXPORT TelegramArgs
      * @brief msgIdCB This is id message call bak function. Will be inwoked when request finished successful.
      */
     std::function<void(int msgId)> msgIdCB = {};
+
+    iRequest::RequestPriority requestPriority = iRequest::RequestPriority::NormalPriority;
 };
 
 }

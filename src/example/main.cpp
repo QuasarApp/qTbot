@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
 
                         if (tmsg->text() == "spam") {
                             for (int i = 0 ; i < 1000; i++) {
-                                bot.sendMessage(tmsg->chatId(), QString(" message N %0").arg(i));
+                                bot.sendMessage(tmsg->chatId(), QString(" message N %0").arg(i), qTbot::iRequest::LowPriority);
                             }
                         } else {
                             bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},

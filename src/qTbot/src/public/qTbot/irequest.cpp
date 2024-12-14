@@ -91,6 +91,14 @@ QSharedPointer<QHttpMultiPart> iRequest::argsToMultipartFormData() const {
     return multiPart;
 }
 
+iRequest::RequestPriority iRequest::priority() const {
+    return _priority;
+}
+
+void iRequest::setPriority(RequestPriority newPriority) {
+    _priority = newPriority;
+}
+
 const QString& iRequest::request() const {
     return _request;
 }

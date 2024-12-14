@@ -121,7 +121,8 @@ QFuture<QByteArray>
 IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
-    _requestQueue.push_back(RequestData{rquest, "", responce});
+    _requestQueue.insert(rquest->priority(),
+                         RequestData{rquest, "", responce});
 
     _requestExecutor->start();
 
@@ -133,7 +134,8 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
                   const QString &pathToResult) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
-    _requestQueue.push_back(RequestData{rquest, pathToResult, responce});
+    _requestQueue.insert(rquest->priority(),
+                         RequestData{rquest, pathToResult, responce});
 
     _requestExecutor->start();
 
@@ -171,7 +173,7 @@ void IBot::handleEcxecuteRequest() {
         return;
     }
 
-    auto&& requestData = _requestQueue.takeFirst();
+    auto&& requestData = _requestQueue.take(_requestQueue.lastKey());
 
     if (requestData.responceFilePath.size()) {
         sendRequestPrivate(requestData.request, requestData.responceFilePath, requestData.responce);
@@ -189,7 +191,7 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
         return;
     }
 
-    setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
+    setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
 
     connect(networkReplay, &QNetworkReply::finished, [this, networkReplay, promise](){
         if (networkReplay->error() == QNetworkReply::NoError) {
@@ -200,7 +202,7 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
             promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1() + networkReplay->readAll()));
         }
 
-        setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
+        setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
 
     });
 
@@ -231,7 +233,7 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
         return;
     }
 
-    setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
+    setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
     connect(networkReplay, &QNetworkReply::finished, [this, promise, networkReplay, pathToResult](){
 
         if (networkReplay->error() == QNetworkReply::NoError) {
@@ -240,7 +242,7 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
             promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
             promise->finish();
         }
-        setParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
+        setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
     });
 
     connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
