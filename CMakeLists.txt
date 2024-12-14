@@ -30,7 +30,7 @@ find_package(Qt6 COMPONENTS Test QUIET)
 include(submodules/CMake/QuasarApp.cmake)
 
 updateGitVars()
-set(QTBOT_VERSION "0.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
+set(QTBOT_VERSION "0.2.${GIT_COMMIT_COUNT}.${GIT_COMMIT_HASH}")
 set(QTBOT_PACKAGE_ID "quasarapp.core.qTbot")
 
 option(QTBOT_TESTS "This option disables or enables tests of the ${PROJECT_NAME} project"  ON)

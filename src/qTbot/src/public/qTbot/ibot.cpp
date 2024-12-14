@@ -104,17 +104,14 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
     promise->start();
 
-    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise](){
-        promise->finish();
-    });
+    networkReplay->connect(networkReplay, &QNetworkReply::finished, [networkReplay, promise](){
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            promise->addResult(networkReplay->readAll());
+            promise->finish();
 
-    networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise](){
-        promise->addResult(networkReplay->readAll());
-    });
-
-    networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){
-        promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
-        promise->finish();
+        } else {
+            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1() + networkReplay->readAll()));
+        }
     });
 
     auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
@@ -132,9 +129,9 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
 }
 
 QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, const QString &pathToResult) {
-    auto&& file = QSharedPointer<QFile>::create();
+    auto&& file = QSharedPointer<QFile>::create(pathToResult);
 
-    if (!file->open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+    if (!file->open(QIODeviceBase::WriteOnly | QIODevice::Truncate)) {
         qCritical() << "Fail to wrote data into " << pathToResult;
         return {};
     }
@@ -147,19 +144,22 @@ QFuture<QByteArray> IBot::sendRequest(const QSharedPointer<iRequest> &rquest, co
     auto&& promise = QSharedPointer<QPromise<QByteArray>>::create();
     promise->start();
 
-    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise, pathToResult](){
+    networkReplay->connect(networkReplay, &QNetworkReply::finished, [promise, networkReplay, pathToResult](){
 
-        promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
-        promise->finish();
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
+        } else {
+            promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
+            promise->finish();
+        }
+
     });
 
     networkReplay->connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
-        file->write(networkReplay->readAll());
-    });
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            file->write(networkReplay->readAll());
+        }
 
-    networkReplay->connect(networkReplay, &QNetworkReply::errorOccurred, [networkReplay, promise](QNetworkReply::NetworkError ){
-        promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
-        promise->finish();
     });
 
     auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){

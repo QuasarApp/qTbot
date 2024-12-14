@@ -12,6 +12,7 @@
 #include "requests/telegramsendcontact.h"
 #include "requests/telegramsenddocument.h"
 #include "httpexception.h"
+#include "internalexception.h"
 #include <QNetworkAccessManager>
 
 #include <requests/telegramgetfile.h>
@@ -348,10 +349,21 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileTy
     future.then([this, fileId, fileType, longWay](const QByteArray& header){
         handleFileHeader(header);
 
-        getFile(fileId, fileType).then([longWay](const QByteArray& data){
+        auto&& future = getFile(fileId, fileType);
+
+        if (!future.isValid()) {
+            longWay->setException(InternalException("Failed to wrote file into internal cache!"));
+            return;
+        };
+
+        future.then([longWay](const QByteArray& data){
             longWay->addResult(data);
         });
-    });
+
+
+          }).onFailed([longWay](const QException& exep){
+            longWay->setException(exep);
+        });
 
     return longWay->future();
 }

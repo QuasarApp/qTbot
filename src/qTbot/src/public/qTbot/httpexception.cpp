@@ -7,6 +7,8 @@
 
 #include "httpexception.h"
 
+namespace qTbot {
+
 HttpException::HttpException(QNetworkReply::NetworkError code,
                              const QByteArray &erroString) {
 
@@ -16,7 +18,7 @@ HttpException::HttpException(QNetworkReply::NetworkError code,
         _errText = erroString;
     } else {
 
-        _errText = QByteArray("Http request fonoshed with code: ").
+        _errText = QByteArray("Http request finished with code: ").
                    append(QString::number(code).toLatin1());
     }
 }
@@ -36,4 +38,5 @@ QException *HttpException::clone() const {
 
 QNetworkReply::NetworkError HttpException::code() const {
     return _code;
+}
 }

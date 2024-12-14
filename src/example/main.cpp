@@ -9,6 +9,7 @@
 #include <qTbot/telegramrestbot.h>
 
 #include <QCoreApplication>
+#include <qTbot/httpexception.h>
 #include <qTbot/messages/telegrammsg.h>
 #include <qTbot/messages/telegramupdate.h>
 
@@ -36,20 +37,29 @@ int main(int argc, char *argv[]) {
                     if (auto&& tmsg = tupdate->message()) {
                         if (tmsg->contains(tmsg->Document)) {
                             bot.getFile(tmsg->documents()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
-                                qInfo() << "fole save into " << path;
-                            });
+                                                                                                    qInfo() << "file save into " << path;
+                                                                                                }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });
                         }
 
                         if (tmsg->contains(tmsg->Image)) {
                             bot.getFile(tmsg->image()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
-                                qInfo() << "fole save into " << path;
-                            });
+                                                                                                qInfo() << "file save into " << path;
+                                                                                            }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });;
                         }
 
                         if (tmsg->contains(tmsg->Audio)) {
                             bot.getFile(tmsg->audio()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
-                                qInfo() << "fole save into " << path;
-                            });
+                                                                                                qInfo() << "file save into " << path;
+                                                                                            }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });;
                         }
 
                         bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},

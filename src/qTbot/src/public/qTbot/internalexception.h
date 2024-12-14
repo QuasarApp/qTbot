@@ -8,22 +8,21 @@
 #include <QException>
 #include <QNetworkReply>
 
+#ifndef INTERNALEXCEPTION_H
+#define INTERNALEXCEPTION_H
 
-#ifndef HTTPEXCEPTION_H
-#define HTTPEXCEPTION_H
 
 namespace qTbot {
 
 /**
- * @brief The HttpException class is base exaption that will raise on all errors of the HTTP protocol,
+ * @brief The InternalException class contais string value to describe what happened.
  */
-class HttpException: public QException
+class InternalException: public QException
 {
-public:
-    HttpException(QNetworkReply::NetworkError code, const QByteArray& erroString = {});
-
     // exception interface
 public:
+    InternalException(const QByteArray& erroString = {});
+
     const char *what() const noexcept override;
 
     // QException interface
@@ -31,11 +30,10 @@ public:
     void raise() const override;
     QException *clone() const override;
 
-    QNetworkReply::NetworkError code() const;
-
 private:
     QByteArray _errText;
-    QNetworkReply::NetworkError _code;
 };
 }
-#endif // HTTPEXCEPTION_H
+#endif // INTERNALEXCEPTION_H
+
+
