@@ -67,7 +67,6 @@ QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
 #endif
 
     QNetworkReply* networkReplay = nullptr;
-    QSharedPointer<QHttpMultiPart> httpData;
 
     switch (rquest->method()) {
     case iRequest::Get: {
@@ -84,9 +83,10 @@ QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     case iRequest::Upload:
         QNetworkRequest netRequest(url);
 
-        httpData = rquest->argsToMultipartFormData();
+        auto httpData = rquest->argsToMultipartFormData();
         if (httpData) {
             networkReplay = _manager->post(netRequest, httpData.data());
+            connect(networkReplay, &QNetworkReply::destroyed, [httpData](){});
 
         } else {
             return {};
@@ -116,7 +116,6 @@ void IBot::setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) 
 
 void IBot::setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
     _currentParallelActiveNetworkThreads = newParallelActiveNetworkThreads;
-    qDebug () << "current network active requests count : " << _currentParallelActiveNetworkThreads;
 }
 
 int IBot::reqestLimitPerSecond() const {
