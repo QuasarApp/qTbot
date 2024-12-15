@@ -18,6 +18,7 @@ TelegramSendMsg::TelegramSendMsg(const TelegramArgs& generalArgs,
 {
 
     QMap<QString, QVariant>&& args = generalArgs.toMap();
+    setPriority(generalArgs.requestPriority);
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
         args[it.key()] = QJsonDocument(*it.value()).toJson(QJsonDocument::Compact);

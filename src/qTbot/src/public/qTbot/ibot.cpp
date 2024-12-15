@@ -5,16 +5,22 @@
 //# of this license document, but changing it is not allowed.
 //#
 
+#include "httpexception.h"
 #include "ibot.h"
 #include "qstandardpaths.h"
 
 #include <QNetworkReply>
+#include <QPromise>
 
 namespace qTbot {
 
 IBot::IBot() {
     _manager = new QNetworkAccessManager();
-    _manager->setAutoDeleteReplies(false);
+    _manager->setAutoDeleteReplies(true);
+    _requestExecutor = new QTimer(this);
+    _requestExecutor->setInterval(1000 / 20); // 20 times per second.
+
+    connect(_requestExecutor, &QTimer::timeout, this , &IBot::handleEcxecuteRequest);
 }
 
 IBot::~IBot() {
@@ -31,6 +37,8 @@ const QByteArray &IBot::token() const {
 
 void IBot::setToken(const QByteArray &newToken) {
     _token = newToken;
+    _startTime = QDateTime::currentDateTime();
+
 }
 
 void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
@@ -48,12 +56,9 @@ void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
     }
 }
 
-QSharedPointer<QNetworkReply>
-IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     if (!rquest)
-        return nullptr;
-
-    doRemoveFinishedRequests();
+        return {};
 
     auto && url = makeUrl(rquest);
 
@@ -61,62 +66,93 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     qDebug() << url;
 #endif
 
-    QSharedPointer<QNetworkReply> networkReplay;
+    QNetworkReply* networkReplay = nullptr;
     QSharedPointer<QHttpMultiPart> httpData;
 
     switch (rquest->method()) {
     case iRequest::Get: {
-        auto reply = _manager->get(QNetworkRequest(url));
+        networkReplay = _manager->get(QNetworkRequest(url));
 
-        // we control replay object wia shared pointers.
-        reply->setParent(nullptr);
-
-        networkReplay.reset(reply);
         break;
     }
 
     case iRequest::Post:
-//        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
-//        reply = m_nam.post(req, params.toByteArray());
+        //        req.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+        //        reply = m_nam.post(req, params.toByteArray());
 
-//        break;
+        //        break;
     case iRequest::Upload:
         QNetworkRequest netRequest(url);
 
         httpData = rquest->argsToMultipartFormData();
         if (httpData) {
-            auto reply = _manager->post(netRequest, httpData.data());
+            networkReplay = _manager->post(netRequest, httpData.data());
 
-            // we control replay object wia shared pointers.
-            reply->setParent(nullptr);
-
-            networkReplay.reset(reply);
         } else {
-            return nullptr;
+            return {};
         }
 
         break;
     }
 
-    size_t address = reinterpret_cast<size_t>(networkReplay.get());
-    _replayStorage[address] = networkReplay;
-
-    connect(networkReplay.get(), &QNetworkReply::finished, this,
-            [this, address, httpData]() {
-                _toRemove.push_back(address);
-            });
-
-    connect(networkReplay.get(), &QNetworkReply::errorOccurred, this,
-            [this, address](QNetworkReply::NetworkError err){
-                qWarning() << "The reqeust " << address << " finished with error code : " << err;
-                if (auto&& replay = _replayStorage.value(address)) {
-                    qWarning() << replay->errorString();
-                }
-
-                _toRemove.push_back(address);
-            });
-
     return networkReplay;
+}
+
+QDateTime IBot::startTime() const {
+    return _startTime;
+}
+
+unsigned long long IBot::totalSentRequests() const {
+    return _totalRequest;
+}
+
+int IBot::parallelActiveNetworkThreads() const {
+    return _parallelActiveNetworkThreads;
+}
+
+void IBot::setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
+    _parallelActiveNetworkThreads = newParallelActiveNetworkThreads;
+}
+
+void IBot::setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
+    _currentParallelActiveNetworkThreads = newParallelActiveNetworkThreads;
+    qDebug () << "current network active requests count : " << _currentParallelActiveNetworkThreads;
+}
+
+int IBot::reqestLimitPerSecond() const {
+    return _requestExecutor->interval() * 1000;
+}
+
+void IBot::setReqestLimitPerSecond(int newReqestLimitPerSecond) {
+    _requestExecutor->setInterval(1000 / newReqestLimitPerSecond);
+}
+
+QFuture<QByteArray>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
+    auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
+    responce->start();
+
+
+    _requestQueue.insert(makeKey(rquest->priority()),
+                         RequestData{rquest, "", responce});
+
+    _requestExecutor->start();
+
+    return responce->future();
+}
+
+QFuture<QByteArray>
+IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
+                  const QString &pathToResult) {
+    auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
+    responce->start();
+    _requestQueue.insert(makeKey(rquest->priority()),
+                         RequestData{rquest, pathToResult, responce});
+
+    _requestExecutor->start();
+
+    return responce->future();
+
 }
 
 void IBot::markUpdateAsProcessed(const QSharedPointer<iUpdate> &message) {
@@ -139,12 +175,113 @@ void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
     emit sigReceiveUpdate(message);
 }
 
-void IBot::doRemoveFinishedRequests() {
-    for (auto address: std::as_const(_toRemove)) {
-        _replayStorage.remove(address);
+void IBot::handleEcxecuteRequest() {
+    if (!_requestQueue.size()) {
+        _requestExecutor->stop();
+        return;
     }
 
-    _toRemove.clear();
+    if (_currentParallelActiveNetworkThreads > _parallelActiveNetworkThreads) {
+        return;
+    }
+
+    auto&& requestData = _requestQueue.take(_requestQueue.firstKey());
+
+    if (requestData.responceFilePath.size()) {
+        sendRequestPrivate(requestData.request, requestData.responceFilePath, requestData.responce);
+        return;
+    }
+
+    sendRequestPrivate(requestData.request, requestData.responce);
+}
+
+unsigned long long IBot::makeKey(iRequest::RequestPriority priority) {
+    unsigned long long key = _totalRequest;
+    _totalRequest++;
+    key = key | (static_cast<unsigned long long>(iRequest::RequestPriority::MaxPriorityValue - priority) << 56);
+    return key;
+}
+
+void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
+                              const QSharedPointer<QPromise<QByteArray> > &promise) {
+
+    QNetworkReply* networkReplay = sendRquestImpl(rquest);
+    if (!networkReplay) {
+        return;
+    }
+
+    setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
+
+    connect(networkReplay, &QNetworkReply::finished, [this, networkReplay, promise](){
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            promise->addResult(networkReplay->readAll());
+            promise->finish();
+
+        } else {
+            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1() + networkReplay->readAll()));
+        }
+
+        setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
+
+    });
+
+    auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
+
+        if (promise->future().progressMaximum() != bytesTotal)
+            promise->setProgressRange(0, bytesTotal);
+
+        promise->setProgressValue(bytesCurrent);
+    };
+
+    connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
+}
+
+void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
+                              const QString &pathToResult,
+                              const QSharedPointer<QPromise<QByteArray>> & promise) {
+    auto&& file = QSharedPointer<QFile>::create(pathToResult);
+
+    if (!file->open(QIODeviceBase::WriteOnly | QIODevice::Truncate)) {
+        qCritical() << "Fail to wrote data into " << pathToResult;
+        return;
+    }
+
+    QNetworkReply* networkReplay = sendRquestImpl(rquest);
+    if (!networkReplay) {
+        return;
+    }
+
+    setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads + 1);
+    connect(networkReplay, &QNetworkReply::finished, [this, promise, networkReplay, pathToResult](){
+
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
+        } else {
+            promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
+            promise->finish();
+        }
+        setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
+    });
+
+    connect(networkReplay, &QNetworkReply::readyRead, [networkReplay, promise, pathToResult, file](){
+        if (networkReplay->error() == QNetworkReply::NoError) {
+            file->write(networkReplay->readAll());
+        }
+
+    });
+
+    auto && setProggress = [promise](qint64 bytesCurrent, qint64 bytesTotal){
+
+        if (promise->future().progressMaximum() != bytesTotal)
+            promise->setProgressRange(0, bytesTotal);
+
+        promise->setProgressValue(bytesCurrent);
+    };
+
+    connect(networkReplay, &QNetworkReply::downloadProgress, setProggress);
+    connect(networkReplay, &QNetworkReply::uploadProgress, setProggress);
+
 }
 
 QSet<unsigned long long> IBot::processed() const {

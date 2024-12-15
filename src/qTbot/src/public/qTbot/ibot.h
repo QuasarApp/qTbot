@@ -13,16 +13,16 @@
 #include "qTbot/iupdate.h"
 #include "qTbot/irequest.h"
 
-#include "ifile.h"
-#include "qfileinfo.h"
-
 #include <QMap>
 #include <QHash>
 #include <QSet>
+#include <QFileInfo>
+#include <QTimer>
 
 #include <QNetworkReply>
 #include <QObject>
 #include <QSharedPointer>
+#include <qfuture.h>
 
 namespace qTbot {
 
@@ -37,6 +37,40 @@ class QTBOT_EXPORT IBot: public QObject
 public:
     IBot();
     ~IBot();
+
+    /**
+     * @brief The FileType enum is is file types, deffine how we should download a file - as a local object in file system or into virtual memory.
+     */
+    enum FileType {
+        /// The Ram is a Virtual type of download files will save all file data into QFuture bytes array.
+        Ram,
+
+        /// The Local file will saved in internal file storage.
+        ///  This file type can use the filse system as cache.
+        ///  and will doenload file with same id only one time.
+        Local
+    };
+
+    /**
+     * @brief The RequestData class is simple wrapper of request object with path of responce.
+     *  If Path of responce is empty then responce will saved in RAM.
+     */
+    struct RequestData {
+        /**
+         * @brief request saved request object.
+         */
+        QSharedPointer<iRequest> request;
+
+        /**
+         * @brief responceFilePath path to responce.
+         */
+        QString responceFilePath = "";
+
+        /**
+         * @brief responce This is promise to responce of this requests that will sets back.
+         */
+        QSharedPointer<QPromise<QByteArray>> responce;
+    };
 
     /**
      * @brief login This method get bae information of the bot from remote server.
@@ -58,7 +92,7 @@ public:
      *
      * @note the specific implementations of this interface can have a different method for sending.
     */
-    virtual bool sendMessage(const QVariant& chatId, const QString& text) = 0;
+    virtual bool sendMessage(const QVariant& chatId, const QString& text, iRequest::RequestPriority priority = iRequest::NormalPriority) = 0;
 
     /**
      * @brief deleteMessage This is main method to delete messages.
@@ -74,10 +108,10 @@ public:
      * This function allows you to retrieve a file by its ID.
      *
      * @param fileId The ID of the file to retrieve.
-     * @param fileType This is a saving way, by Default will be used a iFile::Type::Ram
+     * @param fileType This is a saving way, by Default will be used a FileType::Ram
      * @return Returns true if the file retrieval operation was successfully initiated and false in case of an error.
      */
-    virtual QSharedPointer<iFile> getFile(const QString& fileId, iFile::Type fileType = iFile::Type::Ram) = 0;
+    virtual QFuture<QByteArray> getFile(const QString& fileId, FileType fileType = Ram) = 0;
 
     /**
      * @brief send @a file .
@@ -133,6 +167,43 @@ public:
      */
     virtual void setProcessed(const QSet<unsigned long long> &newProcessed);
 
+    /**
+     * @brief reqestLimitPerSecond this is request performence limitation. by default is 20 requests per second
+     * @return
+     */
+    int reqestLimitPerSecond() const;
+
+    /**
+     * @brief setReqestLimitPerSecond this method sets new limitation of bot performance.
+     * @param newReqestLimitPerSecond this is a new value of performance.
+     */
+    void setReqestLimitPerSecond(int newReqestLimitPerSecond);
+
+    /**
+     * @brief parallelActiveNetworkThreads
+     * @return
+     */
+    int parallelActiveNetworkThreads() const;
+
+    /**
+     * @brief setParallelActiveNetworkThreads
+     * @param newParallelActiveNetworkThreads
+     */
+    void setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
+
+    /**
+     * @brief totalSentRequests This is total prepared requests count of bot from the start.
+     * @see startTime method to get start date time.
+     * @return requests count.
+     */
+    unsigned long long totalSentRequests() const;
+
+    /**
+     * @brief startTime this is time when bol wil started.
+     * @return
+     */
+    QDateTime startTime() const;
+
 protected:
 
     /**
@@ -163,7 +234,6 @@ protected:
         return ptr;
     }
 
-
     /**
      * @brief makeUrl This method prepare a prefix url for http requests.
      * @param request - This is request object for that will be prepared url.
@@ -174,11 +244,20 @@ protected:
     /**
      * @brief sendRequest This method sent custom requests to the server.
      * @param rquest This is message that will be sent to server.
-     * @return shared pointer to the request replay.
-     * @note The raplay will be removed from local storage only after error or finishing, If you want to save replay just make local copy of the shared pointer.
+     * @return future pointer to the request replay.
      */
-    QSharedPointer<QNetworkReply>
+    QFuture<QByteArray>
     sendRequest(const QSharedPointer<iRequest>& rquest);
+
+    /**
+     * @brief sendRequest This method sent custom requests to the server.
+     * @param rquest This is message that will be sent to server.
+     * @return future pointer to the request replay.
+     * @note This is same as a default implementaion execpt save data location,
+     *  this method will create new file that located @a pathToResult and save all received data to this location.
+     */
+    QFuture<QByteArray>
+    sendRequest(const QSharedPointer<iRequest>& rquest, const QString& pathToResult);
 
     /**
      * @brief setToken This is setter of the IBot::token value.
@@ -233,17 +312,34 @@ signals:
      */
     void sigStopRequire();
 
+private slots:
+    void handleEcxecuteRequest();
 private:
-    void doRemoveFinishedRequests();
+    unsigned long long makeKey(iRequest::RequestPriority priority);
+    void setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
+
+    void sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
+                            const QSharedPointer<QPromise<QByteArray>> & promiseResult);
+
+    void sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
+                            const QString& pathToResult,
+                            const QSharedPointer<QPromise<QByteArray> > &promiseResult);
+
+    QNetworkReply *sendRquestImpl(const QSharedPointer<iRequest> &rquest);
 
     QByteArray _token;
     QString _name;
     QMap<unsigned long long, QSharedPointer<iUpdate>> _notProcessedUpdates;
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
+    QTimer* _requestExecutor = nullptr;
+    unsigned long long _totalRequest = 0;
+    QDateTime _startTime;
+    QMap<unsigned long long, RequestData> _requestQueue;
+    int _currentParallelActiveNetworkThreads = 0;
+    int _parallelActiveNetworkThreads = 5;
 
-    QMap<size_t,QSharedPointer<QNetworkReply>> _replayStorage;
-    QList<size_t> _toRemove;
+
 
 };
 

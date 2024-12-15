@@ -44,7 +44,7 @@ public:
 
     void setProcessed(const QSet<unsigned long long> &newProcessed) override;
 private slots:
-    void handleReceiveUpdates(const QWeakPointer<QNetworkReply>& replay);
+    void handleReceiveUpdates(const QByteArray &replay);
     void handleReceiveUpdatesErr(QNetworkReply::NetworkError err);
 
 private:

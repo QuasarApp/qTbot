@@ -9,6 +9,7 @@
 #include <qTbot/telegramrestbot.h>
 
 #include <QCoreApplication>
+#include <qTbot/httpexception.h>
 #include <qTbot/messages/telegrammsg.h>
 #include <qTbot/messages/telegramupdate.h>
 
@@ -23,11 +24,11 @@ int main(int argc, char *argv[]) {
     QCoreApplication app(argc, argv);
 
     qTbot::TelegramRestBot bot;
+    bot.setReqestLimitPerSecond(10);
 
     srand(time(0));
 
-    QList<QSharedPointer<qTbot::iFile> > filesStack;
-    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot, &filesStack](auto){
+    QObject::connect(&bot, &qTbot::TelegramRestBot::sigReceiveUpdate, [&bot](auto){
         while(auto&& update = bot.takeNextUnreadUpdate()) {
 
             if (auto&& tupdate = update.dynamicCast<qTbot::TelegramUpdate>()) {
@@ -36,41 +37,64 @@ int main(int argc, char *argv[]) {
 
                     if (auto&& tmsg = tupdate->message()) {
                         if (tmsg->contains(tmsg->Document)) {
-                            filesStack.push_back(bot.getFile(tmsg->documents()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->documents()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                                                                                    qInfo() << "file save into " << path;
+                                                                                                }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });
                         }
 
                         if (tmsg->contains(tmsg->Image)) {
-                            filesStack.push_back(bot.getFile(tmsg->image()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->image()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                                                                                qInfo() << "file save into " << path;
+                                                                                            }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });;
                         }
 
                         if (tmsg->contains(tmsg->Audio)) {
-                            filesStack.push_back(bot.getFile(tmsg->audio()->fileId(), qTbot::iFile::Local));
+                            bot.getFile(tmsg->audio()->fileId(), qTbot::ITelegramBot::Local).then([](const QByteArray& path){
+                                                                                                qInfo() << "file save into " << path;
+                                                                                            }).onFailed([](const std::exception& exception){
+
+                                    qCritical() << "exception :" << exception.what();
+                                });;
                         }
 
-                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
-                                                            {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
-                                                                   static int index = 0;
+                        if (tmsg->text() == "spam") {
+                            for (int i = 0 ; i < 1000; i++) {
+                                bot.sendMessage(tmsg->chatId(), QString(" message N %0").arg(i), qTbot::iRequest::LowPriority);
+                            }
+                        } else {
+                            bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
+                                                                {{{"test_button", [tmsg, &bot](const QString& queryId, const QVariant& msgId){
+                                                                       static int index = 0;
 
-                                                                   auto&& args = qTbot::TelegramArgs{tmsg->chatId(),
-                                                                                                     "I see it. Presed count: " + QString::number(index++),
-                                                                                                     tmsg->messageId(),
-                                                                                                     "",
-                                                                                                     false,
-                                                                                                     queryId};
+                                                                       auto&& args = qTbot::TelegramArgs{tmsg->chatId(),
+                                                                                                         "I see it. Presed count: " + QString::number(index++),
+                                                                                                         tmsg->messageId(),
+                                                                                                         "",
+                                                                                                         false,
+                                                                                                         queryId};
 
-                                                                   auto&& keyboard = qTbot::KeyboardOnMessage{
-                                                                                                              {{"test_button", [](auto , auto ){}},
-                                                                                                               {"test_button 2", [](auto , auto ){}}}};
+                                                                       auto&& keyboard = qTbot::KeyboardOnMessage{
+                                                                                                                  {{"test_button", [](auto , auto ){}},
+                                                                                                                   {"test_button 2", [](auto , auto ){}}}};
 
-                                                                   bot.editSpecificMessageWithKeyboard(msgId,
-                                                                                                       args,
-                                                                                                       keyboard
-                                                                                                       );
-                                                               }}}});
+                                                                       bot.editSpecificMessageWithKeyboard(msgId,
+                                                                                                           args,
+                                                                                                           keyboard
+                                                                                                           );
+                                                                   }}}});
 
-                        bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
-                                                            {{{"test_button"},
-                                                                {"test_button"},}}, true, true);
+                            bot.sendSpecificMessageWithKeyboard(qTbot::TelegramArgs{tmsg->chatId(), "I see it", tmsg->messageId()},
+                                                                {{{"test_button"},
+                                                                    {"test_button"},}}, true, true);
+                        }
+
+
                     }
 
                 }
@@ -78,6 +102,9 @@ int main(int argc, char *argv[]) {
         }
     });
 
-    bot.login("6349356184:AAFotw9EC46sgAQrkGQ_jeHPyv3EAapZXcM");
+    if (!bot.login("6349356184:AAFotw9EC46sgAQrkGQ_jeHPyv3EAapZXcM")) {
+        qCritical() << "failed to login!";
+        return 1;
+    }
     return app.exec();
 }

@@ -47,6 +47,19 @@ public:
     };
 
     /**
+     * @brief The RequestPriority enum
+     */
+    enum RequestPriority {
+        NoPriority = 0,
+        LowPriority = 1,
+        NormalPriority = 2,
+        HighPriority = 3,
+        UngeredPriority = 4,
+
+        MaxPriorityValue = 0xff
+    };
+
+    /**
      * @brief makeUpload This method prepare data to upload;
      * @return data array prepared to sending.
      */
@@ -109,9 +122,19 @@ public:
      * @return QHttpMultiPart - A QHttpMultiPart object containing multipart/form-data request data.
      */
     QSharedPointer<QHttpMultiPart> argsToMultipartFormData() const;
+
+    /**
+     * @brief priority This is priority of executabel this request on client.
+     * @return
+     */
+    RequestPriority priority() const;
+
+    void setPriority(RequestPriority newPriority);
+
 private:
     QString _request;
     QMap<QString, QVariant> _args;
+    RequestPriority _priority = RequestPriority::NormalPriority;
 
 };
 
