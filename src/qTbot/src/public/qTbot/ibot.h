@@ -179,8 +179,30 @@ public:
      */
     void setReqestLimitPerSecond(int newReqestLimitPerSecond);
 
+    /**
+     * @brief parallelActiveNetworkThreads
+     * @return
+     */
     int parallelActiveNetworkThreads() const;
+
+    /**
+     * @brief setParallelActiveNetworkThreads
+     * @param newParallelActiveNetworkThreads
+     */
     void setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
+
+    /**
+     * @brief totalSentRequests This is total prepared requests count of bot from the start.
+     * @see startTime method to get start date time.
+     * @return requests count.
+     */
+    unsigned long long totalSentRequests() const;
+
+    /**
+     * @brief startTime this is time when bol wil started.
+     * @return
+     */
+    QDateTime startTime() const;
 
 protected:
 
@@ -293,6 +315,7 @@ signals:
 private slots:
     void handleEcxecuteRequest();
 private:
+    unsigned long long makeKey(iRequest::RequestPriority priority);
     void setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads);
 
     void sendRequestPrivate(const QSharedPointer<iRequest>& rquest,
@@ -310,7 +333,9 @@ private:
     QSet<unsigned long long> _processed;
     QNetworkAccessManager *_manager = nullptr;
     QTimer* _requestExecutor = nullptr;
-    QMultiMap<int, RequestData> _requestQueue;
+    unsigned long long _totalRequest = 0;
+    QDateTime _startTime;
+    QMap<unsigned long long, RequestData> _requestQueue;
     int _currentParallelActiveNetworkThreads = 0;
     int _parallelActiveNetworkThreads = 5;
 

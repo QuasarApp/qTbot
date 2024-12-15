@@ -37,6 +37,8 @@ const QByteArray &IBot::token() const {
 
 void IBot::setToken(const QByteArray &newToken) {
     _token = newToken;
+    _startTime = QDateTime::currentDateTime();
+
 }
 
 void IBot::incomeNewUpdate(const QSharedPointer<iUpdate> &message) {
@@ -96,6 +98,14 @@ QNetworkReply* IBot::sendRquestImpl(const QSharedPointer<iRequest> &rquest) {
     return networkReplay;
 }
 
+QDateTime IBot::startTime() const {
+    return _startTime;
+}
+
+unsigned long long IBot::totalSentRequests() const {
+    return _totalRequest;
+}
+
 int IBot::parallelActiveNetworkThreads() const {
     return _parallelActiveNetworkThreads;
 }
@@ -121,7 +131,9 @@ QFuture<QByteArray>
 IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
-    _requestQueue.insert(rquest->priority(),
+
+
+    _requestQueue.insert(makeKey(rquest->priority()),
                          RequestData{rquest, "", responce});
 
     _requestExecutor->start();
@@ -134,7 +146,7 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
                   const QString &pathToResult) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
-    _requestQueue.insert(rquest->priority(),
+    _requestQueue.insert(makeKey(rquest->priority()),
                          RequestData{rquest, pathToResult, responce});
 
     _requestExecutor->start();
@@ -173,7 +185,7 @@ void IBot::handleEcxecuteRequest() {
         return;
     }
 
-    auto&& requestData = _requestQueue.take(_requestQueue.lastKey());
+    auto&& requestData = _requestQueue.take(_requestQueue.firstKey());
 
     if (requestData.responceFilePath.size()) {
         sendRequestPrivate(requestData.request, requestData.responceFilePath, requestData.responce);
@@ -181,6 +193,13 @@ void IBot::handleEcxecuteRequest() {
     }
 
     sendRequestPrivate(requestData.request, requestData.responce);
+}
+
+unsigned long long IBot::makeKey(iRequest::RequestPriority priority) {
+    unsigned long long key = _totalRequest;
+    _totalRequest++;
+    key = key | (static_cast<unsigned long long>(iRequest::RequestPriority::MaxPriorityValue - priority) << 56);
+    return key;
 }
 
 void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
