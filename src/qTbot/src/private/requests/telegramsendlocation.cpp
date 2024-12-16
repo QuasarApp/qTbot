@@ -18,6 +18,8 @@ TelegramSendLocation::TelegramSendLocation(const TelegramArgs &args,
 
     addArg("latitude", latitude);
     addArg("longitude", longitude);
+    setPriority(args.requestPriority);
+
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
         addArg(it.key(), QJsonDocument(*it.value()).toJson(QJsonDocument::Compact));

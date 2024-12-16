@@ -135,7 +135,11 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     _requestQueue.insert(makeKey(rquest->priority()),
                          RequestData{rquest, "", responce});
 
-    _requestExecutor->start();
+    if (!_requestExecutor->isActive()) {
+        handleEcxecuteRequest();
+        _requestExecutor->start();
+
+    }
 
     return responce->future();
 }
@@ -145,10 +149,15 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
                   const QString &pathToResult) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
+
     _requestQueue.insert(makeKey(rquest->priority()),
                          RequestData{rquest, pathToResult, responce});
 
-    _requestExecutor->start();
+    if (!_requestExecutor->isActive()) {
+        handleEcxecuteRequest();
+        _requestExecutor->start();
+
+    }
 
     return responce->future();
 
@@ -217,7 +226,12 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
             promise->finish();
 
         } else {
-            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1() + networkReplay->readAll()));
+            QByteArray msg = networkReplay->errorString().toLatin1() + networkReplay->readAll();
+            promise->setException(HttpException(networkReplay->error(), msg));
+#ifdef QTBOT_PRINT_ERRORS
+            qCritical() << msg;
+#endif
+
         }
 
         setCurrentParallelActiveNetworkThreads(_currentParallelActiveNetworkThreads - 1);
@@ -255,7 +269,11 @@ void IBot::sendRequestPrivate(const QSharedPointer<iRequest> &rquest,
     connect(networkReplay, &QNetworkReply::finished, [this, promise, networkReplay, pathToResult](){
 
         if (networkReplay->error() == QNetworkReply::NoError) {
-            promise->setException(HttpException(networkReplay->error(), networkReplay->errorString().toLatin1()));
+            QByteArray msg = networkReplay->errorString().toLatin1();
+            promise->setException(HttpException(networkReplay->error(), msg));
+#ifdef QTBOT_PRINT_ERRORS
+            qCritical() << msg;
+#endif
         } else {
             promise->addResult(pathToResult.toUtf8()); // wil not work with UTF 8 path names
             promise->finish();

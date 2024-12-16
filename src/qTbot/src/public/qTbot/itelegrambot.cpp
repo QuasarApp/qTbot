@@ -299,6 +299,7 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileTy
 
     if (!localFilePath.isEmpty()) {
         QPromise<QByteArray> fileDataResult;
+        fileDataResult.start();
 
         if (fileType == FileType::Ram) {
             QFile localFile(localFilePath);
@@ -353,18 +354,21 @@ QFuture<QByteArray> ITelegramBot::getFile(const QString &fileId, FileType fileTy
     }
 
     future.then([this, fileId, fileType, longWay](const QByteArray& header){
-        handleFileHeader(header);
+              handleFileHeader(header);
 
-        auto&& future = getFile(fileId, fileType);
+              auto&& future = getFile(fileId, fileType);
 
-        if (!future.isValid()) {
-            longWay->setException(InternalException("Failed to wrote file into internal cache!"));
-            return;
-        };
+              if (!future.isValid()) {
+                  longWay->setException(InternalException("Failed to wrote file into internal cache!"));
+                  return;
+              };
 
-        future.then([longWay](const QByteArray& data){
-            longWay->addResult(data);
-        });
+              future.then([longWay](const QByteArray& data){
+                        longWay->addResult(data);
+                        longWay->finish();
+                    }).onFailed([longWay](const QException& exep){
+                      longWay->setException(exep);
+                  });
 
 
           }).onFailed([longWay](const QException& exep){

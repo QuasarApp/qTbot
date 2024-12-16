@@ -19,6 +19,8 @@ TelegramSendContact::TelegramSendContact(const TelegramArgs &args,
     addArg("first_name", firstName);
     addArg("last_name", lastName);
     addArg("phone_number", phone);
+    setPriority(args.requestPriority);
+
 
 }
 

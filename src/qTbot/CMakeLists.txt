@@ -14,6 +14,11 @@ if (QTBOT_PRINT_RQUESTS)
     add_definitions(-DQTBOT_PRINT_RQUESTS)
 endif()
 
+if (QTBOT_PRINT_ERRORS)
+    add_definitions(-DQTBOT_PRINT_ERRORS)
+endif()
+
+
 file(GLOB_RECURSE SOURCE_CPP
     "src/*.cpp"
     "src/*.h"
