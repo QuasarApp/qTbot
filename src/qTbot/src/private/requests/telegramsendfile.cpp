@@ -19,6 +19,7 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
                                           const ExtraJsonObjects& extraObjects
                                           ):
     TelegramSingleRquest(request, args.toMap(true)) {
+    setPriority(args.requestPriority);
 
 
     for (auto it = extraObjects.begin(); it != extraObjects.end(); it = std::next(it)) {
@@ -33,6 +34,7 @@ qTbot::TelegramSendFile::TelegramSendFile(const QString &request,
                                           const TelegramArgs &args,
                                           const QHash<QString, QSharedPointer<QJsonObject> > &extraObjects):
     TelegramSingleRquest(request, args.toMap(true)) {
+    setPriority(args.requestPriority);
 
     QFile readFile(file.absoluteFilePath());
     if (!readFile.open(QIODevice::ReadOnly)) {

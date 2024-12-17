@@ -16,6 +16,8 @@ TelegramEditMessage::TelegramEditMessage(const QVariant &idEditedMessage,
 
     setRequest("editMessageText");
     addArg("message_id", idEditedMessage);
+    setPriority(args.requestPriority);
+
 }
 
 }
