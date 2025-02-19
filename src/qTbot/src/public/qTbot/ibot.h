@@ -305,7 +305,7 @@ signals:
     /**
      * @brief sigReceiveUpdate emit when but receive any updates from users.
      */
-    void sigReceiveUpdate(const QSharedPointer<iUpdate>& );
+    void sigReceiveUpdate(const QSharedPointer<qTbot::iUpdate>& );
 
     /**
      * @brief sigStopRequire just custm event for stop bot if tou use services.
@@ -338,6 +338,8 @@ private:
     QMap<unsigned long long, RequestData> _requestQueue;
     int _currentParallelActiveNetworkThreads = 0;
     int _parallelActiveNetworkThreads = 5;
+
+    QRecursiveMutex _mutex;
 
 
 
