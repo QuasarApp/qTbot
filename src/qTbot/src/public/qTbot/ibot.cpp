@@ -115,7 +115,23 @@ void IBot::setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) 
 }
 
 void IBot::setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
+    bool wasBusy = _currentParallelActiveNetworkThreads == _parallelActiveNetworkThreads;
+    static bool lastMessageWasFree = false;
+
     _currentParallelActiveNetworkThreads = newParallelActiveNetworkThreads;
+
+    if (_currentParallelActiveNetworkThreads == _parallelActiveNetworkThreads) {
+        qInfo() << "All network threads are busy!";
+        lastMessageWasFree = false;
+
+    } else if (wasBusy) {
+        qInfo() << "Network threads are free! available: " << _currentParallelActiveNetworkThreads << " from " << _parallelActiveNetworkThreads;
+        lastMessageWasFree = false;
+
+    } else if (_currentParallelActiveNetworkThreads == 0 && !lastMessageWasFree) {
+        qInfo() << "All network threads are free!";
+        lastMessageWasFree = true;
+    }
 }
 
 int IBot::reqestLimitPerSecond() const {
@@ -131,9 +147,11 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest) {
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
 
-
-    _requestQueue.insert(makeKey(rquest->priority()),
-                         RequestData{rquest, "", responce});
+    {
+        QMutexLocker lock(&_mutex);
+        _requestQueue.insert(makeKey(rquest->priority()),
+                             RequestData{rquest, "", responce});
+    }
 
     if (!_requestExecutor->isActive()) {
         handleEcxecuteRequest();
@@ -150,8 +168,12 @@ IBot::sendRequest(const QSharedPointer<iRequest> &rquest,
     auto&& responce = QSharedPointer<QPromise<QByteArray>>::create();
     responce->start();
 
-    _requestQueue.insert(makeKey(rquest->priority()),
-                         RequestData{rquest, pathToResult, responce});
+    {
+        QMutexLocker lock(&_mutex);
+        _requestQueue.insert(makeKey(rquest->priority()),
+                             RequestData{rquest, pathToResult, responce});
+    }
+
 
     if (!_requestExecutor->isActive()) {
         handleEcxecuteRequest();
@@ -184,6 +206,8 @@ void IBot::handleIncomeNewUpdate(const QSharedPointer<iUpdate> & message) {
 }
 
 void IBot::handleEcxecuteRequest() {
+    QMutexLocker lock(&_mutex);
+
     if (!_requestQueue.size()) {
         _requestExecutor->stop();
         return;
