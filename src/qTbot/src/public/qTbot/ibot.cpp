@@ -17,6 +17,8 @@ namespace qTbot {
 IBot::IBot() {
     _manager = new QNetworkAccessManager();
     _manager->setAutoDeleteReplies(true);
+    _manager->setTransferTimeout(60000); // one minute
+
     _requestExecutor = new QTimer(this);
     _requestExecutor->setInterval(1000 / 20); // 20 times per second.
 
@@ -117,6 +119,7 @@ void IBot::setParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) 
 void IBot::setCurrentParallelActiveNetworkThreads(int newParallelActiveNetworkThreads) {
     bool wasBusy = _currentParallelActiveNetworkThreads == _parallelActiveNetworkThreads;
     static bool lastMessageWasFree = false;
+
 
     _currentParallelActiveNetworkThreads = newParallelActiveNetworkThreads;
 
