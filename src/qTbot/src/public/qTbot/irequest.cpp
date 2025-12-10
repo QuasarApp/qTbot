@@ -75,7 +75,7 @@ QSharedPointer<QHttpMultiPart> iRequest::argsToMultipartFormData() const {
 
                 part.setBody(value.toByteArray());
             } else {
-                qWarning() << "the file arguments must be like _file_:fileName:fileType";
+                qWarning() << "the file arguments must be like _file_:fileName:fileType" << _args;
                 return nullptr;
             }
 
