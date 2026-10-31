@@ -25,40 +25,70 @@ class TelegramUpdateAnswer;
 class TelegramSendFile;
 class TelegramSingleRquest;
 
+/**
+ * @brief ButtonCB callback type for inline keyboard buttons.
+ * It is invoked with the button key and the id of the message that contains the button.
+ */
 typedef std::function<void(const QString& buttonKey, const QVariant& msgID)> ButtonCB;
+
+/**
+ * @brief KeyboardOnMessage type. A list of rows where each row is a map of
+ * button keys to the callback function that is invoked when the button is pressed.
+ */
 typedef QList<QHash<QString, ButtonCB >> KeyboardOnMessage;
 
 /**
- * @brief The ITelegramBot class This is base implementation of the all telegramm bots.
+ * @brief The ITelegramBot class This is the base implementation of all telegram bots.
  */
 class QTBOT_EXPORT ITelegramBot : public IBot
 {
     Q_OBJECT
 public:
+    /**
+     * @brief ITelegramBot default constructor.
+     */
     ITelegramBot();
+
+    /**
+     * @brief ~ITelegramBot destructor.
+     */
     ~ITelegramBot();
 
+    /**
+     * @brief login This method gets basic information of the bot from the remote server.
+     * @param token This is the token value for login
+     * @return true if the login request was sent successfully else false.
+     */
     bool login(const QByteArray &token) override;
 
+    /**
+     * @brief sendMessage This method sends text to the selected chat.
+     * @param chatId This is the selected chat id
+     * @param text This is the text that needs to be sent.
+     * @param priority This is the priority of the request in the send queue.
+     * @return true if the data was sent successfully else false.
+     */
     bool sendMessage(const QVariant &chatId,
                      const QString& text,
                      iRequest::RequestPriority priority = iRequest::NormalPriority) override;
 
     /**
-     * @brief sendLocationRequest This method setn into chat button that will automaticaly sent geo location to bot.
-     * @param chatId
-     * @param text message text
-     * @param buttonText Text on the button
-     * @return true if request sents successfull else false.
+     * @brief sendLocationRequest This method sends into the chat a button that will automatically send the geo location to the bot.
+     * @param chatId This is the chat id where the request will be sent.
+     * @param text This is the message text.
+     * @param buttonText This is the text on the button.
+     * @param onetimeKeyboard If true the keyboard will be removed after the first usage.
+     * @return true if the request was sent successfully else false.
      */
     bool sendLocationRequest(const QVariant &chatId, const QString& text, const QString &buttonText, bool onetimeKeyboard);
 
     /**
-     * @brief sendSelfContactRequest This method sent into chat button that will automaticaly sent self contact information to bot.
-     * @param chatId
-     * @param text message text
-     * @param buttonText Text on the button
-     * @return true if request sents successfull else false.
+     * @brief sendSelfContactRequest This method sends into the chat a button that will automatically send the user contact information to the bot.
+     * @param chatId This is the chat id where the request will be sent.
+     * @param text This is the message text.
+     * @param buttonText This is the text on the button.
+     * @param onetimeKeyboard If true the keyboard will be removed after the first usage.
+     * @return true if the request was sent successfully else false.
      */
     bool sendSelfContactRequest(const QVariant &chatId, const QString& text, const QString &buttonText, bool onetimeKeyboard);
 
@@ -66,8 +96,8 @@ public:
      * @brief Sends a specific message to a chat.
      *
      * This function sends a specific message to a chat. You can include text and additional objects as needed to customize the message's content and behavior.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param extraObjects A map containing additional objects associated with the message (optional).
      *
      * @return Returns true if the message was sent successfully, false otherwise.
@@ -80,13 +110,13 @@ public:
     /**
      * @brief Sends a specific message with a custom keyboard to a chat.
      * This function sends a specific message to a chat with a custom keyboard. The message can contain text and additional settings to customize its behavior.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param keyboard A list of maps where each map represents a button with a callback function.
      * @return Returns true if the message was sent successfully, false otherwise.
      *
      * @note The keyboard parameter should be a list of maps where each map represents a button.
-     *  The button's label is the map key, and the associated callback function is the map value.
+      *  The button's label is the map key, and the associated callback function is the map value.
      */
     bool sendSpecificMessageWithKeyboard(const TelegramArgs& args,
                                          const KeyboardOnMessage &keyboard);
@@ -95,9 +125,9 @@ public:
      * @brief Sends a specific message with a custom keyboard to a chat.
      *
      * This function sends a specific message to a chat with a custom keyboard.
-     *  The message can contain text and additional settings to customize its behavior.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+      *  The message can contain text and additional settings to customize its behavior.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param keyboard A list of lists containing the keyboard buttons to display.
      * @param onTimeKeyboard Set to true to display the keyboard only once.
      * @param autoResizeKeyboard Set to true to automatically resize the keyboard.
@@ -111,14 +141,20 @@ public:
                                          bool onTimeKeyboard = false,
                                          bool autoResizeKeyboard = true);
 
+    /**
+     * @brief deleteMessage This is the main method to delete messages.
+     * @param chatId This is the chat id where the message will be removed.
+     * @param messageId This is the removed message id.
+     * @return true if the request was prepared successfully
+     */
     bool deleteMessage(const QVariant& chatId, const QVariant& messageId) override;
 
     /**
      * @brief Edits a specific message with a custom keyboard in a chat.
      *
      * This function allows you to edit a specific message in a chat with a custom keyboard. You can update the message's text and customize its behavior as needed.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param messageId The unique identifier of the message to edit.
      * @param keyboard A list of lists containing the new keyboard buttons to display (optional).
      * @param onTimeKeyboard Set to true to display the keyboard only once (optional).
@@ -141,8 +177,8 @@ public:
      * This function allows you to edit a specific message in a chat with a custom keyboard. You can update the message's text and customize its behavior as needed.
      *
      * @param messageId The unique identifier of the message to edit.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
      *
      * @return Returns true if the message was successfully edited, false otherwise.
@@ -180,8 +216,8 @@ public:
      * This function allows you to edit a specific message in a chat. You can update the message's text and customize its behavior as needed.
      *
      * @param messageId The unique identifier of the message to edit.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @return Returns true if the message was successfully edited, false otherwise.
      *
      * @note By default, web page previews for links in the new text are not disabled (optional).
@@ -190,17 +226,17 @@ public:
                              const TelegramArgs& args);
 
     /**
-     * @brief getFile This method sent request to get a file by id. The files can be saved into local storage if the Type choosed as Local.
+     * @brief getFile This method sends a request to get a file by id. The files can be saved into local storage if the type is chosen as Local.
      * @param fileId This is Telegram file id.
-     * @param fileType this is type of file. Depends of this argument future will be contains deffrent result if it is Local type then future will contains link to local file path else file source as bytes.
-     * @return futur with file source or path to file depends of type.
+     * @param fileType this is type of file. Depending on this argument, the future will contain a different result: if it is the Local type, the future contains a link to the local file path, otherwise the file source as bytes.
+     * @return a future with the file source or the path to the file, depending on the type.
      */
     QFuture<QByteArray> getFile(const QString& fileId, FileType fileType = FileType::Ram) override;
 
     /**
-     * @brief getFileMeta This method receive meta information of the file.
+     * @brief getFileMeta This method receives the meta information of the file.
      * @param fileId This is id of the file.
-     * @return future objectl with result.
+     * @return future object with the result.
      */
     QFuture<QByteArray> getFileMeta(const QString& fileId);
 
@@ -209,29 +245,29 @@ public:
     bool sendFile( const QByteArray& file, const QString& fileName, const QVariant& chatId) override;
 
     /**
-     * @brief sendFileMessage This method sents a message with file.
-     * @param file This is path to sents file.
+     * @brief sendFileMessage This method sends a message with a file.
+     * @param file This is the path to the file that will be sent.
      * @param args This is general arguments of the message, include a chatID.
-     * @return true if the message sents successful else false
+     * @return true if the message was sent successfully else false
      */
     bool sendFileMessage( const TelegramArgs& args, const QFileInfo& file);
 
     /**
-     * @brief sendFileMessage This method sents a message with file.
-     * @param file This is data that will be sents as a file with name @a fileName.
+     * @brief sendFileMessage This method sends a message with a file.
+     * @param file This is the data that will be sent as a file with name @a fileName.
      * @param fileName This is name of the file.
      * @param args This is general arguments of the message, include a chatID.
-     * @return true if the message sents successful else false
+     * @return true if the message was sent successfully else false
      */
     bool sendFileMessage( const TelegramArgs& args, const QByteArray& file, const QString& fileName);
 
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
      * @param photo this is photo path.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
-     * @return true if photo will snt successful
+     * @return true if the photo was sent successfully
      */
     bool sendPhoto(const TelegramArgs& args,
                    const QFileInfo& photo,
@@ -240,11 +276,11 @@ public:
     /**
      * @brief sendPhoto This method will send image into chat with @a chatId
      * @param photo this is photo data.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
-     * @param fileName This is dispalyed name of photo.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
+     * @param fileName This is displayed name of the photo.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
-     * @return true if photo will snt successful
+     * @return true if the photo was sent successfully
      */
     bool sendPhoto(const TelegramArgs &args,
                    const QByteArray& photo,
@@ -252,21 +288,21 @@ public:
                    const KeyboardOnMessage &keyboard = {});
 
     /**
-     * @brief sendFileById This is specific method of the telegram bot. sents file by id.
-     * @param fileID This is file id.
-     * @param chatId chat that should receive a file.
-     * @return true if the file sent successful.
+     * @brief sendFileById This is specific method of the telegram bot. sends a file by id.
+     * @param fileID This is the file id.
+     * @param chatId the chat that should receive the file.
+     * @return true if the file was sent successfully.
      */
     bool sendFileById(const QString& fileID, const QVariant& chatId);
 
     /**
-     * @brief sendLocation This method sents locatin to user.
-     * @param args - This is structure with general arguments of the tellegram message.
-     *  Use This structure for sets target and another arguments.
-     * @param latitude
-     * @param longitude
+     * @brief sendLocation This method sends a location to the user.
+     * @param args - This is a structure with general arguments of the telegram message.
+      *  Use this structure to set the target and other arguments.
+     * @param latitude This is the latitude of the location.
+     * @param longitude This is the longitude of the location.
      * @param keyboard A list of maps where each map represents a button with a callback function (optional).
-     * @return true if locations sent successful else false
+     * @return true if the location was sent successfully else false
      */
     bool sendLocation(const TelegramArgs &args,
                       float latitude,
@@ -274,12 +310,12 @@ public:
                       const KeyboardOnMessage &keyboard = {});
 
     /**
-     * @brief sendContact This method sents a contact data.
-     * @param args base arguments of message.
-     * @param firstName This is first name of contact.
-     * @param phone This is phone number of contact.
-     * @param secondName This is second name of user.
-     * @return true if contact sent successful
+     * @brief sendContact This method sends a contact data.
+     * @param args the base arguments of the message.
+     * @param firstName This is the first name of the contact.
+     * @param phone This is the phone number of the contact.
+     * @param secondName This is the second name of the user.
+     * @return true if the contact was sent successfully
      */
     bool sendContact(const TelegramArgs &args,
                      const QString& phone,
@@ -328,19 +364,19 @@ public:
 
 
     /**
-     * @brief id This method return bots id number.
-      * @return bots id number.
+     * @brief id This method returns the bot id number.
+      * @returns the bot id number.
      */
     unsigned long long id() const;
 
     /**
-     * @brief username This is bots login
-     * @return bots login.
+     * @brief username This is the bot login
+     * @returns the bot login.
      */
     const QString& username() const;
 
     /**
-     * @brief gelLastMessageId this method returns last sendet message id.
+     * @brief gelLastMessageId this method returns last sent message id.
      * @param chatId chat id, when you want to get last message id.
      * @return message id.
      */
@@ -372,20 +408,20 @@ protected:
     /**
      * @brief getFileInfoByUniqueId return a local saved meta information about the file.
      * @param id This is id of the file.
-     * @return shared pointer to the meta information of the file. If information no exists return nullptr;
+     * @return shared pointer to the meta information of the file. If the information does not exist, returns nullptr.
      */
     QSharedPointer<TelegramFile> getFileInfoByUniqueId(const QString& id) const;
 
     /**
-     * @brief onRequestError This method invokent when telegram server sent error responce. Default implementation just print error message on the console.
-     * @param ansverWithError - This is ansver object with error descriptions. and codes errors.
+     * @brief onRequestError This method invoked when the telegram server sends an error response. Default implementation just print error message on the console.
+     * @param ansverWithError - This is the answer object with the error description and error codes.
      */
     virtual void onRequestError(const QSharedPointer<TelegramUpdateAnswer>& ansverWithError) const;
 
     void handleIncomeNewUpdate(const QSharedPointer<iUpdate> &) override;
 
     /**
-     * @brief sendMessageRequest This method invoke when bot will be sent eny messages into chat.
+     * @brief sendMessageRequest This method invoke when bot will be sends any messages into the chat.
      * @param rquest This is a message request.
      * @param msgIdCB call back function for the get a sent message id
      * @return true if the message sent successful else false.

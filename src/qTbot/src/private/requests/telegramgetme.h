@@ -14,11 +14,15 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramGetMsg class just prepare get request to tellegram
+ * @brief The TelegramGetMe class just prepares the getMe request to telegram.
+ * This request returns the basic information about the bot.
  */
 class TelegramGetMe final: public TelegramSingleRquest
 {
 public:
+    /**
+     * @brief TelegramGetMe prepares the getMe request.
+     */
     TelegramGetMe();
 };
 }

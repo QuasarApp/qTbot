@@ -19,48 +19,56 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramContact: public IJsonBasedObject
 {
 public:
+    /**
+     * @brief TelegramContact default constructor.
+     */
     TelegramContact();
+
+    /**
+     * @brief Constructs a Contact object from a JSON object.
+     * @param jsonObject The JSON object containing contact data.
+     */
     TelegramContact(const QJsonObject &jsonObject);
 
     /**
-     * @brief userId This is id of usercontact
-     * @return id of user
+     * @brief userIdInt This is the numeric id of the user contact.
+     * @return id of the user
      */
     unsigned long long userIdInt() const;
 
     /**
-     * @brief userId This is id of usercontact
-     * @return id of user
+     * @brief userId This is the id of the user contact.
+     * @return id of the user
      */
     QVariant userId() const;
 
     /**
-     * @brief chatFirstName returns the first participant's first name in the chat.
-     * @return The first participant's first name in the chat.
+     * @brief firstName Returns the first name of the contact.
+     * @return The first name of the contact.
      */
     QString firstName() const;
 
     /**
-     * @brief chatLastName returns the first participant's last name in the chat.
-     * @return The first participant's last name in the chat.
+     * @brief lastName Returns the last name of the contact.
+     * @return The last name of the contact.
      */
     QString lastName() const;
 
     /**
-     * @brief chatUsername returns the first participant's username in the chat.
-     * @return The first participant's username in the chat.
+     * @brief username Returns the username of the contact.
+     * @return The username of the contact.
      */
     QString username() const;
 
     /**
-     * @brief chatUsername returns the first participant's username in the chat.
-     * @return The first participant's username in the chat.
+     * @brief phone Returns the phone number of the contact.
+     * @return The phone number of the contact.
      */
     QString phone() const;
 
     /**
-     * @brief languageCode returns the sender's language code.
-     * @return The sender's language code.
+     * @brief languageCode Returns the language code of the contact.
+     * @return The language code of the contact.
      */
     QString languageCode() const;
 };

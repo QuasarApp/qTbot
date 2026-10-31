@@ -14,12 +14,20 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramInlineKeyBoardCallBack class
+ * @brief The TelegramInlineKeyBoardCallBack class contains the data of a callback query that was received from an inline keyboard button.
  */
 class QTBOT_EXPORT TelegramInlineKeyBoardCallBack: public IJsonBasedObject
 {
 public:
+    /**
+     * @brief TelegramInlineKeyBoardCallBack default constructor.
+     */
     TelegramInlineKeyBoardCallBack();
+
+    /**
+     * @brief Constructs a callback object from a JSON object.
+     * @param jsonObject The JSON object containing callback data.
+     */
     TelegramInlineKeyBoardCallBack(const QJsonObject &jsonObject);
 
     /**

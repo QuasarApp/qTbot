@@ -14,33 +14,36 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramLocation class just simple struct with latitude and longitude
+ * @brief The TelegramLocation class is a simple struct with latitude and longitude.
  */
 class QTBOT_EXPORT TelegramLocation: public IJsonBasedObject
 {
 public:
+    /**
+     * @brief TelegramLocation default constructor.
+     */
     TelegramLocation();
 
     /**
      * @brief Constructs a location object from a JSON object.
-     * @param jsonObject The JSON object containing photo data.
+     * @param jsonObject The JSON object containing location data.
      */
     TelegramLocation(const QJsonObject &jsonObject);
 
     /**
-     * @brief latitude is float value of latitude
-     * @return float value of latitude
+     * @brief latitude This is the float value of the latitude.
+     * @return float value of the latitude
      */
     double latitude() const;
 
     /**
-     * @brief longitude is float value of longitude
-     * @return float value of longitude
+     * @brief longitude This is the float value of the longitude.
+     * @return float value of the longitude
      */
     double longitude() const;
 
     /**
-     * @brief toQPoint This method convert location data to general qt class.
+     * @brief toQPoint This method converts the location data to the general qt class.
      * @return location as a qt point
      */
     QPointF toQPoint() const;

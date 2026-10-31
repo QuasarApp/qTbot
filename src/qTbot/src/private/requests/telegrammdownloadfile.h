@@ -14,11 +14,15 @@
 namespace qTbot {
 
 /**
- * @brief The TelegrammDownloadFile class prepare link to download telegramm files.
+ * @brief The TelegrammDownloadFile class prepares the link to download telegram files.
  */
 class TelegrammDownloadFile final: public TelegramSingleRquest
 {
 public:
+    /**
+     * @brief TelegrammDownloadFile prepares the download file request.
+     * @param filePath This is the file path that will be returned by the telegram server.
+     */
     TelegrammDownloadFile(const QString &filePath);
 
     QString baseAddress() const override;

@@ -12,11 +12,16 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramDeleteMessage class remove message with id.
+ * @brief The TelegramDeleteMessage class prepares the deleteMessage request to remove a message with the selected id.
  */
 class TelegramDeleteMessage: public TelegramSingleRquest
 {
 public:
+    /**
+     * @brief TelegramDeleteMessage prepares the delete request.
+     * @param chatId This is the id of the chat where the message is located.
+     * @param messageId This is the id of the message that needs to be removed.
+     */
     TelegramDeleteMessage(const QVariant& chatId,
                           const QVariant& messageId);
 };

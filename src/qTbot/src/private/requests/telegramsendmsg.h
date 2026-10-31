@@ -13,15 +13,15 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramSendMsg class This method send a message to the server.
+ * @brief The TelegramSendMsg class This method sends a message to the server.
  */
 class TelegramSendMsg: public TelegramSingleRquest
 {
 public:
 
     /**
-     * @brief TelegramSendMsg This object sents msg to telegram server.
-     * @param args this is generatl arguments of request (include target chat id).
+     * @brief TelegramSendMsg This object sends a message to the telegram server.
+     * @param args This is the general arguments of the request (include the target chat id).
      * @param extraObjects additional objects of the telegram messages (json).
      */
     TelegramSendMsg(const TelegramArgs& args,

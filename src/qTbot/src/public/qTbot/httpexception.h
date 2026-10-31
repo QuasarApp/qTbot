@@ -15,22 +15,43 @@
 namespace qTbot {
 
 /**
- * @brief The HttpException class is base exaption that will raise on all errors of the HTTP protocol,
+ * @brief The HttpException class is the base exception that is raised on all errors of the HTTP protocol.
  */
 class HttpException: public QException
 {
 public:
+    /**
+     * @brief HttpException constructs the exception with an http error code and an error description.
+     * @param code This is the network error code.
+     * @param erroString This is the text description of the error.
+     */
     HttpException(QNetworkReply::NetworkError code, const QByteArray& erroString = {});
 
     // exception interface
 public:
+    /**
+     * @brief what Returns the text description of the error.
+     * @return error description as a c string.
+     */
     const char *what() const noexcept override;
 
     // QException interface
 public:
+    /**
+     * @brief raise Raises the exception.
+     */
     void raise() const override;
+
+    /**
+     * @brief clone Creates a copy of the exception.
+     * @return a pointer to the new exception instance.
+     */
     QException *clone() const override;
 
+    /**
+     * @brief code Returns the network error code.
+     * @return the network error code.
+     */
     QNetworkReply::NetworkError code() const;
 
 private:

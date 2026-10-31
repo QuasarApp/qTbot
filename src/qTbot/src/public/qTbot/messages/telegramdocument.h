@@ -19,6 +19,9 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramDocument: public TelegramFile
 {
 public:
+    /**
+     * @brief TelegramDocument default constructor.
+     */
     TelegramDocument();
 
     /**

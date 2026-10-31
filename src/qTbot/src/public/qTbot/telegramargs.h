@@ -15,10 +15,21 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramArgs class is base structure for the all tellegram message arguments.
+ * @brief The TelegramArgs class is the base structure for all telegram message arguments.
  */
 struct QTBOT_EXPORT TelegramArgs
 {
+    /**
+     * @brief TelegramArgs main constructor of the message arguments.
+     * @param id This is the id of the target chat or user.
+     * @param text This is the text of the message.
+     * @param replyToMessageId This is the id of the message to reply to.
+     * @param parseMode This is the parse mode of the message.
+     * @param disableWebPagePreview Disable web page preview when sending links.
+     * @param callBackQueryId This is the callback query id.
+     * @param msgIdCB This is the callback function that is invoked with the sent message id.
+     * @param priority This is the priority of the request.
+     */
     TelegramArgs(const QVariant& id,
                  const QString& text = "",
                  unsigned long long replyToMessageId = 0,
@@ -66,17 +77,20 @@ struct QTBOT_EXPORT TelegramArgs
     bool disableWebPagePreview = false;
 
     /**
-     * @brief toMap convert all arguments to the map.
-     * @param textAsCaption This option force to replace text key to caption. Used on some requests as a sendDocument
+     * @brief toMap This method converts all arguments to a map.
+     * @param textAsCaption This option forces to replace the text key with the caption key. Used in some requests such as sendDocument.
      * @return list of arguments.
      */
     QMap<QString, QVariant> toMap(bool textAsCaption = false) const;
 
     /**
-     * @brief msgIdCB This is id message call bak function. Will be inwoked when request finished successful.
+     * @brief msgIdCB This is the message id callback function. It will be invoked when the request finishes successfully.
      */
     std::function<void(int msgId)> msgIdCB = {};
 
+    /**
+     * @brief requestPriority This is the priority of the request.
+     */
     iRequest::RequestPriority requestPriority = iRequest::RequestPriority::NormalPriority;
 };
 

@@ -13,11 +13,18 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramSendLocation class sents location data into chat
+ * @brief The TelegramSendLocation class sends location data into the chat.
  */
 class TelegramSendLocation: public TelegramSingleRquest
 {
 public:
+    /**
+     * @brief TelegramSendLocation prepares the send location request.
+     * @param args This is the general arguments of the request (include the target chat id).
+     * @param latitude This is the latitude of the location.
+     * @param longitude This is the longitude of the location.
+     * @param extraObjects This is the additional objects of the telegram message (json).
+     */
     TelegramSendLocation(const TelegramArgs &args,
                          float latitude,
                          float longitude,

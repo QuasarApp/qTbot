@@ -12,15 +12,18 @@
 namespace qTbot {
 
 /**
- * @brief The iMessage class This is main interface for the all messages.
+ * @brief The iMessage class This is the main interface for all messages.
  */
 class QTBOT_EXPORT iMessage: public IJsonBasedUpdate
 {
 public:
+    /**
+     * @brief iMessage default constructor.
+     */
     iMessage();
 
     /**
-     * @brief updateId This method returns numeric id of the message.
+     * @brief messageId This method returns the numeric id of the message.
      * @return numeric id of the message.
      */
     virtual unsigned long long messageId() const = 0;

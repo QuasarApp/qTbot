@@ -17,38 +17,41 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramFile: public IJsonBasedObject
 {
 public:
+    /**
+     * @brief TelegramFile default constructor.
+     */
     TelegramFile();
 
     /**
-     * @brief Constructs a Photo object from a JSON object.
-     * @param jsonObject The JSON object containing photo data.
+     * @brief Constructs a File object from a JSON object.
+     * @param jsonObject The JSON object containing file data.
      */
     TelegramFile(const QJsonObject &jsonObject);
 
     /**
-     * @brief Returns the file ID of the photo.
-     * @return The file ID of the photo.
+     * @brief Returns the file ID of the file.
+     * @return The file ID of the file.
      */
     QString fileId() const;
 
     /**
-     * @brief Returns the unique ID of the photo.
-     * @return The unique ID of the photo.
+     * @brief Returns the unique ID of the file.
+     * @return The unique ID of the file.
      */
     QString fileUniqueId() const;
 
     /**
-     * @brief Returns the file size of the photo.
-     * @return The file size of the photo.
+     * @brief Returns the file size of the file.
+     * @return The file size of the file.
      */
     int fileSize() const;
 
     /**
-     * @brief Returns the file path to get from web.
-     * @return The file size of the photo. return empty string if file alredy used.
-     * @note posible to get file from web only one time after invoke the getFile method. If you invoke this method 2 times on the second time you receive empty string. This is rooles of the telegram backend. see https://telegram-bot-sdk.readme.io/reference/getfile
+     * @brief Returns the file path to get from the web.
+     * @return The file path to get from the web. Returns an empty string if the file was already used.
+     * @note It is possible to get a file from the web only one time after invoking the getFile method. If you invoke this method twice, on the second time you receive an empty string. This is a rule of the telegram backend. See https://core.telegram.org/bots/api#file
      */
-    [[nodiscard("This method return path only one time, plese no discard this.")]]
+    [[nodiscard("This method return path only one time, please don't discard it.")]]
     QString takePath();
 
 private:

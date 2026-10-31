@@ -15,19 +15,35 @@
 namespace qTbot {
 
 /**
- * @brief The InternalException class contais string value to describe what happened.
+ * @brief The InternalException class contains a string value to describe what happened.
  */
 class InternalException: public QException
 {
     // exception interface
 public:
+    /**
+     * @brief InternalException constructs the exception with an error description.
+     * @param erroString This is the text description of the error.
+     */
     InternalException(const QByteArray& erroString = {});
 
+    /**
+     * @brief what Returns the text description of the error.
+     * @return error description as a c string.
+     */
     const char *what() const noexcept override;
 
     // QException interface
 public:
+    /**
+     * @brief raise Raises the exception.
+     */
     void raise() const override;
+
+    /**
+     * @brief clone Creates a copy of the exception.
+     * @return a pointer to the new exception instance.
+     */
     QException *clone() const override;
 
 private:

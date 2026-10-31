@@ -15,7 +15,7 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramSingleRquest class Is base class for all single requests commands with arguments.
+ * @brief The TelegramSingleRquest class Is the base class for all single request commands with arguments.
  *
  * Example:
  * create a single request to telegram server.
@@ -37,15 +37,15 @@ class TelegramSingleRquest: public iRequest
 {
 public:
     /**
-     * @brief TelegramSingleRquest This main constructor of the single requests.
-     * @param request This is request name (command)
-     * @param args This is list of the request arguments.
+     * @brief TelegramSingleRquest This is the main constructor of the single requests.
+     * @param request This is the request name (command)
+     * @param args This is the list of the request arguments.
      */
     TelegramSingleRquest(const QString &request, const QMap<QString, QVariant> &args);
 
     /**
-     * @brief TelegramSingleRquest This main constructor of the single requests.
-     * @param request This is request name (command)
+     * @brief TelegramSingleRquest This is the main constructor of the single requests.
+     * @param request This is the request name (command)
      */
     TelegramSingleRquest(const QString& request);
 
