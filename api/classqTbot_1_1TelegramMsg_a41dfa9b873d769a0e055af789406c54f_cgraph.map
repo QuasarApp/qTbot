@@ -1,0 +1,5 @@
+<map id="qTbot::TelegramMsg::location" name="qTbot::TelegramMsg::location">
+<area shape="rect" id="Node000001" title="location returns location object of message." alt="" coords="5,5,160,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram use rest api with json objects. So all received messages will be parsed in to jsobje..." alt="" coords="208,5,388,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,23,194,23,194,28,160,28"/>
+</map>

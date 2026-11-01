@@ -1,0 +1,11 @@
+<map id="qTbot::InternalException::InternalException" name="qTbot::InternalException::InternalException">
+<area shape="rect" id="Node000001" title=" " alt="" coords="341,49,523,89"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1InternalException.html#a62b5943fa67255c3367f206026b1794a" title=" " alt="" coords="112,5,293,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,52,293,45,294,40,328,47"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a5f3d628ed754a79859301131809dd59d" title="getFile This method sent request to get a file by id. The files can be saved into local storage if th..." alt="" coords="126,93,279,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="328,92,280,101,279,96,327,87"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="230,81,220,75,203,72,187,74,178,79,174,85,176,92,171,94,169,84,174,75,186,69,203,67,222,70,233,77"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,101,64,126"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="112,116,64,116,64,111,112,111"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="66,90,57,82,37,79,19,81,10,86,8,92,13,99,9,102,3,92,6,83,18,76,37,74,59,77,69,86"/>
+</map>

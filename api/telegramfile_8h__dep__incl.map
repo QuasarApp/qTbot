@@ -1,0 +1,36 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegramfile.h" name="src/qTbot/src/public/qTbot/messages/telegramfile.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="407,5,635,45"/>
+<area shape="rect" id="Node000002" href="$itelegrambot_8cpp.html" title=" " alt="" coords="5,357,184,397"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="394,35,309,42,225,54,153,71,125,82,106,95,83,124,70,157,64,194,63,232,75,303,90,356,85,358,69,304,58,232,58,193,64,156,79,121,102,91,123,78,151,66,224,49,309,37,393,29"/>
+<area shape="rect" id="Node000003" href="$telegramaudio_8h.html" title=" " alt="" coords="117,93,361,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="447,52,301,96,300,91,445,47"/>
+<area shape="rect" id="Node000011" href="$telegramdocument_8h.html" title=" " alt="" coords="385,93,658,133"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="524,59,524,93,519,93,519,59"/>
+<area shape="rect" id="Node000013" href="$telegramfile_8cpp.html" title=" " alt="" coords="956,93,1199,133"/>
+<area shape="poly" id="edge16_Node000001_Node000013" title=" " alt="" coords="649,44,956,91,955,96,648,49"/>
+<area shape="rect" id="Node000014" href="$telegramimage_8h.html" title=" " alt="" coords="682,93,931,133"/>
+<area shape="poly" id="edge17_Node000001_Node000014" title=" " alt="" coords="598,47,745,91,743,96,596,52"/>
+<area shape="rect" id="Node000004" href="$telegramaudio_8cpp.html" title=" " alt="" coords="93,181,352,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="235,147,229,182,224,181,230,146"/>
+<area shape="rect" id="Node000005" href="$telegrammsg_8h.html" title=" " alt="" coords="689,181,925,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="375,132,689,180,688,185,374,138"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html" title=" " alt="" coords="762,365,929,390"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="816,234,845,364,840,365,811,235"/>
+<area shape="rect" id="Node000007" href="$telegrammsg_8cpp.html" title=" " alt="" coords="844,269,1095,309"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="856,225,935,267,932,272,853,230"/>
+<area shape="rect" id="Node000008" href="$telegramupdate_8h.html" title=" " alt="" coords="477,269,731,309"/>
+<area shape="poly" id="edge7_Node000005_Node000008" title=" " alt="" coords="751,229,649,272,647,267,749,224"/>
+<area shape="rect" id="Node000010" href="$telegramrestbot_8cpp.html" title=" " alt="" coords="247,357,446,397"/>
+<area shape="poly" id="edge12_Node000005_Node000010" title=" " alt="" coords="682,226,548,251,466,272,435,291,407,314,364,359,360,355,403,310,432,287,464,267,547,246,681,221"/>
+<area shape="poly" id="edge9_Node000008_Node000002" title=" " alt="" coords="479,314,185,364,184,358,479,309"/>
+<area shape="poly" id="edge8_Node000008_Node000006" title=" " alt="" coords="671,311,814,362,812,367,669,316"/>
+<area shape="rect" id="Node000009" href="$telegramupdate_8cpp.html" title=" " alt="" coords="470,357,738,397"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="607,323,607,357,601,357,601,323"/>
+<area shape="poly" id="edge11_Node000008_Node000010" title=" " alt="" coords="535,316,404,360,402,355,534,311"/>
+<area shape="poly" id="edge15_Node000011_Node000005" title=" " alt="" coords="598,135,745,179,743,184,596,140"/>
+<area shape="rect" id="Node000012" href="$telegramdocument_8cpp.html" title=" " alt="" coords="376,181,664,221"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="523,147,523,181,518,181,518,147"/>
+<area shape="poly" id="edge19_Node000014_Node000005" title=" " alt="" coords="809,147,809,181,804,181,804,147"/>
+<area shape="rect" id="Node000015" href="$telegramimage_8cpp.html" title=" " alt="" coords="949,181,1213,221"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="881,135,1022,179,1020,184,879,140"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegraminlinekeyboardcallback.h" name="src/qTbot/src/public/qTbot/messages/telegraminlinekeyboardcallback.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="237,5,595,45"/>
+<area shape="rect" id="Node000002" href="$telegraminlinekeyboardcallback_8cpp.html" title=" " alt="" coords="5,93,379,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="355,53,242,96,240,91,353,48"/>
+<area shape="rect" id="Node000003" href="$telegramupdate_8cpp.html" title=" " alt="" coords="243,181,511,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="411,59,384,182,379,181,406,58"/>
+<area shape="rect" id="Node000004" href="$telegramupdate_8h.html" title=" " alt="" coords="492,93,745,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="474,48,575,91,573,96,472,53"/>
+<area shape="poly" id="edge6_Node000004_Node000003" title=" " alt="" coords="554,140,431,184,429,179,552,135"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html" title=" " alt="" coords="535,189,702,214"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="621,147,621,188,616,188,616,147"/>
+<area shape="rect" id="Node000006" href="$itelegrambot_8cpp.html" title=" " alt="" coords="727,181,905,221"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="675,136,774,179,772,184,673,141"/>
+<area shape="rect" id="Node000007" href="$telegramrestbot_8cpp.html" title=" " alt="" coords="930,181,1129,221"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="722,134,940,179,939,184,721,139"/>
+</map>

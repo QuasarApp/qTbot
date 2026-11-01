@@ -1,0 +1,6 @@
+<map id="qTbot::ITelegramBot::sendSpecificMessageWithKeyboard" name="qTbot::ITelegramBot::sendSpecificMessageWithKeyboard">
+<area shape="rect" id="Node000001" title="Sends a specific message with a custom keyboard to a chat. This function sends a specific message to ..." alt="" coords="120,22,380,62"/>
+<area shape="rect" id="Node000002" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="17,29,72,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="106,45,72,45,72,39,106,39"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="79,23,80,17,75,13,44,8,21,10,10,16,9,22,19,30,15,34,4,23,6,12,20,5,45,3,77,8,85,15,85,23"/>
+</map>

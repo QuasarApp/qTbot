@@ -1,0 +1,7 @@
+<map id="qTbot::IBot::incomeNewUpdate" name="qTbot::IBot::incomeNewUpdate">
+<area shape="rect" id="Node000001" title="incomeNewUpdate This method save incomed messages into store." alt="" coords="5,13,231,38"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a6ae0ced7e1ee38cd8a623b59b0f9d57c" title="handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal." alt="" coords="279,5,472,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,23,265,23,265,28,231,28"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#a16b20830e137c719e61bbba48578b9f0" title="sigReceiveUpdate emit when but receive any updates from users." alt="" coords="520,13,739,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="472,23,506,23,506,28,472,28"/>
+</map>

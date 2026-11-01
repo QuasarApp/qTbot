@@ -1,0 +1,11 @@
+<map id="qTbot::TelegramFile" name="qTbot::TelegramFile">
+<area shape="rect" id="Node000001" title="The TelegramFile class is base class for all files." alt="" coords="208,179,351,344"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramAudio.html" title="The TelegramAudio class This is implementation of the audio objects of telegram." alt="" coords="5,392,161,537"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="200,348,155,394,151,390,196,344"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramDocument.html" title="The TelegramDocument class This is implementation of the documents objects of telegram." alt="" coords="186,402,373,527"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="282,358,282,401,277,401,277,358"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramImage.html" title="The TelegramImage class This is implementation of the photos of telegram." alt="" coords="397,402,557,527"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="363,344,418,400,414,404,359,347"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html" title="The IJsonBasedObject class This is base interface for all json base objects." alt="" coords="193,5,365,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="282,144,282,179,277,179,277,144"/>
+</map>

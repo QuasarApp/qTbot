@@ -1,0 +1,15 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegramaudio.cpp" name="src/qTbot/src/public/qTbot/messages/telegramaudio.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,264,45"/>
+<area shape="rect" id="Node000002" href="$telegramaudio_8h.html" title=" " alt="" coords="70,93,199,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,46,137,79,132,79,132,46"/>
+<area shape="rect" id="Node000003" href="$telegramfile_8h.html" title=" " alt="" coords="78,167,191,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="137,119,137,153,132,153,132,119"/>
+<area shape="rect" id="Node000004" href="$ijsonbasedobject_8h.html" title=" " alt="" coords="42,240,227,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="137,192,137,226,132,226,132,192"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="23,313,132,339"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="127,267,97,304,93,301,123,264"/>
+<area shape="rect" id="Node000006" href="$global_8h.html" title=" " alt="" coords="156,313,231,339"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="146,264,177,301,173,305,142,267"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="128,387,259,412"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="196,339,196,373,191,373,191,339"/>
+</map>

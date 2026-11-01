@@ -1,0 +1,7 @@
+<map id="qTbot::ITelegramBot::editSpecificMessage" name="qTbot::ITelegramBot::editSpecificMessage">
+<area shape="rect" id="Node000001" title="Edits a specific message in a chat." alt="" coords="5,5,168,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sent eny messages into chat." alt="" coords="216,5,388,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,23,203,23,203,28,168,28"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="436,13,621,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="388,23,422,23,422,28,388,28"/>
+</map>

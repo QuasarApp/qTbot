@@ -1,0 +1,21 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegramdocument.h" name="src/qTbot/src/public/qTbot/messages/telegramdocument.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="155,5,429,45"/>
+<area shape="rect" id="Node000002" href="$telegramdocument_8cpp.html" title=" " alt="" coords="5,93,293,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="250,55,182,96,179,91,248,50"/>
+<area shape="rect" id="Node000003" href="$telegrammsg_8h.html" title=" " alt="" coords="318,93,554,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="337,50,406,91,403,96,334,55"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title=" " alt="" coords="49,277,215,302"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="305,136,219,156,185,169,163,183,148,205,139,231,134,276,129,276,134,230,143,203,159,179,183,164,218,151,304,131"/>
+<area shape="rect" id="Node000005" href="$telegrammsg_8cpp.html" title=" " alt="" coords="173,181,424,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="395,143,330,184,327,179,393,139"/>
+<area shape="rect" id="Node000006" href="$telegramupdate_8h.html" title=" " alt="" coords="448,181,701,221"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="479,138,546,179,543,184,476,143"/>
+<area shape="rect" id="Node000009" href="$telegramrestbot_8cpp.html" title=" " alt="" coords="735,269,934,309"/>
+<area shape="poly" id="edge10_Node000003_Node000009" title=" " alt="" coords="568,130,642,150,715,179,747,199,776,223,821,267,817,271,772,227,743,203,712,184,641,155,567,135"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="464,227,229,272,191,279,190,274,227,267,463,221"/>
+<area shape="rect" id="Node000007" href="$itelegrambot_8cpp.html" title=" " alt="" coords="240,269,419,309"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="509,228,384,272,382,267,507,223"/>
+<area shape="rect" id="Node000008" href="$telegramupdate_8cpp.html" title=" " alt="" coords="443,269,711,309"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="578,235,579,269,574,269,573,235"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="646,223,779,267,777,272,644,228"/>
+</map>

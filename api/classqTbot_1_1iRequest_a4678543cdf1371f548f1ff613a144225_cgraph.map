@@ -1,0 +1,25 @@
+<map id="qTbot::iRequest::makeUpload" name="qTbot::iRequest::makeUpload">
+<area shape="rect" id="Node000001" title="makeUpload This method prepare data to upload;" alt="" coords="5,168,220,193"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#a24f53c4a5e1987bc17b700d9ec35eddd" title="argsToUrl This method converts the arguments to a URL string." alt="" coords="519,5,712,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="148,165,300,112,498,47,552,32,553,37,499,53,301,117,150,170"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1iRequest.html#ac100a1f4141b19074330678d3fdab200" title="method returns method of the request." alt="" coords="268,193,451,219"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="221,189,254,193,254,198,220,194"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a756b985aa5a500975ecb2648e601674b" title="args This method returns a current list of arguments" alt="" coords="780,31,940,56"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="713,25,767,31,766,36,712,31"/>
+<area shape="poly" id="edge7_Node000004_Node000002" title=" " alt="" coords="370,191,449,104,470,74,481,61,497,48,528,33,531,38,500,52,484,65,475,77,453,108,374,195"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="374,191,442,134,497,93,565,69,636,54,705,45,766,41,767,46,705,50,637,59,567,75,500,98,446,138,377,195"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1iRequest.html#ab1dae405aaf0cf07721c6a564a2a8bb7" title="addArg This method push new arg, to arguments list" alt="" coords="526,107,705,132"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="384,191,436,166,498,142,531,133,533,138,500,147,438,171,387,196"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1iRequest.html#aeddcbfe71761211278b0b30fc2bf5cfb" title="argsToMultipartFormData This method generates multipart/form&#45;data request data." alt="" coords="499,157,732,197"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="450,193,485,189,485,194,451,198"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1iRequest.html#a442e3c7092d3e7663f1033b18cabe24b" title="priority This is priority of executabel this request on client." alt="" coords="526,221,705,247"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="451,213,513,220,512,225,450,219"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request return current requests commnad." alt="" coords="525,271,706,296"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="391,216,441,237,499,257,531,265,530,270,498,262,439,242,389,221"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1iRequest.html#aafc8cea4b8cb7c1cca13e99d2effbc29" title="setArgs For the some requests list of arguments posible to build only after constructor." alt="" coords="525,320,706,345"/>
+<area shape="poly" id="edge10_Node000004_Node000009" title=" " alt="" coords="376,217,427,261,462,286,500,306,519,314,517,319,498,311,459,290,424,266,372,221"/>
+<area shape="rect" id="Node000010" href="$classqTbot_1_1iRequest.html#ad876a22fb5ec4b4bc25e0ab7b8de6711" title=" " alt="" coords="516,369,715,395"/>
+<area shape="poly" id="edge11_Node000004_Node000010" title=" " alt="" coords="371,218,419,285,456,323,500,356,513,362,510,367,497,360,453,328,415,288,366,221"/>
+<area shape="rect" id="Node000011" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets custom requests commnad" alt="" coords="513,419,718,444"/>
+<area shape="poly" id="edge12_Node000004_Node000011" title=" " alt="" coords="368,218,384,256,412,307,451,361,474,385,500,405,510,411,507,415,497,410,471,389,447,364,407,310,379,258,363,220"/>
+</map>

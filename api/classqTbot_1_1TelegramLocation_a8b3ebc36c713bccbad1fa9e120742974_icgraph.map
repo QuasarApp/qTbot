@@ -1,0 +1,5 @@
+<map id="qTbot::TelegramLocation::longitude" name="qTbot::TelegramLocation::longitude">
+<area shape="rect" id="Node000001" title="longitude is float value of longitude" alt="" coords="236,5,419,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramLocation.html#a86229b931a313e7a54574d3212e88c39" title="toQPoint This method convert location data to general qt class." alt="" coords="5,5,188,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,28,188,28,188,23,223,23"/>
+</map>

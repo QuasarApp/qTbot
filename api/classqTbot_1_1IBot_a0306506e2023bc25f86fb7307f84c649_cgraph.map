@@ -1,0 +1,21 @@
+<map id="qTbot::IBot::makeUrl" name="qTbot::IBot::makeUrl">
+<area shape="rect" id="Node000001" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="5,178,161,203"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a82c6b38c72a320722494a78859a01195" title="defaultFileStorageLocation This method return default file storage location." alt="" coords="237,5,407,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,176,138,122,171,90,208,62,233,48,236,53,211,66,174,94,142,125,96,180"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#a6ae0ced7e1ee38cd8a623b59b0f9d57c" title="handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal." alt="" coords="483,88,676,128"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="97,176,143,138,175,120,209,105,275,91,343,85,409,85,469,89,469,94,409,90,343,90,275,96,210,111,177,124,146,143,100,180"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#a86e6d05845ca1d50c45ea6709bce6689" title="incomeNewUpdate This method save incomed messages into store." alt="" coords="209,121,435,146"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="132,175,209,156,249,146,251,152,210,161,134,180"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#a52518afa03f61b5974bc9f0b451ee666" title="markMessageAsProcessed This method remove message from the not processed messages store." alt="" coords="223,171,421,211"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="162,188,209,188,209,193,162,193"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1IBot.html#a4d4ac18432b4c07484c5dacc95011e88" title="markMessageAsUnprocessed This method add the message into a not processed messages store." alt="" coords="223,259,421,299"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="120,201,255,251,253,256,118,206"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="229,323,415,349"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="96,202,141,254,174,284,211,308,228,316,226,321,208,313,171,288,138,258,92,205"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1IBot.html#ab9a65d8c9246f1987a82659786f13f05" title="setToken This is setter of the IBot::token value." alt="" coords="243,373,401,398"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="93,203,109,235,134,277,168,321,211,358,231,368,228,373,208,362,165,325,130,280,104,237,88,205"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#a16b20830e137c719e61bbba48578b9f0" title="sigReceiveUpdate emit when but receive any updates from users." alt="" coords="724,95,943,121"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="676,105,710,105,710,111,676,111"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="435,120,469,116,469,122,435,125"/>
+<area shape="poly" id="edge8_Node000007_Node000007" title=" " alt="" coords="278,259,275,249,282,240,298,234,322,232,350,235,365,242,362,247,348,240,322,237,299,239,285,244,280,250,283,258"/>
+</map>

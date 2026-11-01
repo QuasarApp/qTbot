@@ -1,0 +1,7 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,31,101,56"/>
+<area shape="rect" id="Node000001" href="$classqTbot_1_1HttpException.html" title="The HttpException class is base exaption that will raise on all errors of the HTTP protocol,..." alt="" coords="161,5,319,31"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="115,32,160,26,161,31,115,38"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1InternalException.html" title="The InternalException class contais string value to describe what happened." alt="" coords="149,55,331,80"/>
+<area shape="poly" id="edge2_Node000000_Node000002" title=" " alt="" coords="115,49,150,53,149,58,115,54"/>
+</map>

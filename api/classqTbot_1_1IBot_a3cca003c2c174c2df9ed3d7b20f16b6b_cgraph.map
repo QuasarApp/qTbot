@@ -1,0 +1,27 @@
+<map id="qTbot::IBot::sendFile" name="qTbot::IBot::sendFile">
+<area shape="rect" id="Node000001" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,321,160,347"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a1b44582a8cdb35d0ed8e98853e16200f" title="name This is name of the bot. usualy it fields will be received from the server after autication." alt="" coords="249,5,387,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,321,92,269,112,193,128,152,149,111,175,74,206,41,234,26,237,30,210,45,179,77,153,114,133,154,117,195,97,270,88,322"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#a6944a4b4fdc264e3dcd618c1575c2ded" title="parallelActiveNetworkThreads" alt="" coords="223,55,413,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="85,320,98,279,122,221,157,159,180,130,206,105,213,100,216,105,210,109,184,134,162,162,126,223,103,280,90,322"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#a97415f79732df3a7db070db1e695e750" title="processed This method return list of processed mesages." alt="" coords="235,120,401,145"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="87,320,102,286,128,242,163,195,206,156,221,148,223,152,210,160,167,199,132,245,107,289,92,322"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#a7fbeef03fef2f8352ae80b771601d836" title="reqestLimitPerSecond this is request performence limitation. by default is 20 requests per second" alt="" coords="231,170,405,210"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="93,319,139,271,171,244,207,220,220,213,223,218,209,224,174,248,142,275,97,323"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#a0518477a43d31e04df8387bbb3166c7d" title="setName This method sets new value for the IBot::name field." alt="" coords="238,235,398,260"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="104,319,151,294,207,270,237,261,239,266,209,275,153,299,107,324"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1IBot.html#a895d1799eaa552e3b93548f8e4aabb17" title="setParallelActiveNetworkThreads" alt="" coords="233,285,403,325"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="160,322,219,314,219,320,161,327"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1IBot.html#aad00a48683649b986fba653a6e3a60fe" title="setProcessed This method sets new list of processed mesages." alt="" coords="225,349,411,375"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="161,341,211,347,211,352,160,346"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1IBot.html#a806499d24d8688e9c5e62990b15a685a" title="setReqestLimitPerSecond this method sets new limitation of bot performance." alt="" coords="219,399,417,439"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="113,344,209,384,235,392,233,398,207,388,111,349"/>
+<area shape="rect" id="Node000010" href="$classqTbot_1_1IBot.html#ae4a07fb869f1879a77eab82a181076cc" title="startTime this is time when bol wil started." alt="" coords="236,464,400,489"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="96,345,141,396,173,425,209,449,227,457,225,462,207,454,170,429,137,400,92,349"/>
+<area shape="rect" id="Node000011" href="$classqTbot_1_1IBot.html#aeef969defc8ae23b8908ccb86e3fa581" title="takeNextUnreadUpdate This method take a unread update and mark them as read." alt="" coords="215,514,421,554"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="92,346,109,377,134,418,168,461,210,499,221,506,218,510,206,503,165,465,130,421,104,380,88,348"/>
+<area shape="rect" id="Node000012" href="$classqTbot_1_1IBot.html#a58ad7e5f0979c2b674261feebf4da5eb" title="token This is token value for authication on the remote server (bot)" alt="" coords="249,579,387,604"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="89,346,102,389,125,448,160,511,183,539,210,564,237,578,235,583,206,568,179,543,156,514,120,450,97,390,84,348"/>
+<area shape="rect" id="Node000013" href="$classqTbot_1_1IBot.html#a2a7276a42e5a5f334fac78f537edcd95" title="totalSentRequests This is total prepared requests count of bot from the start." alt="" coords="208,628,428,653"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="88,347,98,397,118,470,134,509,155,547,180,583,210,613,218,619,215,624,206,617,175,586,150,550,130,511,113,471,92,398,83,348"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="qTbot::IBot::setProcessed" name="qTbot::IBot::setProcessed">
+<area shape="rect" id="Node000001" title="setProcessed This method sets new list of processed mesages." alt="" coords="232,35,419,60"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="17,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,36,172,30,173,25,219,31"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramRestBot.html#a82d55a70f78fb1eec420f97401f059de" title="setProcessed This method sets new list of processed mesages." alt="" coords="5,55,184,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="219,63,185,67,184,62,218,58"/>
+</map>

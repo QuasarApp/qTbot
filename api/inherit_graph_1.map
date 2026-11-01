@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,5,80,31"/>
+<area shape="rect" id="Node000001" href="$classqTbot_1_1IBot.html" title="The IBot class Base interface for all chat&#45;bots objcts." alt="" coords="128,5,221,31"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="93,15,128,15,128,21,93,21"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html" title="The ITelegramBot class This is base implementation of the all telegramm bots." alt="" coords="269,5,423,31"/>
+<area shape="poly" id="edge4_Node000001_Node000002" title=" " alt="" coords="235,15,269,15,269,21,235,21"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramRestBot.html" title="The TelegramRestBot class Is Rest implementation base on the Update API telegram method." alt="" coords="471,5,649,31"/>
+<area shape="poly" id="edge5_Node000002_Node000003" title=" " alt="" coords="437,15,471,15,471,21,437,21"/>
+</map>

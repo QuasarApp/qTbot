@@ -1,0 +1,7 @@
+<map id="qTbot::TelegramRestBot::logout" name="qTbot::TelegramRestBot::logout">
+<area shape="rect" id="Node000001" title="login This method remove login token of bot." alt="" coords="5,5,184,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#abad6d90a5bcbee3eb167df5fec5371ac" title="login This method remove login token of bot." alt="" coords="232,13,375,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="185,23,218,23,218,28,185,28"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#ab9a65d8c9246f1987a82659786f13f05" title="setToken This is setter of the IBot::token value." alt="" coords="423,13,581,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="375,23,409,23,409,28,375,28"/>
+</map>

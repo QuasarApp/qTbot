@@ -1,0 +1,11 @@
+<map id="qTbot::IBot::defaultFileStorageLocation" name="qTbot::IBot::defaultFileStorageLocation">
+<area shape="rect" id="Node000001" title="defaultFileStorageLocation This method return default file storage location." alt="" coords="313,59,484,99"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#a5f3d628ed754a79859301131809dd59d" title="getFile This method sent request to get a file by id. The files can be saved into local storage if th..." alt="" coords="111,29,264,69"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="299,68,264,63,265,57,300,62"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="109,94,265,119"/>
+<area shape="poly" id="edge5_Node000001_Node000004" title=" " alt="" coords="300,94,266,99,265,94,299,89"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="212,17,204,11,187,8,173,10,165,14,162,21,163,28,158,29,156,20,161,11,172,5,188,3,206,6,216,13"/>
+<area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="7,37,61,62"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="97,52,62,52,62,47,97,47"/>
+<area shape="poly" id="edge4_Node000003_Node000003" title=" " alt="" coords="60,26,53,18,34,15,18,17,10,22,8,28,13,35,8,38,3,28,6,19,17,12,34,10,55,13,64,22"/>
+</map>

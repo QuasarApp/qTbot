@@ -1,0 +1,7 @@
+<map id="qTbot::ITelegramBot::sendFileMessage" name="qTbot::ITelegramBot::sendFileMessage">
+<area shape="rect" id="Node000001" title="sendFileMessage This method sents a message with file." alt="" coords="207,37,360,77"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#a11da82a30e80220a406def0535dc3ff7" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,5,159,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="193,46,158,40,159,35,193,40"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a04aa45dcec0b9b12f088327f9450f362" title="send file ." alt="" coords="5,69,159,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="193,74,159,80,158,75,193,69"/>
+</map>

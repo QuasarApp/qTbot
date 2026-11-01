@@ -1,0 +1,11 @@
+<map id="src/qTbot/src/public/qTbot/itelegrambot.h" name="src/qTbot/src/public/qTbot/itelegrambot.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="116,5,279,45"/>
+<area shape="rect" id="Node000002" href="$itelegrambot_8cpp.html" title=" " alt="" coords="5,93,184,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="166,56,119,95,116,91,162,52"/>
+<area shape="rect" id="Node000003" href="$telegramrestbot_8h.html" title=" " alt="" coords="208,93,392,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="232,52,279,91,276,95,229,56"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html" title=" " alt="" coords="113,189,279,214"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="268,144,212,190,209,186,265,140"/>
+<area shape="rect" id="Node000005" href="$telegramrestbot_8cpp.html" title=" " alt="" coords="303,181,502,221"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="335,140,382,179,378,183,332,144"/>
+</map>

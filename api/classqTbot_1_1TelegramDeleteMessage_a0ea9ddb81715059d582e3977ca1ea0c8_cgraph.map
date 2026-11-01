@@ -1,0 +1,15 @@
+<map id="qTbot::TelegramDeleteMessage::TelegramDeleteMessage" name="qTbot::TelegramDeleteMessage::TelegramDeleteMessage">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,45,233,85"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#ab1dae405aaf0cf07721c6a564a2a8bb7" title="addArg This method push new arg, to arguments list" alt="" coords="298,23,477,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,50,284,44,284,49,234,55"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramSingleRquest.html#ac20a79b810199203e5da347be995f494" title="TelegramSingleRquest This main constructor of the single requests." alt="" coords="281,73,493,113"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="234,74,268,78,268,83,233,79"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1iRequest.html#a756b985aa5a500975ecb2648e601674b" title="args This method returns a current list of arguments" alt="" coords="564,5,724,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="452,70,492,57,541,39,570,31,572,36,542,45,494,62,454,75"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request return current requests commnad." alt="" coords="553,55,735,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="493,80,540,75,540,80,494,85"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1iRequest.html#aafc8cea4b8cb7c1cca13e99d2effbc29" title="setArgs For the some requests list of arguments posible to build only after constructor." alt="" coords="553,104,735,129"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="494,100,540,104,540,110,493,105"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets custom requests commnad" alt="" coords="541,153,747,179"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="450,110,542,138,577,147,576,153,541,143,449,115"/>
+</map>

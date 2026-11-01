@@ -1,0 +1,25 @@
+var dir_541bdf514925f4c25ff5ca6ab4e1743c =
+[
+    [ "imessage.cpp", "imessage_8cpp.html", null ],
+    [ "imessage.h", "imessage_8h.html", "imessage_8h" ],
+    [ "telegramaudio.cpp", "telegramaudio_8cpp.html", null ],
+    [ "telegramaudio.h", "telegramaudio_8h.html", "telegramaudio_8h" ],
+    [ "telegramcontact.cpp", "telegramcontact_8cpp.html", null ],
+    [ "telegramcontact.h", "telegramcontact_8h.html", "telegramcontact_8h" ],
+    [ "telegramdocument.cpp", "telegramdocument_8cpp.html", null ],
+    [ "telegramdocument.h", "telegramdocument_8h.html", "telegramdocument_8h" ],
+    [ "telegramfile.cpp", "telegramfile_8cpp.html", null ],
+    [ "telegramfile.h", "telegramfile_8h.html", "telegramfile_8h" ],
+    [ "telegramimage.cpp", "telegramimage_8cpp.html", null ],
+    [ "telegramimage.h", "telegramimage_8h.html", "telegramimage_8h" ],
+    [ "telegraminlinekeyboardcallback.cpp", "telegraminlinekeyboardcallback_8cpp.html", null ],
+    [ "telegraminlinekeyboardcallback.h", "telegraminlinekeyboardcallback_8h.html", "telegraminlinekeyboardcallback_8h" ],
+    [ "telegramlocation.cpp", "telegramlocation_8cpp.html", null ],
+    [ "telegramlocation.h", "telegramlocation_8h.html", "telegramlocation_8h" ],
+    [ "telegrammsg.cpp", "telegrammsg_8cpp.html", null ],
+    [ "telegrammsg.h", "telegrammsg_8h.html", "telegrammsg_8h" ],
+    [ "telegramupdate.cpp", "telegramupdate_8cpp.html", null ],
+    [ "telegramupdate.h", "telegramupdate_8h.html", "telegramupdate_8h" ],
+    [ "telegramupdateanswer.cpp", "telegramupdateanswer_8cpp.html", null ],
+    [ "telegramupdateanswer.h", "telegramupdateanswer_8h.html", "telegramupdateanswer_8h" ]
+];

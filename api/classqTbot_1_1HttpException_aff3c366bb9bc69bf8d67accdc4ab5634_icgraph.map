@@ -1,0 +1,14 @@
+<map id="qTbot::HttpException::code" name="qTbot::HttpException::code">
+<area shape="rect" id="Node000001" title=" " alt="" coords="545,37,704,77"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title=" " alt="" coords="338,5,497,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="531,46,497,40,497,35,532,40"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method get bae information of the bot from remote server." alt="" coords="341,69,494,109"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="532,74,495,80,494,75,531,69"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1HttpException.html#a310bd02b7dc6901389017884bb220b97" title=" " alt="" coords="122,5,280,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="324,28,280,28,280,23,324,23"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method get bae information of the bot from remote server." alt="" coords="112,69,290,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="327,92,290,92,290,87,327,87"/>
+<area shape="rect" id="Node000006" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,77,64,102"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="98,92,64,92,64,87,98,87"/>
+<area shape="poly" id="edge6_Node000006_Node000006" title=" " alt="" coords="65,66,56,58,36,55,19,57,10,62,8,68,13,75,9,78,3,68,6,59,18,52,36,50,58,53,68,62"/>
+</map>

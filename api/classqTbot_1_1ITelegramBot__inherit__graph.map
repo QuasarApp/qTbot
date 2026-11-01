@@ -1,0 +1,9 @@
+<map id="qTbot::ITelegramBot" name="qTbot::ITelegramBot">
+<area shape="rect" id="Node000001" title="The ITelegramBot class This is base implementation of the all telegramm bots." alt="" coords="5,672,275,1097"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramRestBot.html" title="The TelegramRestBot class Is Rest implementation base on the Update API telegram method." alt="" coords="55,1145,225,1331"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="143,1111,143,1145,137,1145,137,1111"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html" title="The IBot class Base interface for all chat&#45;bots objcts." alt="" coords="30,119,250,624"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="143,638,143,672,137,672,137,638"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="107,5,173,71"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="143,85,143,119,137,119,137,85"/>
+</map>

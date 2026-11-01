@@ -1,0 +1,11 @@
+<map id="qTbot::TelegramEditMessageReplyMarkup" name="qTbot::TelegramEditMessageReplyMarkup">
+<area shape="rect" id="Node000001" title="The TelegramEditMessageReplyMarkup class just edit alredy created Markups." alt="" coords="5,759,215,853"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramEditMessage.html" title="The TelegramEditMessage class This command edit keyboard of the message." alt="" coords="9,645,211,711"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,724,113,758,107,758,107,724"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramSendMsg.html" title="The TelegramSendMsg class This method send a message to the server." alt="" coords="21,532,199,597"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="113,611,113,645,107,645,107,611"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramSingleRquest.html" title="The TelegramSingleRquest class Is base class for all single requests commands with arguments." alt="" coords="8,359,212,484"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="113,498,113,532,107,532,107,498"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1iRequest.html" title="The iRequest class Is main interface for all custom requests." alt="" coords="8,5,212,311"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="113,324,113,358,107,358,107,324"/>
+</map>

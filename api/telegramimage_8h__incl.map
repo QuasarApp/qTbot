@@ -1,0 +1,13 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegramimage.h" name="src/qTbot/src/public/qTbot/messages/telegramimage.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,255,45"/>
+<area shape="rect" id="Node000002" href="$telegramfile_8h.html" title=" " alt="" coords="73,93,187,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="133,46,133,79,127,79,127,46"/>
+<area shape="rect" id="Node000003" href="$ijsonbasedobject_8h.html" title=" " alt="" coords="37,167,223,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="133,119,133,153,127,153,127,119"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="18,240,127,265"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="123,194,93,231,89,227,118,191"/>
+<area shape="rect" id="Node000005" href="$global_8h.html" title=" " alt="" coords="151,240,226,265"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="142,191,173,228,169,231,138,194"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="123,313,254,339"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="191,266,191,300,186,300,186,266"/>
+</map>

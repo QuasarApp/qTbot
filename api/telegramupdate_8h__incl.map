@@ -1,0 +1,45 @@
+<map id="src/qTbot/src/public/qTbot/messages/telegramupdate.h" name="src/qTbot/src/public/qTbot/messages/telegramupdate.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="427,5,681,45"/>
+<area shape="rect" id="Node000002" href="$ijsonbasedupdate_8h.html" title=" " alt="" coords="5,240,196,265"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="427,46,315,65,197,92,144,108,97,127,60,147,36,168,31,184,38,200,52,216,70,230,67,235,49,220,33,203,26,184,32,165,57,142,95,122,142,103,196,87,314,60,427,40"/>
+<area shape="rect" id="Node000010" href="$telegraminlinekeyboardcallback_8h.html" title=" " alt="" coords="743,93,986,119"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="629,43,806,87,805,92,628,48"/>
+<area shape="rect" id="Node000011" href="$telegrammsg_8h.html" title=" " alt="" coords="493,93,615,119"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="557,46,557,79,551,79,551,46"/>
+<area shape="rect" id="Node000003" href="$iupdate_8h.html" title=" " alt="" coords="215,313,298,339"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,263,220,305,218,310,125,268"/>
+<area shape="rect" id="Node000007" href="$ijsonbasedobject_8h.html" title=" " alt="" coords="447,313,632,339"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="172,263,456,308,455,314,171,268"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="50,313,151,339"/>
+<area shape="poly" id="edge9_Node000002_Node000009" title=" " alt="" coords="103,266,103,300,98,300,98,266"/>
+<area shape="rect" id="Node000004" href="$global_8h.html" title=" " alt="" coords="341,387,455,412"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="281,336,364,378,362,383,278,341"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="208,387,305,412"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="259,339,259,373,254,373,254,339"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="333,460,463,485"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="401,412,401,446,395,446,395,412"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="518,341,434,383,432,378,515,336"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="485,387,594,412"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="542,339,542,373,537,373,537,339"/>
+<area shape="poly" id="edge11_Node000010_Node000007" title=" " alt="" coords="878,117,901,146,925,185,933,206,936,227,933,248,923,267,904,282,878,293,808,310,727,321,646,326,646,320,726,315,808,305,876,288,902,277,919,264,928,246,931,228,928,207,920,187,897,149,874,121"/>
+<area shape="rect" id="Node000012" href="$imessage_8h.html" title=" " alt="" coords="47,167,144,192"/>
+<area shape="poly" id="edge13_Node000011_Node000012" title=" " alt="" coords="493,118,158,169,157,164,493,113"/>
+<area shape="rect" id="Node000013" href="$telegramcontact_8h.html" title=" " alt="" coords="656,240,908,265"/>
+<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="615,112,715,131,758,146,785,165,793,180,796,196,793,227,787,226,790,196,788,181,781,168,756,151,713,137,614,117"/>
+<area shape="rect" id="Node000014" href="$telegramaudio_8h.html" title=" " alt="" coords="621,167,751,192"/>
+<area shape="poly" id="edge17_Node000011_Node000014" title=" " alt="" coords="576,116,654,158,651,162,574,121"/>
+<area shape="rect" id="Node000016" href="$telegramdocument_8h.html" title=" " alt="" coords="168,167,327,192"/>
+<area shape="poly" id="edge20_Node000011_Node000016" title=" " alt="" coords="505,121,311,166,310,161,504,116"/>
+<area shape="rect" id="Node000017" href="$telegramlocation_8h.html" title=" " alt="" coords="487,240,632,265"/>
+<area shape="poly" id="edge22_Node000011_Node000017" title=" " alt="" coords="616,114,704,134,742,148,765,165,771,179,765,194,747,208,718,221,645,240,643,235,716,216,744,204,761,190,766,179,761,168,739,152,702,139,615,119"/>
+<area shape="rect" id="Node000018" href="$telegramimage_8h.html" title=" " alt="" coords="351,167,597,192"/>
+<area shape="poly" id="edge24_Node000011_Node000018" title=" " alt="" coords="543,121,499,160,495,156,539,117"/>
+<area shape="poly" id="edge14_Node000012_Node000002" title=" " alt="" coords="99,192,101,226,96,227,94,193"/>
+<area shape="poly" id="edge16_Node000013_Node000007" title=" " alt="" coords="744,268,592,312,591,307,742,263"/>
+<area shape="rect" id="Node000015" href="$telegramfile_8h.html" title=" " alt="" coords="349,240,463,265"/>
+<area shape="poly" id="edge18_Node000014_Node000015" title=" " alt="" coords="642,195,465,239,464,234,640,189"/>
+<area shape="poly" id="edge19_Node000015_Node000007" title=" " alt="" coords="429,263,507,304,504,309,426,268"/>
+<area shape="poly" id="edge21_Node000016_Node000015" title=" " alt="" coords="274,190,369,232,367,237,272,194"/>
+<area shape="poly" id="edge23_Node000017_Node000007" title=" " alt="" coords="559,266,549,301,544,299,553,265"/>
+<area shape="poly" id="edge25_Node000018_Node000015" title=" " alt="" coords="465,194,429,232,425,228,461,190"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="qTbot::ITelegramBot::makeUrl" name="qTbot::ITelegramBot::makeUrl">
+<area shape="rect" id="Node000001" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="5,5,159,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a58ad7e5f0979c2b674261feebf4da5eb" title="token This is token value for authication on the remote server (bot)" alt="" coords="207,13,344,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,23,193,23,193,28,159,28"/>
+</map>

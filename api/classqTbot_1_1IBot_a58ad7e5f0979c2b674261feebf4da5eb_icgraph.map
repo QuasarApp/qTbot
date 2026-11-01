@@ -1,0 +1,17 @@
+<map id="qTbot::IBot::token" name="qTbot::IBot::token">
+<area shape="rect" id="Node000001" title="token This is token value for authication on the remote server (bot)" alt="" coords="541,120,678,145"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#ac3b23b1e66446cf9023432870be554af" title="login This method get bae information of the bot from remote server." alt="" coords="349,5,482,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="583,112,542,78,492,46,462,33,464,28,494,41,545,74,586,108"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method get bae information of the bot from remote server." alt="" coords="339,55,492,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="552,119,483,98,484,93,554,114"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method get bae information of the bot from remote server." alt="" coords="112,85,290,125"/>
+<area shape="poly" id="edge6_Node000001_Node000004" title=" " alt="" coords="527,130,290,113,291,108,527,124"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1ITelegramBot.html#ab9d9254b36b08af8e5b366965385f897" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="339,170,492,210"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="554,152,484,173,483,167,552,147"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="338,235,493,260"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="586,157,545,191,494,224,464,237,462,232,492,220,542,187,583,153"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="326,90,291,95,290,90,325,85"/>
+<area shape="rect" id="Node000005" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,92,64,117"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="98,107,64,107,64,102,98,102"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="65,81,56,74,36,71,19,73,10,77,8,83,13,90,9,93,3,84,6,74,18,68,36,65,58,69,68,77"/>
+</map>

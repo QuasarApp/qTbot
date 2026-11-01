@@ -1,0 +1,35 @@
+<map id="qTbot::TelegramSingleRquest::TelegramSingleRquest" name="qTbot::TelegramSingleRquest::TelegramSingleRquest">
+<area shape="rect" id="Node000001" title="TelegramSingleRquest This main constructor of the single requests." alt="" coords="863,293,1075,333"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramDeleteMessage.html#a0ea9ddb81715059d582e3977ca1ea0c8" title=" " alt="" coords="587,5,815,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="954,282,935,232,905,172,864,111,840,83,813,59,794,48,797,43,816,55,844,80,869,108,910,169,940,230,959,280"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramGetFile.html#a59578818e9f6a8a179e3e3f56c074ee4" title=" " alt="" coords="614,69,787,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="948,283,926,246,895,203,857,160,813,124,786,110,789,105,816,119,861,156,899,199,930,243,953,280"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramGetMe.html#a13c4ada5a72ba0c26ea10eed95d6de3f" title=" " alt="" coords="615,133,786,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="937,285,883,235,849,210,813,188,785,175,787,170,816,183,852,205,886,231,941,281"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramGetUpdate.html#acda49ec7328362c175ac10e75f901f83" title="TelegramGetUpdate send request for updates. You will get response on immediacy or after 60 seconds if..." alt="" coords="602,197,799,237"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="910,290,814,252,777,240,778,235,816,247,912,285"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1TelegrammDownloadFile.html#a4477fb137d7e70b6e03a707e80a1d578" title=" " alt="" coords="593,261,808,301"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="849,302,808,297,809,292,849,296"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramSendContact.html#a3a4ecec4b33ab89bdb5bb548e1a3f1a5" title=" " alt="" coords="596,325,805,365"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="850,330,806,335,805,330,849,325"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1TelegramSendFile.html#af07e3d2b0ecd6daa1db5a14ae4961ec6" title=" " alt="" coords="609,389,792,429"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="912,342,816,380,778,392,777,387,814,375,910,337"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1TelegramSendFile.html#acf61819c1973e4474739e76174e765db" title=" " alt="" coords="609,453,792,493"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="941,345,886,396,852,421,816,444,789,456,787,451,813,439,849,417,883,391,937,341"/>
+<area shape="rect" id="Node000014" href="$classqTbot_1_1TelegramSendLocation.html#a130b75253b189fa35b536fa5c469614f" title=" " alt="" coords="593,517,808,557"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="953,347,930,384,899,427,861,471,816,508,794,520,791,515,813,503,857,467,895,424,926,381,948,344"/>
+<area shape="rect" id="Node000015" href="$classqTbot_1_1TelegramSendMsg.html#a591da8958424ea85af9dadd4e9cf6634" title="TelegramSendMsg This object sents msg to telegram server." alt="" coords="607,581,794,621"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="959,347,940,397,910,457,869,519,844,547,816,571,795,584,793,579,813,567,840,543,864,516,905,455,935,395,954,345"/>
+<area shape="rect" id="Node000010" href="$classqTbot_1_1TelegramSendDocument.html#a1f404137f03c760ee60458cf40081fdf" title=" " alt="" coords="312,325,539,365"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="595,450,585,443,569,427,560,411,552,395,537,379,516,368,518,363,540,375,557,391,565,408,573,424,588,439,598,445"/>
+<area shape="rect" id="Node000011" href="$classqTbot_1_1TelegramSendDocument.html#a5cf82bce9e3d83de34a36419821c8c19" title=" " alt="" coords="312,389,539,429"/>
+<area shape="poly" id="edge10_Node000009_Node000011" title=" " alt="" coords="600,453,511,432,512,427,601,448"/>
+<area shape="rect" id="Node000012" href="$classqTbot_1_1TelegramSendPhoto.html#a791266a035dde5811847002d2a99b9dc" title=" " alt="" coords="327,453,523,493"/>
+<area shape="poly" id="edge11_Node000009_Node000012" title=" " alt="" coords="596,476,524,476,524,471,596,471"/>
+<area shape="rect" id="Node000013" href="$classqTbot_1_1TelegramSendPhoto.html#afb94a0c404ad0b2a57579fe26a7318ab" title=" " alt="" coords="327,517,523,557"/>
+<area shape="poly" id="edge12_Node000009_Node000013" title=" " alt="" coords="601,499,512,520,511,515,600,494"/>
+<area shape="rect" id="Node000016" href="$classqTbot_1_1TelegramEditMessage.html#a6eb05597473c15b894d9cf079b4b9e84" title=" " alt="" coords="320,581,531,621"/>
+<area shape="poly" id="edge15_Node000015_Node000016" title=" " alt="" coords="594,604,531,604,531,599,594,599"/>
+<area shape="rect" id="Node000017" href="$classqTbot_1_1TelegramEditMessageReplyMarkup.html#a6171d8f3924a9fd431d26240d0a0b0be" title=" " alt="" coords="5,574,264,629"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="306,604,264,604,264,599,306,599"/>
+</map>

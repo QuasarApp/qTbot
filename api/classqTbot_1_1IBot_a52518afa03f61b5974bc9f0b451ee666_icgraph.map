@@ -1,0 +1,5 @@
+<map id="qTbot::IBot::markUpdateAsProcessed" name="qTbot::IBot::markUpdateAsProcessed">
+<area shape="rect" id="Node000001" title="markMessageAsProcessed This method remove message from the not processed messages store." alt="" coords="209,5,408,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="5,13,161,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,161,28,161,23,195,23"/>
+</map>

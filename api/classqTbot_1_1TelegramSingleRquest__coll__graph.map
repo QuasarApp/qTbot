@@ -1,0 +1,5 @@
+<map id="qTbot::TelegramSingleRquest" name="qTbot::TelegramSingleRquest">
+<area shape="rect" id="Node000001" title="The TelegramSingleRquest class Is base class for all single requests commands with arguments." alt="" coords="5,359,209,484"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html" title="The iRequest class Is main interface for all custom requests." alt="" coords="5,5,209,311"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,324,110,358,105,358,105,324"/>
+</map>

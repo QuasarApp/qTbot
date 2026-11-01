@@ -1,0 +1,17 @@
+<map id="qTbot::ITelegramBot::sendSpecificMessage" name="qTbot::ITelegramBot::sendSpecificMessage">
+<area shape="rect" id="Node000001" title="Sends a specific message to a chat." alt="" coords="428,133,597,173"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#aa1786bd29be9a2bc679aed7d50b72ac1" title="sendLocationRequest This method setn into chat button that will automaticaly sent geo location to bot..." alt="" coords="165,5,334,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="477,126,432,91,379,60,334,44,336,39,381,55,435,87,480,122"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#aaa00fb37cefb9498934aecaa97be123b" title="sendMessage This method sents text to the selected chat." alt="" coords="173,69,326,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="416,133,326,111,327,105,417,127"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1ITelegramBot.html#aa9656b1cf92787c81a776f4211725a17" title="sendSelfContactRequest This method sent into chat button that will automaticaly sent self contact inf..." alt="" coords="155,133,344,173"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="414,156,345,156,345,151,414,151"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1ITelegramBot.html#a8ec8bace9159f8d2f788e37b78609a8f" title="Sends a specific message with a custom keyboard to a chat. This function sends a specific message to ..." alt="" coords="120,197,380,237"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="417,179,333,200,332,195,416,174"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1ITelegramBot.html#a32374351740690c2ceabb183831e34dc" title="Sends a specific message with a custom keyboard to a chat." alt="" coords="120,261,380,301"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="480,185,435,220,381,252,350,264,348,259,379,247,432,215,477,180"/>
+<area shape="rect" id="Node000004" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="17,141,72,166"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="161,112,121,124,73,143,71,138,119,119,159,107"/>
+<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="79,134,80,128,75,124,44,119,21,122,10,127,9,133,19,141,15,145,4,135,6,124,20,117,45,114,77,119,85,126,85,134"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="146,196,119,188,71,168,73,163,121,183,147,191"/>
+</map>
