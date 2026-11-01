@@ -1,18 +1,18 @@
 <map id="qTbot::IBot::setToken" name="qTbot::IBot::setToken">
-<area shape="rect" id="Node000001" title="setToken This is setter of the IBot::token value." alt="" coords="542,87,701,112"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method get bae information of the bot from remote server." alt="" coords="340,22,493,62"/>
+<area shape="rect" id="Node000001" title="setToken This is the setter of the IBot::token value." alt="" coords="542,87,701,112"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method gets basic information of the bot from the remote server." alt="" coords="340,22,493,62"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="561,85,488,65,489,59,563,80"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#abad6d90a5bcbee3eb167df5fec5371ac" title="login This method remove login token of bot." alt="" coords="345,87,488,112"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#abad6d90a5bcbee3eb167df5fec5371ac" title="logout This method removes the login token of the bot." alt="" coords="345,87,488,112"/>
 <area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="528,102,488,102,488,97,528,97"/>
-<area shape="rect" id="Node000008" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="338,136,494,161"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepares a prefix url for http requests." alt="" coords="338,136,494,161"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="555,118,471,139,469,133,554,113"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method get bae information of the bot from remote server." alt="" coords="112,22,290,62"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method gets basic information of the bot from the remote server and starts the long pollin..." alt="" coords="112,22,290,62"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="326,45,290,45,290,39,326,39"/>
 <area shape="rect" id="Node000004" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,29,64,55"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="98,45,64,45,64,39,98,39"/>
 <area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="65,19,56,11,36,8,19,10,10,15,8,20,13,28,9,31,3,21,6,11,18,5,36,3,58,6,68,15"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#ac3b23b1e66446cf9023432870be554af" title="login This method get bae information of the bot from remote server." alt="" coords="134,87,268,112"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#ac3b23b1e66446cf9023432870be554af" title="login This method gets basic information of the bot from the remote server." alt="" coords="134,87,268,112"/>
 <area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="331,102,268,102,268,97,331,97"/>
-<area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramRestBot.html#a155fea1e7d1b3cef27e4e5e27ea913eb" title="login This method remove login token of bot." alt="" coords="112,137,290,177"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramRestBot.html#a155fea1e7d1b3cef27e4e5e27ea913eb" title="logout This method stops the long polling of the updates and removes the login token of the bot." alt="" coords="112,137,290,177"/>
 <area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="355,118,277,139,276,134,354,113"/>
 </map>

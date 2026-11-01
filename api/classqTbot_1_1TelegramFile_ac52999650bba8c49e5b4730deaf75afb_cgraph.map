@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramFile::TelegramFile" name="qTbot::TelegramFile::TelegramFile">
-<area shape="rect" id="Node000001" title="Constructs a Photo object from a JSON object." alt="" coords="5,5,156,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a681757d2509649b4bfcf98a5e74f1fb4" title=" " alt="" coords="204,5,384,45"/>
+<area shape="rect" id="Node000001" title="Constructs a File object from a JSON object." alt="" coords="5,5,156,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a681757d2509649b4bfcf98a5e74f1fb4" title="IJsonBasedObject default constructor." alt="" coords="204,5,384,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,23,190,23,190,28,156,28"/>
 </map>

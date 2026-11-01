@@ -1,5 +1,5 @@
 <map id="qTbot::IBot::setName" name="qTbot::IBot::setName">
 <area shape="rect" id="Node000001" title="setName This method sets new value for the IBot::name field." alt="" coords="208,5,368,31"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,5,160,31"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="5,5,160,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,21,160,21,160,15,194,15"/>
 </map>

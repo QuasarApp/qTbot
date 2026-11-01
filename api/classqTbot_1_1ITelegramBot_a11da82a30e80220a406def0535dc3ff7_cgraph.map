@@ -1,9 +1,9 @@
 <map id="qTbot::ITelegramBot::sendFile" name="qTbot::ITelegramBot::sendFile">
-<area shape="rect" id="Node000001" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,5,159,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#a7991fd581d4db4ad1ac84aa829ca271d" title="sendFileMessage This method sents a message with file." alt="" coords="207,5,360,45"/>
+<area shape="rect" id="Node000001" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="5,5,159,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#a7991fd581d4db4ad1ac84aa829ca271d" title="sendFileMessage This method sends a message with a file." alt="" coords="207,5,360,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,23,193,23,193,28,159,28"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sent eny messages into chat." alt="" coords="408,5,580,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sends any messages into the chat." alt="" coords="408,5,580,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="360,23,394,23,394,28,360,28"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="628,13,813,38"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="628,13,813,38"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="580,23,614,23,614,28,580,28"/>
 </map>

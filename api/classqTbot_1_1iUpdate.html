@@ -50,7 +50,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">qTbot<span id="projectnumber">&#160;0.2.121.9b0c58c</span>
+   <div id="projectname">qTbot<span id="projectnumber">&#160;0.2.123.6f57966</span>
    </div>
    <div id="projectbrief">qTbot is base back end library for your c++ Qt projects.</div>
   </td>
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classqTbot_1_1
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="classqTbot_1_1iMessage.html" title="The iMessage class This is main interface for the all messages.">iMessage</a> class - is main interface for all messages objects.  
+<p>The <a class="el" href="classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects.">iUpdate</a> class is the main interface for all update objects.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="iupdate_8h_source.html">iupdate.h</a>&gt;</code></p>
@@ -129,16 +129,16 @@ Inheritance diagram for qTbot::iUpdate:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1iUpdate__inherit__graph.png" border="0" usemap="#aqTbot_1_1iUpdate_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <map name="aqTbot_1_1iUpdate_inherit__map" id="aqTbot_1_1iUpdate_inherit__map">
-<area shape="rect" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="279,5,397,191"/>
-<area shape="rect" href="classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is updates that have a json sructure." alt="" coords="249,239,427,344"/>
+<area shape="rect" title="The iUpdate class is the main interface for all update objects." alt="" coords="279,5,397,191"/>
+<area shape="rect" href="classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is an update that has a json structure." alt="" coords="249,239,427,344"/>
 <area shape="poly" title=" " alt="" coords="341,204,341,239,335,239,335,204"/>
 <area shape="rect" href="classqTbot_1_1TelegramUpdate.html" title="The TelegramUpdate class contains base information about updates from telegram." alt="" coords="5,392,207,917"/>
 <area shape="poly" title=" " alt="" coords="258,355,221,394,209,411,205,408,217,390,254,351"/>
-<area shape="rect" href="classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is base message from the telegram server after update request." alt="" coords="231,552,445,757"/>
+<area shape="rect" href="classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is a base message from the telegram server after an update reques..." alt="" coords="231,552,445,757"/>
 <area shape="poly" title=" " alt="" coords="341,358,341,552,335,552,335,358"/>
-<area shape="rect" href="classqTbot_1_1iMessage.html" title="The iMessage class This is main interface for the all messages." alt="" coords="469,612,591,697"/>
+<area shape="rect" href="classqTbot_1_1iMessage.html" title="The iMessage class This is the main interface for all messages." alt="" coords="469,612,591,697"/>
 <area shape="poly" title=" " alt="" coords="427,352,460,391,489,447,509,507,522,564,529,611,524,612,517,565,504,508,484,449,456,393,423,355"/>
-<area shape="rect" href="classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provide general mesasges of telegram. The message object can contain..." alt="" coords="457,965,603,1331"/>
+<area shape="rect" href="classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provides the general messages of telegram. The message object can co..." alt="" coords="457,965,603,1331"/>
 <area shape="poly" title=" " alt="" coords="533,711,533,965,527,965,527,711"/>
 </map>
 </div>
@@ -147,38 +147,39 @@ Collaboration diagram for qTbot::iUpdate:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1iUpdate__coll__graph.png" border="0" usemap="#aqTbot_1_1iUpdate_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <map name="aqTbot_1_1iUpdate_coll__map" id="aqTbot_1_1iUpdate_coll__map">
-<area shape="rect" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="5,5,123,191"/>
+<area shape="rect" title="The iUpdate class is the main interface for all update objects." alt="" coords="5,5,123,191"/>
 </map>
 </div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a31c4d0bd5b602d673033280396652e81" id="r_a31c4d0bd5b602d673033280396652e81"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a31c4d0bd5b602d673033280396652e81">iUpdate</a> ()</td></tr>
+<tr class="memdesc:a31c4d0bd5b602d673033280396652e81"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects.">iUpdate</a> default constructor.  <br /></td></tr>
 <tr class="memitem:a4dbda3e710099c9bd88998a9755e7747" id="r_a4dbda3e710099c9bd88998a9755e7747"><td class="memItemLeft">const QByteArray &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4dbda3e710099c9bd88998a9755e7747">rawData</a> () const</td></tr>
-<tr class="memdesc:a4dbda3e710099c9bd88998a9755e7747"><td class="mdescLeft">&#160;</td><td class="mdescRight">rawData returns raw data of the message. The raw data is not parsed value form the server.  <br /></td></tr>
+<tr class="memdesc:a4dbda3e710099c9bd88998a9755e7747"><td class="mdescLeft">&#160;</td><td class="mdescRight">rawData returns the raw data of the update. The raw data is the not parsed value from the server.  <br /></td></tr>
 <tr class="memitem:a5c43b62b6590629100597822e27a25b5" id="r_a5c43b62b6590629100597822e27a25b5"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a5c43b62b6590629100597822e27a25b5">setRawData</a> (const QByteArray &amp;newRawData)</td></tr>
-<tr class="memdesc:a5c43b62b6590629100597822e27a25b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">setRawData This method sets new raw data value.  <br /></td></tr>
+<tr class="memdesc:a5c43b62b6590629100597822e27a25b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">setRawData This method sets a new raw data value.  <br /></td></tr>
 <tr class="memitem:a46c3de9402c2e443adeaa3e6701afdd1" id="r_a46c3de9402c2e443adeaa3e6701afdd1"><td class="memItemLeft">virtual bool&#160;</td><td class="memItemRight"><a class="el" href="#a46c3de9402c2e443adeaa3e6701afdd1">isValid</a> () const</td></tr>
-<tr class="memdesc:a46c3de9402c2e443adeaa3e6701afdd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">isValid return true if the message is valid else false.  <br /></td></tr>
+<tr class="memdesc:a46c3de9402c2e443adeaa3e6701afdd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">isValid returns true if the update is valid else false.  <br /></td></tr>
 <tr class="memitem:ab7f28cea6dc2fe538a66083727714089" id="r_ab7f28cea6dc2fe538a66083727714089"><td class="memItemLeft">virtual QString&#160;</td><td class="memItemRight"><a class="el" href="#ab7f28cea6dc2fe538a66083727714089">from</a> () const =0</td></tr>
-<tr class="memdesc:ab7f28cea6dc2fe538a66083727714089"><td class="mdescLeft">&#160;</td><td class="mdescRight">from This virtual function should return name of the user that sent this message to bot.  <br /></td></tr>
+<tr class="memdesc:ab7f28cea6dc2fe538a66083727714089"><td class="mdescLeft">&#160;</td><td class="mdescRight">from This virtual function should return the id of the user that sent this update to the bot.  <br /></td></tr>
 <tr class="memitem:a66ab9bd209b0fe4feaa2cafd83421af0" id="r_a66ab9bd209b0fe4feaa2cafd83421af0"><td class="memItemLeft">virtual QVariant&#160;</td><td class="memItemRight"><a class="el" href="#a66ab9bd209b0fe4feaa2cafd83421af0">chatId</a> () const =0</td></tr>
-<tr class="memdesc:a66ab9bd209b0fe4feaa2cafd83421af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">from This virtual function should return name of the chat when sent this message to bot.  <br /></td></tr>
+<tr class="memdesc:a66ab9bd209b0fe4feaa2cafd83421af0"><td class="mdescLeft">&#160;</td><td class="mdescRight">chatId This virtual function should return the id of the chat that sent this update to the bot.  <br /></td></tr>
 <tr class="memitem:a8b2d77feab34b76bda420bca83a3550f" id="r_a8b2d77feab34b76bda420bca83a3550f"><td class="memItemLeft">virtual unsigned long long&#160;</td><td class="memItemRight"><a class="el" href="#a8b2d77feab34b76bda420bca83a3550f">updateId</a> () const =0</td></tr>
-<tr class="memdesc:a8b2d77feab34b76bda420bca83a3550f"><td class="mdescLeft">&#160;</td><td class="mdescRight">updateId This method returns numeric id of the update.  <br /></td></tr>
+<tr class="memdesc:a8b2d77feab34b76bda420bca83a3550f"><td class="mdescLeft">&#160;</td><td class="mdescRight">updateId This method returns the numeric id of the update.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="classqTbot_1_1iMessage.html" title="The iMessage class This is main interface for the all messages.">iMessage</a> class - is main interface for all messages objects. </p>
-<dl class="section note"><dt>Note</dt><dd>Theall message objects posible to create only inner bot object using the <a class="el" href="classqTbot_1_1IBot.html#a09d5c478b7519d00c5cf64623f019ff2" title="makeMesasge This is factory method tha can create a messages types.">IBot::makeMesasge</a> method. </dd></dl>
-<dl class="section see"><dt>See also</dt><dd>IBot::sigReceiveMessage </dd>
+<div class="textblock"><p>The <a class="el" href="classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects.">iUpdate</a> class is the main interface for all update objects. </p>
+<dl class="section note"><dt>Note</dt><dd>All update objects are possible to create only inside the bot object using the <a class="el" href="classqTbot_1_1IBot.html#a09d5c478b7519d00c5cf64623f019ff2" title="makeMesasge This is a factory method that can create a message type from raw byte data.">IBot::makeMesasge</a> method. </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="classqTbot_1_1IBot.html#a16b20830e137c719e61bbba48578b9f0" title="sigReceiveUpdate emitted when the bot receives any updates from users.">IBot::sigReceiveUpdate</a> </dd>
 <dd>
-IBot::incomeNewMessage </dd>
+<a class="el" href="classqTbot_1_1IBot.html#a86e6d05845ca1d50c45ea6709bce6689" title="incomeNewUpdate This method saves incoming messages into the store.">IBot::incomeNewUpdate</a> </dd>
 <dd>
-IBot::markMessageAsProcessed </dd>
+<a class="el" href="classqTbot_1_1IBot.html#a52518afa03f61b5974bc9f0b451ee666" title="markMessageAsProcessed This method removes the message from the not processed messages store.">IBot::markUpdateAsProcessed</a> </dd>
 <dd>
-IBot::takeNextUnreadMessage </dd>
+<a class="el" href="classqTbot_1_1IBot.html#aeef969defc8ae23b8908ccb86e3fa581" title="takeNextUnreadUpdate This method takes an unread update and marks it as read.">IBot::takeNextUnreadUpdate</a> </dd>
 <dd>
-<a class="el" href="classqTbot_1_1IBot.html#a09d5c478b7519d00c5cf64623f019ff2" title="makeMesasge This is factory method tha can create a messages types.">IBot::makeMesasge</a> </dd></dl>
+<a class="el" href="classqTbot_1_1IBot.html#a09d5c478b7519d00c5cf64623f019ff2" title="makeMesasge This is a factory method that can create a message type from raw byte data.">IBot::makeMesasge</a> </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="iupdate_8h_source.html#l00028">28</a> of file <a class="el" href="iupdate_8h_source.html">iupdate.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -196,6 +197,8 @@ IBot::takeNextUnreadMessage </dd>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><a class="el" href="classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects.">iUpdate</a> default constructor. </p>
 
 <p class="definition">Definition at line <a class="el" href="iupdate_8cpp_source.html#l00012">12</a> of file <a class="el" href="iupdate_8cpp_source.html">iupdate.cpp</a>.</p>
 
@@ -225,8 +228,8 @@ IBot::takeNextUnreadMessage </dd>
 </table>
 </div><div class="memdoc">
 
-<p>from This virtual function should return name of the chat when sent this message to bot. </p>
-<dl class="section return"><dt>Returns</dt><dd>id of the sender. </dd></dl>
+<p>chatId This virtual function should return the id of the chat that sent this update to the bot. </p>
+<dl class="section return"><dt>Returns</dt><dd>id of the chat. </dd></dl>
 
 <p>Implemented in <a class="el" href="classqTbot_1_1TelegramMsg.html#ae8a89752658dcf73e8547572e026923a">qTbot::TelegramMsg</a>, <a class="el" href="classqTbot_1_1TelegramUpdate.html#a58201015608c31f4fe62f624dad83d2f">qTbot::TelegramUpdate</a>, and <a class="el" href="classqTbot_1_1TelegramUpdateAnswer.html#a307041d7dff2f4edd55de98c283dd066">qTbot::TelegramUpdateAnswer</a>.</p>
 
@@ -255,7 +258,7 @@ IBot::takeNextUnreadMessage </dd>
 </table>
 </div><div class="memdoc">
 
-<p>from This virtual function should return name of the user that sent this message to bot. </p>
+<p>from This virtual function should return the id of the user that sent this update to the bot. </p>
 <dl class="section return"><dt>Returns</dt><dd>id of the sender. </dd></dl>
 
 <p>Implemented in <a class="el" href="classqTbot_1_1TelegramMsg.html#a11aedf6f553abbcf0082fe392ba506fa">qTbot::TelegramMsg</a>, <a class="el" href="classqTbot_1_1TelegramUpdate.html#af2fe2533e4eef2e80f69afae17e18a46">qTbot::TelegramUpdate</a>, and <a class="el" href="classqTbot_1_1TelegramUpdateAnswer.html#ad4888573ec980974da79cf94179d5a57">qTbot::TelegramUpdateAnswer</a>.</p>
@@ -285,8 +288,8 @@ IBot::takeNextUnreadMessage </dd>
 </table>
 </div><div class="memdoc">
 
-<p>isValid return true if the message is valid else false. </p>
-<dl class="section return"><dt>Returns</dt><dd>true if the message is valid else false. </dd></dl>
+<p>isValid returns true if the update is valid else false. </p>
+<dl class="section return"><dt>Returns</dt><dd>true if the update is valid else false. </dd></dl>
 
 <p>Reimplemented in <a class="el" href="classqTbot_1_1IJsonBasedUpdate.html#a8fff6732fde2aa249ff4ac7ccac2dffc">qTbot::IJsonBasedUpdate</a>, <a class="el" href="classqTbot_1_1TelegramMsg.html#aa58409fda86de7217845282355936932">qTbot::TelegramMsg</a>, <a class="el" href="classqTbot_1_1TelegramUpdate.html#a2896a10f284e54130f4a26d0f5b90d84">qTbot::TelegramUpdate</a>, and <a class="el" href="classqTbot_1_1TelegramUpdateAnswer.html#acc9549a2f3a7f139e6d8e10ec57e4b87">qTbot::TelegramUpdateAnswer</a>.</p>
 
@@ -309,7 +312,7 @@ IBot::takeNextUnreadMessage </dd>
       </table>
 </div><div class="memdoc">
 
-<p>rawData returns raw data of the message. The raw data is not parsed value form the server. </p>
+<p>rawData returns the raw data of the update. The raw data is the not parsed value from the server. </p>
 <dl class="section return"><dt>Returns</dt><dd>raw data from the server. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="iupdate_8cpp_source.html#l00016">16</a> of file <a class="el" href="iupdate_8cpp_source.html">iupdate.cpp</a>.</p>
@@ -339,10 +342,10 @@ IBot::takeNextUnreadMessage </dd>
 </table>
 </div><div class="memdoc">
 
-<p>setRawData This method sets new raw data value. </p>
+<p>setRawData This method sets a new raw data value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newRawData</td><td>This is new value of the rawData. </td></tr>
+    <tr><td class="paramname">newRawData</td><td>This is the new value of the rawData. </td></tr>
   </table>
   </dd>
 </dl>
@@ -355,8 +358,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1iUpdate_a5c43b62b6590629100597822e27a25b5_icgraph.png" border="0" usemap="#aclassqTbot_1_1iUpdate_a5c43b62b6590629100597822e27a25b5_icgraph" loading="lazy" alt=""/></div>
 <map name="aclassqTbot_1_1iUpdate_a5c43b62b6590629100597822e27a25b5_icgraph" id="aclassqTbot_1_1iUpdate_a5c43b62b6590629100597822e27a25b5_icgraph">
-<area shape="rect" title="setRawData This method sets new raw data value." alt="" coords="239,13,444,38"/>
-<area shape="rect" href="classqTbot_1_1IJsonBasedUpdate.html#a5ab5bf7c7220f3e2fdc0b0ca125be861" title="setRawData This method sets new raw data value." alt="" coords="5,5,191,45"/>
+<area shape="rect" title="setRawData This method sets a new raw data value." alt="" coords="239,13,444,38"/>
+<area shape="rect" href="classqTbot_1_1IJsonBasedUpdate.html#a5ab5bf7c7220f3e2fdc0b0ca125be861" title="setRawData This method sets a new raw data value." alt="" coords="5,5,191,45"/>
 <area shape="poly" title=" " alt="" coords="225,28,191,28,191,23,225,23"/>
 </map>
 </div>
@@ -386,7 +389,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>updateId This method returns numeric id of the update. </p>
+<p>updateId This method returns the numeric id of the update. </p>
 <dl class="section return"><dt>Returns</dt><dd>numeric id of the update. </dd></dl>
 
 <p>Implemented in <a class="el" href="classqTbot_1_1TelegramMsg.html#a956843b190de7e578bbaa0b8db2c2e32">qTbot::TelegramMsg</a>, <a class="el" href="classqTbot_1_1TelegramUpdate.html#a0abe0319d5b2e6a9ba17617de178d356">qTbot::TelegramUpdate</a>, and <a class="el" href="classqTbot_1_1TelegramUpdateAnswer.html#a790e56f5ee81ce25f7e47f427586e6f9">qTbot::TelegramUpdateAnswer</a>.</p>

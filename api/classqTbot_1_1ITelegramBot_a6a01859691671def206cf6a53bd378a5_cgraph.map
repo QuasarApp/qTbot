@@ -1,5 +1,5 @@
 <map id="qTbot::ITelegramBot::getFileMeta" name="qTbot::ITelegramBot::getFileMeta">
-<area shape="rect" id="Node000001" title="getFileMeta This method receive meta information of the file." alt="" coords="5,5,159,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="207,13,392,38"/>
+<area shape="rect" id="Node000001" title="getFileMeta This method receives the meta information of the file." alt="" coords="5,5,159,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="207,13,392,38"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="159,23,193,23,193,28,159,28"/>
 </map>

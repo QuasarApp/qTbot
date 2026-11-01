@@ -1,5 +1,5 @@
 <map id="qTbot::iUpdate::setRawData" name="qTbot::iUpdate::setRawData">
-<area shape="rect" id="Node000001" title="setRawData This method sets new raw data value." alt="" coords="239,13,444,38"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html#a5ab5bf7c7220f3e2fdc0b0ca125be861" title="setRawData This method sets new raw data value." alt="" coords="5,5,191,45"/>
+<area shape="rect" id="Node000001" title="setRawData This method sets a new raw data value." alt="" coords="239,13,444,38"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html#a5ab5bf7c7220f3e2fdc0b0ca125be861" title="setRawData This method sets a new raw data value." alt="" coords="5,5,191,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="225,28,191,28,191,23,225,23"/>
 </map>

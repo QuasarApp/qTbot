@@ -50,7 +50,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">qTbot<span id="projectnumber">&#160;0.2.121.9b0c58c</span>
+   <div id="projectname">qTbot<span id="projectnumber">&#160;0.2.123.6f57966</span>
    </div>
    <div id="projectbrief">qTbot is base back end library for your c++ Qt projects.</div>
   </td>
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('classqTbot_1_1
 </div><!--header-->
 <div class="contents">
 
-<p>The <a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is base exaption that will raise on all errors of the HTTP protocol,...">HttpException</a> class is base exaption that will raise on all errors of the HTTP protocol,.  
+<p>The <a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol.">HttpException</a> class is the base exception that is raised on all errors of the HTTP protocol.  
  <a href="#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="httpexception_8h_source.html">httpexception.h</a>&gt;</code></p>
@@ -129,7 +129,7 @@ Inheritance diagram for qTbot::HttpException:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException__inherit__graph.png" border="0" usemap="#aqTbot_1_1HttpException_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <map name="aqTbot_1_1HttpException_inherit__map" id="aqTbot_1_1HttpException_inherit__map">
-<area shape="rect" title="The HttpException class is base exaption that will raise on all errors of the HTTP protocol,..." alt="" coords="5,119,156,264"/>
+<area shape="rect" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol." alt="" coords="5,119,156,264"/>
 <area shape="rect" title=" " alt="" coords="37,5,125,71"/>
 <area shape="poly" title=" " alt="" coords="83,84,83,118,78,118,78,84"/>
 </map>
@@ -139,7 +139,7 @@ Collaboration diagram for qTbot::HttpException:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException__coll__graph.png" border="0" usemap="#aqTbot_1_1HttpException_coll__map" loading="lazy" alt="Collaboration graph"/></div>
 <map name="aqTbot_1_1HttpException_coll__map" id="aqTbot_1_1HttpException_coll__map">
-<area shape="rect" title="The HttpException class is base exaption that will raise on all errors of the HTTP protocol,..." alt="" coords="5,119,156,264"/>
+<area shape="rect" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol." alt="" coords="5,119,156,264"/>
 <area shape="rect" title=" " alt="" coords="37,5,125,71"/>
 <area shape="poly" title=" " alt="" coords="83,84,83,118,78,118,78,84"/>
 </map>
@@ -148,13 +148,18 @@ Collaboration diagram for qTbot::HttpException:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9eb4c7ea5ced47b9b058771d49edd88a" id="r_a9eb4c7ea5ced47b9b058771d49edd88a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9eb4c7ea5ced47b9b058771d49edd88a">HttpException</a> (QNetworkReply::NetworkError code, const QByteArray &amp;erroString={})</td></tr>
+<tr class="memdesc:a9eb4c7ea5ced47b9b058771d49edd88a"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol.">HttpException</a> constructs the exception with an http error code and an error description.  <br /></td></tr>
 <tr class="memitem:a86f548c08ca5b91f5ae54ca5ff998b1b" id="r_a86f548c08ca5b91f5ae54ca5ff998b1b"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a86f548c08ca5b91f5ae54ca5ff998b1b">what</a> () const noexcept override</td></tr>
+<tr class="memdesc:a86f548c08ca5b91f5ae54ca5ff998b1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">what Returns the text description of the error.  <br /></td></tr>
 <tr class="memitem:a8befb8c0f926a9b53cc1500f8e9e32eb" id="r_a8befb8c0f926a9b53cc1500f8e9e32eb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8befb8c0f926a9b53cc1500f8e9e32eb">raise</a> () const override</td></tr>
+<tr class="memdesc:a8befb8c0f926a9b53cc1500f8e9e32eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">raise Raises the exception.  <br /></td></tr>
 <tr class="memitem:a310bd02b7dc6901389017884bb220b97" id="r_a310bd02b7dc6901389017884bb220b97"><td class="memItemLeft">QException *&#160;</td><td class="memItemRight"><a class="el" href="#a310bd02b7dc6901389017884bb220b97">clone</a> () const override</td></tr>
+<tr class="memdesc:a310bd02b7dc6901389017884bb220b97"><td class="mdescLeft">&#160;</td><td class="mdescRight">clone Creates a copy of the exception.  <br /></td></tr>
 <tr class="memitem:aff3c366bb9bc69bf8d67accdc4ab5634" id="r_aff3c366bb9bc69bf8d67accdc4ab5634"><td class="memItemLeft">QNetworkReply::NetworkError&#160;</td><td class="memItemRight"><a class="el" href="#aff3c366bb9bc69bf8d67accdc4ab5634">code</a> () const</td></tr>
+<tr class="memdesc:aff3c366bb9bc69bf8d67accdc4ab5634"><td class="mdescLeft">&#160;</td><td class="mdescRight">code Returns the network error code.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The <a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is base exaption that will raise on all errors of the HTTP protocol,...">HttpException</a> class is base exaption that will raise on all errors of the HTTP protocol,. </p>
+<div class="textblock"><p>The <a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol.">HttpException</a> class is the base exception that is raised on all errors of the HTTP protocol. </p>
 
 <p class="definition">Definition at line <a class="el" href="httpexception_8h_source.html#l00020">20</a> of file <a class="el" href="httpexception_8h_source.html">httpexception.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -177,14 +182,23 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><a class="el" href="classqTbot_1_1HttpException.html" title="The HttpException class is the base exception that is raised on all errors of the HTTP protocol.">HttpException</a> constructs the exception with an http error code and an error description. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>This is the network error code. </td></tr>
+    <tr><td class="paramname">erroString</td><td>This is the text description of the error. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 <p class="definition">Definition at line <a class="el" href="httpexception_8cpp_source.html#l00012">12</a> of file <a class="el" href="httpexception_8cpp_source.html">httpexception.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_cgraph.png" border="0" usemap="#aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_cgraph" loading="lazy" alt=""/></div>
 <map name="aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_cgraph" id="aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,164,45"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title=" " alt="" coords="212,5,371,45"/>
+<area shape="rect" title="HttpException constructs the exception with an http error code and an error description." alt="" coords="5,5,164,45"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title="code Returns the network error code." alt="" coords="212,5,371,45"/>
 <area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
 </map>
 </div>
@@ -193,8 +207,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_icgraph.png" border="0" usemap="#aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_icgraph" loading="lazy" alt=""/></div>
 <map name="aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_icgraph" id="aclassqTbot_1_1HttpException_a9eb4c7ea5ced47b9b058771d49edd88a_icgraph">
-<area shape="rect" title=" " alt="" coords="212,5,371,45"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#a310bd02b7dc6901389017884bb220b97" title=" " alt="" coords="5,5,164,45"/>
+<area shape="rect" title="HttpException constructs the exception with an http error code and an error description." alt="" coords="212,5,371,45"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#a310bd02b7dc6901389017884bb220b97" title="clone Creates a copy of the exception." alt="" coords="5,5,164,45"/>
 <area shape="poly" title=" " alt="" coords="198,28,164,28,164,23,198,23"/>
 </map>
 </div>
@@ -225,16 +239,19 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>clone Creates a copy of the exception. </p>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the new exception instance. </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="httpexception_8cpp_source.html#l00034">34</a> of file <a class="el" href="httpexception_8cpp_source.html">httpexception.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException_a310bd02b7dc6901389017884bb220b97_cgraph.png" border="0" usemap="#aclassqTbot_1_1HttpException_a310bd02b7dc6901389017884bb220b97_cgraph" loading="lazy" alt=""/></div>
 <map name="aclassqTbot_1_1HttpException_a310bd02b7dc6901389017884bb220b97_cgraph" id="aclassqTbot_1_1HttpException_a310bd02b7dc6901389017884bb220b97_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,164,45"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title=" " alt="" coords="212,5,371,45"/>
+<area shape="rect" title="clone Creates a copy of the exception." alt="" coords="5,5,164,45"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title="HttpException constructs the exception with an http error code and an error description." alt="" coords="212,5,371,45"/>
 <area shape="poly" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title=" " alt="" coords="419,5,577,45"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title="code Returns the network error code." alt="" coords="419,5,577,45"/>
 <area shape="poly" title=" " alt="" coords="371,23,405,23,405,28,371,28"/>
 </map>
 </div>
@@ -256,20 +273,23 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
+<p>code Returns the network error code. </p>
+<dl class="section return"><dt>Returns</dt><dd>the network error code. </dd></dl>
+
 <p class="definition">Definition at line <a class="el" href="httpexception_8cpp_source.html#l00039">39</a> of file <a class="el" href="httpexception_8cpp_source.html">httpexception.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classqTbot_1_1HttpException_aff3c366bb9bc69bf8d67accdc4ab5634_icgraph.png" border="0" usemap="#aclassqTbot_1_1HttpException_aff3c366bb9bc69bf8d67accdc4ab5634_icgraph" loading="lazy" alt=""/></div>
 <map name="aclassqTbot_1_1HttpException_aff3c366bb9bc69bf8d67accdc4ab5634_icgraph" id="aclassqTbot_1_1HttpException_aff3c366bb9bc69bf8d67accdc4ab5634_icgraph">
-<area shape="rect" title=" " alt="" coords="545,37,704,77"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title=" " alt="" coords="338,5,497,45"/>
+<area shape="rect" title="code Returns the network error code." alt="" coords="545,37,704,77"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title="HttpException constructs the exception with an http error code and an error description." alt="" coords="338,5,497,45"/>
 <area shape="poly" title=" " alt="" coords="531,46,497,40,497,35,532,40"/>
-<area shape="rect" href="classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method get bae information of the bot from remote server." alt="" coords="341,69,494,109"/>
+<area shape="rect" href="classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method gets basic information of the bot from the remote server." alt="" coords="341,69,494,109"/>
 <area shape="poly" title=" " alt="" coords="532,74,495,80,494,75,531,69"/>
-<area shape="rect" href="classqTbot_1_1HttpException.html#a310bd02b7dc6901389017884bb220b97" title=" " alt="" coords="122,5,280,45"/>
+<area shape="rect" href="classqTbot_1_1HttpException.html#a310bd02b7dc6901389017884bb220b97" title="clone Creates a copy of the exception." alt="" coords="122,5,280,45"/>
 <area shape="poly" title=" " alt="" coords="324,28,280,28,280,23,324,23"/>
-<area shape="rect" href="classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method get bae information of the bot from remote server." alt="" coords="112,69,290,109"/>
+<area shape="rect" href="classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method gets basic information of the bot from the remote server and starts the long pollin..." alt="" coords="112,69,290,109"/>
 <area shape="poly" title=" " alt="" coords="327,92,290,92,290,87,327,87"/>
 <area shape="rect" href="main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,77,64,102"/>
 <area shape="poly" title=" " alt="" coords="98,92,64,92,64,87,98,87"/>
@@ -302,6 +322,8 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
+<p>raise Raises the exception. </p>
+
 <p class="definition">Definition at line <a class="el" href="httpexception_8cpp_source.html#l00030">30</a> of file <a class="el" href="httpexception_8cpp_source.html">httpexception.cpp</a>.</p>
 
 </div>
@@ -328,6 +350,9 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>what Returns the text description of the error. </p>
+<dl class="section return"><dt>Returns</dt><dd>error description as a c string. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="httpexception_8cpp_source.html#l00026">26</a> of file <a class="el" href="httpexception_8cpp_source.html">httpexception.cpp</a>.</p>
 

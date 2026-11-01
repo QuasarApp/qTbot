@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramFile::TelegramFile" name="qTbot::TelegramFile::TelegramFile">
-<area shape="rect" id="Node000001" title=" " alt="" coords="248,69,399,109"/>
+<area shape="rect" id="Node000001" title="TelegramFile default constructor." alt="" coords="248,69,399,109"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramAudio.html#a07e729da8d1f3e12f028be138b006777" title="Constructs an Audio object from a JSON object." alt="" coords="21,5,185,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,68,171,48,173,43,241,63"/>
 <area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramDocument.html#a49cc4077007beab6271f8cad2092212c" title="Constructs a Document object from a JSON object." alt="" coords="5,69,200,109"/>

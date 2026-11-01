@@ -1,15 +1,15 @@
 <map id="qTbot::ITelegramBot::getFile" name="qTbot::ITelegramBot::getFile">
-<area shape="rect" id="Node000001" title="getFile This method sent request to get a file by id. The files can be saved into local storage if th..." alt="" coords="5,133,159,173"/>
+<area shape="rect" id="Node000001" title="getFile This method sends a request to get a file by id. The files can be saved into local storage if..." alt="" coords="5,133,159,173"/>
 <area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="42,134,40,124,46,114,60,109,82,107,107,110,121,117,118,122,105,115,82,112,62,114,49,119,45,125,47,132"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a82c6b38c72a320722494a78859a01195" title="defaultFileStorageLocation This method return default file storage location." alt="" coords="212,5,383,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a82c6b38c72a320722494a78859a01195" title="defaultFileStorageLocation This method returns the default file storage location." alt="" coords="212,5,383,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="103,131,149,93,205,55,218,49,221,53,208,60,152,97,107,135"/>
 <area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a62c812e14af21abfbf4dcc61512cf4c2" title="getFileInfoByUniqueId return a local saved meta information about the file." alt="" coords="210,69,385,109"/>
 <area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="149,131,215,111,217,116,151,136"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1ITelegramBot.html#a6a01859691671def206cf6a53bd378a5" title="getFileMeta This method receive meta information of the file." alt="" coords="221,133,374,173"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1ITelegramBot.html#a6a01859691671def206cf6a53bd378a5" title="getFileMeta This method receives the meta information of the file." alt="" coords="221,133,374,173"/>
 <area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="159,151,207,151,207,156,159,156"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="436,170,621,195"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="436,170,621,195"/>
 <area shape="poly" id="edge7_Node000001_Node000005" title=" " alt="" coords="149,171,207,183,318,190,422,188,422,193,318,195,206,188,147,176"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1InternalException.html#a3a9c033953e839bde394614a97800a08" title=" " alt="" coords="207,248,388,288"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1InternalException.html#a3a9c033953e839bde394614a97800a08" title="InternalException constructs the exception with an error description." alt="" coords="207,248,388,288"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="115,171,208,227,235,240,233,245,205,232,112,176"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="375,160,423,167,422,172,374,166"/>
 </map>

@@ -1,14 +1,14 @@
 <map id="qTbot::TelegramRestBot::login" name="qTbot::TelegramRestBot::login">
-<area shape="rect" id="Node000001" title="login This method get bae information of the bot from remote server." alt="" coords="5,133,184,173"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method get bae information of the bot from remote server." alt="" coords="232,104,385,144"/>
+<area shape="rect" id="Node000001" title="login This method gets basic information of the bot from the remote server and starts the long pollin..." alt="" coords="5,133,184,173"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#ac6cd8d536b3353e5eddf6c425e203dfd" title="login This method gets basic information of the bot from the remote server." alt="" coords="232,104,385,144"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,138,218,134,218,139,185,144"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#a58ad7e5f0979c2b674261feebf4da5eb" title="token This is token value for authication on the remote server (bot)" alt="" coords="457,169,595,194"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1IBot.html#a58ad7e5f0979c2b674261feebf4da5eb" title="token This is the token value for authentication on the remote server (bot)." alt="" coords="457,169,595,194"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="184,156,444,173,444,179,184,162"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title=" " alt="" coords="447,5,605,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title="code Returns the network error code." alt="" coords="447,5,605,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,101,432,55,449,48,451,53,434,60,345,106"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="433,70,619,95"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="433,70,619,95"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="385,107,445,95,446,101,386,112"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#ab9a65d8c9246f1987a82659786f13f05" title="setToken This is setter of the IBot::token value." alt="" coords="447,119,605,145"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#ab9a65d8c9246f1987a82659786f13f05" title="setToken This is the setter of the IBot::token value." alt="" coords="447,119,605,145"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="386,124,433,126,433,131,386,129"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="384,141,434,155,463,163,462,168,433,160,383,147"/>
 </map>

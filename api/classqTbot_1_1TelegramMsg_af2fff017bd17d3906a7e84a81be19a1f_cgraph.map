@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramMsg::TelegramMsg" name="qTbot::TelegramMsg::TelegramMsg">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,160,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#aec9eafbf52e738e41a42e12b9c41ba39" title="setRawJson this method convert jsobject into telegram message." alt="" coords="208,5,388,45"/>
+<area shape="rect" id="Node000001" title="Constructs a Message object from a JSON object." alt="" coords="5,5,160,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#aec9eafbf52e738e41a42e12b9c41ba39" title="setRawJson This method sets a new raw json data of the object." alt="" coords="208,5,388,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,23,194,23,194,28,160,28"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="qTbot::IBot::setParallelActiveNetworkThreads" name="qTbot::IBot::setParallelActiveNetworkThreads">
-<area shape="rect" id="Node000001" title="setParallelActiveNetworkThreads" alt="" coords="208,5,379,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,13,160,38"/>
+<area shape="rect" id="Node000001" title="setParallelActiveNetworkThreads This method sets the number of parallel active network threads." alt="" coords="208,5,379,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="5,13,160,38"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,28,160,28,160,23,195,23"/>
 </map>

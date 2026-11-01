@@ -1,3 +1,3 @@
 <map id="qTbot::IBot::RequestData" name="qTbot::IBot::RequestData">
-<area shape="rect" id="Node000001" title="The RequestData class is simple wrapper of request object with path of responce. If Path of responce ..." alt="" coords="5,5,183,111"/>
+<area shape="rect" id="Node000001" title="The RequestData class is a simple wrapper of a request object with the path of the response...." alt="" coords="5,5,183,111"/>
 </map>

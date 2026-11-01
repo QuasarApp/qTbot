@@ -1,22 +1,22 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="Node000000" href="$classqTbot_1_1IJsonBasedObject.html" title="The IJsonBasedObject class This is base interface for all json base objects." alt="" coords="5,177,185,203"/>
-<area shape="rect" id="Node000001" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is updates that have a json sructure." alt="" coords="234,79,419,104"/>
+<area shape="rect" id="Node000001" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is an update that has a json structure." alt="" coords="234,79,419,104"/>
 <area shape="poly" id="edge7_Node000000_Node000001" title=" " alt="" coords="126,168,175,140,232,113,267,102,269,107,234,118,178,145,129,172"/>
 <area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramContact.html" title="The telegramcontact class contains information about user contact." alt="" coords="238,128,415,153"/>
 <area shape="poly" id="edge12_Node000000_Node000007" title=" " alt="" coords="168,172,266,151,267,156,169,177"/>
 <area shape="rect" id="Node000008" href="$classqTbot_1_1TelegramFile.html" title="The TelegramFile class is base class for all files." alt="" coords="251,177,402,203"/>
 <area shape="poly" id="edge13_Node000000_Node000008" title=" " alt="" coords="199,187,251,187,251,193,199,193"/>
-<area shape="rect" id="Node000012" href="$classqTbot_1_1TelegramInlineKeyBoardCallBack.html" title="The TelegramInlineKeyBoardCallBack class." alt="" coords="233,227,420,267"/>
+<area shape="rect" id="Node000012" href="$classqTbot_1_1TelegramInlineKeyBoardCallBack.html" title="The TelegramInlineKeyBoardCallBack class contains the data of a callback query that was received from..." alt="" coords="233,227,420,267"/>
 <area shape="poly" id="edge17_Node000000_Node000012" title=" " alt="" coords="161,203,246,225,245,230,160,209"/>
-<area shape="rect" id="Node000013" href="$classqTbot_1_1TelegramLocation.html" title="The TelegramLocation class just simple struct with latitude and longitude." alt="" coords="235,292,418,317"/>
+<area shape="rect" id="Node000013" href="$classqTbot_1_1TelegramLocation.html" title="The TelegramLocation class is a simple struct with latitude and longitude." alt="" coords="235,292,418,317"/>
 <area shape="poly" id="edge18_Node000000_Node000013" title=" " alt="" coords="125,209,174,243,234,277,269,289,268,294,232,282,171,248,122,213"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramUpdate.html" title="The TelegramUpdate class contains base information about updates from telegram." alt="" coords="492,5,667,31"/>
 <area shape="poly" id="edge8_Node000001_Node000002" title=" " alt="" coords="372,71,467,39,512,28,514,33,469,45,374,76"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is base message from the telegram server after update request." alt="" coords="468,55,691,80"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is a base message from the telegram server after an update reques..." alt="" coords="468,55,691,80"/>
 <area shape="poly" id="edge9_Node000001_Node000003" title=" " alt="" coords="433,79,467,75,468,81,433,84"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1iMessage.html" title="The iMessage class This is main interface for the all messages." alt="" coords="515,104,644,129"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1iMessage.html" title="The iMessage class This is the main interface for all messages." alt="" coords="515,104,644,129"/>
 <area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="433,99,515,108,514,113,433,105"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provide general mesasges of telegram. The message object can contain..." alt="" coords="739,104,893,129"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provides the general messages of telegram. The message object can co..." alt="" coords="739,104,893,129"/>
 <area shape="poly" id="edge11_Node000004_Node000005" title=" " alt="" coords="658,114,738,114,738,119,658,119"/>
 <area shape="rect" id="Node000009" href="$classqTbot_1_1TelegramAudio.html" title="The TelegramAudio class This is implementation of the audio objects of telegram." alt="" coords="497,153,661,179"/>
 <area shape="poly" id="edge14_Node000008_Node000009" title=" " alt="" coords="416,179,497,171,497,176,416,184"/>
@@ -24,6 +24,6 @@
 <area shape="poly" id="edge15_Node000008_Node000010" title=" " alt="" coords="416,196,482,203,481,208,416,202"/>
 <area shape="rect" id="Node000011" href="$classqTbot_1_1TelegramImage.html" title="The TelegramImage class This is implementation of the photos of telegram." alt="" coords="495,252,663,277"/>
 <area shape="poly" id="edge16_Node000008_Node000011" title=" " alt="" coords="396,204,421,213,445,226,469,238,507,249,505,255,467,243,443,231,419,218,394,209"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1iUpdate.html" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="36,79,155,104"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects." alt="" coords="36,79,155,104"/>
 <area shape="poly" id="edge19_Node000006_Node000001" title=" " alt="" coords="169,89,234,89,234,94,169,94"/>
 </map>

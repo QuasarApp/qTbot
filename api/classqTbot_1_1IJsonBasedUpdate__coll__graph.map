@@ -1,6 +1,6 @@
 <map id="qTbot::IJsonBasedUpdate" name="qTbot::IJsonBasedUpdate">
-<area shape="rect" id="Node000001" title="The IJsonBasedUpdate class This is updates that have a json sructure." alt="" coords="59,239,237,344"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1iUpdate.html" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="5,5,123,191"/>
+<area shape="rect" id="Node000001" title="The IJsonBasedUpdate class This is an update that has a json structure." alt="" coords="59,239,237,344"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects." alt="" coords="5,5,123,191"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,202,128,238,123,240,107,204"/>
 <area shape="rect" id="Node000003" href="$classqTbot_1_1IJsonBasedObject.html" title="The IJsonBasedObject class This is base interface for all json base objects." alt="" coords="147,35,319,161"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,174,174,239,169,237,198,172"/>

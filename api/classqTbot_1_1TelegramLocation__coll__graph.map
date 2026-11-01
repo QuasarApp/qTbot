@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramLocation" name="qTbot::TelegramLocation">
-<area shape="rect" id="Node000001" title="The TelegramLocation class just simple struct with latitude and longitude." alt="" coords="5,179,180,324"/>
+<area shape="rect" id="Node000001" title="The TelegramLocation class is a simple struct with latitude and longitude." alt="" coords="5,179,180,324"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html" title="The IJsonBasedObject class This is base interface for all json base objects." alt="" coords="7,5,179,131"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="95,145,95,179,90,179,90,145"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="qTbot::ITelegramBot::login" name="qTbot::ITelegramBot::login">
-<area shape="rect" id="Node000001" title="login This method get bae information of the bot from remote server." alt="" coords="338,22,492,62"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method get bae information of the bot from remote server." alt="" coords="112,22,290,62"/>
+<area shape="rect" id="Node000001" title="login This method gets basic information of the bot from the remote server." alt="" coords="338,22,492,62"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramRestBot.html#a8e4c9936b0ba28082ef3a325abf22725" title="login This method gets basic information of the bot from the remote server and starts the long pollin..." alt="" coords="112,22,290,62"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="324,45,290,45,290,39,324,39"/>
 <area shape="rect" id="Node000003" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="9,29,64,55"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="98,45,64,45,64,39,98,39"/>

@@ -1,8 +1,8 @@
 <map id="qTbot::IBot::setReqestLimitPerSecond" name="qTbot::IBot::setReqestLimitPerSecond">
-<area shape="rect" id="Node000001" title="setReqestLimitPerSecond this method sets new limitation of bot performance." alt="" coords="208,47,407,87"/>
+<area shape="rect" id="Node000001" title="setReqestLimitPerSecond This method sets a new limitation of the bot performance." alt="" coords="208,47,407,87"/>
 <area shape="rect" id="Node000002" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="55,29,110,55"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,57,110,48,111,42,195,52"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,79,160,104"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="5,79,160,104"/>
 <area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="195,82,160,86,160,80,194,77"/>
 <area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="119,24,122,18,118,14,105,10,83,8,57,10,45,16,45,22,57,31,53,35,40,25,40,13,55,5,83,3,106,4,120,9,127,17,124,26"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="qTbot::IBot::totalSentRequests" name="qTbot::IBot::totalSentRequests">
-<area shape="rect" id="Node000001" title="totalSentRequests This is total prepared requests count of bot from the start." alt="" coords="208,5,428,31"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="5,5,160,31"/>
+<area shape="rect" id="Node000001" title="totalSentRequests This is the total count of prepared requests of the bot from the start." alt="" coords="208,5,428,31"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a3cca003c2c174c2df9ed3d7b20f16b6b" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="5,5,160,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,21,160,21,160,15,194,15"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="qTbot::ITelegramBot::getFile" name="qTbot::ITelegramBot::getFile">
-<area shape="rect" id="Node000001" title="getFile This method sent request to get a file by id. The files can be saved into local storage if th..." alt="" coords="109,29,263,69"/>
+<area shape="rect" id="Node000001" title="getFile This method sends a request to get a file by id. The files can be saved into local storage if..." alt="" coords="109,29,263,69"/>
 <area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="211,17,202,11,186,8,172,10,164,14,160,21,162,28,157,29,155,20,160,11,170,5,186,3,204,6,214,13"/>
 <area shape="rect" id="Node000002" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="7,37,61,62"/>
 <area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="96,52,62,52,62,47,96,47"/>

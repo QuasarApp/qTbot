@@ -1,6 +1,6 @@
 <map id="qTbot::ITelegramBot::sendMessageRequest" name="qTbot::ITelegramBot::sendMessageRequest">
-<area shape="rect" id="Node000001" title="sendMessageRequest This method invoke when bot will be sent eny messages into chat." alt="" coords="730,344,902,384"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#adc22b3e0695d83fd10b4ef9045a13146" title="deleteMessage This is main method to delete messages." alt="" coords="478,5,632,45"/>
+<area shape="rect" id="Node000001" title="sendMessageRequest This method invoke when bot will be sends any messages into the chat." alt="" coords="730,344,902,384"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#adc22b3e0695d83fd10b4ef9045a13146" title="deleteMessage This is the main method to delete messages." alt="" coords="478,5,632,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="808,331,795,272,772,198,755,160,735,123,710,89,681,59,658,45,632,35,633,30,660,40,684,55,714,86,739,120,760,158,777,197,801,271,813,330"/>
 <area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a2e4b3678cd08f9eca31dfb609d7b690b" title="Edits a keyboard of message in a chat." alt="" coords="468,69,642,109"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="804,332,788,285,762,228,727,171,705,146,681,123,662,112,642,104,644,99,665,107,684,119,709,142,731,168,767,226,793,283,809,330"/>
@@ -10,13 +10,13 @@
 <area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="784,336,738,296,681,258,637,240,639,235,684,254,741,292,787,332"/>
 <area shape="rect" id="Node000006" href="$classqTbot_1_1ITelegramBot.html#add5dbe3bb3ee527fffff3f742cb7b3c8" title="Edits a specific message with a custom keyboard in a chat." alt="" coords="122,299,377,339"/>
 <area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="771,340,729,318,682,303,598,290,512,288,430,292,357,301,356,296,429,287,512,282,598,285,683,297,731,314,773,335"/>
-<area shape="rect" id="Node000008" href="$classqTbot_1_1ITelegramBot.html#ac14f855cdff16db4843373628aef43e9" title="sendContact This method sents a contact data." alt="" coords="478,312,632,352"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1ITelegramBot.html#ac14f855cdff16db4843373628aef43e9" title="sendContact This method sends a contact data." alt="" coords="478,312,632,352"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="717,354,632,344,632,339,717,349"/>
-<area shape="rect" id="Node000009" href="$classqTbot_1_1ITelegramBot.html#a712b2856705e4f14785505dbc30aa1d1" title="sendFileMessage This method sents a message with file." alt="" coords="478,376,632,416"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1ITelegramBot.html#a712b2856705e4f14785505dbc30aa1d1" title="sendFileMessage This method sends a message with a file." alt="" coords="478,376,632,416"/>
 <area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="717,379,632,389,632,384,717,374"/>
-<area shape="rect" id="Node000010" href="$classqTbot_1_1ITelegramBot.html#a7991fd581d4db4ad1ac84aa829ca271d" title="sendFileMessage This method sents a message with file." alt="" coords="478,440,632,480"/>
+<area shape="rect" id="Node000010" href="$classqTbot_1_1ITelegramBot.html#a7991fd581d4db4ad1ac84aa829ca271d" title="sendFileMessage This method sends a message with a file." alt="" coords="478,440,632,480"/>
 <area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="767,393,683,430,633,446,631,441,682,426,765,388"/>
-<area shape="rect" id="Node000013" href="$classqTbot_1_1ITelegramBot.html#a9dfa901968d33752bb62301a7e5a3ce4" title="sendLocation This method sents locatin to user." alt="" coords="478,504,632,544"/>
+<area shape="rect" id="Node000013" href="$classqTbot_1_1ITelegramBot.html#a9dfa901968d33752bb62301a7e5a3ce4" title="sendLocation This method sends a location to the user." alt="" coords="478,504,632,544"/>
 <area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="793,397,746,447,716,473,684,494,633,514,631,509,681,490,713,468,743,443,789,393"/>
 <area shape="rect" id="Node000014" href="$classqTbot_1_1ITelegramBot.html#a97d6eed98400af7e259dc3c20f4d08a8" title="sendPhoto This method will send image into chat with chatId" alt="" coords="478,568,632,608"/>
 <area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="804,398,785,435,759,479,725,522,684,558,659,572,633,581,631,576,657,567,681,554,721,518,754,476,780,433,799,396"/>
@@ -27,15 +27,15 @@
 <area shape="rect" id="Node000007" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="17,623,72,649"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="186,347,152,369,122,398,103,426,87,458,66,523,54,582,49,623,44,623,49,581,60,522,82,456,98,424,118,394,148,365,184,343"/>
 <area shape="poly" id="edge7_Node000007_Node000007" title=" " alt="" coords="79,617,80,611,75,607,44,602,21,604,10,610,9,616,19,624,15,628,4,617,6,606,20,599,45,597,77,602,85,609,85,617"/>
-<area shape="rect" id="Node000011" href="$classqTbot_1_1ITelegramBot.html#a11da82a30e80220a406def0535dc3ff7" title="sendFile This method setns a file that saved as a bytearray." alt="" coords="173,408,326,448"/>
+<area shape="rect" id="Node000011" href="$classqTbot_1_1ITelegramBot.html#a11da82a30e80220a406def0535dc3ff7" title="sendFile This method sends a file that is saved as a byte array." alt="" coords="173,408,326,448"/>
 <area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="465,453,327,439,327,433,465,448"/>
-<area shape="rect" id="Node000012" href="$classqTbot_1_1ITelegramBot.html#a04aa45dcec0b9b12f088327f9450f362" title="send file ." alt="" coords="173,472,326,512"/>
+<area shape="rect" id="Node000012" href="$classqTbot_1_1ITelegramBot.html#a04aa45dcec0b9b12f088327f9450f362" title="sendFile This method sends the selected file to the chat." alt="" coords="173,472,326,512"/>
 <area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="465,472,327,487,327,481,465,467"/>
-<area shape="rect" id="Node000017" href="$classqTbot_1_1ITelegramBot.html#aa1786bd29be9a2bc679aed7d50b72ac1" title="sendLocationRequest This method setn into chat button that will automaticaly sent geo location to bot..." alt="" coords="165,552,334,592"/>
+<area shape="rect" id="Node000017" href="$classqTbot_1_1ITelegramBot.html#aa1786bd29be9a2bc679aed7d50b72ac1" title="sendLocationRequest This method sends into the chat a button that will automatically send the geo loc..." alt="" coords="165,552,334,592"/>
 <area shape="poly" id="edge17_Node000016_Node000017" title=" " alt="" coords="456,703,426,686,409,666,401,645,394,625,378,606,357,594,334,585,336,580,359,589,381,602,399,622,406,643,413,663,429,682,459,698"/>
-<area shape="rect" id="Node000018" href="$classqTbot_1_1ITelegramBot.html#aaa00fb37cefb9498934aecaa97be123b" title="sendMessage This method sents text to the selected chat." alt="" coords="173,616,326,656"/>
+<area shape="rect" id="Node000018" href="$classqTbot_1_1ITelegramBot.html#aaa00fb37cefb9498934aecaa97be123b" title="sendMessage This method sends text to the selected chat." alt="" coords="173,616,326,656"/>
 <area shape="poly" id="edge18_Node000016_Node000018" title=" " alt="" coords="457,695,427,687,379,671,326,656,327,651,381,665,429,681,459,690"/>
-<area shape="rect" id="Node000019" href="$classqTbot_1_1ITelegramBot.html#aa9656b1cf92787c81a776f4211725a17" title="sendSelfContactRequest This method sent into chat button that will automaticaly sent self contact inf..." alt="" coords="155,680,344,720"/>
+<area shape="rect" id="Node000019" href="$classqTbot_1_1ITelegramBot.html#aa9656b1cf92787c81a776f4211725a17" title="sendSelfContactRequest This method sends into the chat a button that will automatically send the user..." alt="" coords="155,680,344,720"/>
 <area shape="poly" id="edge20_Node000016_Node000019" title=" " alt="" coords="457,714,344,708,345,702,457,708"/>
 <area shape="rect" id="Node000020" href="$classqTbot_1_1ITelegramBot.html#a8ec8bace9159f8d2f788e37b78609a8f" title="Sends a specific message with a custom keyboard to a chat. This function sends a specific message to ..." alt="" coords="120,744,380,784"/>
 <area shape="poly" id="edge21_Node000016_Node000020" title=" " alt="" coords="457,734,378,747,377,741,456,729"/>

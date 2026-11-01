@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramFile::fileUniqueId" name="qTbot::TelegramFile::fileUniqueId">
-<area shape="rect" id="Node000001" title="Returns the unique ID of the photo." alt="" coords="5,5,156,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram use rest api with json objects. So all received messages will be parsed in to jsobje..." alt="" coords="204,5,384,45"/>
+<area shape="rect" id="Node000001" title="Returns the unique ID of the file." alt="" coords="5,5,156,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram uses a rest api with json objects. So all received messages are parsed into a json o..." alt="" coords="204,5,384,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,23,190,23,190,28,156,28"/>
 </map>

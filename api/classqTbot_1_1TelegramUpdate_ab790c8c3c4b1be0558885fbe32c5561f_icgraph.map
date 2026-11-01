@@ -1,9 +1,9 @@
 <map id="qTbot::TelegramUpdate::contains" name="qTbot::TelegramUpdate::contains">
-<area shape="rect" id="Node000001" title="contains This method returns true if the message contains choosed data type." alt="" coords="228,69,403,109"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramUpdate.html#a3aa29376b8d14a3b51e535669cb6508c" title="callbackQueryUpdate returns the callback query update." alt="" coords="5,5,180,45"/>
+<area shape="rect" id="Node000001" title="contains This method returns true if the update contains the chosen data type." alt="" coords="228,69,403,109"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramUpdate.html#a3aa29376b8d14a3b51e535669cb6508c" title="callbackQueryUpdate Returns the callback query of this update." alt="" coords="5,5,180,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="231,68,162,48,164,43,233,63"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramUpdate.html#a50aaa0d5088145e33a6e96b49f4b3f75" title="editedMessage returns the edited message update." alt="" coords="5,69,180,109"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramUpdate.html#a50aaa0d5088145e33a6e96b49f4b3f75" title="editedMessage Returns the edited message of this update." alt="" coords="5,69,180,109"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,92,180,92,180,87,214,87"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramUpdate.html#af9e3b4ee13391294511e6659cd2b6563" title="message returns the array of the updates messages." alt="" coords="5,133,180,173"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramUpdate.html#af9e3b4ee13391294511e6659cd2b6563" title="message Returns the message of this update." alt="" coords="5,133,180,173"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="233,116,164,136,162,131,231,111"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramUpdate::shippingQueryUpdate" name="qTbot::TelegramUpdate::shippingQueryUpdate">
-<area shape="rect" id="Node000001" title="shippingQueryUpdate returns the shipping query update." alt="" coords="5,5,180,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram use rest api with json objects. So all received messages will be parsed in to jsobje..." alt="" coords="228,5,408,45"/>
+<area shape="rect" id="Node000001" title="shippingQueryUpdate Returns the shipping query of this update." alt="" coords="5,5,180,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram uses a rest api with json objects. So all received messages are parsed into a json o..." alt="" coords="228,5,408,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="180,23,214,23,214,28,180,28"/>
 </map>

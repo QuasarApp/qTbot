@@ -1,7 +1,7 @@
 <map id="qTbot::TelegramSingleRquest::TelegramSingleRquest" name="qTbot::TelegramSingleRquest::TelegramSingleRquest">
-<area shape="rect" id="Node000001" title="TelegramSingleRquest This main constructor of the single requests." alt="" coords="5,23,217,63"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request return current requests commnad." alt="" coords="277,5,459,31"/>
+<area shape="rect" id="Node000001" title="TelegramSingleRquest This is the main constructor of the single requests." alt="" coords="5,23,217,63"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request Returns the current request command." alt="" coords="277,5,459,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="217,30,264,26,264,31,218,36"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets custom requests commnad" alt="" coords="265,55,471,80"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets a custom request command" alt="" coords="265,55,471,80"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="218,51,252,54,251,59,217,56"/>
 </map>

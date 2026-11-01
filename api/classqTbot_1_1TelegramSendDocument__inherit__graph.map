@@ -1,8 +1,8 @@
 <map id="qTbot::TelegramSendDocument" name="qTbot::TelegramSendDocument">
-<area shape="rect" id="Node000001" title="The TelegramSendDocument class sents document into chat." alt="" coords="5,705,224,791"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSendFile.html" title="The TelegramSendFile class Base clas for upload files to server." alt="" coords="27,532,202,657"/>
+<area shape="rect" id="Node000001" title="The TelegramSendDocument class sends a document into the chat." alt="" coords="5,705,224,791"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSendFile.html" title="The TelegramSendFile class is the base class for uploading files to the server." alt="" coords="27,532,202,657"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,671,117,705,112,705,112,671"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramSingleRquest.html" title="The TelegramSingleRquest class Is base class for all single requests commands with arguments." alt="" coords="13,359,217,484"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramSingleRquest.html" title="The TelegramSingleRquest class Is the base class for all single request commands with arguments." alt="" coords="13,359,217,484"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,498,117,532,112,532,112,498"/>
 <area shape="rect" id="Node000004" href="$classqTbot_1_1iRequest.html" title="The iRequest class Is main interface for all custom requests." alt="" coords="13,5,217,311"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="117,324,117,358,112,358,112,324"/>

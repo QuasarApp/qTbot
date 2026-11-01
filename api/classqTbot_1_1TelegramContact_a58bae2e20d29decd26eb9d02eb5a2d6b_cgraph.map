@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramContact::phone" name="qTbot::TelegramContact::phone">
-<area shape="rect" id="Node000001" title="chatUsername returns the first participant&#39;s username in the chat." alt="" coords="5,5,183,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram use rest api with json objects. So all received messages will be parsed in to jsobje..." alt="" coords="231,5,411,45"/>
+<area shape="rect" id="Node000001" title="phone Returns the phone number of the contact." alt="" coords="5,5,183,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedObject.html#a4dbe2335c1a3b06547720e0d08a81294" title="rawJson Telegram uses a rest api with json objects. So all received messages are parsed into a json o..." alt="" coords="231,5,411,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,23,217,23,217,28,183,28"/>
 </map>

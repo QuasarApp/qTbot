@@ -1,13 +1,13 @@
 <map id="qTbot::iUpdate" name="qTbot::iUpdate">
-<area shape="rect" id="Node000001" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="279,5,397,191"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is updates that have a json sructure." alt="" coords="249,239,427,344"/>
+<area shape="rect" id="Node000001" title="The iUpdate class is the main interface for all update objects." alt="" coords="279,5,397,191"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is an update that has a json structure." alt="" coords="249,239,427,344"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="341,204,341,239,335,239,335,204"/>
 <area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramUpdate.html" title="The TelegramUpdate class contains base information about updates from telegram." alt="" coords="5,392,207,917"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="258,355,221,394,209,411,205,408,217,390,254,351"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is base message from the telegram server after update request." alt="" coords="231,552,445,757"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramUpdateAnswer.html" title="The TelegramUpdateAnswer class This is a base message from the telegram server after an update reques..." alt="" coords="231,552,445,757"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="341,358,341,552,335,552,335,358"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1iMessage.html" title="The iMessage class This is main interface for the all messages." alt="" coords="469,612,591,697"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1iMessage.html" title="The iMessage class This is the main interface for all messages." alt="" coords="469,612,591,697"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="427,352,460,391,489,447,509,507,522,564,529,611,524,612,517,565,504,508,484,449,456,393,423,355"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provide general mesasges of telegram. The message object can contain..." alt="" coords="457,965,603,1331"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1TelegramMsg.html" title="The TelegramMsg class This class provides the general messages of telegram. The message object can co..." alt="" coords="457,965,603,1331"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="533,711,533,965,527,965,527,711"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="qTbot::TelegramArgs::TelegramArgs" name="qTbot::TelegramArgs::TelegramArgs">
-<area shape="rect" id="Node000001" title=" " alt="" coords="228,5,384,45"/>
+<area shape="rect" id="Node000001" title="TelegramArgs main constructor of the message arguments." alt="" coords="228,5,384,45"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#a2e4b3678cd08f9eca31dfb609d7b690b" title="Edits a keyboard of message in a chat." alt="" coords="5,5,180,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,28,180,28,180,23,214,23"/>
 </map>

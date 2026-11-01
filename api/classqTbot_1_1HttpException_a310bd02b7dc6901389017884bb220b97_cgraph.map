@@ -1,7 +1,7 @@
 <map id="qTbot::HttpException::clone" name="qTbot::HttpException::clone">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,164,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title=" " alt="" coords="212,5,371,45"/>
+<area shape="rect" id="Node000001" title="clone Creates a copy of the exception." alt="" coords="5,5,164,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1HttpException.html#a9eb4c7ea5ced47b9b058771d49edd88a" title="HttpException constructs the exception with an http error code and an error description." alt="" coords="212,5,371,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="164,23,198,23,198,28,164,28"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title=" " alt="" coords="419,5,577,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1HttpException.html#aff3c366bb9bc69bf8d67accdc4ab5634" title="code Returns the network error code." alt="" coords="419,5,577,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="371,23,405,23,405,28,371,28"/>
 </map>

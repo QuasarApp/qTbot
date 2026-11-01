@@ -1,5 +1,5 @@
 <map id="qTbot::IBot::handleIncomeNewUpdate" name="qTbot::IBot::handleIncomeNewUpdate">
-<area shape="rect" id="Node000001" title="handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal." alt="" coords="5,5,199,45"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a16b20830e137c719e61bbba48578b9f0" title="sigReceiveUpdate emit when but receive any updates from users." alt="" coords="247,13,465,38"/>
+<area shape="rect" id="Node000001" title="handleIncomeNewUpdate This method just emits the sigReceiveUpdate signal." alt="" coords="5,5,199,45"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a16b20830e137c719e61bbba48578b9f0" title="sigReceiveUpdate emitted when the bot receives any updates from users." alt="" coords="247,13,465,38"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,23,233,23,233,28,199,28"/>
 </map>

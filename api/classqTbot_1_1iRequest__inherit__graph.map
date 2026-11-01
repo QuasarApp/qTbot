@@ -1,31 +1,31 @@
 <map id="qTbot::iRequest" name="qTbot::iRequest">
 <area shape="rect" id="Node000001" title="The iRequest class Is main interface for all custom requests." alt="" coords="839,5,1043,311"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSingleRquest.html" title="The TelegramSingleRquest class Is base class for all single requests commands with arguments." alt="" coords="839,359,1043,484"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSingleRquest.html" title="The TelegramSingleRquest class Is the base class for all single request commands with arguments." alt="" coords="839,359,1043,484"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="943,324,943,358,938,358,938,324"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramDeleteMessage.html" title="The TelegramDeleteMessage class remove message with id." alt="" coords="5,562,225,627"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramDeleteMessage.html" title="The TelegramDeleteMessage class prepares the deleteMessage request to remove a message with the selec..." alt="" coords="5,562,225,627"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="825,432,702,444,554,464,395,493,239,535,170,564,168,559,237,529,394,488,553,458,702,439,825,427"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramGetFile.html" title="The TelegramGetFile class build http request for the getting files from tellgram messager." alt="" coords="250,562,415,627"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramGetFile.html" title="The TelegramGetFile class builds an http request for getting files from the telegram messenger." alt="" coords="250,562,415,627"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="826,438,737,451,636,471,530,499,428,534,375,564,373,559,426,530,529,493,635,466,736,446,825,432"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramGetMe.html" title="The TelegramGetMsg class just prepare get request to tellegram." alt="" coords="439,562,602,627"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1TelegramGetMe.html" title="The TelegramGetMe class just prepares the getMe request to telegram. This request returns the basic i..." alt="" coords="439,562,602,627"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="827,456,722,490,615,534,565,564,562,560,613,530,720,485,825,451"/>
 <area shape="rect" id="Node000006" href="$classqTbot_1_1TelegramGetUpdate.html" title="The TelegramGetUpdate class This is implementation of the get update method of the Telegram API." alt="" coords="626,562,815,627"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="852,495,763,564,759,560,849,491"/>
-<area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramSendContact.html" title="The TelegramSendContact class." alt="" coords="840,562,1041,627"/>
+<area shape="rect" id="Node000007" href="$classqTbot_1_1TelegramSendContact.html" title="The TelegramSendContact class prepares the sendContact request that sends a contact into the chat." alt="" coords="840,562,1041,627"/>
 <area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="943,498,943,562,938,562,938,498"/>
-<area shape="rect" id="Node000008" href="$classqTbot_1_1TelegramSendFile.html" title="The TelegramSendFile class Base clas for upload files to server." alt="" coords="1065,532,1240,657"/>
+<area shape="rect" id="Node000008" href="$classqTbot_1_1TelegramSendFile.html" title="The TelegramSendFile class is the base class for uploading files to the server." alt="" coords="1065,532,1240,657"/>
 <area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="1029,491,1078,530,1075,534,1026,495"/>
-<area shape="rect" id="Node000011" href="$classqTbot_1_1TelegramSendLocation.html" title="The TelegramSendLocation class sents location data into chat." alt="" coords="1264,562,1471,627"/>
+<area shape="rect" id="Node000011" href="$classqTbot_1_1TelegramSendLocation.html" title="The TelegramSendLocation class sends location data into the chat." alt="" coords="1264,562,1471,627"/>
 <area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="1057,456,1153,490,1252,530,1313,560,1311,564,1250,534,1151,495,1055,461"/>
-<area shape="rect" id="Node000012" href="$classqTbot_1_1TelegramSendMsg.html" title="The TelegramSendMsg class This method send a message to the server." alt="" coords="1495,562,1674,627"/>
+<area shape="rect" id="Node000012" href="$classqTbot_1_1TelegramSendMsg.html" title="The TelegramSendMsg class This method sends a message to the server." alt="" coords="1495,562,1674,627"/>
 <area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="1057,432,1150,445,1259,465,1372,493,1483,530,1541,559,1538,564,1481,534,1371,498,1258,471,1150,451,1056,437"/>
-<area shape="rect" id="Node000015" href="$classqTbot_1_1TelegrammDownloadFile.html" title="The TelegrammDownloadFile class prepare link to download telegramm files." alt="" coords="1699,552,1919,637"/>
+<area shape="rect" id="Node000015" href="$classqTbot_1_1TelegrammDownloadFile.html" title="The TelegrammDownloadFile class prepares the link to download telegram files." alt="" coords="1699,552,1919,637"/>
 <area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="1057,426,1188,436,1346,456,1518,486,1604,506,1687,529,1736,549,1734,554,1685,535,1602,511,1517,491,1346,461,1187,442,1056,431"/>
-<area shape="rect" id="Node000009" href="$classqTbot_1_1TelegramSendDocument.html" title="The TelegramSendDocument class sents document into chat." alt="" coords="922,705,1141,791"/>
+<area shape="rect" id="Node000009" href="$classqTbot_1_1TelegramSendDocument.html" title="The TelegramSendDocument class sends a document into the chat." alt="" coords="922,705,1141,791"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1097,670,1067,707,1063,703,1092,667"/>
-<area shape="rect" id="Node000010" href="$classqTbot_1_1TelegramSendPhoto.html" title="The TelegramSendPhoto class using to sending photos on chat." alt="" coords="1165,705,1353,791"/>
+<area shape="rect" id="Node000010" href="$classqTbot_1_1TelegramSendPhoto.html" title="The TelegramSendPhoto class is used for sending photos into the chat." alt="" coords="1165,705,1353,791"/>
 <area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="1206,667,1232,704,1228,707,1202,670"/>
-<area shape="rect" id="Node000013" href="$classqTbot_1_1TelegramEditMessage.html" title="The TelegramEditMessage class This command edit keyboard of the message." alt="" coords="1483,715,1686,781"/>
+<area shape="rect" id="Node000013" href="$classqTbot_1_1TelegramEditMessage.html" title="The TelegramEditMessage class This command edits the text and the keyboard of a message." alt="" coords="1483,715,1686,781"/>
 <area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="1587,641,1587,715,1582,715,1582,641"/>
-<area shape="rect" id="Node000014" href="$classqTbot_1_1TelegramEditMessageReplyMarkup.html" title="The TelegramEditMessageReplyMarkup class just edit alredy created Markups." alt="" coords="1480,839,1689,933"/>
+<area shape="rect" id="Node000014" href="$classqTbot_1_1TelegramEditMessageReplyMarkup.html" title="The TelegramEditMessageReplyMarkup class just edits the already created reply markups of a message." alt="" coords="1480,839,1689,933"/>
 <area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="1587,794,1587,839,1582,839,1582,794"/>
 </map>

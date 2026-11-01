@@ -1,14 +1,14 @@
 <map id="qTbot::IBot::sigReceiveUpdate" name="qTbot::IBot::sigReceiveUpdate">
-<area shape="rect" id="Node000001" title="sigReceiveUpdate emit when but receive any updates from users." alt="" coords="724,111,943,137"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a6ae0ced7e1ee38cd8a623b59b0f9d57c" title="handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal." alt="" coords="483,63,676,103"/>
+<area shape="rect" id="Node000001" title="sigReceiveUpdate emitted when the bot receives any updates from users." alt="" coords="724,111,943,137"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IBot.html#a6ae0ced7e1ee38cd8a623b59b0f9d57c" title="handleIncomeNewUpdate This method just emits the sigReceiveUpdate signal." alt="" coords="483,63,676,103"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="741,112,676,101,677,96,742,106"/>
 <area shape="rect" id="Node000006" href="$main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="552,151,607,177"/>
 <area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="739,142,607,162,606,157,738,136"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a93afd36edaf92188dddaeae3765eb200" title="handleIncomeNewUpdate This method just emit the sigReceiveUpdate signal." alt="" coords="223,5,421,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#a93afd36edaf92188dddaeae3765eb200" title="handleIncomeNewUpdate This method just emits the sigReceiveUpdate signal." alt="" coords="223,5,421,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="475,62,412,48,413,43,476,57"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#a86e6d05845ca1d50c45ea6709bce6689" title="incomeNewUpdate This method save incomed messages into store." alt="" coords="209,70,435,95"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#a86e6d05845ca1d50c45ea6709bce6689" title="incomeNewUpdate This method saves incoming messages into the store." alt="" coords="209,70,435,95"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="469,85,435,85,435,80,469,80"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepare a prefix url for http requests." alt="" coords="5,95,161,121"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1IBot.html#a0306506e2023bc25f86fb7307f84c649" title="makeUrl This method prepares a prefix url for http requests." alt="" coords="5,95,161,121"/>
 <area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="469,107,435,111,290,117,162,115,162,109,290,111,434,105,469,101"/>
 <area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="196,99,162,102,161,97,195,93"/>
 <area shape="poly" id="edge7_Node000006_Node000006" title=" " alt="" coords="617,149,624,142,621,137,606,132,579,130,549,133,536,139,537,145,553,154,550,159,532,148,531,136,548,128,579,125,607,127,624,133,629,143,621,153"/>

@@ -1,7 +1,7 @@
 <map id="qTbot::IJsonBasedUpdate::setRawData" name="qTbot::IJsonBasedUpdate::setRawData">
-<area shape="rect" id="Node000001" title="setRawData This method sets new raw data value." alt="" coords="5,27,191,67"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1iUpdate.html#a5c43b62b6590629100597822e27a25b5" title="setRawData This method sets new raw data value." alt="" coords="239,5,444,31"/>
+<area shape="rect" id="Node000001" title="setRawData This method sets a new raw data value." alt="" coords="5,27,191,67"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iUpdate.html#a5c43b62b6590629100597822e27a25b5" title="setRawData This method sets a new raw data value." alt="" coords="239,5,444,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="191,34,225,29,225,35,191,39"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1IJsonBasedObject.html#aec9eafbf52e738e41a42e12b9c41ba39" title="setRawJson this method convert jsobject into telegram message." alt="" coords="251,55,431,95"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1IJsonBasedObject.html#aec9eafbf52e738e41a42e12b9c41ba39" title="setRawJson This method sets a new raw json data of the object." alt="" coords="251,55,431,95"/>
 <area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,55,238,61,237,66,191,61"/>
 </map>

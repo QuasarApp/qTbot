@@ -1,7 +1,7 @@
 <map id="qTbot::iRequest::priority" name="qTbot::iRequest::priority">
-<area shape="rect" id="Node000001" title="priority This is priority of executabel this request on client." alt="" coords="499,5,677,31"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#ac100a1f4141b19074330678d3fdab200" title="method returns method of the request." alt="" coords="268,5,451,31"/>
+<area shape="rect" id="Node000001" title="priority This is the priority of executing this request on the client." alt="" coords="499,5,677,31"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1iRequest.html#ac100a1f4141b19074330678d3fdab200" title="method returns the method of the request." alt="" coords="268,5,451,31"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="485,21,451,21,451,15,485,15"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a4678543cdf1371f548f1ff613a144225" title="makeUpload This method prepare data to upload;" alt="" coords="5,5,220,31"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a4678543cdf1371f548f1ff613a144225" title="makeUpload This method prepares the data to upload." alt="" coords="5,5,220,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="254,21,220,21,220,15,254,15"/>
 </map>

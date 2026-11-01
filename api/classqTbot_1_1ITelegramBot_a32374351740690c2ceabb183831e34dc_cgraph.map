@@ -2,8 +2,8 @@
 <area shape="rect" id="Node000001" title="Sends a specific message with a custom keyboard to a chat." alt="" coords="5,5,265,45"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#adbd2a4893ce01d6268d222d7e81391de" title="Sends a specific message to a chat." alt="" coords="313,5,483,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="266,23,300,23,300,28,266,28"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sent eny messages into chat." alt="" coords="531,5,703,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sends any messages into the chat." alt="" coords="531,5,703,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,23,517,23,517,28,483,28"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="751,13,936,38"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="751,13,936,38"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="703,23,737,23,737,28,703,28"/>
 </map>

@@ -1,13 +1,13 @@
 <map id="qTbot::TelegramGetFile::TelegramGetFile" name="qTbot::TelegramGetFile::TelegramGetFile">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,73,179,113"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSingleRquest.html#ac20a79b810199203e5da347be995f494" title="TelegramSingleRquest This main constructor of the single requests." alt="" coords="227,73,439,113"/>
+<area shape="rect" id="Node000001" title="TelegramGetFile prepares the get file request." alt="" coords="5,73,179,113"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSingleRquest.html#ac20a79b810199203e5da347be995f494" title="TelegramSingleRquest This is the main constructor of the single requests." alt="" coords="227,73,439,113"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,90,213,90,213,95,179,95"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a756b985aa5a500975ecb2648e601674b" title="args This method returns a current list of arguments" alt="" coords="509,5,669,31"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1iRequest.html#a756b985aa5a500975ecb2648e601674b" title="args This method returns the the current list of arguments" alt="" coords="509,5,669,31"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="390,70,486,39,517,31,518,36,487,45,391,75"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request return current requests commnad." alt="" coords="499,55,680,80"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1iRequest.html#a88de282a9fb2a14603336b6b8452546f" title="request Returns the current request command." alt="" coords="499,55,680,80"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="439,80,485,75,485,80,439,85"/>
-<area shape="rect" id="Node000005" href="$classqTbot_1_1iRequest.html#aafc8cea4b8cb7c1cca13e99d2effbc29" title="setArgs For the some requests list of arguments posible to build only after constructor." alt="" coords="499,104,680,129"/>
+<area shape="rect" id="Node000005" href="$classqTbot_1_1iRequest.html#aafc8cea4b8cb7c1cca13e99d2effbc29" title="setArgs For some requests the list of arguments is possible to build only after the constructor." alt="" coords="499,104,680,129"/>
 <area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="439,100,485,104,485,110,439,105"/>
-<area shape="rect" id="Node000006" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets custom requests commnad" alt="" coords="487,153,692,179"/>
+<area shape="rect" id="Node000006" href="$classqTbot_1_1iRequest.html#a6236f99cffafa43d402518d21d767b2f" title="setRequest sets a custom request command" alt="" coords="487,153,692,179"/>
 <area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="396,110,487,138,522,147,521,153,486,143,394,115"/>
 </map>

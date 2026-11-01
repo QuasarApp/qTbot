@@ -1,8 +1,8 @@
 <map id="qTbot::TelegramUpdate" name="qTbot::TelegramUpdate">
 <area shape="rect" id="Node000001" title="The TelegramUpdate class contains base information about updates from telegram." alt="" coords="47,392,249,917"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is updates that have a json sructure." alt="" coords="59,239,237,344"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1IJsonBasedUpdate.html" title="The IJsonBasedUpdate class This is an update that has a json structure." alt="" coords="59,239,237,344"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,358,151,392,145,392,145,358"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1iUpdate.html" title="The iMessage class &#45; is main interface for all messages objects." alt="" coords="5,5,123,191"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1iUpdate.html" title="The iUpdate class is the main interface for all update objects." alt="" coords="5,5,123,191"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="112,202,128,238,123,240,107,204"/>
 <area shape="rect" id="Node000004" href="$classqTbot_1_1IJsonBasedObject.html" title="The IJsonBasedObject class This is base interface for all json base objects." alt="" coords="147,35,319,161"/>
 <area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="203,174,174,239,169,237,198,172"/>

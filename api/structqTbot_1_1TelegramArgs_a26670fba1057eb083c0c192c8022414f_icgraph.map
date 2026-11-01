@@ -1,9 +1,9 @@
 <map id="qTbot::TelegramArgs::toMap" name="qTbot::TelegramArgs::toMap">
-<area shape="rect" id="Node000001" title="toMap convert all arguments to the map." alt="" coords="805,13,961,53"/>
-<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSendMsg.html#a591da8958424ea85af9dadd4e9cf6634" title="TelegramSendMsg This object sents msg to telegram server." alt="" coords="571,13,757,53"/>
+<area shape="rect" id="Node000001" title="toMap This method converts all arguments to a map." alt="" coords="805,13,961,53"/>
+<area shape="rect" id="Node000002" href="$classqTbot_1_1TelegramSendMsg.html#a591da8958424ea85af9dadd4e9cf6634" title="TelegramSendMsg This object sends a message to the telegram server." alt="" coords="571,13,757,53"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="792,35,758,35,758,30,792,30"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramEditMessage.html#a6eb05597473c15b894d9cf079b4b9e84" title=" " alt="" coords="312,13,523,53"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1TelegramEditMessage.html#a6eb05597473c15b894d9cf079b4b9e84" title="TelegramEditMessage prepares the edit request." alt="" coords="312,13,523,53"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="557,35,523,35,523,30,557,30"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramEditMessageReplyMarkup.html#a6171d8f3924a9fd431d26240d0a0b0be" title=" " alt="" coords="5,5,264,60"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1TelegramEditMessageReplyMarkup.html#a6171d8f3924a9fd431d26240d0a0b0be" title="TelegramEditMessageReplyMarkup prepares the edit reply markup request." alt="" coords="5,5,264,60"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="298,35,264,35,264,30,298,30"/>
 </map>

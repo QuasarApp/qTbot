@@ -1,9 +1,9 @@
 <map id="qTbot::ITelegramBot::sendSelfContactRequest" name="qTbot::ITelegramBot::sendSelfContactRequest">
-<area shape="rect" id="Node000001" title="sendSelfContactRequest This method sent into chat button that will automaticaly sent self contact inf..." alt="" coords="5,5,195,45"/>
+<area shape="rect" id="Node000001" title="sendSelfContactRequest This method sends into the chat a button that will automatically send the user..." alt="" coords="5,5,195,45"/>
 <area shape="rect" id="Node000002" href="$classqTbot_1_1ITelegramBot.html#adbd2a4893ce01d6268d222d7e81391de" title="Sends a specific message to a chat." alt="" coords="243,5,412,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,23,229,23,229,28,195,28"/>
-<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sent eny messages into chat." alt="" coords="460,5,632,45"/>
+<area shape="rect" id="Node000003" href="$classqTbot_1_1ITelegramBot.html#ab1bb3c39f23258b52f5a46ca490ac2c1" title="sendMessageRequest This method invoke when bot will be sends any messages into the chat." alt="" coords="460,5,632,45"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="412,23,447,23,447,28,412,28"/>
-<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sent custom requests to the server." alt="" coords="680,13,865,38"/>
+<area shape="rect" id="Node000004" href="$classqTbot_1_1IBot.html#aa3148b0b5dd549687a78aaea839895c0" title="sendRequest This method sends a custom request to the server." alt="" coords="680,13,865,38"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="632,23,666,23,666,28,632,28"/>
 </map>
