@@ -1,0 +1,119 @@
+name: CMake PR Builder
+on:
+  pull_request:
+    types: [opened, synchronize, reopened] # Triggers only on pull request events
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2025, ubuntu-24.04, macos-15]
+        build_type: [Release]
+        c_compiler: [gcc]
+
+    steps:
+    - name: Install Qt (Windows)
+      uses: jurplel/install-qt-action@v4.3.0
+      if: runner.os == 'Windows'
+      with:
+        version: '6.10.3'
+        target: 'desktop'
+        arch: 'win64_mingw'
+        cache: true
+        tools: 'tools_mingw1310'
+        aqtversion: ==3.2.*
+
+    - name: Install Qt (Linux)
+      uses: jurplel/install-qt-action@v4.3.0
+      if: runner.os == 'Linux'
+      with:
+        version: '6.10.3'
+        target: 'desktop'
+        arch: 'linux_gcc_64'
+        cache: true
+        aqtversion: ==3.2.*
+
+    - name: Install Qt (macOS)
+      # The macOS Qt build is a universal binary (X86_64 + ARM64), so the
+      # clang_64 package works on both the Intel and the Apple Silicon runners.
+      uses: jurplel/install-qt-action@v4.3.0
+      if: runner.os == 'macOS'
+      with:
+        version: '6.10.3'
+        target: 'desktop'
+        arch: 'clang_64'
+        cache: true
+        aqtversion: ==3.2.*
+
+    # Checkout main repository with submodules
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-tags: true
+        fetch-depth: 0
+
+    - name: Set reusable strings
+      id: strings
+      shell: bash
+      run: |
+        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+
+    - name: Install CQtDeployer
+      # The `test` target of the QuasarApp CMake module (submodules/CMake)
+      # deploys every test executable with the cqtdeployer tool into
+      # Testing/<name> and executes the generated wrapper script, so the
+      # tool has to be available in the PATH before the test run.
+      uses: QuasarApp/cqtdeployer-install-action@main
+
+    - name: Verify CQtDeployer version
+      # Check if cqtdeployer is accessible and print its version
+      run: cqtdeployer version
+
+    - name: ccache
+      uses: hendrikmuhs/ccache-action@v1.2
+      with:
+        key: ${{ matrix.os }}-${{ matrix.build_type }}
+
+    - name: Configure CMake (Windows)
+      if: runner.os == 'Windows'
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }}
+        -G Ninja
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -DCMAKE_PREFIX_PATH='${{ env.QT_ROOT_DIR }}'
+        -S ${{ github.workspace }}
+
+    - name: Configure CMake (Linux)
+      if: runner.os == 'Linux'
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }}
+        -G Ninja
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -DCMAKE_PREFIX_PATH='${{ env.QT_ROOT_DIR }}'
+        -S ${{ github.workspace }}
+
+    - name: Configure CMake (macOS)
+      if: runner.os == 'macOS'
+      run: >
+        cmake -B ${{ steps.strings.outputs.build-output-dir }}
+        -G Ninja
+        -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        -DCMAKE_PREFIX_PATH='${{ env.QT_ROOT_DIR }}'
+        -S ${{ github.workspace }}
+
+    - name: Build
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --parallel 16
+
+    - name: Run unit tests
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --parallel 16 --target test
+
+    - name: Upload unit test reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: unit-test-reports-${{ matrix.os }}
+        path: ${{ github.workspace }}/Testing/*/test_report.txt*
+        if-no-files-found: ignore
