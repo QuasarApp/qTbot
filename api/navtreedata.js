@@ -62,7 +62,7 @@ var NAVTREEINDEX =
 "MainActivity_8java.html",
 "classqTbot_1_1TelegramFile.html",
 "classqTbot_1_1TelegramUpdate.html#a8e6fcd8661f51219237428fc5d2aa1b3",
-"namespaceqTbot.html#aa4e33916d17c610ac2e39420e655e417"
+"qTbot_8cpp_source.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

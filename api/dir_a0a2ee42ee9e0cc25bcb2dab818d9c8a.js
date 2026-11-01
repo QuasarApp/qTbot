@@ -1,7 +1,6 @@
 var dir_a0a2ee42ee9e0cc25bcb2dab818d9c8a =
 [
     [ "messages", "dir_541bdf514925f4c25ff5ca6ab4e1743c.html", "dir_541bdf514925f4c25ff5ca6ab4e1743c" ],
-    [ "global.h", "global_8h.html", "global_8h" ],
     [ "httpexception.cpp", "httpexception_8cpp.html", null ],
     [ "httpexception.h", "httpexception_8h.html", "httpexception_8h" ],
     [ "ibot.cpp", "ibot_8cpp.html", null ],
