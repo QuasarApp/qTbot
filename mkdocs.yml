@@ -1,0 +1,73 @@
+# qTbot documentation site (GitHub Pages)
+#
+# Built with MkDocs + the Material theme. Before `mkdocs build` runs,
+# the "Deploy Documentation (GitHub Pages)" workflow copies the root
+# README.md to docs/index.md (the site home page) and generates the
+# Doxygen HTML output into docs/api/, so the API section of the site
+# is served from /api/.
+#
+# With two palettes defined below, Material picks the color scheme
+# automatically from the system configuration (prefers-color-scheme)
+# and still offers a manual toggle in the top right corner.
+
+site_name: qTbot
+site_description: QuasarApp qTbot - Qt library for working with chat bots
+site_url: https://quasarapp.github.io/qTbot/
+
+repo_name: QuasarApp/qTbot
+repo_url: https://github.com/QuasarApp/qTbot
+edit_uri: https://github.com/QuasarApp/qTbot/edit/main/
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    - scheme: slate
+      primary: blue
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.sections
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.suggest
+    - toc
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  # index.md is copied from the root README.md by the documentation
+  # workflow before the MkDocs build, so the README stays the single
+  # source of truth and the generated copy is not committed.
+  - Home: index.md
+  # api/index.html is the static Doxygen index generated into docs/api/
+  # by the documentation workflow before the MkDocs build.
+  - API: api/index.html

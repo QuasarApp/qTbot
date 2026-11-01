@@ -1,0 +1,74 @@
+name: Deploy Documentation (GitHub Pages)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    name: Build the documentation site and deploy to GitHub Pages
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # The full history is required to compute the
+          # 0.2.<commit-count>.<short-sha> project version.
+          fetch-depth: 0
+
+      - name: Install Doxygen
+        uses: ssciwr/doxygen-install@v2.0.3
+        with:
+          # The latest stable release the documentation was generated and
+          # validated with.
+          version: 1.18.0
+
+      - name: Install Graphviz
+        uses: ts-graphviz/setup-graphviz@v2.0.2
+
+      - name: Generate the Doxygen configuration file
+        run: |
+          PROJECT_VERSION="0.2.$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"
+          # Doxygen writes the HTML output into docs/api/ so that the
+          # MkDocs build serves it as the /api/ section of the site.
+          sed -e "s|@QTBOT_VERSION@|${PROJECT_VERSION}|" \
+              -e "s|^OUTPUT_DIRECTORY       = docs$|OUTPUT_DIRECTORY       = docs/api|" \
+              doxygen.conf.in > doxygen.conf
+          grep -E '^(PROJECT_NAME|PROJECT_NUMBER|OUTPUT_DIRECTORY)' doxygen.conf
+
+      - name: Generate the Doxygen HTML documentation
+        run: |
+          # The docs/ directory no longer exists in the repository
+          # (docs/index.md is generated at build time), so it has to be
+          # created before Doxygen writes its output into docs/api/.
+          mkdir -p docs
+          doxygen doxygen.conf
+
+      - name: Copy the README as the site home page
+        run: |
+          # docs/index.md is generated from the root README.md at build
+          # time (it is gitignored), so the README stays the single
+          # source of truth for the site home page.
+          cp README.md docs/index.md
+
+      - name: Install MkDocs and the Material theme
+        run: |
+          python -m pip install --upgrade pip
+          pip install mkdocs==1.6.1 mkdocs-material==9.7.7
+
+      - name: Build the documentation site
+        run: |
+          mkdocs build --strict
+          ls -la site site/api | head -40
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: site
+          clean: true
