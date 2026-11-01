@@ -19,6 +19,9 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramImage: public TelegramFile
 {
 public:
+    /**
+     * @brief TelegramImage default constructor.
+     */
     TelegramImage();
 
     /**

@@ -20,7 +20,11 @@ namespace qTbot {
 class QTBOT_EXPORT TelegramAudio: public TelegramFile
 {
 public:
+    /**
+     * @brief TelegramAudio default constructor.
+     */
     TelegramAudio();
+
     /**
      * @brief Constructs an Audio object from a JSON object.
      * @param jsonObject The JSON object containing audio data.

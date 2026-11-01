@@ -21,8 +21,8 @@ class TelegramGetUpdate final: public TelegramSingleRquest
 {
 public:
     /**
-     * @brief TelegramGetUpdate send request for updates. You will get response on immediacy or after 60 seconds if bot does not have any updates.
-     * @param offset - last accepted update id.
+     * @brief TelegramGetUpdate sends a request for updates. You will get the response immediately or after 60 seconds if the bot does not have any updates.
+     * @param offset - the last accepted update id.
      */
     TelegramGetUpdate(unsigned long long offset = 0);
 };

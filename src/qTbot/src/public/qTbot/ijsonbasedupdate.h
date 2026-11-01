@@ -17,11 +17,14 @@
 namespace qTbot {
 
 /**
- * @brief The IJsonBasedUpdate class This is updates that have a json sructure
+ * @brief The IJsonBasedUpdate class This is an update that has a json structure.
  */
 class QTBOT_EXPORT IJsonBasedUpdate: public iUpdate, public IJsonBasedObject
 {
 public:
+    /**
+     * @brief IJsonBasedUpdate default constructor.
+     */
     IJsonBasedUpdate();
 
     // iMessage interface

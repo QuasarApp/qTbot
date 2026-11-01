@@ -15,31 +15,34 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramUpdateAnswer class This is base message from the telegram server after update request.
+ * @brief The TelegramUpdateAnswer class This is a base message from the telegram server after an update request.
  */
 class QTBOT_EXPORT TelegramUpdateAnswer: public IJsonBasedUpdate
 {
 public:
+    /**
+     * @brief TelegramUpdateAnswer default constructor.
+     */
     TelegramUpdateAnswer();
 
     // iMessage interface
     bool isValid() const override;
 
     /**
-     * @brief result This is result filed of thetelegram responce.
-     * @return json value of the resul field.
+     * @brief result This is the result field of the telegram response.
+     * @return json value of the result field.
      */
     QJsonValue result() const;
 
     /**
-     * @brief errorCode This is error code (if exist)
+     * @brief errorCode This is the error code (if it exists).
      * @return error code
      */
     int errorCode() const;
 
     /**
-     * @brief errorDescription This is text description : what is happend.
-     * @return text message about error.
+     * @brief errorDescription This is the text description of what happened.
+     * @return text message about the error.
      */
     QString errorDescription() const;
 

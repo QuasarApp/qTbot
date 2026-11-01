@@ -13,11 +13,17 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramEditMessageReplyMarkup class just edit alredy created Markups.
+ * @brief The TelegramEditMessageReplyMarkup class just edits the already created reply markups of a message.
  */
 class TelegramEditMessageReplyMarkup: public TelegramEditMessage
 {
 public:
+    /**
+     * @brief TelegramEditMessageReplyMarkup prepares the edit reply markup request.
+     * @param idEditedMessage This is the id of the message that needs to be edited.
+     * @param args This is the general arguments of the request.
+     * @param extraObjects This is the additional objects of the telegram message (json).
+     */
     TelegramEditMessageReplyMarkup(const QVariant& idEditedMessage,
                                    const TelegramArgs &args,
                                    const ExtraJsonObjects& extraObjects = {});

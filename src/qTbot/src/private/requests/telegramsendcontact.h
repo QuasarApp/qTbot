@@ -16,12 +16,19 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramSendContact class
+ * @brief The TelegramSendContact class prepares the sendContact request that sends a contact into the chat.
  */
 class TelegramSendContact: public TelegramSingleRquest
 {
 public:
 
+    /**
+     * @brief TelegramSendContact prepares the send contact request.
+     * @param args This is the general arguments of the request (include the target chat id).
+     * @param firstName This is the first name of the contact.
+     * @param phone This is the phone number of the contact.
+     * @param lastName This is the last name of the contact.
+     */
     TelegramSendContact(const TelegramArgs &args,
                         const QString &firstName,
                         const QString &phone,

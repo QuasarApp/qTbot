@@ -18,47 +18,54 @@
 namespace qTbot {
 
 /**
- * @brief The TelegramMsg class This class provide general mesasges of telegram.
- * The message object can contains text, geo or link to video,image. all this dates can be contains in one object.
+ * @brief The TelegramMsg class This class provides the general messages of telegram.
+ * The message object can contain text, geo data or a link to a video or image. All this data can be contained in one object.
  */
 class QTBOT_EXPORT TelegramMsg: public iMessage
 {
 public:
 
     /**
-     * @brief The QualitySelector enum This is behavior of image and video selection.
+     * @brief The QualitySelector enum This is the behavior of image and video selection.
      */
     enum QualitySelector {
-        /// This selection try to find file similar by size qulity. For example
-        /// we have a image with [10, 100, 1000, 10000] kbytes sizes - The invoke image(90) returns iamge with size 100 because it is more similar by quality image.
+        /**
+         * @brief AroundSize This selection tries to find a file similar by size quality. For example,
+         * we have an image with sizes [10, 100, 1000, 10000] kbytes - the invoke image(90) returns the image with size 100, because it is more similar by quality.
+         */
         AroundSize = 0,
-        /// This selection try to find best image with size limit. For example
-        /// we have a image with [10, 100, 1000, 10000] kbytes sizes - The invoke image(90) returns iamge with size 10 because it is maximum quality from the 0 to 90 kbytes. If we invoke this method with 2500 limitation then function will return iamge with quality 1000.
-
+        /**
+         * @brief BestOf This selection tries to find the best image with a size limit. For example,
+         * we have an image with sizes [10, 100, 1000, 10000] kbytes - the invoke image(90) returns the image with size 10, because it is the maximum quality from 0 to 90 kbytes. If we invoke this method with a 2500 limitation, the function will return the image with size 1000.
+         */
         BestOf = 1,
-        /// This selection returns best iamge of available.
+        /**
+         * @brief Best This selection returns the best image of the available ones.
+         */
         Best = 2,
-        /// This selection returns faster iamge of available. (minimum size)
+        /**
+         * @brief Fast This selection returns the fastest image of the available ones (minimum size).
+         */
         Fast = 3
     };
 
     /**
-     * @brief Type just string value of the telegram messages types.
+     * @brief Type This is a string value of the telegram message types.
      */
     using Type = QString;
 
     /**
-     * @brief Text This is text type of the message.
+     * @brief Text This is the text type of the message.
      */
     const Type Text = "text";
 
     /**
-     * @brief Image This is image type of the telegram
+     * @brief Image This is the image type of the telegram.
      */
     const Type Image = "photo";
 
     /**
-     * @brief Document This is type of the files.
+     * @brief Document This is the type of the documents.
      */
     const Type Document = "document";
 
@@ -68,17 +75,24 @@ public:
     const Type Contact = "contact";
 
     /**
-     * @brief Location This is type of location data.
+     * @brief Location This is the type of location data.
      */
     const Type Location = "location";
 
     /**
-     * @brief Audio This is type of Audio files.
+     * @brief Audio This is the type of audio files.
      */
     const Type Audio = "audio";
 
+    /**
+     * @brief TelegramMsg default constructor.
+     */
     TelegramMsg();
 
+    /**
+     * @brief Constructs a Message object from a JSON object.
+     * @param obj The JSON object containing message data.
+     */
     TelegramMsg(const QJsonObject& obj);
 
     /**
@@ -158,7 +172,7 @@ public:
     QString chatType() const;
 
     /**
-     * @brief date returns date of the snet message.
+     * @brief date returns the date of the sent message.
      * @return message date.
      */
     qint64 date() const;
@@ -170,27 +184,27 @@ public:
     QString text() const;
 
     /**
-     * @brief fullText return text + caption value
-     * @return text + caption value
+     * @brief fullText Returns the text + caption value.
+     * @return the text + caption value.
      */
     QString fullText() const;
 
     /**
-     * @brief caption return only caption value
-     * @return only caption value
+     * @brief caption Returns only the caption value.
+     * @return only the caption value.
      */
     QString caption() const;
 
     /**
-     * @brief contains This method returns true if the message contains choosed data type.
-     * @param type This is name of the type
-     * @return true if the choosed type is available in this message.
+     * @brief contains This method returns true if the message contains the chosen data type.
+     * @param type This is the name of the type
+     * @return true if the chosen type is available in this message.
      */
     bool contains(const Type& type);
 
     /**
-     * @brief images This function returns array of available images qualites
-     * @return array of available images qualites
+     * @brief images This function returns an array of available image qualities
+     * @return an array of available image qualities
      */
     QList<QSharedPointer<TelegramImage>> images() const;
 
@@ -201,10 +215,10 @@ public:
      * You can control the image selection behavior by providing a QualitySelector enum value, and optionally, a maximum size limit.
      *
      * @param behavior (Optional) The QualitySelector enum value that defines the image selection behavior. Defaults to `AroundSize` if not specified.
-     *   - `AroundSize`: Attempts to find an image with similar quality based on size.
-     *   - `BestOf`: Tries to find the best image within a size limit.
-     *   - `Best`: Retrieves the best available image.
-     *   - `Fast`: Retrieves the fastest available image (minimum size).
+      *   - `AroundSize`: Attempts to find an image with similar quality based on size.
+      *   - `BestOf`: Tries to find the best image within a size limit.
+      *   - `Best`: Retrieves the best available image.
+      *   - `Fast`: Retrieves the fastest available image (minimum size).
      *
      * @param size (Optional) The required size for the image (in bytes). Defaults to 100,000 bytes if not specified.
      *
@@ -213,28 +227,28 @@ public:
     QSharedPointer<TelegramImage> image(QualitySelector behavior = AroundSize, int size = 100000) const;
 
     /**
-     * @brief documents This method returns contained document data.
-     * @return document description data.
+     * @brief documents This method returns the contained document data.
+     * @return the document description data.
      */
     QSharedPointer<TelegramDocument> documents() const;
 
     /**
-     * @brief audio This method returns contained audio data.
-     * @return audio description data.
+     * @brief audio This method returns the contained audio data.
+     * @return the audio description data.
      */
     QSharedPointer<TelegramAudio> audio() const;
 
     /**
-     * @brief contact return contact
-     * @return contact information
+     * @brief contact Returns the contact data.
+     * @return the contact information.
      */
     QSharedPointer<TelegramContact> contact() const;
 
     unsigned long long updateId() const override;
 
     /**
-     * @brief location returns location object of message.
-     * @return location object.
+     * @brief location Returns the location object of the message.
+     * @return the location object.
      */
     QSharedPointer<TelegramLocation> location() const;
 };

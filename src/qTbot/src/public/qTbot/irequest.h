@@ -32,79 +32,106 @@ typedef QHash<QString, QSharedPointer<QJsonObject>> ExtraJsonObjects;
 class QTBOT_EXPORT iRequest
 {
 public:
+    /**
+     * @brief iRequest default constructor.
+     */
     iRequest();
 
     /**
-     * @brief RequestMethod Tgis islist of supported requests types of the requests.
+     * @brief RequestMethod This is the list of supported request types.
      */
     enum RequestMethod {
-        /// general ger request, all request data sent as a url line
+        /**
+         * @brief Get general get request, all request data is sent as a url line.
+         */
         Get,
-        /// general post request
+        /**
+         * @brief Post general post request.
+         */
         Post,
-        /// this is post request to upload a big data to telegram
+        /**
+         * @brief Upload this is a post request to upload big data to telegram.
+         */
         Upload
     };
 
     /**
-     * @brief The RequestPriority enum
+     * @brief The RequestPriority enum This is the list of request execution priorities on the client side.
      */
     enum RequestPriority {
+        /**
+         * @brief NoPriority the request has no priority. It will be executed last.
+         */
         NoPriority = 0,
+        /**
+         * @brief LowPriority the request has a low priority.
+         */
         LowPriority = 1,
+        /**
+         * @brief NormalPriority the request has a normal priority. This is the default value.
+         */
         NormalPriority = 2,
+        /**
+         * @brief HighPriority the request has a high priority.
+         */
         HighPriority = 3,
+        /**
+         * @brief UngeredPriority the request has an urgent priority. It will be executed first.
+         */
         UngeredPriority = 4,
 
+        /**
+         * @brief MaxPriorityValue the maximum value of the priority.
+         */
         MaxPriorityValue = 0xff
     };
 
     /**
-     * @brief makeUpload This method prepare data to upload;
-     * @return data array prepared to sending.
+     * @brief makeUpload This method prepares the data to upload.
+     * @return the data prepared for sending.
      */
     virtual QString makeUpload() const;
 
     /**
-     * @brief baseAddress This method return base domain of remote server.
-     * @return base domain name of remoute server.
+     * @brief baseAddress This method returns the base domain of the remote server.
+     * @return base domain name of the remote server.
      */
     virtual QString baseAddress() const = 0;
 
     /**
-     * @brief method returns method of the request.
+     * @brief method returns the method of the request.
      * @return method of the request
      */
     virtual RequestMethod method() const = 0;
 
     /**
-     * @brief request return current requests commnad.
-     * @return current requests commnad.
+     * @brief request Returns the current request command.
+     * @return the current request command.
      */
     const QString& request() const;
 
     /**
-     * @brief setRequest sets custom requests commnad
-     * @param newRequest new custom commnad of the request.
+     * @brief setRequest sets a custom request command
+     * @param newRequest the new custom command of the request.
      */
     void setRequest(const QString &newRequest);
 
     /**
-     * @brief args This method returns a current list of arguments
-     * @return  current list of arguments
+     * @brief args This method returns the the current list of arguments
+     * @return  the current list of arguments
      */
     const QMap<QString, QVariant> &args() const;
 
     /**
-     * @brief addArg This method push new arg, to arguments list
-     * @param key This is new argument key
-     * @param val this is new argument value.
+     * @brief addArg This method pushes a new argument to the arguments list
+     * @param key This is the new argument key
+     * @param val This is the new argument value.
      */
     void addArg(const QString& key, const QVariant& val);
 
     /**
-     * @brief setArgs For the some requests list of arguments posible to build only after constructor.
-     * @param newArgs This is new list of arguments.
+     * @brief setArgs For some requests the list of arguments is possible to build only after the constructor.
+     * @param newArgs This is the new list of arguments.
      */
     void setArgs(const QMap<QString, QVariant> &newArgs);
 
@@ -124,11 +151,15 @@ public:
     QSharedPointer<QHttpMultiPart> argsToMultipartFormData() const;
 
     /**
-     * @brief priority This is priority of executabel this request on client.
-     * @return
+     * @brief priority This is the priority of executing this request on the client.
+     * @return the current request priority.
      */
     RequestPriority priority() const;
 
+    /**
+     * @brief setPriority This method sets a new priority for the request.
+     * @param newPriority This is the new priority of the request.
+     */
     void setPriority(RequestPriority newPriority);
 
 private:
